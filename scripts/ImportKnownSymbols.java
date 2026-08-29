@@ -46,5 +46,8 @@ public class ImportKnownSymbols extends GhidraScript {
     var a13 = toAddr("0x00444BFC");
     if (getFunctionAt(a13) != null && getFunctionAt(a13).getName().startsWith("FUN_")) getFunctionAt(a13).setName("EggClear", SourceType.USER_DEFINED);
     setPlateComment(a13, "CONFIRMED_SYMBOL: CTR recovered symbol and exact record writes");
+    var a14 = toAddr("0x00317F24");
+    if (getFunctionAt(a14) != null && getFunctionAt(a14).getName().startsWith("FUN_")) getFunctionAt(a14).setName("PokemonParam", SourceType.USER_DEFINED);
+    setPlateComment(a14, "CONFIRMED_SYMBOL: CTR recovered constructor symbol plus exact allocation/copy flow");
   }
 }

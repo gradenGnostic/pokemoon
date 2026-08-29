@@ -1,11 +1,11 @@
 # Symbols
 
-The database currently contains 22 validated anchors:
+The database currently contains 28 validated anchors:
 
-- `CONFIRMED_SYMBOL`: 13
+- `CONFIRMED_SYMBOL`: 14
 - `SIGNATURE_CONFIRMED`: 1
-- `BEHAVIOR_CONFIRMED`: 7
-- `ALGORITHM_CONFIRMED`: 1
+- `BEHAVIOR_CONFIRMED`: 9
+- `ALGORITHM_CONFIRMED`: 4
 - `INFERRED`: 0
 - `SPECULATIVE`: 0
 

@@ -14,3 +14,10 @@ address,previous_name,new_name,confidence,evidence,source,result
 0x003591D4,SaveState,SaveState,ALGORITHM_CONFIRMED,Exact hidden structure-return ABI and four-word copy,local Phase 2 analysis,prototype changed to RandomState aggregate return
 0x00385AB8,EggAdopt,EggAdopt,BEHAVIOR_CONFIRMED,Complete capacity RNG construction and cleanup flow,local Phase 2 analysis,plate comment only
 0x00444BFC,EggClear,EggClear,ALGORITHM_CONFIRMED,Exact daycare offsets and TinyMT sequence,local Phase 2 analysis,plate comment only
+0x00317F24,PokemonParam,PokemonParam,CONFIRMED_SYMBOL,Recovered constructor symbol plus 0xE8 and 0x1C copy data flow,local Phase 2 analysis,plate comment only
+0x00318258,FUN_00318258,FUN_00318258,ALGORITHM_CONFIRMED,Exact 16-bit PK7 checksum loop,local Phase 2 analysis,plate comment only; original name unknown
+0x003182B8,FUN_003182b8,FUN_003182b8,ALGORITHM_CONFIRMED,Exact PK7 LCRNG XOR transform,local Phase 2 analysis,plate comment only; original name unknown
+0x00318300,FUN_00318300,FUN_00318300,ALGORITHM_CONFIRMED,Exact PK7 LCRNG XOR transform,local Phase 2 analysis,plate comment only; original name unknown
+0x003186E0,FUN_003186e0,FUN_003186e0,BEHAVIOR_CONFIRMED,Egg fields to 0xE8 boxed payload setter flow,local Phase 2 analysis,typed prototype and plate comment; original name unknown
+0x00318C64,FUN_00318c64,FUN_00318c64,BEHAVIOR_CONFIRMED,Exact 0xE8 allocation normalization and population flow,local Phase 2 analysis,typed prototype and plate comment; original name unknown
+0x0031DEF8,FUN_0031def8,FUN_0031def8,BEHAVIOR_CONFIRMED,Temporary CoreParam wrapper ownership and accessor construction,local Phase 2 analysis,typed prototype and plate comment; original name unknown

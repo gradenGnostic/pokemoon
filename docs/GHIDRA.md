@@ -108,6 +108,13 @@ Phase 2 daycare/TinyMT additions:
   `0x00317C94`, `FieldSodateya::EggAdopt`, and `Sodateya::EggClear`.
 - Retained the three egg-generation `FUN_*` names because their original class
   and function names are not known.
+- Created exact semantic structures for the 20-byte egg context, 92-byte egg
+  construction data, `0xE8` boxed PK7 data, `0x1C` party extension, and 16-byte
+  `CoreParam` wrapper layout.
+- Applied those types to `0x00316B90`, `0x0031747C`, `0x00317C94`,
+  `0x003186E0`, `0x00318C64`, and `0x0031DEF8`.
+- Added provenance comments for the boxed-data construction boundary, PK7
+  checksum, symmetric XOR transform, and `PokemonParam` conversion.
 - Saved the program after these changes.
 
 `scripts/generate_ghidra_labels.py` regenerates

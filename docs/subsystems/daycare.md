@@ -17,3 +17,4 @@ Detailed Phase 2 notes:
 - [`daycare/tinymt.md`](daycare/tinymt.md)
 - [`daycare/egg_adopt.md`](daycare/egg_adopt.md)
 - [`daycare/egg_fields.md`](daycare/egg_fields.md)
+- [`daycare/pokemon_representation.md`](daycare/pokemon_representation.md)
