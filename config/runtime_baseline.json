@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "target": "Pokemon Moon North America base v1.0",
+  "title_id": "0004000000175E00",
+  "build_kind": "split-only byte-identical baseline repack",
+  "original_code_sha256": "fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1",
+  "rebuilt_code_sha256": "fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1",
+  "code_byte_equal": true,
+  "code_size": 5713920,
+  "source_cxi_sha256": "1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626",
+  "baseline_cxi_sha256": "1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626",
+  "baseline_cxi_path": "build/runtime/baseline/PokemonMoon_rebuilt_baseline.cxi",
+  "image_format": "decrypted NCCH/CXI",
+  "structural_validation": {
+    "internal_verifier": "PASS",
+    "ctrtool_exefs_hash": "GOOD",
+    "ctrtool_romfs_hash": "GOOD",
+    "ctrtool_exheader_hash": "GOOD",
+    "reextracted_code_equal": true,
+    "reextracted_banner_equal": true,
+    "reextracted_icon_equal": true,
+    "ncch_rsa_signature": "EXPECTED_INVALID_FROM_PREEXISTING_DECRYPTED_DERIVATIVE"
+  },
+  "citra": {
+    "installed": false,
+    "boot_status": "USER_TEST_REQUIRED",
+    "notes": "Azahar 2125.1.1 is installed but was not used as a silent Citra substitute."
+  }
+}
