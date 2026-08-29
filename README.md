@@ -18,3 +18,4 @@ Current verified source matches are tracked in `symbols/decomp_status.csv`.
 Build and comparison instructions are in `docs/BUILDING.md`.
 Symbol-recovery evidence and constraints are in
 `docs/PHASE_2_5_SYMBOL_RECOVERY.md`.
+Phase 2.75 runtime build and repack commands are in `docs/RUNTIME_BUILD.md`.
