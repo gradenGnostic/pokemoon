@@ -2,10 +2,6 @@
 
 namespace Savedata {
 
-int Sodateya::IsEggExist(SodateyaID id) const {
-    return records_[static_cast<int>(id)].egg_exists;
-}
-
 void Sodateya::EggClear(SodateyaID id) {
     SodateyaRecord& record = records_[static_cast<int>(id)];
     gfl2::math::Random random;

@@ -1,6 +1,6 @@
 address,size,source,symbol,compiler,status,matched_bytes,total_bytes,notes
-0x00444A68,0x10,src/savedata/sodateya.cpp,_ZNK8Savedata8Sodateya10IsEggExistENS_10SodateyaIDE,arm-none-eabi-g++ 16.2.0,MATCHING,16,16,Exact ARM bytes with MPCore ARM O2 softfp flags
-0x00444BFC,0x68,src/savedata/sodateya.cpp,_ZN8Savedata8Sodateya8EggClearENS_10SodateyaIDE,arm-none-eabi-g++ 16.2.0,NON_MATCHING,,,Semantic reconstruction compiles; original size from Ghidra
+0x00444A68,0x10,src/savedata/is_egg_exist.cpp,_ZNK8Savedata8Sodateya10IsEggExistENS_10SodateyaIDE,arm-none-eabi-g++ 16.2.0,MATCHING,16,16,Exact ARM bytes with MPCore ARM O2 softfp flags
+0x00444BFC,0x68,src/savedata/egg_clear.cpp,_ZN8Savedata8Sodateya8EggClearENS_10SodateyaIDE,arm-none-eabi-g++ 16.2.0,NON_MATCHING,,,Semantic reconstruction compiles; original size from Ghidra
 0x00358FA4,0x2C,src/gfl2/math/random.cpp,_ZN4gfl24math6Random10InitializeENS1_5StateE,arm-none-eabi-g++ 16.2.0,NON_MATCHING,,,Aggregate copy and constant load codegen differs
 0x003590D8,0x80,src/gfl2/math/random.cpp,_ZN4gfl24math6Random4NextEj,arm-none-eabi-g++ 16.2.0,NON_MATCHING,,,Semantics recovered; generated section is 0x88 bytes
 0x00359158,0x7C,src/gfl2/math/random.cpp,_ZN4gfl24math6Random4NextEv,arm-none-eabi-g++ 16.2.0,NON_MATCHING,,,Semantics recovered; generated section is 0x70 bytes
