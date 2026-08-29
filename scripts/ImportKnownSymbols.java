@@ -31,5 +31,20 @@ public class ImportKnownSymbols extends GhidraScript {
     var a8 = toAddr("0x004A847C");
     if (getFunctionAt(a8) != null && getFunctionAt(a8).getName().startsWith("FUN_")) getFunctionAt(a8).setName("IsMyPokemon", SourceType.USER_DEFINED);
     setPlateComment(a8, "CONFIRMED_SYMBOL: CTR named export and rename-any patch context");
+    var a9 = toAddr("0x00358FA4");
+    if (getFunctionAt(a9) != null && getFunctionAt(a9).getName().startsWith("FUN_")) getFunctionAt(a9).setName("Initialize", SourceType.USER_DEFINED);
+    setPlateComment(a9, "CONFIRMED_SYMBOL: CTR recovered symbol and exact data layout");
+    var a10 = toAddr("0x003590D8");
+    if (getFunctionAt(a10) != null && getFunctionAt(a10).getName().startsWith("FUN_")) getFunctionAt(a10).setName("Next", SourceType.USER_DEFINED);
+    setPlateComment(a10, "CONFIRMED_SYMBOL: CTR recovered symbol and standard TinyMT operation");
+    var a11 = toAddr("0x003591D4");
+    if (getFunctionAt(a11) != null && getFunctionAt(a11).getName().startsWith("FUN_")) getFunctionAt(a11).setName("SaveState", SourceType.USER_DEFINED);
+    setPlateComment(a11, "CONFIRMED_SYMBOL: CTR recovered symbol and exact VFP state copy");
+    var a12 = toAddr("0x00385AB8");
+    if (getFunctionAt(a12) != null && getFunctionAt(a12).getName().startsWith("FUN_")) getFunctionAt(a12).setName("EggAdopt", SourceType.USER_DEFINED);
+    setPlateComment(a12, "CONFIRMED_SYMBOL: CTR recovered symbol and complete decompilation");
+    var a13 = toAddr("0x00444BFC");
+    if (getFunctionAt(a13) != null && getFunctionAt(a13).getName().startsWith("FUN_")) getFunctionAt(a13).setName("EggClear", SourceType.USER_DEFINED);
+    setPlateComment(a13, "CONFIRMED_SYMBOL: CTR recovered symbol and exact record writes");
   }
 }

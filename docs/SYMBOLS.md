@@ -1,10 +1,11 @@
 # Symbols
 
-The database currently contains 14 validated anchors:
+The database currently contains 22 validated anchors:
 
-- `CONFIRMED_SYMBOL`: 8
+- `CONFIRMED_SYMBOL`: 13
 - `SIGNATURE_CONFIRMED`: 1
-- `BEHAVIOR_CONFIRMED`: 5
+- `BEHAVIOR_CONFIRMED`: 7
+- `ALGORITHM_CONFIRMED`: 1
 - `INFERRED`: 0
 - `SPECULATIVE`: 0
 
@@ -18,3 +19,6 @@ exact v1.0 prologue, SDK memory access, and decompilation agree; it is therefore
 
 Source and target addresses remain separate columns. Behavior-only addresses
 receive bookmarks/comments rather than invented original names.
+
+`RandomNext32_TinyMT` is the sole AI semantic Ghidra rename. Its CSV row and
+plate comment explicitly distinguish it from loader-recovered original names.
