@@ -1,0 +1,11 @@
+url,author,date,target_game,target_revision,target_region,description,evidence_type,local_reference,confidence
+https://github.com/rngchan/sun-moon-rng,RNG-chan,2016-2017,Sun/Moon,unknown,unknown,Credits Kaphotics for publishing breeding-function disassembly but preserves no artifact URL or address,bibliographic lead,research/repos/sun-moon-rng/README.md,INFERRED
+https://github.com/rngchan/sun-moon-rng/issues/10,RNG-chan and contributors,2016,Sun/Moon,unknown,unknown,Discussion correcting Ditto parent ordering after interpreting the disassembly,issue discussion,research/repos/sun-moon-rng,INFERRED
+https://github.com/rngchan/sun-moon-rng/issues/12,RNG-chan and contributors,2017,Sun/Moon,unknown,unknown,Discussion of PID source and rechecking ball roll against disassembly,issue discussion,research/repos/sun-moon-rng,INFERRED
+https://github.com/rngchan/sun-moon-rng/issues/19,RNG-chan and contributors,2017,Sun/Moon,unknown,unknown,Ball-parent algorithm rewritten to match disassembly,issue discussion,research/repos/sun-moon-rng,INFERRED
+http://blog.livedoor.jp/x_x_saki_x_x/RNG/SMBreeding.html,x_x_saki_x_x,2016,Sun/Moon,unknown,Japan,TinyMT breeding seed recovery tool linked by RNG-chan,algorithm research,external URL,INFERRED
+https://oupo.hatenadiary.com/entry/20161210/1481361175,oupo,2016,Sun/Moon,unknown,Japan,127-output TinyMT state recovery analysis,algorithm research,external URL,INFERRED
+https://gist.github.com/odanado/94c011ca482b46bb6cbe8e2e815066ce,odanado,2016,Sun/Moon,unknown,Japan,TinyMT reproduction source with game parameters,source reconstruction,external URL,INFERRED
+https://github.com/SciresM/SunMoonPatches,SciresM,2016,Sun/Moon,1.0,unknown,QR hooks and recovered internal C++ names,assembly patch source,research/repos/SunMoonPatches,CONFIRMED_SYMBOL
+https://github.com/AnalogMan151/sumoCheatMenu,AnalogMan151,2016-2017,Sun/Moon,1.0-1.2,North America,Versioned executable patch tables and original restoration words,plugin source,research/repos/sumoCheatMenu,BEHAVIOR_CONFIRMED
+https://github.com/SciresM/SMPatcher,SciresM,2016-2017,Sun/Moon and Ultra,1.0-1.2,unknown,Whole-code hashes and QR/rendering address maps,patcher source,research/repos/SMPatcher,SIGNATURE_CONFIRMED

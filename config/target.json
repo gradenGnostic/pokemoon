@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "ghidra_analyzed_phase_2_daycare_reconstruction",
+  "input": {
+    "filename": "Pokemon Moon (Europe) (EnJaFrDeEsItZhKo).cia",
+    "path_policy": "original_file was never copied into project; user intentionally deleted it after extraction",
+    "currently_present": false,
+    "size_bytes": 3204281344,
+    "sha256": "95bfa9a0bda15fd478c409f3e30a239eae621054512e2b77615c4efec4ce6b75",
+    "sha1": "e459f0ed376fac7ce4709cb1d2f80ae12417fdfd"
+  },
+  "identity": {
+    "title": "Pokemon Moon",
+    "title_confirmation": "local ExeFS SMDH title plus title ID and product code",
+    "title_id": "0004000000175E00",
+    "program_id": "0004000000175E00",
+    "product_code": "CTR-P-BNEA",
+    "region": "North America",
+    "region_evidence": "CTR product-code suffix A and title ID; filename's Europe claim is contradicted",
+    "smdh_region_mask": "0x7FFFFFFF",
+    "revision": "base v1.0",
+    "title_version_raw": 0,
+    "update_content_present": false,
+    "decryption": "CIA content layer is unencrypted, but inner NCCH regions retain encryption; a fully decrypted derived CXI was reconstructed from ctrtool-decrypted regions"
+  },
+  "contents": [
+    {
+      "index": 0,
+      "content_id": "00000000",
+      "kind": "CXI executable application",
+      "size_bytes": 3202183168,
+      "sha256": "84f94651a981cc484c5345f642008b281d05b742815058d98cde22bf7b67296e",
+      "sha1": "1349b91f6d05afdea43bc589ad540bdace7afc17"
+    },
+    {
+      "index": 1,
+      "content_id": "00000001",
+      "kind": "CFA electronic manual",
+      "size_bytes": 2068480,
+      "sha256": "fc15ea2df7abfb0e3c318918e74d1fb5f3affa8afd3764ef3fc78ea0280e457b",
+      "sha1": "b44d4be78217d42c099c1ed1db4312dcb69be1d3"
+    }
+  ],
+  "executable": {
+    "name": "niji_loc",
+    "architecture": "ARMv7 little-endian 32-bit",
+    "image_base": "0x00100000",
+    "text": {"address": "0x00100000", "size": "0x004957A0", "mapped_size": "0x00496000"},
+    "rodata": {"address": "0x00596000", "size": "0x0009FE88", "mapped_size": "0x000A0000"},
+    "data": {"address": "0x00636000", "size": "0x0003C430", "mapped_size": "0x0003D000"},
+    "bss_size": "0x000300F4",
+    "code_bin": {
+      "size_bytes": 5713920,
+      "sha256": "fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1",
+      "sha1": "90b2a20adcf67a0508f7380381e4f32b2d9255d3"
+    },
+    "static_crs_sha256": "e18db06b0609739e8e62cd4786c6b2da838d20347050e4c2ac822bf35c016957",
+    "cro_count": 115,
+    "fully_decrypted_cxi": {
+      "path": "extracted/cxi/main.fully-decrypted.cxi",
+      "size_bytes": 3202183168,
+      "sha256": "1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626",
+      "sha1": "430b0f6449d10512ed47be72ac429cb4bda4ebfa",
+      "note": "Derived locally by replacing encrypted NCCH exheader, ExeFS, and RomFS regions with ctrtool-decrypted output and setting the NCCH no-crypto flag; original NCCH signature is consequently invalid"
+    }
+  }
+}
