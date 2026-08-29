@@ -26,6 +26,7 @@ research/repos/
 tools/ghidra-ctr-loader/
 tools/Project_CTR/
 tools/3DS-Decomp-Pipeline/
+tools/3ds-Ghidra-Scripts/
 .decomp/
 build/
 *.o

@@ -9,8 +9,12 @@ version control. The original CIA was intentionally deleted after extraction;
 the local ignored extraction is the only binary input used by this project.
 
 Phase 1 established a reproducible target, CTR-aware Ghidra project, research
-provenance, and subsystem anchors. Phase 2 is reconstructing the daycare
-breeding path and its TinyMT32 generator with function-level ARM comparisons.
+provenance, and subsystem anchors. Phase 2 reconstructed the daycare breeding
+path and its TinyMT32 generator with function-level ARM comparisons. Phase 2.5
+is harvesting retail CRS/CRO symbols and preparing conservative cross-version
+matching against a separately analyzed, user-supplied Special Demo donor.
 
 Current verified source matches are tracked in `symbols/decomp_status.csv`.
 Build and comparison instructions are in `docs/BUILDING.md`.
+Symbol-recovery evidence and constraints are in
+`docs/PHASE_2_5_SYMBOL_RECOVERY.md`.

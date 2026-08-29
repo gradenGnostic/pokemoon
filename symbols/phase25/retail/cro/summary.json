@@ -1,0 +1,13 @@
+{
+  "files": 116,
+  "modules": 116,
+  "named_exports": 4672,
+  "indexed_exports": 0,
+  "named_imports": 17073,
+  "module_edges": 129,
+  "indexed_and_anonymous_imports": 1395,
+  "export_rows": 4672,
+  "import_rows": 18468,
+  "vtable_exports": 20,
+  "typeinfo_exports": 75
+}

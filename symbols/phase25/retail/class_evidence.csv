@@ -1,0 +1,96 @@
+class_name,evidence_kind,symbol_name,mangled_name,module,target_address,segment,segment_offset,provenance
+App::Tool::CommonMessageWindowView,TYPEINFO,typeinfo for App::Tool::CommonMessageWindowView,_ZTIN3App4Tool23CommonMessageWindowViewE,|static|,0x005F662C,.rodata,0x0006062C,RETAIL_ORIGINAL_SYMBOL
+Field::Encount::EventSymbolEncount,VTABLE,vtable for Field::Encount::EventSymbolEncount,_ZTVN5Field7Encount18EventSymbolEncountE,|static|,0x0061B344,.rodata,0x00085344,RETAIL_ORIGINAL_SYMBOL
+Field::EventNormalLose,VTABLE,vtable for Field::EventNormalLose,_ZTVN5Field15EventNormalLoseE,|static|,0x0061B040,.rodata,0x00085040,RETAIL_ORIGINAL_SYMBOL
+GameSys::GameEvent,TYPEINFO,typeinfo for GameSys::GameEvent,_ZTIN7GameSys9GameEventE,|static|,0x005F8DF4,.rodata,0x00062DF4,RETAIL_ORIGINAL_SYMBOL
+GameSys::GameProc,TYPEINFO,typeinfo for GameSys::GameProc,_ZTIN7GameSys8GameProcE,|static|,0x005F8DDC,.rodata,0x00062DDC,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::JoinFestaUI::JoinFestaPlayerListSelectLowerViewBase,TYPEINFO,typeinfo for NetAppLib::JoinFestaUI::JoinFestaPlayerListSelectLowerViewBase,_ZTIN9NetAppLib11JoinFestaUI38JoinFestaPlayerListSelectLowerViewBaseE,|static|,0x005F98B4,.rodata,0x000638B4,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::Message::TelopTagProcessor,VTABLE,vtable for NetAppLib::Message::TelopTagProcessor,_ZTVN9NetAppLib7Message17TelopTagProcessorE,|static|,0x0061F250,.rodata,0x00089250,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::System::ApplicationSystemBase,TYPEINFO,typeinfo for NetAppLib::System::ApplicationSystemBase,_ZTIN9NetAppLib6System21ApplicationSystemBaseE,|static|,0x005F9A54,.rodata,0x00063A54,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::System::ApplicationWorkBase,TYPEINFO,typeinfo for NetAppLib::System::ApplicationWorkBase,_ZTIN9NetAppLib6System19ApplicationWorkBaseE,|static|,0x005F9A44,.rodata,0x00063A44,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::System::NetAppFrameBase,TYPEINFO,typeinfo for NetAppLib::System::NetAppFrameBase,_ZTIN9NetAppLib6System15NetAppFrameBaseE,|static|,0x005F9A30,.rodata,0x00063A30,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::System::NetApplicationViewBase,TYPEINFO,typeinfo for NetAppLib::System::NetApplicationViewBase,_ZTIN9NetAppLib6System22NetApplicationViewBaseE,|static|,0x005F9A5C,.rodata,0x00063A5C,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::UI::NetAppCursorView,TYPEINFO,typeinfo for NetAppLib::UI::NetAppCursorView,_ZTIN9NetAppLib2UI16NetAppCursorViewE,|static|,0x005F9940,.rodata,0x00063940,RETAIL_ORIGINAL_SYMBOL
+NetAppLib::UI::NetAppMessageMenu,TYPEINFO,typeinfo for NetAppLib::UI::NetAppMessageMenu,_ZTIN9NetAppLib2UI17NetAppMessageMenuE,|static|,0x005F9970,.rodata,0x00063970,RETAIL_ORIGINAL_SYMBOL
+System::ClearDepthRenderPath,VTABLE,vtable for System::ClearDepthRenderPath,_ZTVN6System20ClearDepthRenderPathE,|static|,0x0061CAB8,.rodata,0x00086AB8,RETAIL_ORIGINAL_SYMBOL
+System::ModelRenderPath,TYPEINFO,typeinfo for System::ModelRenderPath,_ZTIN6System15ModelRenderPathE,|static|,0x005F8CE4,.rodata,0x00062CE4,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__class_type_info,TYPEINFO,typeinfo for __cxxabiv1::__class_type_info,_ZTIN10__cxxabiv117__class_type_infoE,|static|,0x005F3380,.rodata,0x0005D380,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__class_type_info,TYPEINFO,typeinfo name for __cxxabiv1::__class_type_info,_ZTSN10__cxxabiv117__class_type_infoE,|static|,0x005F9E41,.rodata,0x00063E41,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__class_type_info,VTABLE,vtable for __cxxabiv1::__class_type_info,_ZTVN10__cxxabiv117__class_type_infoE,|static|,0x0060EE4C,.rodata,0x00078E4C,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__si_class_type_info,TYPEINFO,typeinfo for __cxxabiv1::__si_class_type_info,_ZTIN10__cxxabiv120__si_class_type_infoE,|static|,0x005F338C,.rodata,0x0005D38C,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__si_class_type_info,TYPEINFO,typeinfo name for __cxxabiv1::__si_class_type_info,_ZTSN10__cxxabiv120__si_class_type_infoE,|static|,0x005F9E63,.rodata,0x00063E63,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__si_class_type_info,VTABLE,vtable for __cxxabiv1::__si_class_type_info,_ZTVN10__cxxabiv120__si_class_type_infoE,|static|,0x0060EE5C,.rodata,0x00078E5C,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__vmi_class_type_info,TYPEINFO,typeinfo for __cxxabiv1::__vmi_class_type_info,_ZTIN10__cxxabiv121__vmi_class_type_infoE,|static|,0x005F3398,.rodata,0x0005D398,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__vmi_class_type_info,TYPEINFO,typeinfo name for __cxxabiv1::__vmi_class_type_info,_ZTSN10__cxxabiv121__vmi_class_type_infoE,|static|,0x005F9E88,.rodata,0x00063E88,RETAIL_ORIGINAL_SYMBOL
+__cxxabiv1::__vmi_class_type_info,VTABLE,vtable for __cxxabiv1::__vmi_class_type_info,_ZTVN10__cxxabiv121__vmi_class_type_infoE,|static|,0x0060EE6C,.rodata,0x00078E6C,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_collate_data<char>,TYPEINFO,typeinfo for __rw::__rw_collate_data<char>,_ZTIN4__rw17__rw_collate_dataIcEE,|static|,0x005F6D0C,.rodata,0x00060D0C,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_collate_data<char>,TYPEINFO,typeinfo name for __rw::__rw_collate_data<char>,_ZTSN4__rw17__rw_collate_dataIcEE,|static|,0x00604066,.rodata,0x0006E066,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_collate_impl<char>,TYPEINFO,typeinfo for __rw::__rw_collate_impl<char>,_ZTIN4__rw17__rw_collate_implIcEE,|static|,0x005F6D14,.rodata,0x00060D14,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_collate_impl<char>,TYPEINFO,typeinfo name for __rw::__rw_collate_impl<char>,_ZTSN4__rw17__rw_collate_implIcEE,|static|,0x00604084,.rodata,0x0006E084,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_ctype_helper<char>,TYPEINFO,typeinfo for __rw::__rw_ctype_helper<char>,_ZTIN4__rw17__rw_ctype_helperIcEE,|static|,0x005F6D20,.rodata,0x00060D20,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_ctype_helper<char>,TYPEINFO,typeinfo name for __rw::__rw_ctype_helper<char>,_ZTSN4__rw17__rw_ctype_helperIcEE,|static|,0x006040A2,.rodata,0x0006E0A2,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_facet_base,TYPEINFO,typeinfo for __rw::__rw_facet_base,_ZTIN4__rw15__rw_facet_baseE,|static|,0x005F6CF8,.rodata,0x00060CF8,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_facet_base,TYPEINFO,typeinfo name for __rw::__rw_facet_base,_ZTSN4__rw15__rw_facet_baseE,|static|,0x00604031,.rodata,0x0006E031,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl<char>,TYPEINFO,typeinfo for __rw::__rw_numpunct_impl<char>,_ZTIN4__rw18__rw_numpunct_implIcEE,|static|,0x005F6D30,.rodata,0x00060D30,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl<char>,TYPEINFO,typeinfo name for __rw::__rw_numpunct_impl<char>,_ZTSN4__rw18__rw_numpunct_implIcEE,|static|,0x006040DB,.rodata,0x0006E0DB,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl_base,TYPEINFO,typeinfo for __rw::__rw_numpunct_impl_base,_ZTIN4__rw23__rw_numpunct_impl_baseE,|static|,0x005F6D3C,.rodata,0x00060D3C,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl_base,TYPEINFO,typeinfo name for __rw::__rw_numpunct_impl_base,_ZTSN4__rw23__rw_numpunct_impl_baseE,|static|,0x006040FA,.rodata,0x0006E0FA,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl_data<char>,TYPEINFO,typeinfo for __rw::__rw_numpunct_impl_data<char>,_ZTIN4__rw23__rw_numpunct_impl_dataIcEE,|static|,0x005F6D44,.rodata,0x00060D44,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_numpunct_impl_data<char>,TYPEINFO,typeinfo name for __rw::__rw_numpunct_impl_data<char>,_ZTSN4__rw23__rw_numpunct_impl_dataIcEE,|static|,0x0060411B,.rodata,0x0006E11B,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_punct_data<char>,TYPEINFO,typeinfo for __rw::__rw_punct_data<char>,_ZTIN4__rw15__rw_punct_dataIcEE,|static|,0x005F6D04,.rodata,0x00060D04,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_punct_data<char>,TYPEINFO,typeinfo name for __rw::__rw_punct_data<char>,_ZTSN4__rw15__rw_punct_dataIcEE,|static|,0x0060404A,.rodata,0x0006E04A,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_synchronized,TYPEINFO,typeinfo for __rw::__rw_synchronized,_ZTIN4__rw17__rw_synchronizedE,|static|,0x005F6D28,.rodata,0x00060D28,RETAIL_ORIGINAL_SYMBOL
+__rw::__rw_synchronized,TYPEINFO,typeinfo name for __rw::__rw_synchronized,_ZTSN4__rw17__rw_synchronizedE,|static|,0x006040C0,.rodata,0x0006E0C0,RETAIL_ORIGINAL_SYMBOL
+app::tool::CursorController,TYPEINFO,typeinfo for app::tool::CursorController,_ZTIN3app4tool16CursorControllerE,|static|,0x005F6A20,.rodata,0x00060A20,RETAIL_ORIGINAL_SYMBOL
+app::ui::UIView,TYPEINFO,typeinfo for app::ui::UIView,_ZTIN3app2ui6UIViewE,|static|,0x005F68A8,.rodata,0x000608A8,RETAIL_ORIGINAL_SYMBOL
+gfl2::Effect::EffectRenderPath,TYPEINFO,typeinfo for gfl2::Effect::EffectRenderPath,_ZTIN4gfl26Effect16EffectRenderPathE,|static|,0x005F7EF8,.rodata,0x00061EF8,RETAIL_ORIGINAL_SYMBOL
+gfl2::pawn::Pawn,VTABLE,vtable for gfl2::pawn::Pawn,_ZTVN4gfl24pawn4PawnE,|static|,0x0061A508,.rodata,0x00084508,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::renderer::RenderingPipeLine,TYPEINFO,typeinfo for gfl2::renderingengine::renderer::RenderingPipeLine,_ZTIN4gfl215renderingengine8renderer17RenderingPipeLineE,|static|,0x005F76D8,.rodata,0x000616D8,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::renderer::RenderingPipeLine::PresentPath,VTABLE,vtable for gfl2::renderingengine::renderer::RenderingPipeLine::PresentPath,_ZTVN4gfl215renderingengine8renderer17RenderingPipeLine11PresentPathE,|static|,0x0061960C,.rodata,0x0008360C,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::renderer::RenderingPipeLine::SceneRenderPath,TYPEINFO,typeinfo for gfl2::renderingengine::renderer::RenderingPipeLine::SceneRenderPath,_ZTIN4gfl215renderingengine8renderer17RenderingPipeLine15SceneRenderPathE,|static|,0x005F76CC,.rodata,0x000616CC,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::scenegraph::instance::InstanceNode,TYPEINFO,typeinfo for gfl2::renderingengine::scenegraph::instance::InstanceNode,_ZTIN4gfl215renderingengine10scenegraph8instance12InstanceNodeE,|static|,0x005F7008,.rodata,0x00061008,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::scenegraph::instance::ModelInstanceNode,TYPEINFO,typeinfo for gfl2::renderingengine::scenegraph::instance::ModelInstanceNode,_ZTIN4gfl215renderingengine10scenegraph8instance17ModelInstanceNodeE,|static|,0x005F7068,.rodata,0x00061068,RETAIL_ORIGINAL_SYMBOL
+gfl2::renderingengine::scenegraph::resource::ArrayResourceNode,TYPEINFO,typeinfo for gfl2::renderingengine::scenegraph::resource::ArrayResourceNode,_ZTIN4gfl215renderingengine10scenegraph8resource17ArrayResourceNodeE,|static|,0x005F71B0,.rodata,0x000611B0,RETAIL_ORIGINAL_SYMBOL
+nn::nex::Buffer,VTABLE,vtable for nn::nex::Buffer,_ZTVN2nn3nex6BufferE,|static|,0x006151B0,.rodata,0x0007F1B0,RETAIL_ORIGINAL_SYMBOL
+std::__rw_exception,TYPEINFO,typeinfo for std::__rw_exception,_ZTISt14__rw_exception,|static|,0x005F9C00,.rodata,0x00063C00,RETAIL_ORIGINAL_SYMBOL
+std::__rw_exception,TYPEINFO,typeinfo name for std::__rw_exception,_ZTSSt14__rw_exception,|static|,0x0060EB67,.rodata,0x00078B67,RETAIL_ORIGINAL_SYMBOL
+std::__rw_exception,VTABLE,vtable for std::__rw_exception,_ZTVSt14__rw_exception,|static|,0x0061F65C,.rodata,0x0008965C,RETAIL_ORIGINAL_SYMBOL
+std::__rw_messages_base,TYPEINFO,typeinfo for std::__rw_messages_base,_ZTISt18__rw_messages_base,|static|,0x005F9C24,.rodata,0x00063C24,RETAIL_ORIGINAL_SYMBOL
+std::__rw_messages_base,TYPEINFO,typeinfo name for std::__rw_messages_base,_ZTSSt18__rw_messages_base,|static|,0x0060EBB6,.rodata,0x00078BB6,RETAIL_ORIGINAL_SYMBOL
+"std::codecvt<wchar_t, char, std::__mbstate_t>",TYPEINFO,"typeinfo for std::codecvt<wchar_t, char, std::__mbstate_t>",_ZTISt7codecvtIwcSt11__mbstate_tE,|static|,0x005F9C88,.rodata,0x00063C88,RETAIL_ORIGINAL_SYMBOL
+"std::codecvt<wchar_t, char, std::__mbstate_t>",TYPEINFO,"typeinfo name for std::codecvt<wchar_t, char, std::__mbstate_t>",_ZTSSt7codecvtIwcSt11__mbstate_tE,|static|,0x0060EC46,.rodata,0x00078C46,RETAIL_ORIGINAL_SYMBOL
+std::codecvt_base,TYPEINFO,typeinfo for std::codecvt_base,_ZTISt12codecvt_base,|static|,0x005F9BE4,.rodata,0x00063BE4,RETAIL_ORIGINAL_SYMBOL
+std::codecvt_base,TYPEINFO,typeinfo name for std::codecvt_base,_ZTSSt12codecvt_base,|static|,0x0060EB30,.rodata,0x00078B30,RETAIL_ORIGINAL_SYMBOL
+"std::codecvt_byname<wchar_t, char, std::__mbstate_t>",TYPEINFO,"typeinfo for std::codecvt_byname<wchar_t, char, std::__mbstate_t>",_ZTISt14codecvt_bynameIwcSt11__mbstate_tE,|static|,0x005F9C0C,.rodata,0x00063C0C,RETAIL_ORIGINAL_SYMBOL
+"std::codecvt_byname<wchar_t, char, std::__mbstate_t>",TYPEINFO,"typeinfo name for std::codecvt_byname<wchar_t, char, std::__mbstate_t>",_ZTSSt14codecvt_bynameIwcSt11__mbstate_tE,|static|,0x0060EB7A,.rodata,0x00078B7A,RETAIL_ORIGINAL_SYMBOL
+"std::codecvt_byname<wchar_t, char, std::__mbstate_t>",VTABLE,"vtable for std::codecvt_byname<wchar_t, char, std::__mbstate_t>",_ZTVSt14codecvt_bynameIwcSt11__mbstate_tE,|static|,0x0061F670,.rodata,0x00089670,RETAIL_ORIGINAL_SYMBOL
+std::collate<char>,TYPEINFO,typeinfo for std::collate<char>,_ZTISt7collateIcE,|static|,0x005F9CA8,.rodata,0x00063CA8,RETAIL_ORIGINAL_SYMBOL
+std::collate<char>,TYPEINFO,typeinfo name for std::collate<char>,_ZTSSt7collateIcE,|static|,0x0060EC64,.rodata,0x00078C64,RETAIL_ORIGINAL_SYMBOL
+std::collate<char>,VTABLE,vtable for std::collate<char>,_ZTVSt7collateIcE,|static|,0x0061F6F4,.rodata,0x000896F4,RETAIL_ORIGINAL_SYMBOL
+std::collate_byname<char>,TYPEINFO,typeinfo for std::collate_byname<char>,_ZTISt14collate_bynameIcE,|static|,0x005F9C18,.rodata,0x00063C18,RETAIL_ORIGINAL_SYMBOL
+std::collate_byname<char>,TYPEINFO,typeinfo name for std::collate_byname<char>,_ZTSSt14collate_bynameIcE,|static|,0x0060EBA0,.rodata,0x00078BA0,RETAIL_ORIGINAL_SYMBOL
+std::collate_byname<char>,VTABLE,vtable for std::collate_byname<char>,_ZTVSt14collate_bynameIcE,|static|,0x0061F6A0,.rodata,0x000896A0,RETAIL_ORIGINAL_SYMBOL
+std::ctype<char>,TYPEINFO,typeinfo for std::ctype<char>,_ZTISt5ctypeIcE,|static|,0x005F9C60,.rodata,0x00063C60,RETAIL_ORIGINAL_SYMBOL
+std::ctype<char>,TYPEINFO,typeinfo name for std::ctype<char>,_ZTSSt5ctypeIcE,|static|,0x0060EC3A,.rodata,0x00078C3A,RETAIL_ORIGINAL_SYMBOL
+std::ctype<char>,VTABLE,vtable for std::ctype<char>,_ZTVSt5ctypeIcE,|static|,0x0061F6C0,.rodata,0x000896C0,RETAIL_ORIGINAL_SYMBOL
+std::ctype_base,TYPEINFO,typeinfo for std::ctype_base,_ZTISt10ctype_base,|static|,0x005F9BDC,.rodata,0x00063BDC,RETAIL_ORIGINAL_SYMBOL
+std::ctype_base,TYPEINFO,typeinfo name for std::ctype_base,_ZTSSt10ctype_base,|static|,0x0060EB21,.rodata,0x00078B21,RETAIL_ORIGINAL_SYMBOL
+std::ctype_byname<char>,TYPEINFO,typeinfo for std::ctype_byname<char>,_ZTISt12ctype_bynameIcE,|static|,0x005F9BEC,.rodata,0x00063BEC,RETAIL_ORIGINAL_SYMBOL
+std::ctype_byname<char>,TYPEINFO,typeinfo name for std::ctype_byname<char>,_ZTSSt12ctype_bynameIcE,|static|,0x0060EB41,.rodata,0x00078B41,RETAIL_ORIGINAL_SYMBOL
+std::ctype_byname<char>,VTABLE,vtable for std::ctype_byname<char>,_ZTVSt12ctype_bynameIcE,|static|,0x0061F628,.rodata,0x00089628,RETAIL_ORIGINAL_SYMBOL
+std::exception,TYPEINFO,typeinfo for std::exception,_ZTISt9exception,|static|,0x005F9D08,.rodata,0x00063D08,RETAIL_ORIGINAL_SYMBOL
+std::exception,TYPEINFO,typeinfo name for std::exception,_ZTSSt9exception,|static|,0x0060EC90,.rodata,0x00078C90,RETAIL_ORIGINAL_SYMBOL
+std::exception,VTABLE,vtable for std::exception,_ZTVSt9exception,|static|,0x0061F75C,.rodata,0x0008975C,RETAIL_ORIGINAL_SYMBOL
+std::locale::facet,TYPEINFO,typeinfo for std::locale::facet,_ZTINSt6locale5facetE,|static|,0x005F9BD0,.rodata,0x00063BD0,RETAIL_ORIGINAL_SYMBOL
+std::locale::facet,TYPEINFO,typeinfo name for std::locale::facet,_ZTSNSt6locale5facetE,|static|,0x0060EB0F,.rodata,0x00078B0F,RETAIL_ORIGINAL_SYMBOL
+std::locale::facet,VTABLE,vtable for std::locale::facet,_ZTVNSt6locale5facetE,|static|,0x0061F614,.rodata,0x00089614,RETAIL_ORIGINAL_SYMBOL
+std::messages<char>,TYPEINFO,typeinfo for std::messages<char>,_ZTISt8messagesIcE,|static|,0x005F9CC8,.rodata,0x00063CC8,RETAIL_ORIGINAL_SYMBOL
+std::messages<char>,TYPEINFO,typeinfo name for std::messages<char>,_ZTSSt8messagesIcE,|static|,0x0060EC72,.rodata,0x00078C72,RETAIL_ORIGINAL_SYMBOL
+std::messages<char>,VTABLE,vtable for std::messages<char>,_ZTVSt8messagesIcE,|static|,0x0061F714,.rodata,0x00089714,RETAIL_ORIGINAL_SYMBOL
+std::messages_base,TYPEINFO,typeinfo for std::messages_base,_ZTISt13messages_base,|static|,0x005F9BF8,.rodata,0x00063BF8,RETAIL_ORIGINAL_SYMBOL
+std::messages_base,TYPEINFO,typeinfo name for std::messages_base,_ZTSSt13messages_base,|static|,0x0060EB55,.rodata,0x00078B55,RETAIL_ORIGINAL_SYMBOL
+std::numpunct<char>,TYPEINFO,typeinfo for std::numpunct<char>,_ZTISt8numpunctIcE,|static|,0x005F9CE8,.rodata,0x00063CE8,RETAIL_ORIGINAL_SYMBOL
+std::numpunct<char>,TYPEINFO,typeinfo name for std::numpunct<char>,_ZTSSt8numpunctIcE,|static|,0x0060EC81,.rodata,0x00078C81,RETAIL_ORIGINAL_SYMBOL
+std::numpunct<char>,VTABLE,vtable for std::numpunct<char>,_ZTVSt8numpunctIcE,|static|,0x0061F734,.rodata,0x00089734,RETAIL_ORIGINAL_SYMBOL
+std::type_info,TYPEINFO,typeinfo for std::type_info,_ZTISt9type_info,|static|,0x005F9D10,.rodata,0x00063D10,RETAIL_ORIGINAL_SYMBOL
+std::type_info,TYPEINFO,typeinfo name for std::type_info,_ZTSSt9type_info,|static|,0x0060EC9D,.rodata,0x00078C9D,RETAIL_ORIGINAL_SYMBOL

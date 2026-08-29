@@ -1,0 +1,22 @@
+{
+  "program": "static.crs",
+  "language": "ARM:LE:32:v7",
+  "functions_manager_total": 18946,
+  "functions_internal": 18945,
+  "functions_external": 0,
+  "functions_fun_prefix": 14242,
+  "functions_other_names": 4703,
+  "functions_thunks": 388,
+  "signatures_default": 0,
+  "signatures_analysis": 18932,
+  "signatures_imported": 4,
+  "signatures_user_defined": 9,
+  "symbols_total": 166666,
+  "symbols_default": 150826,
+  "symbols_analysis": 15838,
+  "symbols_imported": 0,
+  "symbols_user_defined": 2,
+  "defined_data": 82939,
+  "class_namespaces": 446,
+  "vtable_name_candidates": 40
+}
