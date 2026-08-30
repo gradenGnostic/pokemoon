@@ -153,16 +153,66 @@ No `citra` or `citra-qt` executable, desktop entry, Flatpak, or system package
 was found. Azahar 2125.1.1 is installed, but it was not used because the user
 specifically requested Citra and did not authorize switching forks.
 
-Current baseline boot status: `USER_TEST_REQUIRED`.
+Baseline boot status: `PASS_USER_CONFIRMED` on 2026-08-30. The user reported
+that the baseline image works normally in Citra. The emulator version and exact
+launch command were not visible inside the OpenCode environment.
 
-Do not activate the exact C++ replacement until the baseline image reaches at
-least the normal Citra boot/title sequence. Record observed results in
-`docs/RUNTIME_TEST_CHECKLIST.md` and keep emulator logs under the ignored
-`build/runtime/logs/` tree.
+The baseline gate is satisfied, so the exact `IsEggExist` replacement may now
+be activated. Record later observed results in `docs/RUNTIME_TEST_CHECKLIST.md`
+and keep emulator logs under the ignored `build/runtime/logs/` tree.
 
 ## Reconstruction state
 
 `config/runtime_reconstruction.json` records no active replacements in the
-baseline image. `Savedata::Sodateya::IsEggExist` is an exact 16-byte candidate
-at `0x00444A68`, but remains gated on baseline Citra confirmation. No TinyMT,
-`EggClear`, broader egg-construction, or daycare gameplay replacement is active.
+baseline image.
+
+## Hybrid #1: exact C++ replacement
+
+After the user confirmed the baseline works normally in Citra,
+`./scripts/build_hybrid.sh` performed a fresh Hybrid #1 build. It symlinked the
+pipeline source name to `src/savedata/is_egg_exist.cpp`, supplied `include/`
+through `CPLUS_INCLUDE_PATH`, forced recompilation, and invoked the existing
+pipeline with verbose compiler output.
+
+Active replacement:
+
+| Address | Function | Source | Generated size | ASM |
+|---|---|---|---:|---|
+| `0x00444A68` | `Savedata::Sodateya::IsEggExist` | `src/savedata/is_egg_exist.cpp` | 16 bytes | exact |
+
+Replacement proof:
+
+- GCC compiled the repository source into
+  `.decomp/build/code.bin/IsEggExist_00444a68.o`.
+- The object SHA-256 is
+  `ba31d7f091875619b15142f053a5568ce54769904a5717b9bc15198d55ecee18`.
+- Its generated 16 bytes have SHA-256
+  `0ce95f10aae2bb51a62fab482cb2785e1116eafa5648e2c92edac2ba6589fd39`.
+- `tools/compare_function.py` reported `16/16` matching bytes and `exact match:
+  yes`.
+- `.decomp/out/code.bin.txt` selected the compiled object and did not select
+  `.decomp/split/code.bin/IsEggExist_00444a68.o`.
+- The pipeline relinked and recreated the complete executable from that object
+  plus the two unchanged split gap objects.
+
+The final hybrid `code.bin` remains 5,713,920 bytes and byte-identical to
+retail, with SHA-256
+`fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1`.
+This equality is expected because the active reconstructed function is an exact
+match; the linker-selection evidence proves the original split object was not
+silently reused.
+
+Hybrid image:
+
+`/mnt/samsung/pokemonMoondecomp/pokemoon-decomp/build/runtime/hybrid_exact/PokemonMoon_hybrid_exact.cxi`
+
+The decrypted NCCH/CXI is 3,202,183,168 bytes with SHA-256
+`1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626`.
+Internal verification passed: code placement, code hash slot, ExeFS superblock,
+fixed image size, and unchanged ranges are valid. Quiet `ctrtool -y` reported
+only the already-known invalid NCCH signature inherited from the decrypted
+source image.
+
+Hybrid #1 Citra status is `USER_TEST_REQUIRED`. Do not add the Random
+constructor, TinyMT, `EggClear`, or other daycare functions until this image
+passes the Citra boot gate.

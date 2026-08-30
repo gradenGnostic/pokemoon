@@ -23,7 +23,12 @@
   },
   "citra": {
     "installed": false,
-    "boot_status": "USER_TEST_REQUIRED",
-    "notes": "Azahar 2125.1.1 is installed but was not used as a silent Citra substitute."
+    "available_to_user": true,
+    "boot_status": "PASS_USER_CONFIRMED",
+    "confirmed_results": [
+      "normal boot",
+      "normal operation"
+    ],
+    "notes": "User confirmed the baseline image works normally in Citra. Citra remains unavailable inside the OpenCode environment; Azahar 2125.1.1 was not used as a substitute."
   }
 }

@@ -5,8 +5,8 @@ byte-identical executable does not count as an emulator or gameplay pass.
 
 ## Baseline
 
-- [ ] Game boots
-- [ ] Title screen appears
+- [x] Game boots
+- [x] Title screen appears
 - [ ] Save loads
 - [ ] Overworld is reachable
 
@@ -35,3 +35,7 @@ byte-identical executable does not count as an emulator or gameplay pass.
 For every run, record the image path, image SHA-256, emulator name and version,
 launch command, date, last successful screen or action, and any log path. Do not
 commit save files or personal save data.
+
+Baseline record, 2026-08-30: the user confirmed
+`build/runtime/baseline/PokemonMoon_rebuilt_baseline.cxi` works normally in
+Citra. The Citra version and launch command were not available to OpenCode.

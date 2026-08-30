@@ -4,9 +4,7 @@
   "title_id": "0004000000175E00",
   "image_base": "0x00100000",
   "fixed_code_size": 5713920,
-  "active_replacements": [],
-  "runtime_tested_replacements": [],
-  "candidates": [
+  "active_replacements": [
     {
       "address": "0x00444A68",
       "function_name": "Savedata::Sodateya::IsEggExist",
@@ -19,8 +17,10 @@
       "asm_status": "EXACT_MATCH",
       "runtime_tested": false,
       "subsystem": "daycare",
-      "status": "GATED_ON_BASELINE_CITRA_BOOT",
-      "notes": "Previously compiled and linked exactly; not active in the Phase 2.75 baseline build."
+      "status": "ACTIVE_IN_HYBRID_EXACT_AWAITING_CITRA_TEST",
+      "notes": "Freshly compiled from repository C++; linker response selected this object instead of the original split object."
     }
-  ]
+  ],
+  "runtime_tested_replacements": [],
+  "candidates": []
 }

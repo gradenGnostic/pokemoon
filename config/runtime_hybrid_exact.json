@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "target": "Pokemon Moon North America base v1.0",
+  "title_id": "0004000000175E00",
+  "build": "hybrid_exact",
+  "hybrid_image_path": "build/runtime/hybrid_exact/PokemonMoon_hybrid_exact.cxi",
+  "hybrid_image_sha256": "1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626",
+  "hybrid_image_size": 3202183168,
+  "hybrid_code_sha256": "fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1",
+  "hybrid_code_size": 5713920,
+  "whole_code_exact": true,
+  "replacement_count": 1,
+  "exact_asm_count": 1,
+  "runtime_tested_count": 0,
+  "reconstructed_functions": [
+    {
+      "address": "0x00444A68",
+      "function_name": "Savedata::Sodateya::IsEggExist",
+      "symbol": "_ZNK8Savedata8Sodateya10IsEggExistENS_10SodateyaIDE",
+      "source_file": "src/savedata/is_egg_exist.cpp",
+      "object_file": ".decomp/build/code.bin/IsEggExist_00444a68.o",
+      "object_sha256": "ba31d7f091875619b15142f053a5568ce54769904a5717b9bc15198d55ecee18",
+      "generated_bytes_sha256": "0ce95f10aae2bb51a62fab482cb2785e1116eafa5648e2c92edac2ba6589fd39",
+      "original_size": 16,
+      "generated_size": 16,
+      "asm_status": "EXACT_MATCH",
+      "selected_by_linker": true,
+      "original_split_object_excluded": true,
+      "runtime_tested": false
+    }
+  ],
+  "structural_validation": "PASS",
+  "citra_boot_status": "USER_TEST_REQUIRED"
+}
