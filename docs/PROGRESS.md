@@ -95,16 +95,18 @@ with identical mnemonic sequences but differing bytes. These are recorded in
 
 ## Build status
 
-- `scripts/verify_source_batch.py` compiles a coherent source batch once per
-  translation unit and records per-function ARM results.
+- The top-level `Makefile` is the canonical build interface. It generates
+  isolated adapters from `config/reconstructed_functions.csv`, compiles with
+  header dependencies, and delegates splitting, selection, and linking to the
+  proven 3DS Decomp Pipeline.
 - `analysis/batches/savedata_accessors_results.csv` records 18 compiling
   functions: 15 exact, one near, and two semantic/nonmatching.
-- `scripts/build_exact_hybrid.sh` generates one-function pipeline adapters,
-  rejects any status other than `ASM_MATCH`, regenerates splits, builds, links,
-  repacks, and verifies the complete image.
-- `hybrid_0016` contains 16 reconstructed exact-match functions. Every compiled
+- The current exact profile contains 17 reconstructed exact-match functions,
+  including the isolated `gfl2::math::Random` constructor. Every compiled
   object was selected and every corresponding retail split object was excluded.
 - Final `code.bin` and CXI remain byte-identical to retail/source respectively.
+- `make semantic` has a separate workspace but intentionally refuses any
+  runtime-ready nonmatching object until the upstream selector supports it.
 
 ## Next queue
 

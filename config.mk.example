@@ -1,0 +1,7 @@
+# Optional local overrides. Copy to config.mk; config.mk is ignored by Git.
+PYTHON := python3
+CXX := arm-none-eabi-g++
+AS := arm-none-eabi-as
+LD := arm-none-eabi-ld
+OBJCOPY := arm-none-eabi-objcopy
+PIPELINE_DIR := tools/3DS-Decomp-Pipeline

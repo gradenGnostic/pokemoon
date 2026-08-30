@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "compiler": "arm-none-eabi-g++",
+  "compiler_version": "16.2.0",
+  "binutils_version": "2.47",
+  "assembler": "arm-none-eabi-as",
+  "linker": "arm-none-eabi-ld",
+  "objcopy": "arm-none-eabi-objcopy",
+  "pipeline_commit": "621bbce909ad2f9c551563c7443ed80c0123fe77",
+  "flags": [
+    "-std=gnu++11",
+    "-mcpu=mpcore",
+    "-marm",
+    "-mfpu=vfp",
+    "-mfloat-abi=softfp",
+    "-O2",
+    "-fno-exceptions",
+    "-fno-rtti",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables"
+  ]
+}

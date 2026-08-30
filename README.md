@@ -10,12 +10,13 @@ the local ignored extraction is the only binary input used by this project.
 
 Phase 1 established a reproducible target, CTR-aware Ghidra project, research
 provenance, and subsystem anchors. Phase 2 reconstructed the daycare breeding
-path and its TinyMT32 generator with function-level ARM comparisons. Phase 2.5
-is harvesting retail CRS/CRO symbols and preparing conservative cross-version
-matching against a separately analyzed, user-supplied Special Demo donor.
+path and its TinyMT32 generator with function-level ARM comparisons. Phase 3 is
+scaling source reconstruction across the retail `static.crs` and inventoried
+CRO modules. Phase 2.5 donor work is paused indefinitely and is not required.
 
-Current verified source matches are tracked in `symbols/decomp_status.csv`.
-Build and comparison instructions are in `docs/BUILDING.md`.
+`config/reconstructed_functions.csv` is the canonical source/build status
+manifest. Run `make check`, `make`, and `make verify` for the conservative
+exact-only build. Full instructions are in `docs/BUILD.md`.
 Symbol-recovery evidence and constraints are in
 `docs/PHASE_2_5_SYMBOL_RECOVERY.md`.
-Phase 2.75 runtime build and repack commands are in `docs/RUNTIME_BUILD.md`.
+Historical runtime evidence is in `docs/RUNTIME_BUILD.md`.

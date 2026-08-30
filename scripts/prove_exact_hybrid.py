@@ -28,20 +28,28 @@ def main() -> None:
     parser.add_argument("--hybrid-code", type=Path, default=Path(".decomp/out/code.bin"))
     parser.add_argument("--hybrid-image", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--mode", choices=("exact", "semantic"), default="exact")
     args = parser.parse_args()
 
     with args.manifest.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
-    response = (args.work_dir / "out/code.bin.txt").read_text(encoding="utf-8")
+    rows = [
+        row for row in rows
+        if row.get("module", "static.crs") == "static.crs" and row["asm_status"] == "ASM_MATCH"
+    ]
+    if not rows:
+        raise SystemExit("manifest contains no exact static.crs functions")
+    response_lines = (args.work_dir / "out/code.bin.txt").read_text(encoding="utf-8").splitlines()
+    selected_objects = {Path(line.strip().strip('"')).resolve() for line in response_lines if line.strip()}
     proof_rows = []
     for row in rows:
         compiled = args.work_dir / f"build/code.bin/{row['artifact']}.o"
         split = args.work_dir / f"split/code.bin/{row['artifact']}.o"
         if not compiled.is_file():
             raise SystemExit(f"compiled object missing: {compiled}")
-        if str(compiled.resolve()) not in response:
+        if compiled.resolve() not in selected_objects:
             raise SystemExit(f"compiled object not selected: {compiled}")
-        if str(split.resolve()) in response:
+        if split.resolve() in selected_objects:
             raise SystemExit(f"original split object still selected: {split}")
         compare = subprocess.run(
             ["python3", "tools/compare_function.py", str(compiled), row["symbol"], row["address"],

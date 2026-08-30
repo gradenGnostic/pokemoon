@@ -1,0 +1,7 @@
+module,binary,kind,enabled,original_path,build_path
+static.crs,code.bin,main,true,extracted/exefs/code.bin,build/{mode}/code.bin
+Box.cro,Box.cro,cro,false,extracted/cro/Box.cro,build/{mode}/cro/Box.cro
+EggHatching.cro,EggHatching.cro,cro,false,extracted/cro/EggHatching.cro,build/{mode}/cro/EggHatching.cro
+QRReader.cro,QRReader.cro,cro,false,extracted/cro/QRReader.cro,build/{mode}/cro/QRReader.cro
+FieldRo.cro,FieldRo.cro,cro,false,extracted/cro/FieldRo.cro,build/{mode}/cro/FieldRo.cro
+Battle.cro,Battle.cro,cro,false,extracted/cro/Battle.cro,build/{mode}/cro/Battle.cro

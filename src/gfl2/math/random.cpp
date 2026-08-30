@@ -9,15 +9,20 @@ const unsigned int kMat2 = 0xfc78ff1f;
 const unsigned int kTmat = 0x3793fdff;
 }
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003591E0
 Random::Random() = default;
+#endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00358FA4
 void Random::Initialize(State state) {
     state_ = state;
     mat1_ = kMat1;
     mat2_ = kMat2;
     tmat_ = kTmat;
 }
+#endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00359158
 unsigned int Random::Next() {
     unsigned int x = (state_.status[0] & 0x7fffffff) ^
                      state_.status[1] ^ state_.status[2];
@@ -35,14 +40,19 @@ unsigned int Random::Next() {
     const unsigned int t = state_.status[0] + (state_.status[2] >> 8);
     return t ^ state_.status[3] ^ ((0u - (t & 1u)) & tmat_);
 }
+#endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003590D8
 unsigned int Random::Next(unsigned int limit) {
     return Next() % limit;
 }
+#endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003591D4
 Random::State Random::SaveState() const {
     return state_;
 }
+#endif
 
 } // namespace math
 } // namespace gfl2

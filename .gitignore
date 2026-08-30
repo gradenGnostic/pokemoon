@@ -33,3 +33,4 @@ build/
 *.elf
 __pycache__/
 *.pyc
+config.mk

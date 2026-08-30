@@ -216,24 +216,25 @@ source image.
 Hybrid #1 Citra status is `VERIFIED_WORKING`: the user confirmed that it boots.
 This closes the end-to-end compiler, linker, repack, and emulator gate.
 
-## Exact hybrid 0016
+## Canonical exact build
 
-Phase 3 expanded the exact-only build to 16 reconstructed functions with:
+Phase 3.5 replaced the batch-specific entry point with the canonical Make
+interface. Build and prove all 17 exact reconstructed functions with:
 
 ```sh
-./scripts/build_exact_hybrid.sh
+make check
+make cxi
+make verify
 ```
 
-The build contains `IsEggExist`, five exact `Savedata::BOX` accessors, and ten
-exact `Savedata::Situation` accessors. `prepare_exact_hybrid.py` rejects any
-manifest row not recorded as `ASM_MATCH`, generates one-function adapters for
-the organized repository translation units, and regenerates the split layout.
-`prove_exact_hybrid.py` independently checks all 16 compiled-object selections,
+The build contains `IsEggExist`, the exact `Random` constructor, five exact
+`Savedata::BOX` accessors, and ten exact `Savedata::Situation` accessors.
+`prove_exact_hybrid.py` independently checks all 17 compiled-object selections,
 split-object exclusions, and function bytes.
 
 Output:
 
-`build/runtime/hybrid_0016/PokemonMoon_hybrid_0016.cxi`
+`build/runtime/exact/PokemonMoon_exact.cxi`
 
 The final `code.bin` SHA-256 remains
 `fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1`.

@@ -1,5 +1,8 @@
 # Building and Function Diffing
 
+This file preserves the original focused matching notes. The current canonical
+Make workflow, modes, inputs, and outputs are documented in `docs/BUILD.md`.
+
 ## Toolchain
 
 - `arm-none-eabi-g++` 16.2.0
