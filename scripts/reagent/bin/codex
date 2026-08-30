@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+real_codex="${CODEX_REAL_BIN:-$HOME/.local/bin/codex}"
+if [[ ! -x "$real_codex" ]]; then
+    printf 'Codex CLI not found or not executable: %s\n' "$real_codex" >&2
+    exit 127
+fi
+
+if [[ "${1:-}" == "exec" ]]; then
+    shift
+    exec "$real_codex" exec --ephemeral --ignore-user-config "$@"
+fi
+exec "$real_codex" "$@"

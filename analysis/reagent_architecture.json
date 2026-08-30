@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "program": "/romfs/static.crs",
+  "program_name": "static.crs",
+  "language_id": "ARM:LE:32:v7",
+  "processor": "ARM",
+  "endian": "little",
+  "address_size_bits": 32,
+  "default_space": "ram",
+  "observed_function_count": 18946,
+  "canonical_catalog_count": 18945,
+  "captured_via": "ghidra-mcp get_language_metadata/get_metadata",
+  "captured_date": "2026-08-30",
+  "note": "The one-function count discrepancy must be reconciled before replacing the canonical catalog."
+}

@@ -46,7 +46,8 @@ OBJECTS := $(addprefix $(WORK_DIR)/build/code.bin/,$(addsuffix .o,$(ARTIFACTS)))
 DEPENDENCIES := $(OBJECTS:.o=.d)
 COMPILE_FLAGS := $(shell $(PYTHON) $(MANAGER) flags)
 
-.PHONY: all code cxi verify check progress exact semantic diff list status clean help force-tool-stamp
+.PHONY: all code cxi verify check progress exact semantic diff list status clean help force-tool-stamp \
+	reagent-preflight reagent-select reagent-export reagent-dry-run reagent-reverse
 
 all: code
 
@@ -122,6 +123,27 @@ progress:
 status:
 	$(PYTHON) $(MANAGER) export-status --output symbols/decomp_status.csv
 
+reagent-preflight:
+	$(PYTHON) scripts/reagent/targets.py preflight
+
+reagent-select: reagent-preflight
+	$(PYTHON) scripts/reagent/targets.py select --limit 10
+
+reagent-export: reagent-select
+	/opt/ghidra/support/analyzeHeadless ghidra PokemonMoon_US_v1_0 -process static.crs \
+		-recursive -readOnly -noanalysis -scriptPath scripts -postScript ExportReagentTargets.java \
+		"$(CURDIR)/reports/re-agent/targets.csv" "$(CURDIR)/.ghidra-exports/static.crs"
+
+reagent-dry-run: reagent-preflight
+	@test -n "$(FUNC)" || { printf 'usage: make reagent-dry-run FUNC=<static.crs address>\n' >&2; exit 2; }
+	$(PYTHON) scripts/reagent/targets.py validate --address "$(FUNC)"
+	scripts/reagent/run.sh --dry-run --address "$(FUNC)"
+
+reagent-reverse: reagent-preflight
+	@test -n "$(FUNC)" || { printf 'usage: make reagent-reverse FUNC=<eligible static.crs address>\n' >&2; exit 2; }
+	$(PYTHON) scripts/reagent/targets.py validate --address "$(FUNC)"
+	scripts/reagent/run.sh --address "$(FUNC)"
+
 diff:
 	@test -n "$(FUNC)" || { printf 'usage: make diff FUNC=<address|artifact|symbol|name>\n' >&2; exit 2; }
 	$(PYTHON) $(MANAGER) diff --function "$(FUNC)" --cxx $(CXX) --python $(PYTHON)
@@ -146,6 +168,11 @@ help:
 		'make diff FUNC=...    Compile and compare one manifest function' \
 		'make list [STATUS=...] [MODULE=...] [SUBSYSTEM=...]' \
 		'make status           Regenerate symbols/decomp_status.csv compatibility export' \
+		'make reagent-preflight  Verify the ARMv7-only model workflow inputs' \
+		'make reagent-select     Stage at most 10 eligible ARM Tier-0 targets' \
+		'make reagent-export     Export focused ARM Ghidra evidence without model calls' \
+		'make reagent-dry-run FUNC=...  Resolve one run without invoking a model' \
+		'make reagent-reverse FUNC=...  Generate a candidate under reports/re-agent' \
 		'make clean            Remove generated outputs for the selected MODE only' \
 		'Overrides: MODE=exact|semantic and optional config.mk tool paths'
 

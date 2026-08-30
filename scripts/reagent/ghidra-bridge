@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+bridge="$root/.venv-reagent/bin/ghidra-bridge"
+if [[ ! -x "$bridge" ]]; then
+    printf 'Missing isolated ghidra-bridge installation: %s\n' "$bridge" >&2
+    exit 127
+fi
+
+if [[ "${1:-}" == "export" ]]; then
+    printf 'Use make reagent-export for the ARM-checked focused export\n' >&2
+    exit 2
+fi
+
+exec "$bridge" --config "$root/ghidra-bridge.yaml" "$@"

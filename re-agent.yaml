@@ -1,0 +1,91 @@
+project_profile:
+  name: pokemon-moon-na-v1.0-armv7
+  source_root: reports/re-agent/source-context
+  source_extensions:
+    - .cpp
+    - .h
+    - .hpp
+  hooks_csv: null
+  hook_patterns: []
+  stub_patterns: []
+  stub_markers: []
+  stub_call_prefix: ""
+  class_macro: ""
+  language_standard: C++11
+  prompt_rules:
+    - Target only Nintendo 3DS ARMv7 code from static.crs, never an x86 or x86-64 profile
+    - The ABI is 32-bit little-endian ARM EABI; arguments begin in r0-r3 and this is in r0, never ECX
+    - Interpret BL and BLX as calls, BX LR or a PC-restoring load as returns, and ARM PC-relative reads with the architectural PC bias
+    - Ghidra __thiscall text is a C++ member annotation here, not the Microsoft x86 calling convention
+    - Preserve fixed-width integer behavior, alignment, signedness, side effects, and exact ARM-observed branch structure
+    - Treat ldr r0,[r0,#0xc] followed by cpy r0,r0 in an eight-byte function as a runtime relocation placeholder, not an implementation
+    - Do not emit x86 registers, x86 intrinsics, Microsoft ABI assumptions, or x86 assembly
+    - Use only names, types, and layout facts supported by repository or Ghidra evidence; state uncertainty instead of inventing details
+    - Return a candidate only; never modify src or include directly
+
+llm:
+  provider: openai-compat
+  model: qwen2.5-coder:7b
+  api_key: ollama-local
+  base_url: http://127.0.0.1:11435/v1
+  max_tokens: 3072
+  temperature: 0.0
+  timeout_s: 600
+
+agents:
+  reverser:
+    provider: openai-compat
+    model: qwen2.5-coder:7b
+    api_key: ollama-local
+    base_url: http://127.0.0.1:11435/v1
+    max_tokens: 3072
+    temperature: 0.0
+    timeout_s: 600
+  checker:
+    provider: codex
+    model: gpt-5.4-mini
+    timeout_s: 600
+
+backend:
+  type: ghidra-bridge
+  cli_path: scripts/reagent/ghidra-bridge
+  timeout_s: 60
+
+parity:
+  enabled: false
+  cache_dir: reports/re-agent/parity-cache
+
+orchestrator:
+  max_review_rounds: 1
+  max_functions_per_class: 10
+  objective_verifier_enabled: true
+  objective_call_count_tolerance: 2
+  objective_control_flow_tolerance: 2
+  investigation_enabled: true
+  max_investigations: 6
+  selection_strategy: dependency-order
+  max_attempts_per_function: 2
+
+validation:
+  enabled: true
+  copy_project: false
+  project_root: .
+  build_commands: []
+  test_commands: []
+  runtime_commands: []
+  require_build: false
+  require_tests: false
+  require_runtime: false
+  require_verified: true
+  trust_configured_commands: false
+  parity_fail_on_red: true
+  parity_fail_on_yellow: false
+  command_timeout_s: 900
+  working_directory: .
+  keep_project_copy: true
+
+output:
+  report_dir: reports/re-agent
+  log_dir: reports/re-agent/logs
+  session_file: reports/re-agent/progress.json
+  format: json

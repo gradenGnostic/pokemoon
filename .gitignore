@@ -34,3 +34,6 @@ build/
 __pycache__/
 *.pyc
 config.mk
+.venv-reagent/
+.ghidra-exports/
+reports/re-agent/

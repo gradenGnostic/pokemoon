@@ -1,0 +1,23 @@
+ghidra:
+  install_dir: /opt/ghidra
+  project_dir: /mnt/samsung/pokemonMoondecomp/pokemoon-decomp/ghidra
+  project_name: PokemonMoon_US_v1_0
+  program_name: /romfs/static.crs
+
+paths:
+  export_dir: /mnt/samsung/pokemonMoondecomp/pokemoon-decomp/.ghidra-exports/static.crs
+  address_map: /mnt/samsung/pokemonMoondecomp/pokemoon-decomp/.ghidra-exports/static.crs/address_map.json
+
+source:
+  root: /mnt/samsung/pokemonMoondecomp/pokemoon-decomp
+  hook_patterns: []
+  stub_patterns: []
+  stub_markers: []
+  file_extensions:
+    - .cpp
+    - .h
+    - .hpp
+
+binary:
+  code_range_min: 0x00100000
+  code_range_max: 0x00595fff

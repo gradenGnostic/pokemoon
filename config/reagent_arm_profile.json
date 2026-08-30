@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "processor": "ARM",
+  "ghidra_language": "ARM:LE:32:v7",
+  "endianness": "little",
+  "address_size_bits": 32,
+  "compiler_target": "arm-none-eabi",
+  "module": "static.crs",
+  "program": "/romfs/static.crs",
+  "code_range": {
+    "start": "0x00100000",
+    "end": "0x00596000",
+    "image_base": "0x00100000"
+  },
+  "placeholder_hex": [
+    "0c0090e50000a0e1"
+  ],
+  "forbidden_architectures": [
+    "x86",
+    "x86_64",
+    "amd64"
+  ]
+}
