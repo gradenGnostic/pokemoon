@@ -37,3 +37,4 @@ config.mk
 .venv-reagent/
 .ghidra-exports/
 reports/re-agent/
+analysis/reagent/

@@ -108,13 +108,18 @@ def is_arm_terminal(word: int) -> bool:
     return word >> 12 & 0xF == 0xF  # Data-processing/load writing PC
 
 
-def rejection_reason(row: dict[str, str], image: bytes, profile: dict[str, object]) -> str:
+def rejection_reason(
+        row: dict[str, str],
+        image: bytes,
+        profile: dict[str, object],
+        allowed_tiers: tuple[str, ...] = ("TIER_0",),
+) -> str:
     if row["module"] != "static.crs":
         return "NON_STATIC_MODULE"
     if row["memory_block"] != ".text":
         return "NON_TEXT"
-    if row["tier"] != "TIER_0":
-        return "NOT_TIER_0"
+    if row["tier"] not in allowed_tiers:
+        return "TIER_NOT_ALLOWED"
     if row["source_exists"] == "true":
         return "SOURCE_EXISTS"
     if row["is_thunk"] == "true":
