@@ -57,4 +57,48 @@ unsigned int BOX::GetCurrentTray() const {
 }
 #endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00441170
+void BOX::SetTeamLock(unsigned int team, bool locked) {
+    team_locked_[team] = locked;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A7928
+bool BOX::IsTeamLock(unsigned int team) const {
+    return team_locked_[team] != 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A7A18
+unsigned short BOX::GetTeamPokePos(unsigned int team, unsigned int slot) const {
+    return team_poke_positions_[team][slot];
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A7874
+int BOX::IsTeamInMe(unsigned int tray, unsigned int slot) const {
+    const unsigned short position = static_cast<unsigned short>(slot + (tray << 8));
+    for (unsigned int team = 0; team < 6; ++team) {
+        for (unsigned int team_slot = 0; team_slot < 6; ++team_slot) {
+            if (team_poke_positions_[team][team_slot] == position) {
+                return static_cast<int>(team);
+            }
+        }
+    }
+    return -1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A78D4
+int BOX::IsTeamInMe(unsigned int tray, unsigned int slot, unsigned int team) const {
+    const unsigned short position = static_cast<unsigned short>(slot + (tray << 8));
+    for (unsigned int team_slot = 0; team_slot < 6; ++team_slot) {
+        if (team_poke_positions_[team][team_slot] == position) {
+            return static_cast<int>(team);
+        }
+    }
+    return -1;
+}
+#endif
+
 } // namespace Savedata

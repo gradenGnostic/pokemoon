@@ -20,11 +20,11 @@ Updated: 2026-08-30
 | Ghidra function-manager total | 18,946 |
 | Named functions | 4,703 |
 | Remaining `FUN_*` functions | 14,242 |
-| Source reconstructed | 25 |
-| Compiling | 25 |
+| Source reconstructed | 40 |
+| Compiling | 40 |
 | `ASM_MATCH` | 17 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic verified, nonmatching | 7 |
+| Semantic verified, nonmatching | 22 |
 | Runtime tested | 1 |
 | Analyzer-confirmed thunks | 388 |
 | Class namespaces in Ghidra | 446 |
@@ -63,20 +63,27 @@ with identical mnemonic sequences but differing bytes. These are recorded in
 |---|---:|---:|---:|---:|
 | Daycare | 2 | 1 | 0 | 1 |
 | RNG | 5 | 1 | 0 | 4 |
-| Box | 7 | 5 | 0 | 2 |
+| Box | 12 | 5 | 0 | 7 |
+| Pokepara | 10 | 0 | 0 | 10 |
 | Egg/situation | 11 | 10 | 1 | 0 |
 
 ## Pokemon and Box
 
 - Added a partial `Savedata::BOX` layout with proven offsets for 32 tray names,
   six team names, team-lock bytes, wallpapers, tray maximum, and current tray.
-- Reconstructed seven BOX accessors. Five match ARM exactly; `GetTeamName` and
-  `GetTrayLevel` are semantic equivalents with different code generation.
-- `Box.cro` has one named export and 437 named imports in the preserved CRO
-  inventory. Its executable body has not yet been imported as a separate
-  Ghidra program, so no Box.cro-internal function is claimed reconstructed.
+- Reconstructed 12 BOX helpers. Five match ARM exactly; seven are semantic
+  equivalents with different code generation or retail assertion scaffolding.
+- The team layout now includes the proven 6x6 packed-position table at offset
+  `0x4c8`, supporting team lock, lookup, and membership helpers.
+- `Box.cro` is imported as `/romfs/Box.cro` in Ghidra with 993 analyzed
+  functions, 183,064 executable bytes, one control-object export, and 426 named
+  imports. `analysis/box_cro_map.json` records the module-relative layout and
+  relocation caveats; no Box.cro-internal function is claimed reconstructed.
 - Existing PK7, `CoreParam`, `PokemonParam`, 0xe8 box, and 0x104 party research
   remains the type foundation for subsequent work.
+- Added ten short `CoreParam` query bodies using the proven internal pointer at
+  offset `0x0c` and recovered core-data helper calls. The 8-byte CRS relocation
+  placeholders remain explicitly excluded from reconstruction.
 
 ## EggHatching
 
@@ -110,9 +117,6 @@ with identical mnemonic sequences but differing bytes. These are recorded in
 
 ## Next queue
 
-1. Expand `Savedata::BOX` with the first group of short slot/tray accessors.
-2. Import and map `Box.cro` as a separate module before claiming internal code.
-3. Reconstruct small `CoreParam` methods with real bodies; skip CRS relocation
-   stubs whose terminal NOP is patched at runtime.
-4. Extend `Situation` and daycare step-counter users toward EggHatching.
-5. Generalize exact-hybrid checkpoints toward 50 source-backed functions.
+1. Extend `Situation` and daycare step-counter users toward EggHatching.
+2. Add independent split/link validation before enabling `Box.cro` builds.
+3. Generalize exact-hybrid checkpoints toward 50 source-backed functions.

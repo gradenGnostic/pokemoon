@@ -11,11 +11,17 @@ struct BOX {
     unsigned int GetTrayLevel() const;
     unsigned int GetTrayMax() const;
     unsigned int GetCurrentTray() const;
+    void SetTeamLock(unsigned int team, bool locked);
+    bool IsTeamLock(unsigned int team) const;
+    unsigned short GetTeamPokePos(unsigned int team, unsigned int slot) const;
+    int IsTeamInMe(unsigned int tray, unsigned int slot) const;
+    int IsTeamInMe(unsigned int tray, unsigned int slot, unsigned int team) const;
 
     unsigned char unknown_0000[0x4];
     unsigned short tray_names_[32][17];
     unsigned short team_names_[6][11];
-    unsigned char unknown_04c8[0xf6];
+    unsigned short team_poke_positions_[6][6];
+    unsigned char unknown_0510[0xae];
     unsigned char team_locked_[6];
     unsigned char wall_papers_[32];
     unsigned char unknown_05e4;
@@ -26,6 +32,7 @@ struct BOX {
 
 static_assert(__builtin_offsetof(BOX, tray_names_) == 0x4, "BOX tray name offset mismatch");
 static_assert(__builtin_offsetof(BOX, team_names_) == 0x444, "BOX team name offset mismatch");
+static_assert(__builtin_offsetof(BOX, team_poke_positions_) == 0x4c8, "BOX team positions offset mismatch");
 static_assert(__builtin_offsetof(BOX, team_locked_) == 0x5be, "BOX team lock offset mismatch");
 static_assert(__builtin_offsetof(BOX, wall_papers_) == 0x5c4, "BOX wallpaper offset mismatch");
 static_assert(__builtin_offsetof(BOX, tray_max_) == 0x5e5, "BOX tray max offset mismatch");

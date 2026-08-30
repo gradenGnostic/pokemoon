@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "module": "Box.cro",
+  "sha256": "997c46e1ee587019fdd93553fe6072199175f9d2db3c4226c4aa896459b7f04b",
+  "file_size": 270336,
+  "ghidra_program": "/romfs/Box.cro",
+  "ghidra_language": "ARM:LE:32:v7",
+  "function_count": 993,
+  "segments": {
+    "text": {"start": "0x00000180", "size": 183064},
+    "rodata": {"start": "0x0002D000", "size": 13304},
+    "data": {"start": "0x00040934", "size": 3624},
+    "bss_size": 32
+  },
+  "symbols": {
+    "named_exports": 1,
+    "named_imports": 426,
+    "import_modules": 1,
+    "relocations": 2082,
+    "control_object": {"name": "nnroControlObject_", "address": "0x0002CB80"}
+  },
+  "notes": [
+    "Addresses are module-relative and must not be mixed with static.crs virtual addresses.",
+    "The sole export is the CRO control object, not a reconstructable game function.",
+    "Early text entries include runtime import trampolines and relocation-dependent placeholders; they are not source candidates.",
+    "RTTI strings identify the App::Box class family, but no internal function names are claimed from RTTI alone."
+  ]
+}
