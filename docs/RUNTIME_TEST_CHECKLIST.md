@@ -12,8 +12,8 @@ byte-identical executable does not count as an emulator or gameplay pass.
 
 ## Hybrid exact
 
-- [ ] Game boots
-- [ ] Title screen appears
+- [x] Game boots
+- [x] Title screen appears
 - [ ] Save loads
 - [ ] No crash during basic navigation
 
@@ -39,3 +39,9 @@ commit save files or personal save data.
 Baseline record, 2026-08-30: the user confirmed
 `build/runtime/baseline/PokemonMoon_rebuilt_baseline.cxi` works normally in
 Citra. The Citra version and launch command were not available to OpenCode.
+
+Hybrid #1 record, 2026-08-30: the user confirmed
+`build/runtime/hybrid_exact/PokemonMoon_hybrid_exact.cxi` boots successfully in
+Citra. This records the boot gate only; save loading and gameplay behavior were
+not separately reported. The Citra version and launch command were not
+available to OpenCode.

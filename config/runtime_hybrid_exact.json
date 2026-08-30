@@ -11,7 +11,10 @@
   "whole_code_exact": true,
   "replacement_count": 1,
   "exact_asm_count": 1,
-  "runtime_tested_count": 0,
+  "runtime_tested_count": 1,
+  "runtime_tested": true,
+  "boot_verified": true,
+  "tested_by_user": true,
   "reconstructed_functions": [
     {
       "address": "0x00444A68",
@@ -26,9 +29,16 @@
       "asm_status": "EXACT_MATCH",
       "selected_by_linker": true,
       "original_split_object_excluded": true,
-      "runtime_tested": false
+      "runtime_tested": true
     }
   ],
   "structural_validation": "PASS",
-  "citra_boot_status": "USER_TEST_REQUIRED"
+  "citra_boot_status": "VERIFIED_WORKING",
+  "test_record": {
+    "date": "2026-08-30",
+    "emulator": "Citra",
+    "result": "BOOT_VERIFIED",
+    "reported_by": "user",
+    "notes": "User confirmed that Hybrid #1 boots successfully; emulator version and launch command were not provided."
+  }
 }
