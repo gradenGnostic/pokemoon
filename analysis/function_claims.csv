@@ -1,0 +1,19 @@
+address,module,assigned_agent,status,claimed_at,source_file,notes
+0x0044123C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,ASM_MATCH
+0x004A786C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,ASM_MATCH
+0x004A7964,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,SEMANTIC_VERIFIED; ASM_DIFFERENT
+0x004A797C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,ASM_MATCH
+0x004A798C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,SEMANTIC_VERIFIED; ASM_DIFFERENT
+0x004A79B8,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,ASM_MATCH
+0x004A7A10,static.crs,lead,COMPLETED,2026-08-30,src/savedata/box_accessors.cpp,ASM_MATCH
+0x00445C14,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x00445C1C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x00445C24,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x00445C2C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x00445C34,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x00445C3C,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x004A8B78,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x004A8B80,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x004A8B88,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x004A8B90,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_MATCH
+0x004A8B98,static.crs,lead,COMPLETED,2026-08-30,src/savedata/situation_accessors.cpp,ASM_NEAR_MATCH

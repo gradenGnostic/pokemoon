@@ -163,8 +163,8 @@ and keep emulator logs under the ignored `build/runtime/logs/` tree.
 
 ## Reconstruction state
 
-`config/runtime_reconstruction.json` records no active replacements in the
-baseline image.
+`config/runtime_reconstruction.json` records the current source-backed runtime
+coverage. Baseline metadata remains separate and immutable.
 
 ## Hybrid #1: exact C++ replacement
 
@@ -213,6 +213,32 @@ fixed image size, and unchanged ranges are valid. Quiet `ctrtool -y` reported
 only the already-known invalid NCCH signature inherited from the decrypted
 source image.
 
-Hybrid #1 Citra status is `USER_TEST_REQUIRED`. Do not add the Random
-constructor, TinyMT, `EggClear`, or other daycare functions until this image
-passes the Citra boot gate.
+Hybrid #1 Citra status is `VERIFIED_WORKING`: the user confirmed that it boots.
+This closes the end-to-end compiler, linker, repack, and emulator gate.
+
+## Exact hybrid 0016
+
+Phase 3 expanded the exact-only build to 16 reconstructed functions with:
+
+```sh
+./scripts/build_exact_hybrid.sh
+```
+
+The build contains `IsEggExist`, five exact `Savedata::BOX` accessors, and ten
+exact `Savedata::Situation` accessors. `prepare_exact_hybrid.py` rejects any
+manifest row not recorded as `ASM_MATCH`, generates one-function adapters for
+the organized repository translation units, and regenerates the split layout.
+`prove_exact_hybrid.py` independently checks all 16 compiled-object selections,
+split-object exclusions, and function bytes.
+
+Output:
+
+`build/runtime/hybrid_0016/PokemonMoon_hybrid_0016.cxi`
+
+The final `code.bin` SHA-256 remains
+`fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1`.
+The CXI remains byte-identical with SHA-256
+`1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626`.
+Structural verification passed. No immediate user test is requested because
+this build introduces only exact bytes and remains identical to the already
+tested image.

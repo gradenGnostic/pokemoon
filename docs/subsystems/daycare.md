@@ -10,6 +10,10 @@
   delegates breeding mechanics to `0x0031747C`, then heap-constructs a
   `PokemonParam` from the resulting temporary `CoreParam`.
 - `0x004919BC` contains the validated instant-hatching hook site at `+0x24`.
+- `Savedata::Situation` stores the egg step count at `+0x74`, last zone at
+  `+0x78`, friendship steps at `+0x7A`, and petting steps at `+0x7C`.
+- Ten reconstructed Situation accessors are `ASM_MATCH`; the warp-request
+  check is a 15/16-byte `ASM_NEAR_MATCH`.
 
 Detailed Phase 2 notes:
 

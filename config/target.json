@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "ghidra_analyzed_phase_2_daycare_reconstruction",
+  "status": "phase_3_scaled_retail_decompilation",
   "input": {
     "filename": "Pokemon Moon (Europe) (EnJaFrDeEsItZhKo).cia",
     "path_policy": "original_file was never copied into project; user intentionally deleted it after extraction",

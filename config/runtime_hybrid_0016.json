@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "target": "Pokemon Moon North America base v1.0",
+  "title_id": "0004000000175E00",
+  "build": "hybrid_0016",
+  "build_date": "2026-08-30",
+  "source_manifest": "analysis/batches/hybrid_0016.csv",
+  "hybrid_image_path": "build/runtime/hybrid_0016/PokemonMoon_hybrid_0016.cxi",
+  "hybrid_image_sha256": "1a348d4cfe65473b4c5e85f1c5e6e797449fcfd23372ce30c35e303eda701626",
+  "hybrid_image_size": 3202183168,
+  "hybrid_code_sha256": "fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1",
+  "hybrid_code_size": 5713920,
+  "reconstructed_function_count": 16,
+  "exact_asm_count": 16,
+  "semantic_replacement_count": 0,
+  "whole_code_exact": true,
+  "whole_image_exact": true,
+  "structural_validation": "PASS",
+  "runtime_test_required": false,
+  "runtime_test_status": "NOT_REQUIRED_YET_EXACT_ONLY",
+  "boot_verified": false,
+  "notes": "All 16 compiled objects were selected by the linker and their original split objects were excluded. Periodic testing is deferred because this exact-only image is byte-identical to the user-tested Hybrid #1."
+}

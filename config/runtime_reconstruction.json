@@ -1,26 +1,23 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "target": "Pokemon Moon North America base v1.0",
   "title_id": "0004000000175E00",
   "image_base": "0x00100000",
   "fixed_code_size": 5713920,
-  "active_replacements": [
+  "active_build": "hybrid_0016",
+  "active_replacements_manifest": "analysis/batches/hybrid_0016.csv",
+  "active_replacement_count": 16,
+  "active_exact_asm_count": 16,
+  "active_semantic_replacement_count": 0,
+  "runtime_tested_replacements": [
     {
       "address": "0x00444A68",
       "function_name": "Savedata::Sodateya::IsEggExist",
-      "provenance": "RETAIL_ORIGINAL_SYMBOL",
-      "source_path": "src/savedata/is_egg_exist.cpp",
-      "pipeline_source_path": ".decomp/src/code.bin/IsEggExist_00444a68.cpp",
-      "object_file": ".decomp/build/code.bin/IsEggExist_00444a68.o",
-      "original_function_size": 16,
-      "compiled_function_size": 16,
-      "asm_status": "EXACT_MATCH",
-      "runtime_tested": false,
-      "subsystem": "daycare",
-      "status": "ACTIVE_IN_HYBRID_EXACT_AWAITING_CITRA_TEST",
-      "notes": "Freshly compiled from repository C++; linker response selected this object instead of the original split object."
+      "build": "hybrid_exact",
+      "tested_by_user": true,
+      "boot_verified": true
     }
   ],
-  "runtime_tested_replacements": [],
-  "candidates": []
+  "latest_build_runtime_status": "NOT_REQUIRED_YET_EXACT_ONLY",
+  "notes": "Hybrid #1 is user-verified. hybrid_0016 adds only independently verified ASM_MATCH functions and remains byte-identical to retail."
 }

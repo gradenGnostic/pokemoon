@@ -1,0 +1,17 @@
+address,size,artifact,source,symbol,namespace,module,subsystem
+0x00444A68,0x10,IsEggExist_00444a68,src/savedata/is_egg_exist.cpp,_ZNK8Savedata8Sodateya10IsEggExistENS_10SodateyaIDE,Savedata::Sodateya,static.crs,daycare
+0x0044123C,0x0C,SetWallPaper_0044123c,src/savedata/box_accessors.cpp,_ZN8Savedata3BOX12SetWallPaperEjj,Savedata::BOX,static.crs,box
+0x004A786C,0x08,GetTrayMax_004a786c,src/savedata/box_accessors.cpp,_ZNK8Savedata3BOX10GetTrayMaxEv,Savedata::BOX,static.crs,box
+0x004A797C,0x10,GetTrayName_004a797c,src/savedata/box_accessors.cpp,_ZNK8Savedata3BOX11GetTrayNameEj,Savedata::BOX,static.crs,box
+0x004A79B8,0x0C,GetWallPaper_004a79b8,src/savedata/box_accessors.cpp,_ZNK8Savedata3BOX12GetWallPaperEj,Savedata::BOX,static.crs,box
+0x004A7A10,0x08,GetCurrentTray_004a7a10,src/savedata/box_accessors.cpp,_ZNK8Savedata3BOX14GetCurrentTrayEv,Savedata::BOX,static.crs,box
+0x00445C14,0x08,SetLastZoneID_00445c14,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation13SetLastZoneIDEt,Savedata::Situation,static.crs,egg
+0x00445C1C,0x08,SetEggStepCount_00445c1c,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation15SetEggStepCountEj,Savedata::Situation,static.crs,egg
+0x00445C24,0x08,GetStartLocation_00445c24,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation16GetStartLocationEv,Savedata::Situation,static.crs,egg
+0x00445C2C,0x08,GetSpecialLocation_00445c2c,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation18GetSpecialLocationEv,Savedata::Situation,static.crs,egg
+0x00445C34,0x08,SetFriendlyStepCount_00445c34,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation20SetFriendlyStepCountEt,Savedata::Situation,static.crs,egg
+0x00445C3C,0x08,SetKawaigariStepCount_00445c3c,src/savedata/situation_accessors.cpp,_ZN8Savedata9Situation21SetKawaigariStepCountEt,Savedata::Situation,static.crs,egg
+0x004A8B78,0x08,GetLastZoneID_004a8b78,src/savedata/situation_accessors.cpp,_ZNK8Savedata9Situation13GetLastZoneIDEv,Savedata::Situation,static.crs,egg
+0x004A8B80,0x08,GetEggStepCount_004a8b80,src/savedata/situation_accessors.cpp,_ZNK8Savedata9Situation15GetEggStepCountEv,Savedata::Situation,static.crs,egg
+0x004A8B88,0x08,GetFriendlyStepCount_004a8b88,src/savedata/situation_accessors.cpp,_ZNK8Savedata9Situation20GetFriendlyStepCountEv,Savedata::Situation,static.crs,egg
+0x004A8B90,0x08,GetKawaigariStepCount_004a8b90,src/savedata/situation_accessors.cpp,_ZNK8Savedata9Situation21GetKawaigariStepCountEv,Savedata::Situation,static.crs,egg

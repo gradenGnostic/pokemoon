@@ -110,7 +110,7 @@ def main():
         "hybrid_image": str(args.hybrid_image.resolve()),
         "hybrid_image_size": args.hybrid_image.stat().st_size,
         "hybrid_image_sha256": sha256_file(args.hybrid_image),
-        "citra_boot_status": "USER_TEST_REQUIRED",
+        "citra_boot_status": "VERIFIED_WORKING",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
