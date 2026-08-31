@@ -104,3 +104,42 @@ extern "C" bool YellowAuto_004ab348(const uint8_t* arg0) {
 return ((const uint8_t *)arg0)[9] == 0x13 || ((const uint8_t *)arg0)[9] == 0x14;
 }
 #endif
+
+// Autonomous Qwen reconstruction approved by GPT-5.4 mini.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AB3A0
+extern "C" uint8_t YellowAuto_004ab3a0(const uint8_t* arg0) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData31GetPersonalEventRecordCategory1Ev");
+extern "C" uint8_t YellowAuto_004ab3a0(const uint8_t* arg0) {
+if (arg0[0x200] == 0) return 0;
+return arg0[0x1fc];
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AB3B4
+extern "C" uint8_t YellowAuto_004ab3b4(const uint8_t* arg0) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData31GetPersonalEventRecordCategory2Ev");
+extern "C" uint8_t YellowAuto_004ab3b4(const uint8_t* arg0) {
+if (arg0[0x200] == 0) return 0;
+return arg0[0x1fd];
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AB3C8
+extern "C" uint8_t YellowAuto_004ab3c8(const uint8_t* arg0) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData31GetPersonalEventRecordCategory3Ev");
+extern "C" uint8_t YellowAuto_004ab3c8(const uint8_t* arg0) {
+if (arg0[0x200] == 0) return 0;
+return arg0[0x1fe];
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AABAC
+extern "C" bool YellowAuto_004aabac(const uint8_t* arg0) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData16IsOpenAttractionEv");
+extern "C" bool YellowAuto_004aabac(const uint8_t* arg0) {
+return arg0[9] == 0x20;
+}
+#endif

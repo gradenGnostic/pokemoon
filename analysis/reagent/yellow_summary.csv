@@ -1,0 +1,13 @@
+blocker,candidates
+unknown this-pointer type,156
+missing class declaration,50
+uncertain member offset,259
+missing enum,0
+unresolved helper prototype,2
+shared header change required,1
+ABI uncertainty,85
+unresolved external call,530
+CRO ownership,0
+checker uncertainty,0
+missing prototype,0
+verified empty ARM body,0

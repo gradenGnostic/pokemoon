@@ -1,0 +1,54 @@
+{
+  "status": "COMPLETE",
+  "running": false,
+  "started_at": "2026-08-30T19:38:42+00:00",
+  "updated_at": "2026-08-31T05:46:52+00:00",
+  "current_function": null,
+  "current_name": null,
+  "tier": null,
+  "phase": "",
+  "queue": {
+    "catalog": 6086,
+    "eligible": 2073,
+    "processed": 2073,
+    "pending": 0,
+    "exact": 0,
+    "near": 0,
+    "semantic": 1579,
+    "rejected": 493,
+    "escalated": 1,
+    "blocked": 0,
+    "unsafe": 3976,
+    "already_reconstructed": 37,
+    "claimed": 0,
+    "waiting_checker": 0,
+    "tier0_eligible": 720,
+    "tier1_eligible": 1353
+  },
+  "results": {
+    "exact": 0,
+    "near": 0,
+    "semantic": 1579,
+    "rejected": 493,
+    "escalated": 1,
+    "blocked": 0,
+    "unsafe": 3976
+  },
+  "models": {
+    "reverser": "qwen2.5-coder:7b",
+    "context": 8192,
+    "checker": "gpt-5.4-mini",
+    "checker_passes_per_function": 1
+  },
+  "throughput": {
+    "functions_per_hour": 277.64
+  },
+  "last_completed": {
+    "address": "0x003C15DC",
+    "qualified_name": "print::WordSet::RegisterPlaceName",
+    "status": "SEMANTIC",
+    "duration_seconds": 9.804418802261353,
+    "finished_at": "2026-08-31T03:58:30+00:00"
+  },
+  "last_error": null
+}

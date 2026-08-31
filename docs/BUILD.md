@@ -35,8 +35,8 @@ make progress
 
 The default `make` builds `.decomp/exact/out/code.bin`. `make cxi` creates
 `build/runtime/exact/PokemonMoon_exact.cxi`. `make verify` checks CXI structure,
-permitted changed ranges, all 17 object selections, split-object exclusions,
-and each exact function's ARM bytes.
+permitted changed ranges, selected objects, split-object exclusions, and each
+exact function's ARM bytes.
 
 Additional targets:
 
@@ -63,12 +63,17 @@ pipeline independently compares bytes and relocations before selecting every
 compiled object; a mismatch falls back to the retail split object, and
 verification then fails because the expected compiled object was not selected.
 
-`semantic` has a separate serialized workspace and currently contains the same
-17 exact rows. The upstream pipeline has no supported way to force a
-nonmatching object into the final response file and also requires recreated
-binaries to hash like retail. The Make layer therefore refuses semantic
-nonmatching linkage as soon as any such row is marked `runtime_ready=true`,
-rather than silently emitting an exact fallback build.
+`semantic` has a separate serialized workspace. Source-backed functions may be
+accepted with `ASM_DIFFERENT` while remaining `runtime_ready=false`. The fixed
+address semantic image builder compiles and links only approved runtime-ready
+nonmatching rows, patches their retail slots, repacks the local CXI, and verifies
+that no bytes outside allowed regions changed:
+
+```sh
+make semantic SEMANTIC_VERSION=<label>
+```
+
+Compile-first source coverage and runtime activation are intentionally separate.
 
 ## Manifest
 

@@ -1,122 +1,46 @@
-# Phase 3 progress
+# Decompilation progress
 
-Updated: 2026-08-30
+Updated: 2026-08-31
 
-## Ground truth
+## Target
 
-- Target: Pokemon Moon, North America, base v1.0.
-- Main program: `static.crs`, ARMv7 little-endian.
+- Pokemon Moon, North America, base v1.0
+- `static.crs`, ARMv7 little-endian
+- 18,945 inventoried internal functions
 - Retail `code.bin` SHA-256:
-  `fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1`.
-- Hybrid #1 with reconstructed `Savedata::Sodateya::IsEggExist` was confirmed
-  booting in Citra by the user.
-- Phase 2.5 demo work is paused indefinitely; no Phase 3 work depends on it.
+  `fbe0ce6da21542542f49645fff78ba1b7e5e7cc172ce4daceeb5c26ab54adba1`
 
-## Function metrics
+## Function status
 
 | Metric | Count |
 |---|---:|
-| Internal retail functions exported | 18,945 |
-| Ghidra function-manager total | 18,946 |
-| Named functions | 4,703 |
-| Remaining `FUN_*` functions | 14,242 |
-| Source reconstructed | 40 |
-| Compiling | 40 |
-| `ASM_MATCH` | 17 |
+| Source-backed | 536 |
+| Compiling | 536 |
+| `ASM_MATCH` | 291 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic verified, nonmatching | 22 |
-| Runtime tested | 1 |
-| Analyzer-confirmed thunks | 388 |
-| Class namespaces in Ghidra | 446 |
-| Export-backed classes | 54 |
-| Export-backed vtables | 20 |
-| Export-backed RTTI records | 75 |
-| Inventoried `.cro` modules | 115 |
-| Inventoried modules including `static.crs` | 116 |
+| Semantic/nonmatching | 244 |
+| Runtime-ready | 53 |
+| Remaining YELLOW | 1,083 |
 
-The function-manager total includes one function not returned by the internal
-function iterator. Phase 3 catalogs use the 18,945 exported internal functions
-and preserve the manager total separately rather than hiding the discrepancy.
+`config/reconstructed_functions.csv` is authoritative. The compact resolver
+reports under `analysis/reagent/` record the paused queue snapshot. The local
+SQLite queue, proposals, logs, and candidate scratch files remain ignored but
+are preserved for an exact resume.
 
-## Difficulty queue
+## Runtime evidence
 
-| Tier | Count |
-|---|---:|
-| Tier 0 | 2,307 |
-| Tier 1 | 3,779 |
-| Tier 2 | 5,027 |
-| Tier 3 | 3,877 |
-| Tier 4 | 3,955 |
+The Phase 4C semantic image was tested manually in Citra. It booted, entered
+gameplay, and completed a Pokemon League battle. The tested image hash and
+runtime-ready function metadata are recorded in
+`config/runtime_verifications.json`.
 
-`analysis/functions.csv` is the provenance/status-enriched catalog.
-`analysis/function_queue.csv` contains the reproducible score and rationale.
-The conservative trivial pass staged 125 candidates: 76 empty ARM functions
-and 49 direct branch thunks. They remain candidates, not accepted source.
+## Current boundary
 
-Duplicate analysis found 299 exact-byte groups and 1,275 additional groups
-with identical mnemonic sequences but differing bytes. These are recorded in
-`analysis/duplicate_functions.csv` for reuse, not treated as semantic matches.
+Exact ARM matching is tracked as evidence but is not required for all source.
+Compile-first semantic promotions remain runtime-inactive by default. Shared
+canonical layouts and higher-risk ownership, networking, and state-machine code
+remain on the careful review path.
 
-## Source by subsystem
-
-| Subsystem | Source functions | ASM match | Near | Semantic/nonmatching |
-|---|---:|---:|---:|---:|
-| Daycare | 2 | 1 | 0 | 1 |
-| RNG | 5 | 1 | 0 | 4 |
-| Box | 12 | 5 | 0 | 7 |
-| Pokepara | 10 | 0 | 0 | 10 |
-| Egg/situation | 11 | 10 | 1 | 0 |
-
-## Pokemon and Box
-
-- Added a partial `Savedata::BOX` layout with proven offsets for 32 tray names,
-  six team names, team-lock bytes, wallpapers, tray maximum, and current tray.
-- Reconstructed 12 BOX helpers. Five match ARM exactly; seven are semantic
-  equivalents with different code generation or retail assertion scaffolding.
-- The team layout now includes the proven 6x6 packed-position table at offset
-  `0x4c8`, supporting team lock, lookup, and membership helpers.
-- `Box.cro` is imported as `/romfs/Box.cro` in Ghidra with 993 analyzed
-  functions, 183,064 executable bytes, one control-object export, and 426 named
-  imports. `analysis/box_cro_map.json` records the module-relative layout and
-  relocation caveats; no Box.cro-internal function is claimed reconstructed.
-- Existing PK7, `CoreParam`, `PokemonParam`, 0xe8 box, and 0x104 party research
-  remains the type foundation for subsequent work.
-- Added ten short `CoreParam` query bodies using the proven internal pointer at
-  offset `0x0c` and recovered core-data helper calls. The 8-byte CRS relocation
-  placeholders remain explicitly excluded from reconstruction.
-
-## EggHatching
-
-- Added a partial `Savedata::Situation` layout and reconstructed 11 location,
-  egg-step, friendship-step, and petting-step accessors.
-- Ten match exactly. `HasWarpContinueRequest` is a 15/16-byte near match.
-- `EggHatching.cro` has one named export and 116 imports inventoried; its body
-  has not yet been imported or reconstructed.
-
-## Other subsystems
-
-- GameManager: existing graph notes preserved; no new source functions yet.
-- QR: `QRReader.cro` inventory preserved; no new source functions yet.
-- Field: `FieldRo.cro` inventory preserved; no new source functions yet.
-- Battle: intentionally deferred; no new source functions yet.
-
-## Build status
-
-- The top-level `Makefile` is the canonical build interface. It generates
-  isolated adapters from `config/reconstructed_functions.csv`, compiles with
-  header dependencies, and delegates splitting, selection, and linking to the
-  proven 3DS Decomp Pipeline.
-- `analysis/batches/savedata_accessors_results.csv` records 18 compiling
-  functions: 15 exact, one near, and two semantic/nonmatching.
-- The current exact profile contains 17 reconstructed exact-match functions,
-  including the isolated `gfl2::math::Random` constructor. Every compiled
-  object was selected and every corresponding retail split object was excluded.
-- Final `code.bin` and CXI remain byte-identical to retail/source respectively.
-- `make semantic` has a separate workspace but intentionally refuses any
-  runtime-ready nonmatching object until the upstream selector supports it.
-
-## Next queue
-
-1. Extend `Situation` and daycare step-counter users toward EggHatching.
-2. Add independent split/link validation before enabling `Box.cro` builds.
-3. Generalize exact-hybrid checkpoints toward 50 source-backed functions.
+General decompilation is paused at this checkpoint. The next planned task is
+PC-critical dependency analysis, followed by work in a separate PC-port
+repository.

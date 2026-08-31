@@ -1,0 +1,28 @@
+{
+  "phase": "YELLOW RESOLUTION",
+  "starting_yellow": 1539,
+  "remaining_yellow": 1083,
+  "clusters_analyzed": 792,
+  "clusters_processed": 14,
+  "shared_blockers_fixed": 2,
+  "promoted": 456,
+  "source_backed": 536,
+  "exact": 291,
+  "semantic": 244,
+  "near": 1,
+  "runtime_ready": 53,
+  "updated_at": "2026-08-31T12:15:04+00:00",
+  "worker": "STOPPED",
+  "pid": null,
+  "current_cluster": null,
+  "current_namespace": null,
+  "phase4e_promoted": 62,
+  "cluster_states": {
+    "ESCALATED": 7,
+    "PARTIAL": 44,
+    "PENDING": 741,
+    "RESOLVED": 110
+  },
+  "reverser": "qwen2.5-coder:7b",
+  "checker": "gpt-5.4-mini via Codex CLI"
+}

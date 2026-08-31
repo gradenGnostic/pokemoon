@@ -1,5 +1,5 @@
 # Input
 
-Do not place or commit game binaries here. The original local CIA was
-intentionally deleted after extraction. Existing derived data lives under
-`extracted/`, which is ignored by Git.
+Do not commit game binaries here. Supply files extracted from your own legally
+obtained game dump under the ignored `extracted/` tree as documented in
+`docs/BUILD.md`. Local retail and derived files remain outside version control.

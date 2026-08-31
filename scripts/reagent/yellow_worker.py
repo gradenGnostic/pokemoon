@@ -483,7 +483,8 @@ def write_worker_status(connection: sqlite3.Connection, state: str, current: dic
     worker_processed = len({row["source"] for row in phase4e_rows}) + counts.get("ESCALATED", 0)
     phase4e_promoted = len(phase4e_rows)
     payload.update({
-        "worker": state, "pid": os.getpid(), "current_cluster": current["cluster_id"] if current else None,
+        "worker": state, "pid": os.getpid() if state == "RUNNING" else None,
+        "current_cluster": current["cluster_id"] if current else None,
         "current_namespace": current["namespace"] if current else None,
         "clusters_processed": worker_processed, "phase4e_promoted": phase4e_promoted,
         "cluster_states": counts, "reverser": QWEN_MODEL, "checker": f"{CHECKER_MODEL} via Codex CLI",
@@ -604,6 +605,17 @@ def reset_failed() -> int:
     return int(count)
 
 
+def checkpoint_stopped() -> None:
+    connection = ensure_state()
+    with connection:
+        connection.execute(
+            "UPDATE clusters SET status='PENDING',last_error='Recovered interrupted in-flight cluster after clean stop' "
+            "WHERE status IN ('QWEN','CHECKER')"
+        )
+    write_worker_status(connection, "STOPPED")
+    connection.close()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume", "reset-failed"))
@@ -622,6 +634,8 @@ def main() -> None:
         print(f"reset {reset_failed()} clusters")
     else:
         STOP.write_text(stamp() + "\n", encoding="utf-8")
+        if not service_active():
+            checkpoint_stopped()
         print("stop requested")
 
 

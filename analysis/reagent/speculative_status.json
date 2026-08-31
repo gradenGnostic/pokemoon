@@ -1,0 +1,29 @@
+{
+  "worker": "SAFE_POOL_EXHAUSTED",
+  "pid": null,
+  "starting_source_backed": 303,
+  "starting_yellow": 1316,
+  "safe_speculative_pool": 298,
+  "source_backed": 523,
+  "remaining_yellow": 1096,
+  "states": {
+    "BROKEN": 78,
+    "PROMOTED": 220
+  },
+  "last_batch": {
+    "attempted": 198,
+    "compile_pass": 132,
+    "compile_fail": 66,
+    "promoted": 132,
+    "link_conflicts": 0
+  },
+  "compiler_workers": 6,
+  "qwen_calls": 0,
+  "gpt_calls": 0,
+  "deterministic_fixes": 0,
+  "qwen_escalations": 78,
+  "promotions_per_minute": 1183.42,
+  "promotions_per_qwen_call": null,
+  "promotions_per_gpt_call": null,
+  "updated_at": "2026-08-31T10:02:04Z"
+}
