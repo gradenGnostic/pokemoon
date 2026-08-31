@@ -84,10 +84,6 @@ Semantic runtime images use only explicitly runtime-ready functions. See
 - `scripts/`: build, verification, Ghidra export, and queue tooling
 - `docs/`: target, runtime, subsystem, and research notes
 
-The autonomous YELLOW resolver is currently stopped with its resumable local
-state preserved under ignored `analysis/reagent/` files. The next planned work
-is PC-critical dependency analysis. A PC port will live in a separate
-repository; this decompilation repository remains the source authority.
 
 ## Contributions
 
