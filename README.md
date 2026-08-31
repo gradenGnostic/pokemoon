@@ -52,9 +52,6 @@ extracted/metadata/exheader.bin
 extracted/cxi/main.fully-decrypted.cxi
 ```
 
-Retail CIA, CXI, ExeFS, RomFS, CRO, CRS, audio, models, textures, and other game
-assets are excluded by `.gitignore`. Nothing in the normal build copies those
-files into Git.
 
 ## Building
 
