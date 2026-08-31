@@ -120,18 +120,6 @@ def symlink_to(source: Path, destination: Path) -> None:
 
 def setup_workspace(args: argparse.Namespace) -> None:
     work = args.work_dir.resolve()
-    unsafe_semantic = [
-        row for row in manifest_rows()
-        if args.mode == "semantic"
-        and row["asm_status"] != "ASM_MATCH"
-        and row["runtime_ready"] == "true"
-    ]
-    if unsafe_semantic:
-        names = ", ".join(row["address"] for row in unsafe_semantic)
-        raise SystemExit(
-            "semantic runtime selection is not yet supported by the upstream exact selector; "
-            f"runtime-ready nonmatching rows: {names}"
-        )
     rows = selected_rows(args.mode, "static.crs")
     if not rows:
         raise SystemExit("selected build contains no static.crs functions")
@@ -183,7 +171,7 @@ def setup_workspace(args: argparse.Namespace) -> None:
     }
     write_if_changed(args.stamp, json.dumps(fingerprint, indent=2) + "\n")
     args.stamp.touch()
-    print(f"Prepared {args.mode} workspace with {len(rows)} selected exact functions")
+    print(f"Prepared {args.mode} workspace with {len(rows)} selected functions")
 
 
 def generate_adapter(args: argparse.Namespace) -> None:
@@ -246,9 +234,8 @@ def validate_manifest() -> list[str]:
         if row["semantic_status"] not in {"SEMANTIC_VERIFIED", "SEMANTIC_UNVERIFIED", "BLOCKED"}:
             errors.append(f"invalid semantic status at {row['address']}: {row['semantic_status']}")
         if row["runtime_ready"] == "true" and row["asm_status"] != "ASM_MATCH":
-            errors.append(
-                f"nonmatching runtime-ready function unsupported by current pipeline: {row['address']}"
-            )
+            if row["compile_status"] != "COMPILES" or row["semantic_status"] != "SEMANTIC_VERIFIED":
+                errors.append(f"unverified semantic runtime function: {row['address']}")
         if row["adapter_mode"] not in {"direct_include", "macro_select"}:
             errors.append(f"invalid adapter mode at {row['address']}: {row['adapter_mode']}")
         if row["module"] not in modules:

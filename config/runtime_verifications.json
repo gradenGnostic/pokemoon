@@ -1,0 +1,15 @@
+{
+  "images": [
+    {
+      "version": "phase4c_0080",
+      "path": "build/runtime/semantic_phase4c_0080/PokemonMoon_semantic_phase4c_0080.cxi",
+      "sha256": "b8b06a64725c5f6e3a6d4f9dd32eb0b32c01a5b0462801338a4c6545feeb3835",
+      "runtime_verified": true,
+      "emulator": "Citra",
+      "boots": true,
+      "gameplay": true,
+      "battle": true,
+      "notes": "User launched the game and fought the professor at the Pokemon League."
+    }
+  ]
+}

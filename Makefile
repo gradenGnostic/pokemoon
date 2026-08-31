@@ -4,6 +4,7 @@ SHELL := /bin/bash
 .SUFFIXES:
 
 MODE ?= exact
+SEMANTIC_VERSION ?= dev
 PYTHON ?= python3
 CXX := arm-none-eabi-g++
 AS := arm-none-eabi-as
@@ -59,7 +60,7 @@ exact:
 	$(MAKE) MODE=exact cxi
 
 semantic:
-	$(MAKE) MODE=semantic cxi
+	$(PYTHON) scripts/build_semantic_image.py --version "$(SEMANTIC_VERSION)"
 
 force-tool-stamp:
 
@@ -164,7 +165,7 @@ help:
 		'make check            Check tools, inputs, manifest, adapters, and Git hygiene' \
 		'make progress         Print live reconstruction metrics' \
 		'make exact            Build and repack MODE=exact' \
-		'make semantic         Build semantic profile; currently exact-only unless support exists' \
+		'make semantic SEMANTIC_VERSION=...  Build a fixed-address semantic test CXI' \
 		'make diff FUNC=...    Compile and compare one manifest function' \
 		'make list [STATUS=...] [MODULE=...] [SUBSYSTEM=...]' \
 		'make status           Regenerate symbols/decomp_status.csv compatibility export' \

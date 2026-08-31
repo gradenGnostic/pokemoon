@@ -54,8 +54,22 @@ official headless runner without any model calls:
 make reagent-export
 ```
 
-Checker approval is not promotion. `validation.require_verified` remains true
-with no trusted automatic promotion command, so generated candidates remain
-unaccepted until manually integrated and checked with `make diff FUNC=...`.
-Only `ASM_MATCH` entries may be promoted automatically in a future workflow;
-near or semantic matches require review.
+Checker approval alone is not promotion. `validation.require_verified` remains
+true, and Phase 4D additionally requires credible ARM EABI declarations,
+successful compilation, and project validation. `ASM_MATCH`,
+`ASM_NEAR_MATCH`, and `ASM_DIFFERENT` are diagnostic outcomes rather than an
+acceptance policy.
+
+Existing checker-approved candidates are clustered and reclassified with:
+
+```sh
+python3 scripts/reagent/resolve_yellow.py analyze
+python3 scripts/reagent/resolve_yellow.py promote-empty --limit 100
+python3 scripts/reagent/resolve_yellow.py promote-leaf --limit 100
+python3 scripts/reagent/resolve_yellow.py status
+```
+
+The resolver promotes a whole evidence class, recompiles every member, and
+keeps failures out of the batch. New functions default to
+`runtime_ready=false`; source-backed coverage and runtime activation remain
+separate decisions.

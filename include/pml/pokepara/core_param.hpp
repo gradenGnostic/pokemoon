@@ -4,6 +4,8 @@
 namespace pml {
 namespace pokepara {
 
+enum Sick : unsigned int;
+
 struct BoxData {
     unsigned int encryption_constant;
     unsigned short sanity;
@@ -16,6 +18,19 @@ struct PartyData {
 };
 
 struct CoreParam {
+    void RecoverSick();
+    void RemoveItem();
+    void SetItem(unsigned short item);
+    void SetSick(Sick sick);
+    void SetFamiliarity(unsigned int value);
+    void RecoverHp(unsigned int amount);
+    void Serialize_Core(void* destination) const;
+
+    bool IsRare() const;
+    bool StartFastMode() const;
+    unsigned char GetWazaCount() const;
+    unsigned int GetTokuseiIndex() const;
+
     unsigned int GetPersonalRnd() const;
     unsigned char GetSeikaku() const;
     unsigned char GetParentSex() const;
