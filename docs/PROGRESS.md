@@ -38,9 +38,15 @@ runtime-ready function metadata are recorded in
 
 `scripts/decomp_dev_report.py` generates an objdiff v2 report from the committed
 function inventory and canonical reconstructed-function manifest. GitHub Actions
-publishes it as the `eu_report` artifact. Exact ARM matches count as matched;
-maintained nonmatching semantic reconstructions count as source-backed/complete
-without being mislabeled as byte-exact.
+publishes it as the `eu_report` artifact.
+
+Because Pokemoon accepts semantic reconstructions instead of requiring every
+function to match retail compiler output byte-for-byte, the top-level
+decomp.dev `decompiled` percentage is normalized to source-backed function
+coverage. At this checkpoint that is 536 / 18,945 = 2.829%.
+
+Exact ARM and partial byte-match evidence remains attached to individual report
+units. The `fully linked` field remains byte-weighted source coverage.
 
 ## Current boundary
 
