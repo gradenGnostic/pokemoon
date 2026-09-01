@@ -1,12 +1,13 @@
 # Pokemon Moon decompilation
 
-This repository reconstructs the North American base release of Pokemon Moon
+This repository reconstructs the European base release of Pokemon Moon
 from its Nintendo 3DS ARM executable. It contains source code, build tooling,
 symbol metadata, and reverse engineering notes. It does not contain retail game
 binaries or assets.
 
 ## Target
 
+- Region: Europe
 - Title ID: `0004000000175E00`
 - Product code: `CTR-P-BNEA`
 - Revision: base v1.0, title version 0
@@ -40,6 +41,14 @@ The status terms are deliberately separate:
 Exact matching remains useful evidence, but it is not required for every
 source reconstruction. Most compile-first promotions remain runtime-inactive
 until they receive stronger validation.
+
+## decomp.dev
+
+GitHub Actions publishes an objdiff v2 progress artifact named `eu_report` on
+pushes to `main`. The report is generated from the committed function inventory
+and `config/reconstructed_functions.csv`; exact ARM matches are reported as
+matched while maintained semantic reconstructions remain separately tracked as
+complete/source-backed work.
 
 ## Local game input
 
