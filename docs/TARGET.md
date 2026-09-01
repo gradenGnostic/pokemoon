@@ -1,8 +1,9 @@
 # Target
 
 The target was identified from local CIA, TMD, NCCH, exheader, and SMDH data.
-The filename was not trusted: its `Europe` claim conflicts with the title ID
-and product code, which identify the North American base game.
+The source archive used for this project is the European multilingual base
+release. The Title ID and product code are retained as executable identity
+fields, but they are not used here to override the source-region record.
 
 ## Original CIA
 
@@ -23,7 +24,10 @@ original CIA; no project tool moved or modified it.
 - Title: Pokemon Moon (confirmed by local ExeFS SMDH)
 - Title ID / program ID: `0004000000175E00`
 - Product code: `CTR-P-BNEA`
-- Region: North America (`A` product-code suffix and title ID)
+- Region: Europe
+- Region evidence: source CIA is the Europe-labelled multilingual release used
+  for this decompilation; executable IDs are retained separately as identity
+  metadata
 - SMDH region mask: `0x7FFFFFFF` (the application advertises broad region support)
 - TMD title version: `0.0.0 (0)`, corresponding to base game v1.0
 - Update content: absent; this CIA contains base application and manual only
