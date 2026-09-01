@@ -4,7 +4,7 @@ Updated: 2026-08-31
 
 ## Target
 
-- Pokemon Moon, North America, base v1.0
+- Pokemon Moon, Europe, base v1.0
 - `static.crs`, ARMv7 little-endian
 - 18,945 inventoried internal functions
 - Retail `code.bin` SHA-256:
@@ -33,6 +33,14 @@ The Phase 4C semantic image was tested manually in Citra. It booted, entered
 gameplay, and completed a Pokemon League battle. The tested image hash and
 runtime-ready function metadata are recorded in
 `config/runtime_verifications.json`.
+
+## decomp.dev reporting
+
+`scripts/decomp_dev_report.py` generates an objdiff v2 report from the committed
+function inventory and canonical reconstructed-function manifest. GitHub Actions
+publishes it as the `eu_report` artifact. Exact ARM matches count as matched;
+maintained nonmatching semantic reconstructions count as source-backed/complete
+without being mislabeled as byte-exact.
 
 ## Current boundary
 
