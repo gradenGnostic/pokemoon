@@ -45,10 +45,14 @@ until they receive stronger validation.
 ## decomp.dev
 
 GitHub Actions publishes an objdiff v2 progress artifact named `eu_report` on
-pushes to `main`. The report is generated from the committed function inventory
-and `config/reconstructed_functions.csv`; exact ARM matches are reported as
-matched while maintained semantic reconstructions remain separately tracked as
-complete/source-backed work.
+pushes to `main`. Pokemoon is semantic-first rather than matching-first, so the
+top-level decomp.dev **decompiled** percentage is normalized to maintained
+source coverage: source-backed functions divided by inventoried functions.
+With the current manifest that is 536 / 18,945 = 2.829%.
+
+Byte-weighted exact ARM evidence is still retained inside the report for
+per-function/detail views, while the `fully linked` field remains byte-weighted
+source coverage.
 
 ## Local game input
 
