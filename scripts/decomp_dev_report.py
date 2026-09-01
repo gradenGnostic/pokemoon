@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Generate an objdiff v2 progress report for decomp.dev.
 
-This is intentionally build-free: CI derives progress from the committed
-function inventory and the authoritative reconstructed-function manifest.
-Exact ARM matches count as matched; any maintained source reconstruction counts
-as complete/source-backed. Partial matched-byte evidence contributes only to
-objdiff's fuzzy percentage and is never promoted to an exact match.
+Pokemoon is a semantic decompilation project rather than a matching-first
+project. decomp.dev's headline is driven by objdiff's matched-code percentage,
+so the top-level matched-code fields are normalized to reconstructed-function
+coverage. This makes the public "decompiled" percentage mean maintained source
+functions / inventoried functions, which is the project's canonical progress
+metric.
+
+Real byte-weighted source coverage remains in the complete/linked fields, and
+per-function fuzzy/exact evidence is still emitted for detailed inspection.
 """
 
 from __future__ import annotations
@@ -68,6 +72,29 @@ def make_measures(rows: Iterable[dict[str, object]]) -> dict[str, object]:
         "total_units": total_functions,
         "complete_units": complete_units,
     }
+
+
+def apply_semantic_headline(
+    measures: dict[str, object], reconstructed_count: int, inventory_count: int
+) -> None:
+    """Map decomp.dev's headline matched-code metric to source coverage.
+
+    The objdiff report schema has no dedicated semantic-decompilation field.
+    decomp.dev labels matched_code_percent as "decompiled", so for this project
+    we intentionally normalize that top-level field to function coverage.
+    """
+    if inventory_count <= 0:
+        return
+
+    reconstructed_count = min(reconstructed_count, inventory_count)
+    coverage = percent(reconstructed_count, inventory_count)
+    total_code = int(str(measures["total_code"]))
+
+    measures["fuzzy_match_percent"] = coverage
+    measures["matched_code"] = str(round(total_code * coverage / 100.0))
+    measures["matched_code_percent"] = coverage
+    measures["matched_functions"] = reconstructed_count
+    measures["matched_functions_percent"] = coverage
 
 
 def main() -> None:
@@ -182,8 +209,12 @@ def main() -> None:
         for key in sorted(category_rows)
     ]
 
+    measures = make_measures(normalized)
+    manifest_count = len(reconstructed_rows)
+    apply_semantic_headline(measures, manifest_count, len(normalized))
+
     report = {
-        "measures": make_measures(normalized),
+        "measures": measures,
         "units": units,
         "version": 2,
         "categories": categories,
@@ -194,11 +225,12 @@ def main() -> None:
         json.dump(report, handle, indent=2)
         handle.write("\n")
 
-    measures = report["measures"]
+    exact_count = sum(1 for row in normalized if bool(row["matched"]))
+    mapped_source_count = sum(1 for row in normalized if bool(row["complete"]))
     print(
-        f"Wrote {args.out}: {measures['matched_functions']}/{measures['total_functions']} exact functions, "
-        f"{measures['complete_units']}/{measures['total_units']} source-backed, "
-        f"{measures['matched_code_percent']:.3f}% exact code bytes"
+        f"Wrote {args.out}: {manifest_count}/{len(normalized)} manifest functions "
+        f"({measures['matched_code_percent']:.3f}% semantic headline), "
+        f"{mapped_source_count} mapped source-backed, {exact_count} exact ARM matches"
     )
 
 
