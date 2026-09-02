@@ -1,0 +1,53 @@
+name: Register PC reconstruction mappings
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  register:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Register mapped PC reconstructions
+        run: python scripts/register_pc_reconstructions.py
+
+      - name: Regenerate compatibility status
+        run: python scripts/manage_build.py export-status
+
+      - name: Validate canonical manifest
+        run: |
+          python - <<'PY'
+          import sys
+          from scripts.manage_build import validate_manifest
+          errors = validate_manifest()
+          if errors:
+              print("\n".join(f"ERROR: {error}" for error in errors))
+              sys.exit(1)
+          print("manifest validation PASS")
+          PY
+
+      - name: Commit manifest updates
+        run: |
+          if git diff --quiet -- config/reconstructed_functions.csv symbols/decomp_status.csv; then
+            echo "No manifest changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/reconstructed_functions.csv symbols/decomp_status.csv
+          git commit -m "Register PC-port reconstructed retail functions"
+          git push
