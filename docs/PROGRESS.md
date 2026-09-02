@@ -1,6 +1,6 @@
 # Decompilation progress
 
-Updated: 2026-08-31
+Updated: 2026-09-02
 
 ## Target
 
@@ -14,18 +14,25 @@ Updated: 2026-08-31
 
 | Metric | Count |
 |---|---:|
-| Source-backed | 536 |
-| Compiling | 536 |
+| Source-backed | 545 |
+| Compiling | 545 |
 | `ASM_MATCH` | 291 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic/nonmatching | 244 |
+| Semantic verified/nonmatching | 250 |
+| Semantic unverified | 3 |
 | Runtime-ready | 53 |
 | Remaining YELLOW | 1,083 |
 
-`config/reconstructed_functions.csv` is authoritative. The compact resolver
-reports under `analysis/reagent/` record the paused queue snapshot. The local
-SQLite queue, proposals, logs, and candidate scratch files remain ignored but
-are preserved for an exact resume.
+`config/reconstructed_functions.csv` is authoritative. Nine retail `static.crs`
+functions reimplemented during the portable PC work are now registered in the
+manifest. Six have prior checker-passed semantic evidence; three remain
+source-backed but explicitly semantic-unverified because their older ARM
+candidates still had layout/store discrepancies.
+
+Host-only SDL/OpenGL/resource-decoder glue and work that maps only to
+`LangSelect.cro` are not counted in the `static.crs` headline. The compact
+resolver reports under `analysis/reagent/` remain a paused queue snapshot, so
+the displayed Remaining YELLOW count is retained as that checkpoint value.
 
 ## Runtime evidence
 
@@ -33,6 +40,10 @@ The Phase 4C semantic image was tested manually in Citra. It booted, entered
 gameplay, and completed a Pokemon League battle. The tested image hash and
 runtime-ready function metadata are recorded in
 `config/runtime_verifications.json`.
+
+The native PC runtime now also boots reconstructed core logic, drives portable
+process/frame scheduling, loads external retail title resources, and includes a
+working optional fresh-profile language selector.
 
 ## decomp.dev reporting
 
@@ -43,7 +54,7 @@ publishes it as the `eu_report` artifact.
 Because Pokemoon accepts semantic reconstructions instead of requiring every
 function to match retail compiler output byte-for-byte, the top-level
 decomp.dev `decompiled` percentage is normalized to source-backed function
-coverage. At this checkpoint that is 536 / 18,945 = 2.829%.
+coverage. At this checkpoint that is 545 / 18,945 = 2.877%.
 
 Exact ARM and partial byte-match evidence remains attached to individual report
 units. The `fully linked` field remains byte-weighted source coverage.
@@ -55,6 +66,7 @@ Compile-first semantic promotions remain runtime-inactive by default. Shared
 canonical layouts and higher-risk ownership, networking, and state-machine code
 remain on the careful review path.
 
-General decompilation is paused at this checkpoint. The next planned task is
-PC-critical dependency analysis, followed by work in a separate PC-port
-repository.
+The portable PC runtime now lives in this repository alongside the unchanged
+Nintendo 3DS Makefile path. Further PC work should register newly reconstructed
+retail functions in the canonical manifest when a defensible address/function
+mapping exists, while host-only platform code remains outside decomp progress.
