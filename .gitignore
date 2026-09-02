@@ -32,6 +32,7 @@ tools/3DS-Decomp-Pipeline/
 tools/3ds-Ghidra-Scripts/
 .decomp/
 build/
+game-data/
 *.o
 *.elf
 *.a

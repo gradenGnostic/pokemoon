@@ -88,9 +88,42 @@ make verify
 Semantic runtime images use only explicitly runtime-ready functions. See
 `docs/BUILD.md` for the complete build workflow.
 
+### Portable PC runtime
+
+The repository also provides an independent CMake target for the native PC
+runtime. It uses SDL2/OpenGL for host input and rendering while sharing portable
+reconstructed game logic. This target does not participate in the Nintendo 3DS
+`Makefile` build and does not replace any 3DS rendering code.
+
+Linux requirements are CMake 3.20 or newer, a C++17 compiler, SDL2, OpenGL, and
+Ninja. SDL2_ttf is required only when the optional fresh-profile language
+selector is enabled.
+
+```sh
+cmake --preset linux-debug
+cmake --build --preset linux-debug
+ctest --preset linux-debug
+```
+
+Enable the startup language selector with a separate build directory:
+
+```sh
+cmake -S . -B build/linux-language -G Ninja \
+  -DCMAKE_BUILD_TYPE=Debug -DPC_STARTUP_LANGUAGE=ON
+cmake --build build/linux-language
+ctest --test-dir build/linux-language --output-on-failure
+```
+
+Run `build/linux-debug/pokemoon-pc` with `--headless` for a session without a
+window. Use `--data-root <path>`, `POKEMOON_DATA_DIR`, or
+`POKEMOON_DATA_ROOT` to select external data. Retail resources remain external
+and use ID-preserving paths such as `romfs/arc/AAAA/DDDD.bin` under the selected
+data root.
+
 ## Repository layout
 
 - `src/`, `include/`: reconstructed source and declarations
+- `pc/`: portable host runtime, platform adapters, and tests
 - `config/reconstructed_functions.csv`: authoritative function manifest
 - `symbols/`: recovered symbols and compatibility status
 - `analysis/`: function catalogs, queues, and compact progress reports
