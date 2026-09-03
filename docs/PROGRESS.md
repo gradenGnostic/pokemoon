@@ -1,6 +1,6 @@
 # Decompilation progress
 
-Updated: 2026-09-02
+Updated: 2026-09-03
 
 ## Target
 
@@ -14,25 +14,25 @@ Updated: 2026-09-02
 
 | Metric | Count |
 |---|---:|
-| Source-backed | 545 |
-| Compiling | 545 |
-| `ASM_MATCH` | 291 |
+| Source-backed | 647 |
+| Compiling | 647 |
+| `ASM_MATCH` | 292 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic verified/nonmatching | 250 |
+| Semantic verified/nonmatching | 351 |
 | Semantic unverified | 3 |
 | Runtime-ready | 53 |
-| Remaining YELLOW | 1,083 |
+| Remaining YELLOW | 981 |
 
-`config/reconstructed_functions.csv` is authoritative. Nine retail `static.crs`
-functions reimplemented during the portable PC work are now registered in the
-manifest. Six have prior checker-passed semantic evidence; three remain
-source-backed but explicitly semantic-unverified because their older ARM
-candidates still had layout/store discrepancies.
+`config/reconstructed_functions.csv` is authoritative. The latest
+YELLOW-resolution pass promoted 102 additional reviewed ARM reconstructions.
+Together with the nine mapped retail functions contributed by the portable PC
+work, the canonical manifest now contains 647 source-backed functions.
 
-Host-only SDL/OpenGL/resource-decoder glue and work that maps only to
-`LangSelect.cro` are not counted in the `static.crs` headline. The compact
-resolver reports under `analysis/reagent/` remain a paused queue snapshot, so
-the displayed Remaining YELLOW count is retained as that checkpoint value.
+Six of the PC-port mappings have prior checker-passed semantic evidence; three
+remain source-backed but explicitly semantic-unverified because their older ARM
+candidates still had layout/store discrepancies. Host-only SDL/OpenGL/resource-
+decoder glue and work that maps only to `LangSelect.cro` are not counted in the
+`static.crs` headline.
 
 ## Runtime evidence
 
@@ -41,7 +41,7 @@ gameplay, and completed a Pokemon League battle. The tested image hash and
 runtime-ready function metadata are recorded in
 `config/runtime_verifications.json`.
 
-The native PC runtime now also boots reconstructed core logic, drives portable
+The native PC runtime also boots reconstructed core logic, drives portable
 process/frame scheduling, loads external retail title resources, and includes a
 working optional fresh-profile language selector.
 
@@ -54,7 +54,7 @@ publishes it as the `eu_report` artifact.
 Because Pokemoon accepts semantic reconstructions instead of requiring every
 function to match retail compiler output byte-for-byte, the top-level
 decomp.dev `decompiled` percentage is normalized to source-backed function
-coverage. At this checkpoint that is 545 / 18,945 = 2.877%.
+coverage. At this checkpoint that is 647 / 18,945 = 3.415%.
 
 Exact ARM and partial byte-match evidence remains attached to individual report
 units. The `fully linked` field remains byte-weighted source coverage.
@@ -66,7 +66,7 @@ Compile-first semantic promotions remain runtime-inactive by default. Shared
 canonical layouts and higher-risk ownership, networking, and state-machine code
 remain on the careful review path.
 
-The portable PC runtime now lives in this repository alongside the unchanged
+The portable PC runtime lives in this repository alongside the unchanged
 Nintendo 3DS Makefile path. Further PC work should register newly reconstructed
 retail functions in the canonical manifest when a defensible address/function
 mapping exists, while host-only platform code remains outside decomp progress.
