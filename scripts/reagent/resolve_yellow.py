@@ -13,6 +13,7 @@ import sqlite3
 import subprocess
 import tempfile
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 
@@ -326,6 +327,21 @@ def leaf_definition(address: str, symbol: str) -> str | None:
             f'extern "C" void {artifact}(uint8_t* self, uint32_t value) '
             f'{{ *reinterpret_cast<{value_type}*>(self + 0x{offset:x}) = static_cast<{value_type}>(value); }}'
         )
+    if len(operations) == 2:
+        move_value = re.fullmatch(r"movr1,#(0x[0-9a-f]+|[0-9]+)", operations[0])
+        constant_store = re.fullmatch(
+            r"(strb|strh|str)r1,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1]
+        )
+        if move_value and constant_store:
+            opcode, raw_offset = constant_store.groups()
+            offset = int(raw_offset or "0", 0)
+            value_type = {"strb": "uint8_t", "strh": "uint16_t", "str": "uint32_t"}[opcode]
+            value = move_value.group(1)
+            return (
+                f'extern "C" void {artifact}(uint8_t* self) {alias};\n'
+                f'extern "C" void {artifact}(uint8_t* self) '
+                f'{{ *reinterpret_cast<{value_type}*>(self + 0x{offset:x}) = {value}; }}'
+            )
     add = re.fullmatch(r"add(?:s)?r0,r0,#(0x[0-9a-f]+|[0-9]+)", operations[0]) if len(operations) == 1 else None
     if add:
         offset = int(add.group(1), 0)
@@ -402,14 +418,17 @@ def promote_leaf(limit: int) -> tuple[int, int, int]:
             attempted.append({**row, "address": address, "symbol": symbols[address], "definition": definition})
     approved: list[dict[str, str]] = []
     failed = 0
-    for row in attempted:
-        ok, _ = compile_leaf(row)
-        if ok:
-            approved.append(row)
-            if len(approved) >= limit:
-                break
-        else:
-            failed += 1
+    work = attempted[:max(limit * 4, limit)]
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        results = executor.map(compile_leaf, work)
+        checked = zip(work, results)
+        for row, (ok, _) in checked:
+            if ok:
+                approved.append(row)
+            else:
+                failed += 1
+    if len(approved) > limit:
+        approved = approved[:limit]
     if not approved:
         return 0, len(attempted), failed
     existing: list[dict[str, str]] = []
@@ -464,7 +483,9 @@ def promote_empty(limit: int) -> tuple[int, int]:
             selected.append({**row, "address": address, "symbol": symbols[address]})
             if len(selected) >= limit:
                 break
-    approved = [row for row in selected if compile_empty(row, selected)[0]]
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        results = executor.map(lambda row: compile_empty(row, selected), selected)
+        approved = [row for row, result in zip(selected, results) if result[0]]
     if not approved:
         return 0, len(selected)
     existing = [row for row in read_csv(MANIFEST) if row["source"] == str(EMPTY_SOURCE.relative_to(ROOT))]
