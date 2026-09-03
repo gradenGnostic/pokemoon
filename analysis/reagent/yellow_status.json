@@ -1,29 +1,15 @@
 {
   "phase": "YELLOW RESOLUTION",
   "starting_yellow": 1539,
-  "remaining_yellow": 981,
-  "clusters_analyzed": 479,
-  "clusters_processed": 69,
+  "remaining_yellow": 969,
+  "clusters_analyzed": 472,
+  "clusters_processed": 2,
   "shared_blockers_fixed": 2,
-  "promoted": 558,
-  "source_backed": 638,
-  "exact": 292,
-  "semantic": 345,
+  "promoted": 570,
+  "source_backed": 653,
+  "exact": 298,
+  "semantic": 354,
   "near": 1,
   "runtime_ready": 53,
-  "updated_at": "2026-09-03T18:30:02+00:00",
-  "worker": "STOPPED",
-  "pid": null,
-  "current_cluster": null,
-  "current_namespace": null,
-  "phase4e_promoted": 164,
-  "cluster_states": {
-    "COMPLETE": 13,
-    "ESCALATED": 30,
-    "PARTIAL": 28,
-    "PENDING": 392,
-    "RESOLVED": 801
-  },
-  "reverser": "qwen2.5-coder:7b",
-  "checker": "gpt-5.4-mini via Codex CLI"
+  "updated_at": "2026-09-03T18:54:12+00:00"
 }

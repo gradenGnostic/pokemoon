@@ -755,3 +755,33 @@ extern "C" void* YellowLeaf_0048d604(uint8_t* self) { return self + 0x8; }
 extern "C" uint32_t YellowLeaf_0048d60c(const uint8_t* self) __asm__("_ZNK3app4tool10LytTexData10GetTexSizeEv");
 extern "C" uint32_t YellowLeaf_0048d60c(const uint8_t* self) { return *reinterpret_cast<const uint32_t*>(self + 0x30); }
 #endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00493FB0
+extern "C" uint32_t YellowLeaf_00493fb0() __asm__("_ZNK4gfl215renderingengine10scenegraph4Node15IsTransformTypeEv");
+extern "C" uint32_t YellowLeaf_00493fb0() { return 0x0; }
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00493FC0
+extern "C" uint32_t YellowLeaf_00493fc0() __asm__("_ZNK4gfl215renderingengine10scenegraph8instance11DrawEnvNode17UpdateMaterialFogEPNS2_17ModelInstanceNodeE");
+extern "C" uint32_t YellowLeaf_00493fc0() { return 0x0; }
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A2D0C
+extern "C" uint32_t YellowLeaf_004a2d0c() __asm__("_ZNK6NetLib4Wifi19SubscriptionManager33GetOpenAttractionPreviousWaitTimeEv");
+extern "C" uint32_t YellowLeaf_004a2d0c() { return 0x0; }
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AAC88
+extern "C" uint32_t YellowLeaf_004aac88() __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData17GetPacketDataSizeEv");
+extern "C" uint32_t YellowLeaf_004aac88() { return 0xa0; }
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E665C
+extern "C" uint32_t YellowLeaf_002e665c(const uint8_t* self, uint32_t index) __asm__("_ZN3App9FieldMenu8PlayData19GetRotomMessageWorkEj");
+extern "C" uint32_t YellowLeaf_002e665c(const uint8_t* self, uint32_t index) { return *reinterpret_cast<const uint32_t*>(self + 0xc + (index << 3)); }
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00356F2C
+extern "C" uint32_t YellowLeaf_00356f2c(const uint8_t* self, uint32_t index) __asm__("_ZN4gfl24Fade11FadeManager21GetColorBufferTextureEj");
+extern "C" uint32_t YellowLeaf_00356f2c(const uint8_t* self, uint32_t index) { return *reinterpret_cast<const uint32_t*>(self + 0x10 + (index << 2)); }
+#endif
