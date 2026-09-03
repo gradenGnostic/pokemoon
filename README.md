@@ -20,17 +20,17 @@ layout record.
 
 ## Current state
 
-The canonical manifest currently records 545 source-backed functions out of
+The canonical manifest currently records 647 source-backed functions out of
 18,945 inventoried internal functions:
 
 | Status | Count |
 |---|---:|
-| Exact ARM match | 291 |
+| Exact ARM match | 292 |
 | Near match | 1 |
-| Semantic verified, nonmatching | 250 |
+| Semantic verified, nonmatching | 351 |
 | Semantic unverified | 3 |
 | Runtime-ready | 53 |
-| Remaining YELLOW review queue | 1,083 |
+| Remaining YELLOW review queue | 981 |
 
 The status terms are deliberately separate:
 
@@ -44,10 +44,12 @@ Exact matching remains useful evidence, but it is not required for every
 source reconstruction. Most compile-first promotions remain runtime-inactive
 until they receive stronger validation.
 
-The portable PC runtime also contributed mapped retail reconstructions for
-`gfl2::proc::Manager`, `applib::frame::Manager`, GameManager singleton access,
-and GameManager buffer-clear handling. Host-only SDL/OpenGL glue and code that
-belongs only to `LangSelect.cro` are not counted in the `static.crs` headline.
+The latest YELLOW-resolution pass promoted 102 additional reviewed ARM
+reconstructions. The portable PC runtime also contributes mapped retail
+reconstructions for `gfl2::proc::Manager`, `applib::frame::Manager`, GameManager
+singleton access, and GameManager buffer-clear handling. Host-only SDL/OpenGL
+glue and code that belongs only to `LangSelect.cro` are not counted in the
+`static.crs` headline.
 
 ## decomp.dev
 
@@ -55,7 +57,7 @@ GitHub Actions publishes an objdiff v2 progress artifact named `eu_report` on
 pushes to `main`. Pokemoon is semantic-first rather than matching-first, so the
 top-level decomp.dev **decompiled** percentage is normalized to maintained
 source coverage: source-backed functions divided by inventoried functions.
-With the current manifest that is 545 / 18,945 = 2.877%.
+With the current manifest that is 647 / 18,945 = 3.415%.
 
 Byte-weighted exact ARM evidence is still retained inside the report for
 per-function/detail views, while the `fully linked` field remains byte-weighted
