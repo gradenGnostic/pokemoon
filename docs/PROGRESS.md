@@ -14,19 +14,22 @@ Updated: 2026-09-03
 
 | Metric | Count |
 |---|---:|
-| Source-backed | 647 |
-| Compiling | 647 |
-| `ASM_MATCH` | 292 |
+| Source-backed | 673 |
+| Compiling | 673 |
+| `ASM_MATCH` | 298 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic verified/nonmatching | 351 |
+| Semantic verified/nonmatching | 371 |
 | Semantic unverified | 3 |
 | Runtime-ready | 53 |
-| Remaining YELLOW | 981 |
+| Remaining YELLOW | 949 |
 
-`config/reconstructed_functions.csv` is authoritative. The latest
-YELLOW-resolution pass promoted 102 additional reviewed ARM reconstructions.
-Together with the nine mapped retail functions contributed by the portable PC
-work, the canonical manifest now contains 647 source-backed functions.
+`config/reconstructed_functions.csv` is authoritative. The latest YELLOW
+throughput-recovery pass added 26 source-backed retail functions: six
+checker-approved leaf reconstructions that also match retail ARM bytes exactly,
+and 20 compile-first semantic reconstructions that remain runtime-inactive.
+Together with the previous 102-function reviewed ARM promotion and the nine
+mapped retail functions contributed by the portable PC work, the canonical
+manifest now contains 673 source-backed functions.
 
 Six of the PC-port mappings have prior checker-passed semantic evidence; three
 remain source-backed but explicitly semantic-unverified because their older ARM
@@ -54,7 +57,7 @@ publishes it as the `eu_report` artifact.
 Because Pokemoon accepts semantic reconstructions instead of requiring every
 function to match retail compiler output byte-for-byte, the top-level
 decomp.dev `decompiled` percentage is normalized to source-backed function
-coverage. At this checkpoint that is 647 / 18,945 = 3.415%.
+coverage. At this checkpoint that is 673 / 18,945 = 3.552%.
 
 Exact ARM and partial byte-match evidence remains attached to individual report
 units. The `fully linked` field remains byte-weighted source coverage.
