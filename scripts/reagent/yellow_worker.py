@@ -20,6 +20,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import resolve_yellow as resolver
+import speculative_promote
 
 
 ROOT = resolver.ROOT
@@ -662,14 +663,23 @@ def run_compile_first(connection: sqlite3.Connection) -> int:
     started = time.monotonic()
     empty_promoted, _ = resolver.promote_empty(200)
     leaf_promoted, _, _ = resolver.promote_leaf(200)
-    promoted = empty_promoted + leaf_promoted
+    speculative_promote.initialize_pool()
+    speculative_connection = speculative_promote.connect()
+    try:
+        speculative_result = speculative_promote.promote_batch(speculative_connection, 100)
+    finally:
+        speculative_connection.close()
+    speculative_promoted = speculative_result["promoted"]
+    mechanical_promoted = empty_promoted + leaf_promoted
+    promoted = mechanical_promoted + speculative_promoted
     metric_event(connection, "compiler", duration_seconds=time.monotonic() - started)
     if promoted:
         metric_event(connection, "compile_first_promotions", promoted)
-        metric_event(connection, "mechanical_promotions", promoted)
+        metric_event(connection, "mechanical_promotions", mechanical_promoted)
         subprocess.run(["make", "status"], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         resolver.analyze()
-    log(f"compile-first promoted={promoted} empty={empty_promoted} leaf={leaf_promoted}")
+    log(f"compile-first promoted={promoted} speculative={speculative_promoted} "
+        f"empty={empty_promoted} leaf={leaf_promoted}")
     return promoted
 
 

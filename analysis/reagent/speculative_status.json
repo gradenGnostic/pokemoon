@@ -1,29 +1,28 @@
 {
-  "worker": "SAFE_POOL_EXHAUSTED",
+  "worker": "TEST_COMPLETE",
   "pid": null,
-  "starting_source_backed": 303,
-  "starting_yellow": 1316,
-  "safe_speculative_pool": 298,
-  "source_backed": 523,
-  "remaining_yellow": 1096,
+  "starting_source_backed": 653,
+  "starting_yellow": 969,
+  "safe_speculative_pool": 20,
+  "source_backed": 673,
+  "remaining_yellow": 949,
   "states": {
-    "BROKEN": 78,
-    "PROMOTED": 220
+    "PROMOTED": 20
   },
   "last_batch": {
-    "attempted": 198,
-    "compile_pass": 132,
-    "compile_fail": 66,
-    "promoted": 132,
+    "attempted": 20,
+    "compile_pass": 20,
+    "compile_fail": 0,
+    "promoted": 20,
     "link_conflicts": 0
   },
   "compiler_workers": 6,
   "qwen_calls": 0,
   "gpt_calls": 0,
   "deterministic_fixes": 0,
-  "qwen_escalations": 78,
-  "promotions_per_minute": 1183.42,
+  "qwen_escalations": 0,
+  "promotions_per_minute": 86.98,
   "promotions_per_qwen_call": null,
   "promotions_per_gpt_call": null,
-  "updated_at": "2026-08-31T10:02:04Z"
+  "updated_at": "2026-09-03T19:08:20Z"
 }
