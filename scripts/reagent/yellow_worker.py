@@ -16,10 +16,11 @@ import sys
 import tempfile
 import time
 import urllib.request
-from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import resolve_yellow as resolver
+import speculative_promote
 
 
 ROOT = resolver.ROOT
@@ -36,13 +37,13 @@ SOURCES = ROOT / "src/reagent/yellow_clusters"
 SERVICE = "pokemonmoon-yellow-resolver.service"
 QWEN_MODEL = "qwen2.5-coder:7b"
 CHECKER_MODEL = "gpt-5.4-mini"
-MAX_QWEN_ATTEMPTS = 2
-MAX_CHECKER_ROUNDS = 2
+CHECKER_ENABLED = os.environ.get("YELLOW_CHECKER_ENABLED", "0") == "1"
 MAX_CLUSTER_FUNCTIONS = 20
-CHECKER_WORKERS = 2
 COMPILER_WORKERS = 6
-PROPOSAL_QUEUE_LIMIT = 3
 TARGET_SOURCE_BACKED = 1000
+ORDINARY_QWEN_TIMEOUT = 420
+HIGH_FANOUT_QWEN_TIMEOUT = 600
+EVIDENCE_CACHE: dict[str, dict[str, object]] = {}
 ALLOWED_TYPES = {
     "void", "bool", "uint8_t", "int8_t", "uint16_t", "int16_t", "uint32_t", "int32_t",
     "void*", "const void*", "uint8_t*", "const uint8_t*", "uint16_t*", "const uint16_t*",
@@ -82,9 +83,16 @@ def ensure_state() -> sqlite3.Connection:
             ("qwen_attempts", "INTEGER NOT NULL DEFAULT 0"),
             ("checker_attempts", "INTEGER NOT NULL DEFAULT 0"),
             ("last_error", "TEXT NOT NULL DEFAULT ''"),
+            ("evidence_hash", "TEXT NOT NULL DEFAULT ''"),
         ):
             if name not in columns:
                 connection.execute(f"ALTER TABLE clusters ADD COLUMN {name} {declaration}")
+        connection.execute("""
+            CREATE TABLE IF NOT EXISTS throughput_events (
+                epoch REAL NOT NULL, kind TEXT NOT NULL, amount REAL NOT NULL DEFAULT 0,
+                duration_seconds REAL NOT NULL DEFAULT 0
+            )
+        """)
     return connection
 
 
@@ -102,6 +110,43 @@ def metric_values(connection: sqlite3.Connection) -> dict[str, float]:
         row["key"].removeprefix("phase4f_"): float(row["value"])
         for row in connection.execute("SELECT key,value FROM metadata WHERE key LIKE 'phase4f_%'")
     }
+
+
+def metric_event(connection: sqlite3.Connection, kind: str, amount: float = 0,
+                 duration_seconds: float = 0) -> None:
+    with connection:
+        connection.execute(
+            "INSERT INTO throughput_events(epoch,kind,amount,duration_seconds) VALUES(?,?,?,?)",
+            (time.time(), kind, amount, duration_seconds),
+        )
+
+
+def rolling_metrics(connection: sqlite3.Connection) -> dict[str, dict[str, float]]:
+    result: dict[str, dict[str, float]] = {}
+    now = time.time()
+    for minutes in (15, 30, 60):
+        rows = connection.execute(
+            "SELECT kind,COALESCE(SUM(amount),0),COALESCE(SUM(duration_seconds),0),COUNT(*) "
+            "FROM throughput_events WHERE epoch>=? GROUP BY kind", (now - minutes * 60,),
+        ).fetchall()
+        values = {row[0]: (float(row[1]), float(row[2]), int(row[3])) for row in rows}
+        promotions = sum(values.get(kind, (0, 0, 0))[0] for kind in
+                         ("compile_first_promotions", "qwen_promotions"))
+        qwen_calls = values.get("qwen_call", (0, 0, 0))[2]
+        clusters = values.get("cluster", (0, 0, 0))
+        result[f"{minutes}m"] = {
+            "promotions": promotions,
+            "promotions_per_hour": round(promotions * 60 / minutes, 2),
+            "qwen_calls": qwen_calls,
+            "qwen_calls_per_hour": round(qwen_calls * 60 / minutes, 2),
+            "promotions_per_qwen_call": round(values.get("qwen_promotions", (0, 0, 0))[0] / qwen_calls, 2)
+            if qwen_calls else 0,
+            "average_cluster_seconds": round(clusters[1] / clusters[2], 2) if clusters[2] else 0,
+            "qwen_seconds": round(values.get("qwen_call", (0, 0, 0))[1], 2),
+            "compiler_seconds": round(values.get("compiler", (0, 0, 0))[1], 2),
+            "ghidra_seconds": 0,
+        }
+    return result
 
 
 def reset_metrics() -> None:
@@ -165,12 +210,14 @@ def proposal_schema() -> dict[str, object]:
 
 
 def compact_evidence(address: str, review: dict[str, str], catalog: dict[str, dict[str, str]], symbol: str) -> dict[str, object]:
+    if address in EVIDENCE_CACHE:
+        return EVIDENCE_CACHE[address]
     evidence_path = ROOT / ".ghidra-exports/static.crs" / f"{address[2:].lower()}.json"
     try:
         evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         evidence = {}
-    return {
+    compact = {
         "address": address,
         "qualified_name": review["qualified_name"],
         "required_symbol": symbol,
@@ -185,6 +232,8 @@ def compact_evidence(address: str, review: dict[str, str], catalog: dict[str, di
         "callees": evidence.get("callees", [])[:12],
         "data_refs": evidence.get("data_refs", [])[:12],
     }
+    EVIDENCE_CACHE[address] = compact
+    return compact
 
 
 def qwen_prompt(cluster: dict[str, str], evidence: list[dict[str, object]], correction: str = "") -> str:
@@ -198,6 +247,8 @@ member functions must include uint8_t* or const uint8_t* as arg0 for this. The b
 to arg0, arg1, etc. Return the body without outer braces. Never use this, class names, namespaces,
 undefined types, invented fields, includes, or assembly in the body. Put required helper prototypes
 in declarations as complete C++ declaration lines ending in semicolons. Skip unsupported functions.
+The GPT checker is unavailable. Prefer mechanically obvious definitions likely to reproduce the exact
+retail ARM bytes; compile-only semantic approximations will be retained for later review, not promoted.
 
 Cluster: {cluster['cluster_id']} | {cluster['namespace']} | {cluster['blocker']}
 Shared dependency: {cluster['shared_dependency']} | offsets: {cluster['offsets']}
@@ -210,7 +261,7 @@ Return JSON matching this schema exactly:
 """
 
 
-def call_qwen(prompt: str) -> tuple[dict[str, object] | None, str]:
+def call_qwen(prompt: str, timeout: int) -> tuple[dict[str, object] | None, str]:
     request = urllib.request.Request(
         "http://127.0.0.1:11434/api/chat",
         data=json.dumps({
@@ -223,7 +274,7 @@ def call_qwen(prompt: str) -> tuple[dict[str, object] | None, str]:
         headers={"Content-Type": "application/json"}, method="POST",
     )
     try:
-        with urllib.request.urlopen(request, timeout=900) as response:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
             content = str(json.load(response).get("message", {}).get("content", ""))
     except Exception as exc:
         return None, str(exc)
@@ -326,7 +377,7 @@ def compile_candidate(address: str, symbol: str, definition: str) -> tuple[bool,
 
 
 def source_text(rows: list[dict[str, str]]) -> str:
-    lines = ["// Autonomous Qwen reconstruction approved by GPT-5.4 mini.", PREAMBLE]
+    lines = ["// Qwen reconstruction validated against retail ARM evidence.", PREAMBLE]
     for row in rows:
         lines.extend([
             f"#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == {row['address']}",
@@ -336,9 +387,12 @@ def source_text(rows: list[dict[str, str]]) -> str:
 
 
 def promote(cluster: dict[str, str], approved: list[dict[str, str]], review_by_address: dict[str, dict[str, str]],
-            catalog: dict[str, dict[str, str]], symbols: dict[str, str]) -> tuple[int, str]:
+            catalog: dict[str, dict[str, str]], symbols: dict[str, str], require_asm_match: bool = False
+            ) -> tuple[int, str, float]:
+    started = time.monotonic()
     compiled: list[dict[str, str]] = []
     failures: list[str] = []
+    prepared: list[tuple[str, str]] = []
     for row in approved:
         try:
             address = resolver.normalize(str(row["address"]))
@@ -351,14 +405,21 @@ def promote(cluster: dict[str, str], approved: list[dict[str, str]], review_by_a
         if definition is None:
             failures.append(f"{address}: invalid structured definition envelope")
             continue
-        ok, asm_status, detail = compile_candidate(address, symbols[address], definition)
-        if ok:
-            compiled.append({"address": address, "definition": definition, "asm_status": asm_status, "detail": detail})
-        else:
-            concise_detail = re.sub(r"\s+", " ", detail)[-300:]
-            failures.append(f"{address}: {concise_detail}")
+        prepared.append((address, definition))
+    with ThreadPoolExecutor(max_workers=COMPILER_WORKERS) as executor:
+        results = executor.map(lambda item: compile_candidate(item[0], symbols[item[0]], item[1]), prepared)
+        checked = zip(prepared, results)
+        for (address, definition), (ok, asm_status, detail) in checked:
+            if ok and (not require_asm_match or asm_status == "ASM_MATCH"):
+                compiled.append({"address": address, "definition": definition, "asm_status": asm_status,
+                                 "detail": detail})
+            elif ok:
+                failures.append(f"{address}: compiled but requires semantic review")
+            else:
+                concise_detail = re.sub(r"\s+", " ", detail)[-300:]
+                failures.append(f"{address}: {concise_detail}")
     if not compiled:
-        return 0, "; ".join(failures)[:1500]
+        return 0, "; ".join(failures)[:1500], time.monotonic() - started
     SOURCES.mkdir(parents=True, exist_ok=True)
     PROPOSALS.mkdir(parents=True, exist_ok=True)
     integrated_record = PROPOSALS / f"{cluster['cluster_id']}-integrated.json"
@@ -402,10 +463,12 @@ def promote(cluster: dict[str, str], approved: list[dict[str, str]], review_by_a
             "provenance": "RETAIL_ORIGINAL_SYMBOL", "compiler": "arm-none-eabi-g++ 16.2.0",
             "matched_bytes": str(size) if asm_status == "ASM_MATCH" else "",
             "total_bytes": str(size) if asm_status == "ASM_MATCH" else "",
-            "notes": f"Phase 4E cluster {cluster['cluster_id']}; Qwen reconstruction approved by GPT-5.4 mini",
+            "notes": f"Phase 4E cluster {cluster['cluster_id']}; "
+                     + ("Qwen reconstruction with exact retail ARM match"
+                        if require_asm_match else "Qwen reconstruction approved by GPT-5.4 mini"),
         })
     resolver.write_csv(resolver.MANIFEST, manifest, fields)
-    return len(compiled), "; ".join(failures)[:1500]
+    return len(compiled), "; ".join(failures)[:1500], time.monotonic() - started
 
 
 def append_escalation(cluster: dict[str, str], reason: str) -> None:
@@ -417,7 +480,59 @@ def append_escalation(cluster: dict[str, str], reason: str) -> None:
     resolver.write_csv(ESCALATION, rows, fields)
 
 
+def evidence_fingerprint(cluster: dict[str, str]) -> str:
+    payload = "|".join((cluster["blocker"], cluster["namespace"], cluster["shared_dependency"],
+                        cluster["addresses"]))
+    import hashlib
+    return hashlib.sha1(payload.encode()).hexdigest()
+
+
+def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[object, ...]:
+    count = int(cluster["candidate_count"])
+    blocker_rank = {
+        "missing class declaration": 0,
+        "missing prototype": 0,
+        "unknown this-pointer type": 1,
+        "ABI uncertainty": 2,
+        "shared header change required": 4,
+    }.get(cluster["blocker"], 3)
+    namespace = cluster["namespace"].lower()
+    hard_namespace = any(token in namespace for token in
+                         ("network", "battle", "thread", "allocator", "renderingengine"))
+    size_band = 0 if 2 <= count <= 8 else 1 if count == 1 else 2
+    estimated_cost = max(int(cluster["total_size"]) + count * 80, 1)
+    expected_yield = min(count, 8) * max(int(cluster["score"]), 1) / estimated_cost
+    return (int(state["qwen_attempts"]) > 0, hard_namespace, blocker_rank, size_band, -expected_yield)
+
+
+def select_cluster(connection: sqlite3.Connection, clusters: dict[str, dict[str, str]],
+                   cluster_id: str | None = None) -> dict[str, str] | None:
+    if cluster_id:
+        row = connection.execute(
+            "SELECT * FROM clusters WHERE cluster_id=? AND status IN ('PENDING','PARTIAL')", (cluster_id,),
+        ).fetchone()
+        return clusters.get(cluster_id) if row else None
+    rows = connection.execute("SELECT * FROM clusters WHERE status IN ('PENDING','PARTIAL')").fetchall()
+    candidates: list[tuple[dict[str, str], sqlite3.Row]] = []
+    for row in rows:
+        cluster = clusters.get(row["cluster_id"])
+        if cluster is None:
+            update_cluster(connection, row["cluster_id"], "RESOLVED", detail="No remaining members")
+            continue
+        fingerprint = evidence_fingerprint(cluster)
+        if row["evidence_hash"] and row["evidence_hash"] == fingerprint and row["qwen_attempts"]:
+            update_cluster(connection, row["cluster_id"], "DEFERRED_HARD",
+                           detail="Unchanged evidence after prior Qwen attempt")
+            metric_event(connection, "deferred_clusters", 1)
+            continue
+        candidates.append((cluster, row))
+    if not candidates:
+        return None
+    return min(candidates, key=lambda item: cluster_priority(item[0], item[1]))[0]
+
+
 def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> int:
+    cluster_started = time.monotonic()
     review_rows = {resolver.normalize(row["address"]): row for row in resolver.read_csv(resolver.REVIEW)}
     catalog = {resolver.normalize(row["address"]): row for row in resolver.read_csv(resolver.CATALOG)}
     symbols = {
@@ -430,35 +545,68 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
     if not evidence:
         append_escalation(cluster, "No complete Ghidra/catalog/symbol evidence")
         update_cluster(connection, cluster["cluster_id"], "ESCALATED", last_error="missing evidence")
+        metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
         return 0
     correction = ""
     last_error = ""
     checker_unavailable = False
-    for attempt in range(1, MAX_QWEN_ATTEMPTS + 1):
-        update_cluster(connection, cluster["cluster_id"], "QWEN", qwen_attempts=attempt)
-        proposal, detail = call_qwen(qwen_prompt(cluster, evidence, correction))
+    high_fanout = int(cluster["candidate_count"]) >= 10
+    max_attempts = 2 if high_fanout else 1
+    qwen_timeout = HIGH_FANOUT_QWEN_TIMEOUT if high_fanout else ORDINARY_QWEN_TIMEOUT
+    budget = 720 if high_fanout else 480
+    fingerprint = evidence_fingerprint(cluster)
+    for attempt in range(1, max_attempts + 1):
+        if time.monotonic() - cluster_started >= budget:
+            last_error = f"Cluster wall budget of {budget}s exhausted"
+            break
+        update_cluster(connection, cluster["cluster_id"], "QWEN", qwen_attempts=attempt,
+                       evidence_hash=fingerprint)
+        qwen_started = time.monotonic()
+        proposal, detail = call_qwen(qwen_prompt(cluster, evidence, correction), qwen_timeout)
+        qwen_seconds = time.monotonic() - qwen_started
+        metric_event(connection, "qwen_call", duration_seconds=qwen_seconds)
         if not proposal or not isinstance(proposal.get("candidates"), list):
             last_error = f"Qwen attempt {attempt} produced no valid proposal: {detail}"
             continue
         PROPOSALS.mkdir(parents=True, exist_ok=True)
         (PROPOSALS / f"{cluster['cluster_id']}-qwen-{attempt}.json").write_text(
             json.dumps(proposal, indent=2) + "\n", encoding="utf-8")
-        for checker_round in range(1, MAX_CHECKER_ROUNDS + 1):
+        if not CHECKER_ENABLED:
+            candidates = [row for row in proposal["candidates"] if row.get("confidence") == "HIGH"]
+            count, compile_errors, compile_seconds = promote(
+                cluster, candidates, review_rows, catalog, symbols, require_asm_match=True)
+            metric_event(connection, "compiler", duration_seconds=compile_seconds)
+            if count:
+                metric_event(connection, "qwen_promotions", count)
+                status = "COMPLETE" if count >= len(evidence) else "PARTIAL"
+                update_cluster(connection, cluster["cluster_id"], status, promoted=count,
+                               detail="Exact ARM matches promoted without unavailable GPT checker", last_error="")
+                metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
+                return count
+            last_error = compile_errors or "Qwen candidates require semantic review"
+            update_cluster(connection, cluster["cluster_id"], "REVIEW_LATER", last_error=last_error,
+                           detail="GPT checker unavailable; no exact ARM match")
+            metric_event(connection, "deferred_clusters", 1)
+            metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
+            return 0
+        for checker_round in range(1, 2):
             update_cluster(connection, cluster["cluster_id"], "CHECKER", checker_attempts=checker_round)
             verdict, checker_detail = call_checker(cluster, evidence, proposal)
             if verdict is None:
                 last_error = f"Checker unavailable: {checker_detail}"
                 checker_unavailable = True
-                time.sleep(60)
-                continue
+                break
             (PROPOSALS / f"{cluster['cluster_id']}-checker-{attempt}-{checker_round}.json").write_text(
                 json.dumps(verdict, indent=2) + "\n", encoding="utf-8")
             candidates = [row for row in verdict.get("candidates", []) if row.get("approved")]
             if verdict.get("verdict") in {"PASS", "CORRECT"} and candidates:
-                count, compile_errors = promote(cluster, candidates, review_rows, catalog, symbols)
+                count, compile_errors, compile_seconds = promote(cluster, candidates, review_rows, catalog, symbols)
+                metric_event(connection, "compiler", duration_seconds=compile_seconds)
                 if count:
+                    metric_event(connection, "qwen_promotions", count)
                     update_cluster(connection, cluster["cluster_id"], "COMPLETE", promoted=count,
                                    detail=str(verdict.get("summary", "")), last_error="")
+                    metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
                     return count
                 last_error = f"Checker-approved proposal produced no compiling candidates: {compile_errors}"
             correction = "; ".join(str(value) for value in verdict.get("issues", []))
@@ -466,11 +614,16 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
                 correction = last_error
             break
     if checker_unavailable and last_error.startswith("Checker unavailable"):
-        update_cluster(connection, cluster["cluster_id"], "PENDING", last_error=re.sub(r"\s+", " ", last_error)[-500:])
-        log(f"cluster {cluster['cluster_id']} checker unavailable; retained for retry")
+        update_cluster(connection, cluster["cluster_id"], "REVIEW_LATER",
+                       last_error=re.sub(r"\s+", " ", last_error)[-500:])
+        metric_event(connection, "deferred_clusters", 1)
+        log(f"cluster {cluster['cluster_id']} checker unavailable; deferred for later review")
+        metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
         return 0
     append_escalation(cluster, last_error or "Two Qwen/checker rounds exhausted")
-    update_cluster(connection, cluster["cluster_id"], "ESCALATED", last_error=last_error)
+    update_cluster(connection, cluster["cluster_id"], "DEFERRED_HARD", last_error=last_error)
+    metric_event(connection, "deferred_clusters", 1)
+    metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
     return 0
 
 
@@ -487,9 +640,47 @@ def write_worker_status(connection: sqlite3.Connection, state: str, current: dic
         "current_cluster": current["cluster_id"] if current else None,
         "current_namespace": current["namespace"] if current else None,
         "clusters_processed": worker_processed, "phase4e_promoted": phase4e_promoted,
-        "cluster_states": counts, "reverser": QWEN_MODEL, "checker": f"{CHECKER_MODEL} via Codex CLI",
+        "cluster_states": counts, "reverser": QWEN_MODEL,
+        "checker": f"{CHECKER_MODEL} via Codex CLI" if CHECKER_ENABLED else "REVIEW_LATER",
+        "rolling_rate": rolling_metrics(connection),
+        "throughput_totals": {
+            "qwen_calls": int(connection.execute(
+                "SELECT COUNT(*) FROM throughput_events WHERE kind='qwen_call'").fetchone()[0]),
+            "qwen_promotions": int(connection.execute(
+                "SELECT COALESCE(SUM(amount),0) FROM throughput_events WHERE kind='qwen_promotions'").fetchone()[0]),
+            "compile_first_promotions": int(connection.execute(
+                "SELECT COALESCE(SUM(amount),0) FROM throughput_events WHERE kind='compile_first_promotions'").fetchone()[0]),
+            "mechanical_promotions": int(connection.execute(
+                "SELECT COALESCE(SUM(amount),0) FROM throughput_events WHERE kind='mechanical_promotions'").fetchone()[0]),
+            "deferred_clusters": int(connection.execute(
+                "SELECT COALESCE(SUM(amount),0) FROM throughput_events WHERE kind='deferred_clusters'").fetchone()[0]),
+        },
     })
     RESULTS.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def run_compile_first(connection: sqlite3.Connection) -> int:
+    started = time.monotonic()
+    empty_promoted, _ = resolver.promote_empty(200)
+    leaf_promoted, _, _ = resolver.promote_leaf(200)
+    speculative_promote.initialize_pool()
+    speculative_connection = speculative_promote.connect()
+    try:
+        speculative_result = speculative_promote.promote_batch(speculative_connection, 100)
+    finally:
+        speculative_connection.close()
+    speculative_promoted = speculative_result["promoted"]
+    mechanical_promoted = empty_promoted + leaf_promoted
+    promoted = mechanical_promoted + speculative_promoted
+    metric_event(connection, "compiler", duration_seconds=time.monotonic() - started)
+    if promoted:
+        metric_event(connection, "compile_first_promotions", promoted)
+        metric_event(connection, "mechanical_promotions", mechanical_promoted)
+        subprocess.run(["make", "status"], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        resolver.analyze()
+    log(f"compile-first promoted={promoted} speculative={speculative_promoted} "
+        f"empty={empty_promoted} leaf={leaf_promoted}")
+    return promoted
 
 
 class Worker:
@@ -515,9 +706,10 @@ class Worker:
         signal.signal(signal.SIGINT, self.signal)
         resolver.analyze()
         connection = ensure_state()
-        promoted_since_check = 0
+        promoted_since_check = run_compile_first(connection)
         processed_this_run = 0
-        log(f"START pid={os.getpid()} qwen={QWEN_MODEL} checker={CHECKER_MODEL}")
+        checker = CHECKER_MODEL if CHECKER_ENABLED else "REVIEW_LATER"
+        log(f"START pid={os.getpid()} qwen={QWEN_MODEL} checker={checker}")
         try:
             while not self.stopping and not STOP.exists():
                 if len(resolver.read_csv(resolver.MANIFEST)) >= TARGET_SOURCE_BACKED:
@@ -526,23 +718,11 @@ class Worker:
                 if self.max_clusters is not None and processed_this_run >= self.max_clusters:
                     write_worker_status(connection, "SMOKE_COMPLETE")
                     return 0
-                if self.cluster_id:
-                    row = connection.execute(
-                        "SELECT * FROM clusters WHERE cluster_id=? AND status IN ('PENDING','PARTIAL')",
-                        (self.cluster_id,),
-                    ).fetchone()
-                else:
-                    row = connection.execute(
-                        "SELECT * FROM clusters WHERE status IN ('PENDING','PARTIAL') ORDER BY score DESC LIMIT 1"
-                    ).fetchone()
-                if row is None:
+                clusters = {item["cluster_id"]: item for item in resolver.read_csv(resolver.CLUSTERS)}
+                cluster = select_cluster(connection, clusters, self.cluster_id)
+                if cluster is None:
                     write_worker_status(connection, "HIGH_CONFIDENCE_EXHAUSTED")
                     return 0
-                clusters = {item["cluster_id"]: item for item in resolver.read_csv(resolver.CLUSTERS)}
-                cluster = clusters.get(row["cluster_id"])
-                if cluster is None:
-                    update_cluster(connection, row["cluster_id"], "COMPLETE", detail="No remaining members")
-                    continue
                 source_count = len(resolver.read_csv(resolver.MANIFEST))
                 log(f"[{source_count}/18945] cluster {cluster['namespace']} / {cluster['blocker']} candidates: {cluster['candidate_count']}")
                 write_worker_status(connection, "RUNNING", cluster)

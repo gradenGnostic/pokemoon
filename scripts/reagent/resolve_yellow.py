@@ -10,9 +10,11 @@ import hashlib
 import json
 import re
 import sqlite3
+import struct
 import subprocess
 import tempfile
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 
@@ -286,6 +288,17 @@ def evidence_assembly(address: str) -> list[str]:
     return instructions
 
 
+def literal_value(raw_address: str) -> int | None:
+    offset = int(raw_address, 0) - 0x00100000
+    try:
+        with (ROOT / "extracted/exefs/code.bin").open("rb") as handle:
+            handle.seek(offset)
+            value = handle.read(4)
+    except OSError:
+        return None
+    return struct.unpack("<I", value)[0] if len(value) == 4 else None
+
+
 def leaf_definition(address: str, symbol: str) -> str | None:
     instructions = evidence_assembly(address)
     if not instructions or instructions[-1] != "bxlr":
@@ -326,6 +339,95 @@ def leaf_definition(address: str, symbol: str) -> str | None:
             f'extern "C" void {artifact}(uint8_t* self, uint32_t value) '
             f'{{ *reinterpret_cast<{value_type}*>(self + 0x{offset:x}) = static_cast<{value_type}>(value); }}'
         )
+    if len(operations) == 2:
+        move_value = re.fullmatch(r"movr1,#(0x[0-9a-f]+|[0-9]+)", operations[0])
+        constant_store = re.fullmatch(
+            r"(strb|strh|str)r1,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1]
+        )
+        if move_value and constant_store:
+            opcode, raw_offset = constant_store.groups()
+            offset = int(raw_offset or "0", 0)
+            value_type = {"strb": "uint8_t", "strh": "uint16_t", "str": "uint32_t"}[opcode]
+            value = move_value.group(1)
+            return (
+                f'extern "C" void {artifact}(uint8_t* self) {alias};\n'
+                f'extern "C" void {artifact}(uint8_t* self) '
+                f'{{ *reinterpret_cast<{value_type}*>(self + 0x{offset:x}) = {value}; }}'
+            )
+        global_load = re.fullmatch(r"ldrr0,\[(0x[0-9a-f]+)\]", operations[0])
+        global_value = re.fullmatch(r"ldrr0,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1])
+        if global_load and global_value:
+            base = literal_value(global_load.group(1))
+            if base is not None:
+                offset = int(global_value.group(1) or "0", 0)
+                return (
+                    f'extern "C" uint32_t {artifact}() {alias};\n'
+                    f'extern "C" uint32_t {artifact}() '
+                    f'{{ return *reinterpret_cast<const uint32_t*>(0x{base + offset:x}); }}'
+                )
+        literal_load = re.fullmatch(r"ldrr1,\[(0x[0-9a-f]+)\]", operations[0])
+        literal_store = re.fullmatch(r"(strb|strh|str)r1,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1])
+        if literal_load and literal_store:
+            value = literal_value(literal_load.group(1))
+            if value is not None:
+                opcode, raw_offset = literal_store.groups()
+                offset = int(raw_offset or "0", 0)
+                value_type = {"strb": "uint8_t", "strh": "uint16_t", "str": "uint32_t"}[opcode]
+                return (
+                    f'extern "C" void {artifact}(uint8_t* self) {alias};\n'
+                    f'extern "C" void {artifact}(uint8_t* self) '
+                    f'{{ *reinterpret_cast<{value_type}*>(self + 0x{offset:x}) = 0x{value:x}; }}'
+                )
+        indexed_add = re.fullmatch(r"addr0,r0,r1,lsl#(0x[0-9a-f]+|[0-9]+)", operations[0])
+        indexed_load = re.fullmatch(r"ldrr0,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1])
+        if indexed_add and indexed_load:
+            shift = int(indexed_add.group(1), 0)
+            offset = int(indexed_load.group(1) or "0", 0)
+            return (
+                f'extern "C" uint32_t {artifact}(const uint8_t* self, uint32_t index) {alias};\n'
+                f'extern "C" uint32_t {artifact}(const uint8_t* self, uint32_t index) '
+                f'{{ return *reinterpret_cast<const uint32_t*>(self + 0x{offset:x} + (index << {shift})); }}'
+            )
+    if len(operations) == 4:
+        bool_load = re.fullmatch(r"ldrb?r0,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[0])
+        compare = re.fullmatch(r"cmpr0,#(0x[0-9a-f]+|[0-9]+)", operations[1])
+        equal = re.fullmatch(r"moveqr0,#0x?1", operations[2])
+        unequal = re.fullmatch(r"movner0,#0x?0", operations[3])
+        if bool_load and compare and equal and unequal:
+            offset = int(bool_load.group(1) or "0", 0)
+            value = compare.group(1)
+            return (
+                f'extern "C" bool {artifact}(const uint8_t* self) {alias};\n'
+                f'extern "C" bool {artifact}(const uint8_t* self) '
+                f'{{ return *reinterpret_cast<const uint8_t*>(self + 0x{offset:x}) == {value}; }}'
+            )
+    if len(operations) in (3, 4):
+        zero = re.fullmatch(r"movr1,#0x?0", operations[0])
+        stores = [re.fullmatch(r"strr1,\[r0(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operation)
+                  for operation in operations[1:]]
+        if zero and all(stores):
+            assignments = " ".join(
+                f"*reinterpret_cast<uint32_t*>(self + 0x{int(store.group(1) or '0', 0):x}) = 0;"
+                for store in stores if store
+            )
+            return (
+                f'extern "C" void {artifact}(uint8_t* self) {alias};\n'
+                f'extern "C" void {artifact}(uint8_t* self) {{ {assignments} }}'
+            )
+    if len(operations) == 2:
+        global_base = re.fullmatch(r"ldrr1,\[(0x[0-9a-f]+)\]", operations[0])
+        global_store = re.fullmatch(r"(strb|strh|str)r0,\[r1(?:,#(0x[0-9a-f]+|[0-9]+))?\]", operations[1])
+        if global_base and global_store:
+            base = literal_value(global_base.group(1))
+            if base is not None:
+                opcode, raw_offset = global_store.groups()
+                offset = int(raw_offset or "0", 0)
+                value_type = {"strb": "uint8_t", "strh": "uint16_t", "str": "uint32_t"}[opcode]
+                return (
+                    f'extern "C" void {artifact}({value_type} value) {alias};\n'
+                    f'extern "C" void {artifact}({value_type} value) '
+                    f'{{ *reinterpret_cast<{value_type}*>(0x{base + offset:x}) = value; }}'
+                )
     add = re.fullmatch(r"add(?:s)?r0,r0,#(0x[0-9a-f]+|[0-9]+)", operations[0]) if len(operations) == 1 else None
     if add:
         offset = int(add.group(1), 0)
@@ -402,14 +504,17 @@ def promote_leaf(limit: int) -> tuple[int, int, int]:
             attempted.append({**row, "address": address, "symbol": symbols[address], "definition": definition})
     approved: list[dict[str, str]] = []
     failed = 0
-    for row in attempted:
-        ok, _ = compile_leaf(row)
-        if ok:
-            approved.append(row)
-            if len(approved) >= limit:
-                break
-        else:
-            failed += 1
+    work = attempted[:max(limit * 4, limit)]
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        results = executor.map(compile_leaf, work)
+        checked = zip(work, results)
+        for row, (ok, _) in checked:
+            if ok:
+                approved.append(row)
+            else:
+                failed += 1
+    if len(approved) > limit:
+        approved = approved[:limit]
     if not approved:
         return 0, len(attempted), failed
     existing: list[dict[str, str]] = []
@@ -421,7 +526,10 @@ def promote_leaf(limit: int) -> tuple[int, int, int]:
     LEAF_RECORD.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
     LEAF_SOURCE.parent.mkdir(parents=True, exist_ok=True)
     temporary = LEAF_SOURCE.with_suffix(".cpp.tmp")
-    temporary.write_text(leaf_source(records), encoding="utf-8")
+    previous_source = LEAF_SOURCE.read_text(encoding="utf-8") if LEAF_SOURCE.exists() else ""
+    addition = leaf_source(approved)
+    temporary.write_text(previous_source.rstrip() + "\n\n" + addition if previous_source else addition,
+                         encoding="utf-8")
     temporary.replace(LEAF_SOURCE)
 
     manifest = read_csv(MANIFEST)
@@ -464,7 +572,9 @@ def promote_empty(limit: int) -> tuple[int, int]:
             selected.append({**row, "address": address, "symbol": symbols[address]})
             if len(selected) >= limit:
                 break
-    approved = [row for row in selected if compile_empty(row, selected)[0]]
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        results = executor.map(lambda row: compile_empty(row, selected), selected)
+        approved = [row for row, result in zip(selected, results) if result[0]]
     if not approved:
         return 0, len(selected)
     existing = [row for row in read_csv(MANIFEST) if row["source"] == str(EMPTY_SOURCE.relative_to(ROOT))]

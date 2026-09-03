@@ -1,17 +1,17 @@
 {
   "phase": "YELLOW RESOLUTION",
   "starting_yellow": 1539,
-  "remaining_yellow": 981,
-  "clusters_analyzed": 479,
+  "remaining_yellow": 949,
+  "clusters_analyzed": 465,
   "clusters_processed": 69,
   "shared_blockers_fixed": 2,
-  "promoted": 558,
-  "source_backed": 638,
-  "exact": 292,
-  "semantic": 345,
+  "promoted": 590,
+  "source_backed": 673,
+  "exact": 298,
+  "semantic": 374,
   "near": 1,
   "runtime_ready": 53,
-  "updated_at": "2026-09-03T18:30:02+00:00",
+  "updated_at": "2026-09-03T20:25:51+00:00",
   "worker": "STOPPED",
   "pid": null,
   "current_cluster": null,
@@ -19,11 +19,53 @@
   "phase4e_promoted": 164,
   "cluster_states": {
     "COMPLETE": 13,
+    "DEFERRED_HARD": 8,
     "ESCALATED": 30,
-    "PARTIAL": 28,
-    "PENDING": 392,
-    "RESOLVED": 801
+    "RESOLVED": 815,
+    "REVIEW_LATER": 398
   },
   "reverser": "qwen2.5-coder:7b",
-  "checker": "gpt-5.4-mini via Codex CLI"
+  "checker": "REVIEW_LATER",
+  "rolling_rate": {
+    "15m": {
+      "promotions": 0,
+      "promotions_per_hour": 0.0,
+      "qwen_calls": 0,
+      "qwen_calls_per_hour": 0.0,
+      "promotions_per_qwen_call": 0,
+      "average_cluster_seconds": 0,
+      "qwen_seconds": 0,
+      "compiler_seconds": 0,
+      "ghidra_seconds": 0
+    },
+    "30m": {
+      "promotions": 0,
+      "promotions_per_hour": 0.0,
+      "qwen_calls": 0,
+      "qwen_calls_per_hour": 0.0,
+      "promotions_per_qwen_call": 0,
+      "average_cluster_seconds": 0,
+      "qwen_seconds": 0,
+      "compiler_seconds": 0,
+      "ghidra_seconds": 0
+    },
+    "60m": {
+      "promotions": 0,
+      "promotions_per_hour": 0.0,
+      "qwen_calls": 190,
+      "qwen_calls_per_hour": 190.0,
+      "promotions_per_qwen_call": 0.0,
+      "average_cluster_seconds": 7.79,
+      "qwen_seconds": 1453.35,
+      "compiler_seconds": 4.84,
+      "ghidra_seconds": 0
+    }
+  },
+  "throughput_totals": {
+    "qwen_calls": 409,
+    "qwen_promotions": 0,
+    "compile_first_promotions": 24,
+    "mechanical_promotions": 4,
+    "deferred_clusters": 424
+  }
 }

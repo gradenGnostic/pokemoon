@@ -1,11 +1,11 @@
 blocker,candidates
-unknown this-pointer type,515
+unknown this-pointer type,488
 missing class declaration,190
 uncertain member offset,0
 missing enum,0
 unresolved helper prototype,0
 shared header change required,17
-ABI uncertainty,257
+ABI uncertainty,252
 unresolved external call,0
 CRO ownership,0
 checker uncertainty,0
