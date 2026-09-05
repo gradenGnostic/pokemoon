@@ -29,7 +29,6 @@ f29833ccda10,unknown this-pointer type,PokeTool::PokemonSort,,static.crs,6,236,6
 fb7b4eeb8b8f,missing class declaration,app::tool::AppCommonGrpIconData,,static.crs,4,152,4,4,0,,67,MEDIUM,0x002FAA24;0x002FAB54;0x002FAB70;0x002FA984
 78d6dd95ce20,missing class declaration,gfl2::ui::Button,,static.crs,4,296,4,4,0,,67,MEDIUM,0x001049F8;0x00498F90;0x00498F40;0x00498FD8
 5c9744b35fa9,missing class declaration,poke_3d::model::BaseModel,,static.crs,4,248,4,4,0,,67,MEDIUM,0x00418008;0x00417D1C;0x004A5A0C;0x004A5840
-6ac7760faf73,ABI uncertainty,app::util::G2DUtil,,static.crs,5,172,5,5,5,,65,MEDIUM,0x00310E58;0x0048EF28;0x003102A4;0x00310988;0x0030F778
 b24833262904,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerListMessageMenuLowerView,,static.crs,5,492,5,5,6,,64,MEDIUM,0x00455B30;0x00455A68;0x00455AC8;0x004555F8;0x0045551C
 9ab6c5dd3a32,unknown this-pointer type,app::util::GetPaneHelper,,static.crs,5,268,5,5,7,,63,MEDIUM,0x003070E8;0x00306EB8;0x00306EEC;0x00306F20;0x003070B4
 ef9da0160b19,missing class declaration,NetAppLib::P2PTrade::P2PTradeRequestClient,,static.crs,3,108,3,3,0,,54,MEDIUM,0x00464D58;0x00464BD4;0x00464C58
@@ -40,158 +39,59 @@ f48917d52359,missing class declaration,PokeTool::PokeModel,,static.crs,3,140,3,3
 3ec49bf83b9f,unknown this-pointer type,app::tool::MenuCursor,,static.crs,4,272,4,4,4,,53,MEDIUM,0x002E95FC;0x002E9CCC;0x002E9B98;0x002E9CE0
 7b5fdac5fd69,unknown this-pointer type,gfl2::ui::Gyroscope,,static.crs,4,64,4,4,4,,53,MEDIUM,0x0034736C;0x0034737C;0x0034738C;0x0034739C
 00118b85e244,unknown this-pointer type,app::tool::ItemIcon,,static.crs,4,268,4,4,5,,52,MEDIUM,0x002FF88C;0x002FF8B0;0x002FF840;0x002FF1F0
-eae0bd24942f,unknown this-pointer type,NetAppLib::UI::NetAppMenuCursor,,static.crs,4,268,4,4,6,,51,MEDIUM,0x004598C8;0x00459894;0x00459944;0x00459980
 265eca1d045e,unknown this-pointer type,gfl2::thread::Event,,static.crs,6,120,6,6,7,,51,MEDIUM,0x0035F1A8;0x0035F16C;0x0035F110;0x0035F120;0x0035F15C;0x0035F17C
 c461a88ce461,ABI uncertainty,pml::personal,,static.crs,4,68,4,4,6,,51,MEDIUM,0x00315890;0x003159D0;0x0031587C;0x003158A4
-2f6758066e50,unknown this-pointer type,App::Tool::MessageMenuView,,static.crs,4,164,4,4,8,,49,MEDIUM,0x002CE0F8;0x002CED50;0x002CED68;0x002CED80
 58decbdcbeff,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaPersonalData,,static.crs,4,108,4,4,8,,49,MEDIUM,0x00467F58;0x004AA760;0x004AAA60;0x004AAEDC
 69191828fd66,ABI uncertainty,NetLib::NijiNetworkSystem,,static.crs,6,180,6,6,10,,48,MEDIUM,0x003D18A0;0x003D184C;0x003D2604;0x003D2700;0x003D18D4;0x003D1978
-07abaf677bf4,unknown this-pointer type,Savedata::GtsData,,static.crs,4,120,4,4,9,,48,MEDIUM,0x0044344C;0x004434A4;0x004434BC;0x003543EC
-4f2c927a79ad,unknown this-pointer type,Savedata::MyItem,,static.crs,4,84,4,4,9,,48,MEDIUM,0x004A7F74;0x00442898;0x004421CC;0x0044273C
-58d512f0aa0e,missing class declaration,App::Resort::ResortDataManager,,static.crs,2,132,2,2,0,,41,MEDIUM,0x002D8A48;0x002D82FC
-f38fa9b6c009,unknown this-pointer type,App::Tool::CommonMessageWindowManipulator,,static.crs,3,168,3,3,3,,41,MEDIUM,0x002D2384;0x002D23C8;0x002D20C8
-cce50581e0b2,missing class declaration,ExtSavedata::RegulationExtSaveData,,static.crs,2,160,2,2,0,,41,MEDIUM,0x0015C5D8;0x0015C684
 a97f6471469c,ABI uncertainty,Field::Encount::PokeSet,,static.crs,3,92,3,3,3,,41,MEDIUM,0x00399380;0x003989A4;0x0049E864
-6175e415ec06,missing class declaration,Field::EventList::EventListData,,static.crs,2,52,2,2,0,,41,MEDIUM,0x0049EF4C;0x0049EF64
 07f27315346f,ABI uncertainty,Field::FieldBerryManager,,static.crs,3,108,3,3,3,,41,MEDIUM,0x0038E9E8;0x0049DCDC;0x0049DD50
-16d5a17a0900,unknown this-pointer type,GameSys::AlolaTime,,static.crs,3,184,3,3,3,,41,MEDIUM,0x003F454C;0x004A3380;0x004A33CC
-4a38cb27d4e7,ABI uncertainty,GameSys::GameManager,,static.crs,3,36,3,3,3,,41,MEDIUM,0x00104A40;0x004A3230;0x004A3220
 f6d134807902,missing prototype,Global,,static.crs,2,76,2,2,0,,41,MEDIUM,0x0030181C;0x001551DC
-9767a3faa87c,missing class declaration,NetApp::Evolution::APP_PARAM,,static.crs,2,88,2,2,0,,41,MEDIUM,0x004A2AE0;0x003D00E0
-30c6d8c743bc,missing class declaration,NetApp::Live::LiveNet,,static.crs,2,20,2,2,0,,41,MEDIUM,0x004A2A74;0x004A2A64
-994f9b0725ed,missing class declaration,NetAppLib::JoinFesta::InformationMessageData,,static.crs,2,52,2,2,0,,41,MEDIUM,0x004693B4;0x00469374
 e3106c359261,unknown this-pointer type,NetAppLib::JoinFesta::JoinFestaPersonalDataManager,,static.crs,3,104,3,3,3,,41,MEDIUM,0x004AB4B8;0x00473498;0x00472ED0
-451b6ab4245b,missing class declaration,NetAppLib::JoinFestaUI::JoinFestaAttractionData,,static.crs,2,92,2,2,0,,41,MEDIUM,0x004490E8;0x00449010
-e7ea50e4218b,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerListLowerViewBase,,static.crs,3,108,3,3,3,,41,MEDIUM,0x004522DC;0x0045227C;0x004522AC
-127c4f53d0ef,missing class declaration,NetAppLib::System::ApplicationWorkBase,,static.crs,2,204,2,2,0,,41,MEDIUM,0x0045F560;0x0045F5C4
-54ebdb6fbaf2,unknown this-pointer type,NetAppLib::System::NetApplicationViewBase,,static.crs,3,200,3,3,3,,41,MEDIUM,0x004611D8;0x00461030;0x00460EF4
 4b530fdb2293,ABI uncertainty,NetAppLib::Util::BossUtility,,static.crs,3,56,3,3,3,,41,MEDIUM,0x0045B124;0x0045B0E4;0x0045B10C
-9960ff6e530a,missing class declaration,NetLib::P2P::P2pConnectionManager,,static.crs,2,48,2,2,0,,41,MEDIUM,0x003D6874;0x003D6BA4
 fb0124093e35,missing class declaration,Regulation,,static.crs,2,108,2,2,0,,41,MEDIUM,0x0015AFBC;0x00474E74
-fdcd0642eef0,missing class declaration,Savedata::BoxPokemon,,static.crs,2,160,2,2,0,,41,MEDIUM,0x004371CC;0x00437338
-4254583f2a82,missing class declaration,Savedata::GameTime,,static.crs,2,64,2,2,0,,41,MEDIUM,0x004A8220;0x004438F4
-81c4d8467955,missing class declaration,Savedata::JoinFestaDataSave,,static.crs,2,56,2,2,0,,41,MEDIUM,0x004A77F0;0x0043F170
 b2350073a477,missing class declaration,Savedata::Misc,,static.crs,2,44,2,2,0,,41,MEDIUM,0x004A7BE4;0x00441988
 e579e5681096,missing class declaration,Savedata::MyItem,,static.crs,2,124,2,2,0,,41,MEDIUM,0x004A7FA8;0x004A80D8
 cdbe4ada1ae3,unknown this-pointer type,Savedata::PokeFinderSave,,static.crs,3,84,3,3,3,,41,MEDIUM,0x0043B6DC;0x0043B6EC;0x0043B694
-b4dcea964cbb,unknown this-pointer type,System::Skybox::Skybox,,static.crs,3,116,3,3,3,,41,MEDIUM,0x003EC27C;0x003EBA98;0x003EB7D8
 656aed851043,missing class declaration,app::tool::AppToolTrainerIconRendering,,static.crs,2,148,2,2,0,,41,MEDIUM,0x002FD28C;0x002FD218
 fc919d01a5b5,unknown this-pointer type,app::tool::ButtonManager,,static.crs,3,48,3,3,3,,41,MEDIUM,0x002EC050;0x0048D9E8;0x0048D9F8
 9ef04bb04ad7,ABI uncertainty,app::tool::ItemIcon,,static.crs,3,56,3,3,3,,41,MEDIUM,0x002FF788;0x002FF790;0x002FF798
 e9bcdf120cb8,unknown this-pointer type,app::tool::PokeSimpleModelInFrame,,static.crs,3,148,3,3,3,,41,MEDIUM,0x002FB3CC;0x002FB390;0x002FB474
-ee5e858af4b0,missing class declaration,app::tool::ResourceLoader,,static.crs,2,112,2,2,0,,41,MEDIUM,0x002F0520;0x002F03C8
-b0deb0a6f2e7,missing class declaration,app::util,,static.crs,2,120,2,2,0,,41,MEDIUM,0x00307408;0x0030C154
-a4619855d978,missing class declaration,app::util::EffectUtil,,static.crs,2,104,2,2,0,,41,MEDIUM,0x0030618C;0x003060E4
-5b37d39cb026,missing class declaration,gfl2::animation::JointController,,static.crs,2,84,2,2,0,,41,MEDIUM,0x003601CC;0x0036019C
-71f8360fc777,missing class declaration,gfl2::qr::QREncodeData,,static.crs,2,132,2,2,0,,41,MEDIUM,0x00343370;0x00343400
-d466c537cab7,missing class declaration,gfl2::str::StrBuf,,static.crs,2,132,2,2,0,,41,MEDIUM,0x00354704;0x00354600
-c5d51e538da8,unknown this-pointer type,gfl2::ui::DeviceManager,,static.crs,3,132,3,3,3,,41,MEDIUM,0x00498960;0x0049898C;0x004989B8
 3dfe3231d1fb,ABI uncertainty,gfl2::ui::VectorDevice,,static.crs,3,48,3,3,3,,41,MEDIUM,0x004983E8;0x0049868C;0x0049869C
 19f2401e4e21,ABI uncertainty,gflnet2::p2p::NetGame,,static.crs,3,72,3,3,3,,41,MEDIUM,0x00407430;0x00407A9C;0x004070B0
 7f856098a5a6,missing class declaration,mw::qre::QREncoder,,static.crs,2,96,2,2,0,,41,MEDIUM,0x00163BA0;0x00163ADC
 5f8ab669cac7,unknown this-pointer type,poke_3d::model::CharaModelFactory,,static.crs,3,228,3,3,3,,41,MEDIUM,0x00412C64;0x004A4D28;0x004130B4
 004c863a12d3,missing class declaration,print,,static.crs,2,32,2,2,0,,41,MEDIUM,0x003BE598;0x003BE5A8
-b1096d55853a,missing class declaration,print::WordSet,,static.crs,2,100,2,2,0,,41,MEDIUM,0x003C23C8;0x003C2390
-0c6095a9f1f1,missing class declaration,std::ctype<char>,,static.crs,2,64,2,2,0,,41,MEDIUM,0x0010366A;0x001036B8
-bdc4caf8ba8b,ABI uncertainty,Field::Attribute,,static.crs,3,72,3,3,4,,40,MEDIUM,0x0039993C;0x0039994C;0x00399AD4
-bcb124516656,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerListPlayerInfoUpperView,,static.crs,3,180,3,3,4,,40,MEDIUM,0x00454100;0x00453524;0x00454194
-11b4bd696131,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerListSelectLowerViewBase,,static.crs,3,60,3,3,4,,40,MEDIUM,0x00455224;0x00455220;0x00455124
 6ff84b2b0bec,ABI uncertainty,NetLib::Error::NijiNetworkErrorManager,,static.crs,5,144,5,5,5,,40,MEDIUM,0x003DF544;0x003DF550;0x003DF55C;0x004A2D4C;0x003DF504
 1860bf001550,unknown this-pointer type,NetLib::Error::NijiNetworkErrorManager,,static.crs,5,88,5,5,5,,40,MEDIUM,0x003DF43C;0x003DF4F8;0x003DF580;0x003DF5E0;0x004A2D24
-0b85b4e06863,unknown this-pointer type,app::tool::PaneListView,,static.crs,3,148,3,3,4,,40,MEDIUM,0x002EBCE0;0x002EBDA0;0x002EBEB4
 856076fb826b,unknown this-pointer type,app::ui::UIView,,static.crs,3,80,3,3,4,,40,MEDIUM,0x0048D384;0x0048D398;0x002E78C4
-9a7ceafa8983,unknown this-pointer type,gfl2::Effect::System,,static.crs,3,160,3,3,4,,40,MEDIUM,0x0035DF68;0x0029A044;0x0035E088
-49ed0b543f1c,ABI uncertainty,gflnet2::p2p::NetGameBase,,static.crs,3,56,3,3,4,,40,MEDIUM,0x004020D4;0x00401CD8;0x00401260
 27c93d6c4bf2,unknown this-pointer type,Field::MoveModel::FieldMoveModelPlayer,,static.crs,3,168,3,3,5,,39,MEDIUM,0x0049F478;0x003A13AC;0x003A0370
-285e702d6482,ABI uncertainty,Field::ZoneDataAccessor,,static.crs,3,160,3,3,5,,39,MEDIUM,0x0049DAB8;0x0049D7B0;0x0049DC04
 e073a5defecc,unknown this-pointer type,NetAppLib::Util::NetAppPokeModelUtility,,static.crs,3,184,3,3,5,,39,MEDIUM,0x0045C854;0x0045CE34;0x0045C458
 1833613294e7,ABI uncertainty,gfl2::Effect::System,,static.crs,3,48,3,3,5,,39,MEDIUM,0x0035DF90;0x0035E0D8;0x0035DF78
 b6359f1fb6a1,ABI uncertainty,mw::qre::QREncoder,,static.crs,3,60,3,3,9,,35,MEDIUM,0x00163B24;0x00163AA8;0x00163AB4
-52a054bec3b4,unknown this-pointer type,app::util::KeyRepeatController,,static.crs,3,72,3,3,11,,33,MEDIUM,0x0030C2FC;0x0030C308;0x0030C190
-520ae7e1e356,unknown this-pointer type,gflnet2::p2p::NetGame,,static.crs,3,104,3,3,12,,32,MEDIUM,0x00407C30;0x00407440;0x004072D4
-0bc3a10e9739,ABI uncertainty,App::Resort::ResortDataManager,,static.crs,2,64,2,2,2,,29,LOW,0x002D82EC;0x002D8350
-bc8361c45e9b,unknown this-pointer type,App::Resort::ResortDataManager,,static.crs,2,84,2,2,2,,29,LOW,0x0048CB7C;0x0048CBFC
-7d5c8e58c692,unknown this-pointer type,App::Tool::CommonMessageWindowView,,static.crs,2,96,2,2,2,,29,LOW,0x002D1CD8;0x002D1D04
-0317ee609af6,unknown this-pointer type,Field::FieldScript::SystemWork,,static.crs,2,40,2,2,2,,29,LOW,0x003752BC;0x003752D0
 73f1cf749447,unknown this-pointer type,Field::MoveModel::FieldMoveModelManager,,static.crs,2,72,2,2,2,,29,LOW,0x003A5348;0x003A4F64
-2ab131f98967,ABI uncertainty,GameSys::AlolaTime,,static.crs,2,28,2,2,2,,29,LOW,0x003F3DEC;0x003F427C
-b36b28f764fb,unknown this-pointer type,NetApp::Evolution::APP_PARAM,,static.crs,2,56,2,2,2,,29,LOW,0x0031D9B0;0x004A2ABC
-3c977ec92f47,ABI uncertainty,NetApp::QR,,static.crs,2,24,2,2,2,,29,LOW,0x003CD0E8;0x003CD0D4
-821db36f7651,unknown this-pointer type,NetApp::QR,,static.crs,2,76,2,2,2,,29,LOW,0x003CD038;0x003CCFF4
 d9473b331921,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaPacketManager,,static.crs,2,64,2,2,2,,29,LOW,0x00466618;0x0046940C
-923ce36c1f65,unknown this-pointer type,NetAppLib::JoinFesta::JoinFestaPacketManager,,static.crs,2,72,2,2,2,,29,LOW,0x00469B1C;0x0046AAC8
-05315ccaddc0,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaAttractionSelectLowerView,,static.crs,2,128,2,2,2,,29,LOW,0x00453250;0x004531F8
-cbd0ce03ac4c,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerData,,static.crs,2,104,2,2,2,,29,LOW,0x004489EC;0x00448978
 ffac94bf8c02,unknown this-pointer type,NetAppLib::UI::NetAppCursorView,,static.crs,2,96,2,2,2,,29,LOW,0x00459580;0x00459400
-390d20a1bbd5,unknown this-pointer type,NetAppLib::UI::NetAppMessageMenu,,static.crs,2,132,2,2,2,,29,LOW,0x00459B1C;0x00459ACC
 01f15c3681d5,ABI uncertainty,NetAppLib::Util::NetAppEffectBG,,static.crs,2,36,2,2,2,,29,LOW,0x003EF088;0x0045B6DC
 15355509903f,ABI uncertainty,NetAppLib::Util::NetAppEntryChecker,,static.crs,2,28,2,2,2,,29,LOW,0x0045C160;0x0045C1DC
-08c1f2a5e16e,unknown this-pointer type,Savedata::GameSyncSave,,static.crs,2,56,2,2,2,,29,LOW,0x0043A2CC;0x0043A300
 241b4ec3a3b9,unknown this-pointer type,Savedata::MyStatus,,static.crs,2,36,2,2,2,,29,LOW,0x004A8500;0x003566F0
 7e55a1102063,ABI uncertainty,Savedata::MysteryGiftSave,,static.crs,2,36,2,2,2,,29,LOW,0x0043BD3C;0x0043D140
-3eeaa1cc2217,unknown this-pointer type,Savedata::ZukanData,,static.crs,2,116,2,2,2,,29,LOW,0x004A9230;0x00446724
-a024399b6e30,ABI uncertainty,System,,static.crs,2,28,2,2,2,,29,LOW,0x003ED8D8;0x003E5BE8
-8e5289d6c9c7,unknown this-pointer type,System::Camera::CModelViewerInFrame,,static.crs,2,84,2,2,2,,29,LOW,0x003E7FF8;0x003E82C0
-d6894f32531f,unknown this-pointer type,System::EnvAccessor,,static.crs,2,36,2,2,2,,29,LOW,0x003E492C;0x003E4B64
-e5f3965d2efb,unknown this-pointer type,System::MotionBlur,,static.crs,2,80,2,2,2,,29,LOW,0x004A2E50;0x004A2E78
 5f7298b0db2b,unknown this-pointer type,app::sort::StringTokusei,,static.crs,2,48,2,2,2,,29,LOW,0x002E877C;0x002E8760
-0c01d3df1cb9,unknown this-pointer type,app::sort::StringWaza,,static.crs,2,48,2,2,2,,29,LOW,0x002E82DC;0x002E829C
 a1f5eddb7c1c,unknown this-pointer type,app::tool::AppToolTrainerIconRendering::ICON_OBJECT_DATA,,static.crs,2,144,2,2,2,,29,LOW,0x002FCE64;0x002FCDF4
-37c7046ecab7,ABI uncertainty,app::tool::ButtonManager,,static.crs,2,52,2,2,2,,29,LOW,0x0048DA4C;0x002EC3AC
-4e832905e7f1,unknown this-pointer type,app::tool::ScrollPaneManager,,static.crs,2,84,2,2,2,,29,LOW,0x002F5CAC;0x002F5088
-48b58a04c511,ABI uncertainty,app::ui::UIResponder,,static.crs,2,72,2,2,2,,29,LOW,0x002E6F94;0x002E6FC0
-e3ecd40578c2,unknown this-pointer type,app::ui::UIResponder,,static.crs,2,132,2,2,2,,29,LOW,0x002E6EA0;0x002E6ED0
-7e8acb4e4156,unknown this-pointer type,app::util::AppQRTextureCreateUtility,,static.crs,2,32,2,2,2,,29,LOW,0x0030DAA4;0x0030DAB4
-6b67087841d7,unknown this-pointer type,app::util::EffectUtil,,static.crs,2,116,2,2,2,,29,LOW,0x00306130;0x0048E764
-b54ff7fb452c,ABI uncertainty,gfl2::lyt::LytWk,,static.crs,2,16,2,2,2,,29,LOW,0x00350C84;0x004996F0
-fc54488e5943,unknown this-pointer type,gfl2::lyt::LytWk,,static.crs,2,132,2,2,2,,29,LOW,0x00499578;0x00352E68
-928994ee136d,unknown this-pointer type,gfl2::math::SpringSimulation,,static.crs,2,96,2,2,2,,29,LOW,0x00358BF4;0x00358D14
+0b85b4e06863,unknown this-pointer type,app::tool::PaneListView,,static.crs,2,80,2,2,2,,29,LOW,0x002EBCE0;0x002EBDA0
 e4968859a7ef,ABI uncertainty,gfl2::renderingengine::scenegraph::SceneGraphManager,,static.crs,2,132,2,2,2,,29,LOW,0x003236FC;0x003235B8
 760ba87d27a8,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryMdlData,,static.crs,2,68,2,2,2,,29,LOW,0x0032C994;0x0032C884
 9f1c7e76b39c,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryShdData,,static.crs,2,68,2,2,2,,29,LOW,0x0032CC98;0x0032CB88
 542c62515ca5,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryTexData,,static.crs,2,68,2,2,2,,29,LOW,0x0032CE6C;0x0032CD5C
-86cac007ee51,unknown this-pointer type,item::ITEM_DATA,,static.crs,2,76,2,2,2,,29,LOW,0x0036DD5C;0x0036DD24
-6c20b5713488,unknown this-pointer type,nw::lyt::Pane,,static.crs,2,88,2,2,2,,29,LOW,0x002A0AA0;0x002A0A34
-a5107757966f,ABI uncertainty,poke_3d::model::CharaModelFactory,,static.crs,2,136,2,2,2,,29,LOW,0x00411868;0x004A4E6C
-5ff5d6b6c2d2,unknown this-pointer type,poke_3d::renderer::BloomRenderPath,,static.crs,2,56,2,2,2,,29,LOW,0x004A5D1C;0x0041AEC4
 a0de9e463f29,unknown this-pointer type,print::HangulComposer,,static.crs,2,56,2,2,2,,29,LOW,0x004A1B34;0x003BF9FC
-3a3c3f3d895b,ABI uncertainty,"std::codecvt_byname<wchar_t,char,std::__mbstate_t>",,static.crs,2,36,2,2,2,,29,LOW,0x00103384;0x00103368
-ead42d6dc1d0,unknown this-pointer type,std::ctype_byname<char>,,static.crs,2,20,2,2,2,,29,LOW,0x00103A68;0x00103A5C
-a39bba114641,unknown this-pointer type,std::string,,static.crs,2,36,2,2,2,,29,LOW,0x003017AC;0x00302F50
-4fd2084731b8,missing class declaration,App::PokeList::PokeListSimpleFrame,,static.crs,1,44,1,1,0,,28,LOW,0x0048D308
-99461efa65d6,missing class declaration,App::Tool::ItemEffect,,static.crs,1,44,1,1,0,,28,LOW,0x002C87BC
-5b8a1d7f5555,missing class declaration,App::Tool::NewPaneList,,static.crs,1,24,1,1,0,,28,LOW,0x002CB7CC
-1d1dbf17f03e,missing class declaration,App::Tool::TalkWindow,,static.crs,1,60,1,1,0,,28,LOW,0x002CB3E8
+cce50581e0b2,missing class declaration,ExtSavedata::RegulationExtSaveData,,static.crs,1,68,1,1,0,,28,LOW,0x0015C684
 4265b7118d2d,missing class declaration,Field::Area,,static.crs,1,44,1,1,0,,28,LOW,0x00394BA8
-185c41a6753d,missing class declaration,Field::EventList::EventListDataManager,,static.crs,1,52,1,1,0,,28,LOW,0x00399F5C
-93138cac3ba7,ABI uncertainty,Field::FieldScript::FieldScriptSystem,,static.crs,2,80,2,2,3,,28,LOW,0x0038032C;0x0049CEF0
 995626918ac9,missing class declaration,Field::FieldScript::ScriptMoveModelManager,,static.crs,1,48,1,1,0,,28,LOW,0x00382FE0
 bd07bbe4d2a1,missing class declaration,Field::FieldScript::Work,,static.crs,1,24,1,1,0,,28,LOW,0x00383428
-3adc78d63f96,missing class declaration,Field::FieldSodateya,,static.crs,1,76,1,1,0,,28,LOW,0x00385F5C
-8d6df393084c,missing class declaration,Field::FieldSound,,static.crs,1,40,1,1,0,,28,LOW,0x00374650
-482e8421c0f1,missing class declaration,Field::MoveModel::FieldMoveCodeManager,,static.crs,1,20,1,1,0,,28,LOW,0x0039FB24
 848029278931,missing class declaration,Field::MoveModel::FieldMoveModel,,static.crs,1,24,1,1,0,,28,LOW,0x0039DD88
-45fb33f68335,missing class declaration,Field::World,,static.crs,1,36,1,1,0,,28,LOW,0x003960D0
 e25dd24eb325,missing class declaration,FullPowerEffectRenderPath0,,static.crs,1,80,1,1,0,,28,LOW,0x00161824
 5b0c254f44ff,missing class declaration,FullPowerEffectRenderPath1,,static.crs,1,88,1,1,0,,28,LOW,0x00162254
-bd414388b10c,missing class declaration,GameSys::AlolaTime,,static.crs,1,24,1,1,0,,28,LOW,0x003F459C
-a4bec754fd86,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaAttractionManager,,static.crs,2,48,2,2,3,,28,LOW,0x004717D0;0x00470830
 ef5d104df5d3,missing class declaration,NetAppLib::JoinFesta::JoinFestaAttractionManager,,static.crs,1,20,1,1,0,,28,LOW,0x00470910
-acccbd962589,missing class declaration,NetAppLib::JoinFesta::JoinFestaPersonalData,,static.crs,1,24,1,1,0,,28,LOW,0x00469358
-d0c2b3be74e0,missing class declaration,NetAppLib::JoinFesta::JoinFestaSelectWordTable,,static.crs,1,52,1,1,0,,28,LOW,0x004702D4
-5a02a8e19bf5,missing class declaration,NetAppLib::JoinFestaUI::JoinFestaPlayerListSelectLowerViewBase,,static.crs,1,4,1,1,0,,28,LOW,0x004AA54C
-abb4ddecfa69,missing class declaration,NetAppLib::JoinFestaUI::JoinFestaSurveyLowerView,,static.crs,1,120,1,1,0,,28,LOW,0x00449CFC
-08e100bff1a1,missing class declaration,NetAppLib::System::ApplicationSystemBase,,static.crs,1,56,1,1,0,,28,LOW,0x00460EB8
-2693d2a250d1,missing class declaration,NetAppLib::System::NetAppFrameBase,,static.crs,1,28,1,1,0,,28,LOW,0x0045ED4C
-89ea64e3252e,unknown this-pointer type,NetAppLib::System::NetAppFrameBase,,static.crs,2,108,2,2,3,,28,LOW,0x0045ECE0;0x0045ECB8
-9c0cf5685c82,missing class declaration,NetAppLib::UI::NetAppQRTexture,,static.crs,1,32,1,1,0,,28,LOW,0x00458F9C
-3c2670fd3bb5,missing class declaration,NetAppLib::UI::NetAppRegulationUpperView,,static.crs,1,120,1,1,0,,28,LOW,0x0045B014
-5e97516126ee,unknown this-pointer type,NetAppLib::Util::NetAppPokemonValidationUtility,,static.crs,2,100,2,2,3,,28,LOW,0x0045E2E0;0x0045E4E8
-7415c57492a3,missing class declaration,NetAppLib::Util::NetAppTimeout,,static.crs,1,32,1,1,0,,28,LOW,0x0045B5D4
 d0724605c264,missing class declaration,NetLib::Delivery::DeliveryManager,,static.crs,1,16,1,1,0,,28,LOW,0x003E0794
-2b41c5ef9d17,missing class declaration,NetLib::Validation::PokemonValidation,,static.crs,1,84,1,1,0,,28,LOW,0x003D098C
-1024071d8069,ABI uncertainty,PokeTool,,static.crs,2,140,2,2,3,,28,LOW,0x00430498;0x0042A940
-8c70da16113f,missing class declaration,PokeTool,,static.crs,1,100,1,1,0,,28,LOW,0x0043008C
 267bc2ab9768,missing class declaration,Savedata::ConfigSave,,static.crs,1,20,1,1,0,,28,LOW,0x00437A54
 b1afd1c10153,missing class declaration,Savedata::Fashion,,static.crs,1,32,1,1,0,,28,LOW,0x004433C0
 c96e939ef19c,missing class declaration,Savedata::GtsData,,static.crs,1,24,1,1,0,,28,LOW,0x00443480
@@ -199,77 +99,34 @@ c96e939ef19c,missing class declaration,Savedata::GtsData,,static.crs,1,24,1,1,0,
 5c036ee19f1c,missing class declaration,Savedata::MysteryGiftSave,,static.crs,1,36,1,1,0,,28,LOW,0x004A6F68
 b3fc3fa47d83,missing class declaration,Savedata::MysteryGiftSave::MYSTERY_GIFT_RECV_DATA,,static.crs,1,64,1,1,0,,28,LOW,0x0043CF9C
 4c48e65f112b,missing class declaration,Savedata::ResortSave,,static.crs,1,24,1,1,0,,28,LOW,0x00438AC0
-dd3c5827f5d0,missing class declaration,System::DeviceTurnWatcher,,static.crs,1,36,1,1,0,,28,LOW,0x003E5BC4
-db445525cd74,missing class declaration,System::EnvAccessor,,static.crs,1,24,1,1,0,,28,LOW,0x003E4BC0
-9f3243f6b9c2,missing class declaration,__rw::__rw_locale_vector<std::__rw_open_cat_data>,,static.crs,1,16,1,1,0,,28,LOW,0x00103FEC
-980da4fb0548,missing class declaration,__rw::__rw_locale_vector<std::string>,,static.crs,1,16,1,1,0,,28,LOW,0x00301910
 9708cd3434df,missing class declaration,app::sort::StringBinary,,static.crs,1,72,1,1,0,,28,LOW,0x0048D568
-09ab8eb4f588,missing class declaration,app::tool::AppToolBaseGrpFont,,static.crs,1,24,1,1,0,,28,LOW,0x002F6864
 3eea65410eb0,unknown this-pointer type,app::tool::AppToolHPGaugePartsLayout,,static.crs,2,120,2,2,3,,28,LOW,0x002FBB40;0x002FBBD4
 1f8c315195b3,missing class declaration,app::tool::CharaSimpleModel,,static.crs,1,76,1,1,0,,28,LOW,0x004A4364
-77af80417f8f,unknown this-pointer type,app::tool::CharaSimpleModel,,static.crs,2,96,2,2,3,,28,LOW,0x002F2C4C;0x002F23BC
 fb83f9c05bc2,missing class declaration,app::tool::CursorManager,,static.crs,1,28,1,1,0,,28,LOW,0x002EE594
 0888130be52b,missing class declaration,app::tool::MenuCursor,,static.crs,1,84,1,1,0,,28,LOW,0x002E9D4C
-bcddd8c59872,missing class declaration,app::tool::ModelViewerSequence,,static.crs,1,24,1,1,0,,28,LOW,0x002FA968
 f3d796a0d078,missing class declaration,app::tool::PaneList,,static.crs,1,24,1,1,0,,28,LOW,0x0048E65C
 9f40b4813239,unknown this-pointer type,app::tool::PaneList,,static.crs,2,100,2,2,3,,28,LOW,0x0030404C;0x00304BC4
-9fc9776dd5eb,missing class declaration,app::util::AppCountryRegionNameUtility,,static.crs,1,76,1,1,0,,28,LOW,0x0030DD74
-07d6b4251825,missing class declaration,app::util::AppDemoUtilityHelper,,static.crs,1,56,1,1,0,,28,LOW,0x0030CA70
 ca323f54ecb5,missing class declaration,app::util::AppQRTextureCreateUtility,,static.crs,1,96,1,1,0,,28,LOW,0x0030DAC4
 b87e102485a7,missing class declaration,app::util::AppRenderingManager,,static.crs,1,20,1,1,0,,28,LOW,0x0048E91C
-6695484222ea,missing class declaration,app::util::AppUtilFileControlState,,static.crs,1,24,1,1,0,,28,LOW,0x0030CCB0
 94cbce22e058,missing class declaration,app::util::GetPaneHelper,,static.crs,1,52,1,1,0,,28,LOW,0x0049967C
-39286ca9d0cf,missing class declaration,app::util::ScrollBar,,static.crs,1,40,1,1,0,,28,LOW,0x0031222C
-b429113b358c,missing class declaration,gfl2::fs::BinLinkerAccessor,,static.crs,1,56,1,1,0,,28,LOW,0x004977AC
-5df1444a5291,missing class declaration,gfl2::fs::Result,,static.crs,1,28,1,1,0,,28,LOW,0x00497AD4
-40b422300da1,missing class declaration,gfl2::lyt::LytSys,,static.crs,1,36,1,1,0,,28,LOW,0x003529B4
-b5d6a4c35670,missing class declaration,gfl2::math::SFMTRandom,,static.crs,1,36,1,1,0,,28,LOW,0x00358898
 8755353c3a34,missing class declaration,gfl2::pawn::PawnBase,,static.crs,1,12,1,1,0,,28,LOW,0x0051AFA8
 37eef2821868,missing class declaration,gfl2::renderingengine::scenegraph::resource::GfBinaryCollisionMdlData,,static.crs,1,80,1,1,0,,28,LOW,0x003308BC
 a4e693348f7a,missing class declaration,gfl2::renderingengine::scenegraph::resource::GfBinaryMdlDataPack,,static.crs,1,20,1,1,0,,28,LOW,0x0032F5C4
 5019c38e775f,missing class declaration,gfl2::renderingengine::scenegraph::resource::GfBinaryMotData,,static.crs,1,20,1,1,0,,28,LOW,0x0032CA20
 c94fce1ac7d8,missing class declaration,gfl2::renderingengine::scenegraph::resource::TextureResourceNodeFactory,,static.crs,1,8,1,1,0,,28,LOW,0x00332158
 62c8208f3f2e,missing class declaration,gfl2::str,,static.crs,1,28,1,1,0,,28,LOW,0x003541A4
-090599ea7ee5,missing class declaration,gfl2::system::Date,,static.crs,1,128,1,1,0,,28,LOW,0x00478B40
-fba6005f326e,missing class declaration,gflnet2::boss::BossManager,,static.crs,1,68,1,1,0,,28,LOW,0x004A35A0
-97d42b66a22c,missing class declaration,gflnet2::p2p::NetGame,,static.crs,1,12,1,1,0,,28,LOW,0x00407AB0
-ad3625b9e0a2,missing class declaration,mw::qrd::QRDecoder,,static.crs,1,52,1,1,0,,28,LOW,0x001639F0
-71b2306268b4,missing class declaration,nw::ut::internal::LinkListImpl,,static.crs,1,36,1,1,0,,28,LOW,0x00287F9C
 8645947e2b2d,missing class declaration,pml::PokeParty,,static.crs,1,20,1,1,0,,28,LOW,0x00493F14
-dd8cb7fbd490,unknown this-pointer type,pml::PokeParty,,static.crs,2,56,2,2,3,,28,LOW,0x00493BCC;0x0031F160
 2e11b3394f49,missing class declaration,pml::personal,,static.crs,1,12,1,1,0,,28,LOW,0x003162C8
 01f287f4e8af,missing class declaration,poke_3d::model::BaseCamera,,static.crs,1,16,1,1,0,,28,LOW,0x004A3F04
-d0004be390a3,ABI uncertainty,poke_3d::model::BaseModel,,static.crs,2,36,2,2,3,,28,LOW,0x004A54C0;0x00418390
-c64e6ef0efba,unknown this-pointer type,poke_3d::model::DressUpModelResourceManager,,static.crs,2,76,2,2,3,,28,LOW,0x00414B54;0x00414724
-733a8da2ca63,missing class declaration,poke_3d::model::DressUpModelResourceManagerCore,,static.crs,1,108,1,1,0,,28,LOW,0x004A5420
-232fc3a6c12c,missing class declaration,print::HangulComposer,,static.crs,1,28,1,1,0,,28,LOW,0x003BFA1C
-e5f69d0bb267,missing class declaration,print::ItemMessage,,static.crs,1,84,1,1,0,,28,LOW,0x003BE5C0
-a867fb136ec5,missing class declaration,print::MessageWindow,,static.crs,1,72,1,1,0,,28,LOW,0x003BEACC
-3d7f39180c50,missing class declaration,std,,static.crs,1,12,1,1,0,,28,LOW,0x00302DD0
-ab754e170b37,missing class declaration,std::char_traits<char>,,static.crs,1,12,1,1,0,,28,LOW,0x00302E5C
-459e16c2fb13,missing class declaration,std::locale,,static.crs,1,36,1,1,0,,28,LOW,0x003022A8
-5fdcb31d0754,missing class declaration,std::string,,static.crs,1,12,1,1,0,,28,LOW,0x00301904
 7bfa7b755612,unknown this-pointer type,BattleInst::BattleInst,,static.crs,4,228,4,4,5,,27,LOW,0x001585FC;0x001577C0;0x00159598;0x00159E38
 56ec1e149037,unknown this-pointer type,Field::FieldScript::FieldScriptSystem,,static.crs,2,24,2,2,4,,27,LOW,0x0038100C;0x00381038
 102e9b28d799,unknown this-pointer type,NetLib::Error::NijiNetworkError,,static.crs,4,176,4,4,5,,27,LOW,0x003DED8C;0x003DE400;0x003DE8C8;0x003DE42C
-15990373bfbf,ABI uncertainty,Savedata,,static.crs,2,44,2,2,4,,27,LOW,0x00444CB4;0x00445928
 cf5d580eb1b5,ABI uncertainty,System::GflUse,,static.crs,2,64,2,2,4,,27,LOW,0x003EA2C4;0x003EA468
 5c3eb96298e3,unknown this-pointer type,app::tool::AppToolTrainerIconRendering,,static.crs,2,92,2,2,4,,27,LOW,0x002FD580;0x002FD954
-c9149c038518,unknown this-pointer type,app::tool::CursorController,,static.crs,2,104,2,2,4,,27,LOW,0x002F33E8;0x002F3404
-e12385da9efa,ABI uncertainty,gfl2::str::StrBuf,,static.crs,2,96,2,2,4,,27,LOW,0x0049A8E8;0x0049A7AC
-4ff99467e8f6,ABI uncertainty,gfl2::system::Date,,static.crs,2,112,2,2,4,,27,LOW,0x0035E910;0x0035E890
 7e9fe26d39d3,unknown this-pointer type,gflnet2::ServerClient::ServerClientRequestManager,,static.crs,2,72,2,2,4,,27,LOW,0x003F49D0;0x003F49B8
-9b6eae586bd9,ABI uncertainty,poke_3d::model::BaseCamera,,static.crs,2,44,2,2,4,,27,LOW,0x004A37F0;0x004A3F1C
-fb7f7a6dfc44,unknown this-pointer type,Field::EventFieldQuickMatch,,static.crs,2,48,2,2,5,,26,LOW,0x003930CC;0x003931CC
-56bed021e624,unknown this-pointer type,Field::EventFieldReport,,static.crs,2,48,2,2,5,,26,LOW,0x0038C42C;0x0038C4DC
-210183727251,unknown this-pointer type,Field::EventWork,,static.crs,2,80,2,2,5,,26,LOW,0x0039A500;0x0039A058
-139c36c0a729,unknown this-pointer type,gfl2::ui::TouchPanel,,static.crs,2,108,2,2,5,,26,LOW,0x004981A8;0x0049816C
 6a269dd2233f,unknown this-pointer type,app::tool::InfoWindowBookType,,static.crs,2,32,2,2,6,,25,LOW,0x002EE994;0x002EEAF8
-31e40f0fce8d,ABI uncertainty,pml::waza::ZenryokuWazaSystem,,static.crs,2,40,2,2,6,,25,LOW,0x00313CDC;0x00313CF0
-193ebcc5e0de,ABI uncertainty,Field::EventMapJump,,static.crs,2,68,2,2,7,,24,LOW,0x00384314;0x00383DC8
 0928bf54127f,shared header change required,Savedata::Sodateya,,static.crs,1,20,1,1,0,,18,LOW,0x00444A78
 3e57ae1a7ce5,unknown this-pointer type,App::PokeList::IntermediateData,,static.crs,1,52,1,1,1,,17,LOW,0x002E0CB8
-f34c1669bbe1,unknown this-pointer type,App::PokeList::PokeListSimpleFrame,,static.crs,1,44,1,1,1,,17,LOW,0x002E47A0
 55318741e12b,ABI uncertainty,App::Tool::MessageMenuView,,static.crs,1,16,1,1,1,,17,LOW,0x002D1DA0
 e644e5ca570f,unknown this-pointer type,App::Tool::SlideScroll,,static.crs,1,68,1,1,1,,17,LOW,0x002CDEEC
 0db46e7e9c50,ABI uncertainty,Field::Encount::EncountWork,,static.crs,1,28,1,1,1,,17,LOW,0x00396ECC
@@ -277,95 +134,53 @@ e644e5ca570f,unknown this-pointer type,App::Tool::SlideScroll,,static.crs,1,68,1
 5d745341a5c7,unknown this-pointer type,Field::EventList::EventListDataManager,,static.crs,1,48,1,1,1,,17,LOW,0x00399F04
 509b2f791678,ABI uncertainty,Field::EventScriptCall,,static.crs,1,124,1,1,1,,17,LOW,0x0038C128
 bdabb9307fa0,unknown this-pointer type,Field::FieldBerryManager,,static.crs,1,84,1,1,1,,17,LOW,0x0049DE98
-244e6120a78e,unknown this-pointer type,Field::FieldItemManager,,static.crs,1,32,1,1,1,,17,LOW,0x0038D50C
 3bfd72716720,ABI uncertainty,Field::FieldScript::FuncSetFieldInit,,static.crs,1,60,1,1,1,,17,LOW,0x0037DC10
-0a105fcbb980,unknown this-pointer type,Field::Location,,static.crs,1,60,1,1,1,,17,LOW,0x003998F4
-8579846d27dd,ABI uncertainty,Field::MoveModel::FieldActionCommandManager,,static.crs,1,20,1,1,1,,17,LOW,0x003A6300
 ed67f338cb2a,ABI uncertainty,Field::MoveModel::FieldMoveCodeManager,,static.crs,1,48,1,1,1,,17,LOW,0x0039FC14
 dc9841923acd,unknown this-pointer type,Field::MoveModel::FieldMoveModel,,static.crs,1,40,1,1,1,,17,LOW,0x0039D0D0
-b9d5a60a9329,unknown this-pointer type,Field::MoveModel::FieldMoveModelAreaCharaAccessor,,static.crs,1,16,1,1,1,,17,LOW,0x003A8424
 d6953e8faf17,ABI uncertainty,Field::MoveModel::FieldMoveModelManager,,static.crs,1,24,1,1,1,,17,LOW,0x003A5210
-96946e816f95,unknown this-pointer type,GameSys::GameManager,,static.crs,1,20,1,1,1,,17,LOW,0x004A3298
-38d80c81a557,unknown this-pointer type,GameSys::GameProc,,static.crs,1,12,1,1,1,,17,LOW,0x003F3B30
 85d465eb8542,ABI uncertainty,GameSys::TimeZone,,static.crs,1,84,1,1,1,,17,LOW,0x003F3BF4
+b36b28f764fb,unknown this-pointer type,NetApp::Evolution::APP_PARAM,,static.crs,1,20,1,1,1,,17,LOW,0x0031D9B0
 3ed96b782b41,ABI uncertainty,NetApp::Live::LiveNet,,static.crs,1,40,1,1,1,,17,LOW,0x004A2A78
 45463e2937a9,unknown this-pointer type,NetApp::Live::LiveNet,,static.crs,1,48,1,1,1,,17,LOW,0x0049396C
-b4936358b709,ABI uncertainty,NetApp::NBR::NBRNet,,static.crs,1,20,1,1,1,,17,LOW,0x003CEFF4
+3c977ec92f47,ABI uncertainty,NetApp::QR,,static.crs,1,8,1,1,1,,17,LOW,0x003CD0E8
 2fd929563ca4,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaFacilitiesUtil,,static.crs,1,36,1,1,1,,17,LOW,0x0046F728
 505534ac0102,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaPacketUtil,,static.crs,1,16,1,1,1,,17,LOW,0x00465F24
 24646ccef846,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaPersonalDataManager,,static.crs,1,12,1,1,1,,17,LOW,0x00473A20
 b27da4ccb9e2,ABI uncertainty,NetAppLib::JoinFesta::JoinFestaPersonalEvent,,static.crs,1,8,1,1,1,,17,LOW,0x0046B248
-f2a311a32a12,unknown this-pointer type,NetAppLib::JoinFestaUI::JoinFestaPlayerListManager,,static.crs,1,104,1,1,1,,17,LOW,0x0044C3E0
 c42e36d28875,ABI uncertainty,NetAppLib::JoinFestaUI::JoinFestaRecordListManager,,static.crs,1,20,1,1,1,,17,LOW,0x0044C5B8
 09f15dfbb9a7,ABI uncertainty,NetAppLib::P2PTrade::P2PTradeRequestClient,,static.crs,1,32,1,1,1,,17,LOW,0x00464C14
+89ea64e3252e,unknown this-pointer type,NetAppLib::System::NetAppFrameBase,,static.crs,1,68,1,1,1,,17,LOW,0x0045ECE0
 5f9b9e211a25,ABI uncertainty,NetAppLib::UI::NetAppCursorView,,static.crs,1,32,1,1,1,,17,LOW,0x00459624
-2ca4168fe026,unknown this-pointer type,NetAppLib::UI::NetAppPokeparaUtility,,static.crs,1,20,1,1,1,,17,LOW,0x0045A6B8
 36295dea0b7f,unknown this-pointer type,NetAppLib::UI::NetAppRegulationUpperView,,static.crs,1,4,1,1,1,,17,LOW,0x0045B0A0
 9cebb0836b4c,ABI uncertainty,NetAppLib::Util::NetAppCommonSaveUtility,,static.crs,1,12,1,1,1,,17,LOW,0x0043E994
-813cc7b83030,unknown this-pointer type,NetAppLib::Util::NetAppCommonSaveUtility,,static.crs,1,40,1,1,1,,17,LOW,0x0045D368
 d2fa8d04f1ad,ABI uncertainty,NetAppLib::Util::NetAppCommonTradeUtility,,static.crs,1,28,1,1,1,,17,LOW,0x0045D5C0
-75e3bf6cb13a,unknown this-pointer type,NetAppLib::Util::NetAppDateTime,,static.crs,1,44,1,1,1,,17,LOW,0x0045B6B0
-a18e76949db3,unknown this-pointer type,NetAppLib::Util::NetAppEffectBG,,static.crs,1,104,1,1,1,,17,LOW,0x0045C058
 4d2710e1767b,unknown this-pointer type,NetAppLib::Util::NetAppTimeout,,static.crs,1,60,1,1,1,,17,LOW,0x0045B56C
-b2d73764448c,unknown this-pointer type,NetAppLib::Util::NetAppTrainerIconUtility,,static.crs,1,36,1,1,1,,17,LOW,0x0045DDB0
-d19147dab071,unknown this-pointer type,NetAppLib::Util::PackFile,,static.crs,1,28,1,1,1,,17,LOW,0x0045E7B4
 a3ad9ba5a96f,unknown this-pointer type,NetLib::P2P::P2pConnectionManager,,static.crs,1,20,1,1,1,,17,LOW,0x004A2C88
-6b6947792d81,unknown this-pointer type,NetLib::Pgl::PGLConnector,,static.crs,1,20,1,1,1,,17,LOW,0x003D820C
-1012c8a99432,unknown this-pointer type,NetLib::Validation::PokemonValidation,,static.crs,1,28,1,1,1,,17,LOW,0x003D060C
 9f39b845e6e3,ABI uncertainty,PokeDiary,,static.crs,1,28,1,1,1,,17,LOW,0x0047431C
-8563fbeb0e54,ABI uncertainty,PokeTool::NatsukiManager,,static.crs,1,8,1,1,1,,17,LOW,0x0042DF84
+1024071d8069,ABI uncertainty,PokeTool,,static.crs,1,92,1,1,1,,17,LOW,0x00430498
 2ad41b0f7377,ABI uncertainty,PokeTool::PersonalSort,,static.crs,1,36,1,1,1,,17,LOW,0x0042CEF8
 40ce8b817c38,ABI uncertainty,PokeTool::PokeGetUtil,,static.crs,1,12,1,1,1,,17,LOW,0x0042BB20
 f7b39151b00b,unknown this-pointer type,PokeTool::PokeModel,,static.crs,1,24,1,1,1,,17,LOW,0x00434E30
 3c9d83e34871,unknown this-pointer type,PokeTool::PokeModelSystem,,static.crs,1,88,1,1,1,,17,LOW,0x0042FFC4
 5c0876818e46,ABI uncertainty,PokeTool::nakayoshi,,static.crs,1,40,1,1,1,,17,LOW,0x00436A24
-baf50c1ce2c3,unknown this-pointer type,Savedata::BoxPokemon,,static.crs,1,112,1,1,1,,17,LOW,0x004375F0
-489dd116552e,unknown this-pointer type,Savedata::ConfigSave,,static.crs,1,64,1,1,1,,17,LOW,0x00437A8C
 bea64ca95300,ABI uncertainty,Savedata::Fashion,,static.crs,1,32,1,1,1,,17,LOW,0x00442CC4
 c2f75634acd9,ABI uncertainty,Savedata::JoinFestaDataSave,,static.crs,1,76,1,1,1,,17,LOW,0x0043EAB8
 4b91892a7b18,ABI uncertainty,Savedata::MyItem,,static.crs,1,36,1,1,1,,17,LOW,0x004A7D48
-736dca1a19b6,unknown this-pointer type,Savedata::PlayTime,,static.crs,1,12,1,1,1,,17,LOW,0x00443DA4
-3efb5d010724,unknown this-pointer type,Savedata::QRReaderSaveData,,static.crs,1,24,1,1,1,,17,LOW,0x0043DD88
-afb74c681b4f,unknown this-pointer type,Savedata::UnionPokemon,,static.crs,1,16,1,1,1,,17,LOW,0x0048FDC4
+3eeaa1cc2217,unknown this-pointer type,Savedata::ZukanData,,static.crs,1,76,1,1,1,,17,LOW,0x00446724
 9b00f4102666,ABI uncertainty,System::Camera::CModelViewerInFrame,,static.crs,1,20,1,1,1,,17,LOW,0x003E81EC
-beeda6d1dbcb,unknown this-pointer type,System::DeviceTurnWatcher,,static.crs,1,60,1,1,1,,17,LOW,0x003E5B88
+8e5289d6c9c7,unknown this-pointer type,System::Camera::CModelViewerInFrame,,static.crs,1,56,1,1,1,,17,LOW,0x003E82C0
 a1913b6fe78b,unknown this-pointer type,System::NijiEdgeMapSceneRenderPath,,static.crs,1,28,1,1,1,,17,LOW,0x003E74E8
-5a881a49d98a,ABI uncertainty,System::PmlUse,,static.crs,1,12,1,1,1,,17,LOW,0x003EAC14
-c1fd0320508a,unknown this-pointer type,__rw::__rw_numpunct_impl_data<char>,,static.crs,1,28,1,1,1,,17,LOW,0x0010328C
-489b42ab7907,unknown this-pointer type,app::sort::StringItem,,static.crs,1,20,1,1,1,,17,LOW,0x002E8274
-b4ed4d0c9944,unknown this-pointer type,app::tool::AppToolBaseGrpFont,,static.crs,1,44,1,1,1,,17,LOW,0x002F6830
+b4dcea964cbb,unknown this-pointer type,System::Skybox::Skybox,,static.crs,1,36,1,1,1,,17,LOW,0x003EB7D8
 323c453c466b,ABI uncertainty,app::tool::FingerCursor,,static.crs,1,32,1,1,1,,17,LOW,0x002EB9C8
 29c98c4546d8,ABI uncertainty,app::tool::Gauge,,static.crs,1,60,1,1,1,,17,LOW,0x002FEFF0
-c6d4724c8747,unknown this-pointer type,app::tool::LytTexData,,static.crs,1,64,1,1,1,,17,LOW,0x002E9130
 ca990e6649fe,unknown this-pointer type,app::tool::MenuWindow,,static.crs,1,16,1,1,1,,17,LOW,0x002EA2C8
 5e6678b809f0,ABI uncertainty,app::tool::PokeSimpleModel,,static.crs,1,28,1,1,1,,17,LOW,0x002F114C
-3a82f4310fc6,unknown this-pointer type,app::tool::ResourceLoader,,static.crs,1,48,1,1,1,,17,LOW,0x002F04C4
-8df85727812c,unknown this-pointer type,app::tool::ScrollBar,,static.crs,1,68,1,1,1,,17,LOW,0x00305698
-86ddf92446f0,unknown this-pointer type,app::tool::TimerIconUIView,,static.crs,1,28,1,1,1,,17,LOW,0x002F1B0C
 10a48e6a9425,ABI uncertainty,app::util,,static.crs,1,64,1,1,1,,17,LOW,0x0030D06C
-cc2ff0dd2724,unknown this-pointer type,app::util::Heap,,static.crs,1,48,1,1,1,,17,LOW,0x0030F44C
-94af5b81f226,unknown this-pointer type,app::util::ScrollBar,,static.crs,1,12,1,1,1,,17,LOW,0x00305674
-05441599c533,unknown this-pointer type,gfl2::Effect::EffectRenderPath,,static.crs,1,20,1,1,1,,17,LOW,0x0035DE34
-685919d91f4d,ABI uncertainty,gfl2::base::SingletonAccessor<NetAppLib::JoinFesta::JoinFestaAttractionManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357778
-71e64d079105,ABI uncertainty,gfl2::base::SingletonAccessor<NetAppLib::JoinFesta::JoinFestaPacketManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357758
-136609bd8f40,ABI uncertainty,gfl2::base::SingletonAccessor<NetAppLib::JoinFesta::JoinFestaPersonalDataManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357788
-0ed3a2f7d707,ABI uncertainty,gfl2::base::SingletonAccessor<NetLib::P2P::P2pConnectionManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357668
-7322638644f2,ABI uncertainty,gfl2::base::SingletonAccessor<NetLib::Wifi::SubscriptionManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357678
-c4aafe995416,ABI uncertainty,gfl2::base::SingletonAccessor<System::SystemEventManager>,,static.crs,1,12,1,1,1,,17,LOW,0x003576A8
-3df320baa3e8,ABI uncertainty,gfl2::base::SingletonAccessor<app::ui::UIViewManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357638
-81c736e0c619,ABI uncertainty,gfl2::base::SingletonAccessor<gfl2::Fade::FadeManager>,,static.crs,1,12,1,1,1,,17,LOW,0x003577C8
-f7fcd7d88cca,ABI uncertainty,gfl2::base::SingletonAccessor<gfl2::devicecamera::DeviceCamera>,,static.crs,1,12,1,1,1,,17,LOW,0x00357798
-4b4e4c0863f3,ABI uncertainty,gfl2::base::SingletonAccessor<gfl2::ngc::NGWordChecker>,,static.crs,1,12,1,1,1,,17,LOW,0x003577B8
-11e6c76b58d7,ABI uncertainty,gfl2::base::SingletonAccessor<gfl2::ro::RoManager>,,static.crs,1,12,1,1,1,,17,LOW,0x003577A8
-c3e70ac7ef8b,ABI uncertainty,gfl2::base::SingletonAccessor<gflnet2::ServerClient::ServerClientRequestManager>,,static.crs,1,12,1,1,1,,17,LOW,0x003576E8
-93ec30ae821e,ABI uncertainty,gfl2::base::SingletonAccessor<gflnet2::boss::BossManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357728
-13cc55309e1a,ABI uncertainty,gfl2::base::SingletonAccessor<gflnet2::nex::NexManager>,,static.crs,1,12,1,1,1,,17,LOW,0x00357708
-6794421e0c41,ABI uncertainty,gfl2::base::SingletonAccessor<gflnet2::nex::NexMatchMakingClient>,,static.crs,1,12,1,1,1,,17,LOW,0x00357718
-70c557f2dd2c,ABI uncertainty,gfl2::base::SingletonAccessor<print::SystemFont>,,static.crs,1,12,1,1,1,,17,LOW,0x00357648
+6b67087841d7,unknown this-pointer type,app::util::EffectUtil,,static.crs,1,52,1,1,1,,17,LOW,0x00306130
+9a7ceafa8983,unknown this-pointer type,gfl2::Effect::System,,static.crs,1,16,1,1,1,,17,LOW,0x0035DF68
 e70af9bc722c,ABI uncertainty,gfl2::fs::BinLinkerAccessor,,static.crs,1,44,1,1,1,,17,LOW,0x0049780C
-56e4d72e0218,unknown this-pointer type,gfl2::fs::BinLinkerAccessor,,static.crs,1,20,1,1,1,,17,LOW,0x00497798
 de9d382a1419,ABI uncertainty,gfl2::heap,,static.crs,1,8,1,1,1,,17,LOW,0x00358160
-89559e735461,unknown this-pointer type,gfl2::lyt::LytMultiResID,,static.crs,1,16,1,1,1,,17,LOW,0x0034FEC0
+fc54488e5943,unknown this-pointer type,gfl2::lyt::LytWk,,static.crs,1,64,1,1,1,,17,LOW,0x00352E68
 b34dd8b7f938,unknown this-pointer type,gfl2::renderingengine::renderer::RenderingPipeLine::SceneRenderPath,,static.crs,1,64,1,1,1,,17,LOW,0x00336340
 40da0411a4f0,unknown this-pointer type,gfl2::renderingengine::renderer::util::MakeReductionImagePath,,static.crs,1,76,1,1,1,,17,LOW,0x00338E9C
 4a834d60d7f9,unknown this-pointer type,gfl2::renderingengine::scenegraph::DagNode,,static.crs,1,104,1,1,1,,17,LOW,0x00324B48
@@ -378,74 +193,54 @@ cc7743e0731e,unknown this-pointer type,gfl2::renderingengine::scenegraph::instan
 5dc8372cdbac,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryEnvData,,static.crs,1,40,1,1,1,,17,LOW,0x0032C7B0
 cb951daa0f8f,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryMdlDataPack,,static.crs,1,16,1,1,1,,17,LOW,0x0032F688
 08cf9e3b8e13,unknown this-pointer type,gfl2::renderingengine::scenegraph::resource::GfBinaryMotData,,static.crs,1,16,1,1,1,,17,LOW,0x0032CAE4
-8da9f1887633,unknown this-pointer type,gfl2::ui::Button,,static.crs,1,56,1,1,1,,17,LOW,0x00498F08
-b8cd0702612e,unknown this-pointer type,gfl2::ui::Device,,static.crs,1,40,1,1,1,,17,LOW,0x00346EC8
-d4d8565a3621,unknown this-pointer type,gflnet2::nex::NexManager,,static.crs,1,16,1,1,1,,17,LOW,0x003F7530
 7fd1bb53deda,ABI uncertainty,mw::qrd::QRDecoder,,static.crs,1,36,1,1,1,,17,LOW,0x00163A24
 0653174fb82b,unknown this-pointer type,mw::qrd::QRDecoder,,static.crs,1,80,1,1,1,,17,LOW,0x00163374
-1794e7d30a3b,unknown this-pointer type,mw::qre::QREncoder,,static.crs,1,36,1,1,1,,17,LOW,0x00163B48
 7515cfbdd10f,unknown this-pointer type,nw::eft::EmitterSet,,static.crs,1,16,1,1,1,,17,LOW,0x0029AF30
-e84126067f8a,unknown this-pointer type,nw::font::ResFont,,static.crs,1,20,1,1,1,,17,LOW,0x002C6D9C
 a71341cfb6f8,ABI uncertainty,pml::PokeParty,,static.crs,1,8,1,1,1,,17,LOW,0x0031F154
 3c2c1e174641,shared header change required,pml::pokepara::PokemonParam,,static.crs,1,40,1,1,1,,17,LOW,0x00317D8C
-4345968f2b3d,unknown this-pointer type,poke_3d::model::CharaModel,,static.crs,1,24,1,1,1,,17,LOW,0x0040DD5C
 d8f3c0e32936,ABI uncertainty,poke_3d::model::DressUpModelResourceManager,,static.crs,1,24,1,1,1,,17,LOW,0x00414550
-ed92fca4e12f,unknown this-pointer type,print::ItemMessage,,static.crs,1,8,1,1,1,,17,LOW,0x003BE5B8
-afe3c6fc25df,unknown this-pointer type,std::__rw_exception,,static.crs,1,16,1,1,1,,17,LOW,0x00103AF8
+c64e6ef0efba,unknown this-pointer type,poke_3d::model::DressUpModelResourceManager,,static.crs,1,32,1,1,1,,17,LOW,0x00414B54
+5ff5d6b6c2d2,unknown this-pointer type,poke_3d::renderer::BloomRenderPath,,static.crs,1,20,1,1,1,,17,LOW,0x0041AEC4
 dd8c78302eda,unknown this-pointer type,"std::codecvt<wchar_t,char,std::__mbstate_t>",,static.crs,1,12,1,1,1,,17,LOW,0x0010383C
 818109735a2b,unknown this-pointer type,std::collate_byname<char>,,static.crs,1,12,1,1,1,,17,LOW,0x00103B3E
-5ff1b947a379,unknown this-pointer type,std::ctype<char>,,static.crs,1,16,1,1,1,,17,LOW,0x001036EC
-5b421d1ee27b,unknown this-pointer type,std::locale,,static.crs,1,12,1,1,1,,17,LOW,0x00103D0E
-b575e277c6ec,unknown this-pointer type,std::messages<char>,,static.crs,1,12,1,1,1,,17,LOW,0x00103D4A
-ac3a28814b46,unknown this-pointer type,std::numpunct<char>,,static.crs,1,12,1,1,1,,17,LOW,0x00103D64
 d2285abc1348,ABI uncertainty,trainer::TrainerTypeData,,static.crs,1,32,1,1,1,,17,LOW,0x0041E73C
 8ee8df04c8ae,unknown this-pointer type,App::Box::BoxAppSetup,,static.crs,1,100,1,1,2,,16,LOW,0x002C7CA0
 f6167775b052,ABI uncertainty,App::FieldMenu::PlayData,,static.crs,1,8,1,1,2,,16,LOW,0x002E65B8
 7dcb8ca7ac0c,unknown this-pointer type,App::FieldMenu::PlayData,,static.crs,1,68,1,1,2,,16,LOW,0x002E65D0
 178275fdfb92,missing class declaration,BattleInst::BattleInst,,static.crs,2,44,2,2,0,,16,LOW,0x00159E9C;0x00159368
-0c52584f805e,unknown this-pointer type,Field::Encount::PokeSet,,static.crs,1,32,1,1,2,,16,LOW,0x003983F0
+bdc4caf8ba8b,ABI uncertainty,Field::Attribute,,static.crs,1,12,1,1,2,,16,LOW,0x0039993C
 03b554ef73f1,missing class declaration,Field::EventBattleCall,,static.crs,2,164,2,2,0,,16,LOW,0x0038AF64;0x0038A3E4
+fb7f7a6dfc44,unknown this-pointer type,Field::EventFieldQuickMatch,,static.crs,1,36,1,1,2,,16,LOW,0x003931CC
 a08a38707f38,unknown this-pointer type,Field::FieldSodateya,,static.crs,1,36,1,1,2,,16,LOW,0x004457E0
-08e2043674c5,unknown this-pointer type,Field::ZoneDataAccessor,,static.crs,1,16,1,1,2,,16,LOW,0x0038D544
-b072eb54fb75,unknown this-pointer type,GameSys::GameData,,static.crs,1,16,1,1,2,,16,LOW,0x003F2B98
 49bb47dea23a,ABI uncertainty,GameSys::GameEventManager,,static.crs,1,8,1,1,2,,16,LOW,0x003F0BB8
 6cdd111dc744,missing class declaration,NetAppLib::BattleVideoPlayer::VideoDataManager,,static.crs,2,92,2,2,0,,16,LOW,0x00456734;0x00457CA8
 5e85eb344644,unknown this-pointer type,NetAppLib::BattleVideoPlayer::VideoDataManager,,static.crs,3,280,3,3,3,,16,LOW,0x00457F38;0x00458294;0x004568D4
-a2522799206d,unknown this-pointer type,NetAppLib::UI::NetAppQRTexture,,static.crs,1,48,1,1,2,,16,LOW,0x00458F40
 284d675e1912,ABI uncertainty,NetAppLib::UI::RegulationDrawInfo,,static.crs,1,32,1,1,2,,16,LOW,0x00459C98
 ae2af5eb4130,ABI uncertainty,NetAppLib::Util::NetAppPokemonValidationUtility,,static.crs,1,20,1,1,2,,16,LOW,0x0045E2F8
 020d21de8878,missing class declaration,NetEvent::BattleSpot::BattleSpotEvent,,static.crs,2,24,2,2,0,,16,LOW,0x0041EF84;0x0041EF94
 c3c64e42e562,unknown this-pointer type,NetEvent::FatalError::FatalErrorEvent,,static.crs,1,28,1,1,2,,16,LOW,0x0041FD00
-aeb3761fbe3b,unknown this-pointer type,NetEvent::JoinFestaAttractionRetireEvent,,static.crs,1,20,1,1,2,,16,LOW,0x00426A3C
-e9bf4bd63ef8,unknown this-pointer type,PokeRegulation,,static.crs,1,24,1,1,2,,16,LOW,0x001601E4
 2db83acdf2a2,unknown this-pointer type,Savedata::BattleInstSave,,static.crs,3,88,3,3,3,,16,LOW,0x0043B234;0x0043B0B4;0x0043B018
 e50b69a9aee2,unknown this-pointer type,Savedata::MysteryGiftSave,,static.crs,1,20,1,1,2,,16,LOW,0x0043B958
 52a5757e8b0b,ABI uncertainty,System::EnvAccessor,,static.crs,1,28,1,1,2,,16,LOW,0x003E4540
 c61f5afb7a43,unknown this-pointer type,System::ModelRenderPath,,static.crs,1,32,1,1,2,,16,LOW,0x003E545C
 be8024c8a9fc,unknown this-pointer type,System::NijiOutLinePostSceneRenderPath,,static.crs,1,28,1,1,2,,16,LOW,0x003E7600
 b65dfff0e832,ABI uncertainty,app::tool::AppToolTrainerIconRendering,,static.crs,1,20,1,1,2,,16,LOW,0x002FCFF8
+77af80417f8f,unknown this-pointer type,app::tool::CharaSimpleModel,,static.crs,1,56,1,1,2,,16,LOW,0x002F23BC
 c490be3b68ba,ABI uncertainty,app::tool::IconObject,,static.crs,1,44,1,1,2,,16,LOW,0x002E89FC
-1680226c32de,unknown this-pointer type,app::tool::InfoWindowSheetType,,static.crs,1,4,1,1,2,,16,LOW,0x002F9020
 78975e56cebe,unknown this-pointer type,app::tool::PokeIconToolEx,,static.crs,1,36,1,1,2,,16,LOW,0x002EFF84
 394acd385e9e,unknown this-pointer type,gfl2::renderingengine::renderer::util::DofRenderPath,,static.crs,1,8,1,1,2,,16,LOW,0x00337750
 e83208667a99,unknown this-pointer type,gfl2::str::MsgData,,static.crs,1,100,1,1,2,,16,LOW,0x00356298
+4ff99467e8f6,ABI uncertainty,gfl2::system::Date,,static.crs,1,88,1,1,2,,16,LOW,0x0035E890
 2427a75880fa,ABI uncertainty,gflnet2::ServerClient::ServerClientRequestManager,,static.crs,1,48,1,1,2,,16,LOW,0x003F4A68
 3e15e37b8818,ABI uncertainty,nw::lyt::Layout,,static.crs,1,12,1,1,2,,16,LOW,0x002A5DD4
-896bd4b4a54e,unknown this-pointer type,nw::lyt::TexMap,,static.crs,1,96,1,1,2,,16,LOW,0x00485D48
 b8dadf97e4ff,missing class declaration,pml::battle::TypeAffinity,,static.crs,2,72,2,2,0,,16,LOW,0x00314264;0x0031423C
-889b66077908,unknown this-pointer type,poke_3d::model::PokemonModel,,static.crs,1,36,1,1,2,,16,LOW,0x0040F9B4
 f4707c2bce5d,unknown this-pointer type,poke_3d::renderer::DistortionPostRenderPath,,static.crs,1,8,1,1,2,,16,LOW,0x0041CE54
-7c031fff4172,ABI uncertainty,print::MessageWindow,,static.crs,1,12,1,1,2,,16,LOW,0x003BECBC
 8dd8b229c5be,ABI uncertainty,print::WordSet,,static.crs,1,88,1,1,2,,16,LOW,0x003C1D44
-6778fa5f8fc9,unknown this-pointer type,AppLib::Tool::PokeCapAccesser,,static.crs,1,20,1,1,3,,15,LOW,0x003C43E4
 985bbe2d4d42,ABI uncertainty,app::sort::StringItem,,static.crs,1,36,1,1,3,,15,LOW,0x002E8250
 f2ac49238c8c,ABI uncertainty,app::sort::StringWaza,,static.crs,1,36,1,1,3,,15,LOW,0x002E82B8
 8bf38892c6d0,ABI uncertainty,gfl2::fs::ArcFile,,static.crs,1,52,1,1,3,,15,LOW,0x00497B78
 0fe00bec9912,unknown this-pointer type,gfl2::renderingengine::scenegraph::Inheritance,,static.crs,1,12,1,1,3,,15,LOW,0x00322F58
 8265606f9689,ABI uncertainty,Savedata::MyStatus,,static.crs,1,28,1,1,4,,14,LOW,0x00443920
-18302fb61391,unknown this-pointer type,poke_3d::model::DressUpModel,,static.crs,1,48,1,1,4,,14,LOW,0x0040F3D8
-b2628df2be93,unknown this-pointer type,Field::Encount::EventSymbolEncount,,static.crs,1,16,1,1,5,,13,LOW,0x003980A8
-68c34f53eadf,unknown this-pointer type,gflnet2::nex::NexMatchMakingRule,,static.crs,1,44,1,1,5,,13,LOW,0x003FC4D4
 b5f5bf36901c,unknown this-pointer type,gfl2::thread::Thread,,static.crs,2,32,2,2,2,,4,LOW,0x0035F21C;0x0035F20C
 7ee21334aa98,missing class declaration,NetLib::Error::NijiNetworkErrorDialogStatus,,static.crs,1,12,1,1,0,,3,LOW,0x003DF9B8
 b082a67c38db,missing class declaration,NetLib::Error::NijiNetworkErrorManager,,static.crs,1,24,1,1,0,,3,LOW,0x004A2D88

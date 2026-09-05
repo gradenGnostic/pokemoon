@@ -35,11 +35,12 @@ PROPOSALS = RUNTIME / "yellow_proposals"
 CONTEXT = RUNTIME / "context"
 SOURCES = ROOT / "src/reagent/yellow_clusters"
 SERVICE = "pokemonmoon-yellow-resolver.service"
-QWEN_MODEL = "qwen2.5-coder:7b"
-CHECKER_MODEL = "gpt-5.4-mini"
+RECONSTRUCTOR_PROVIDER = os.environ.get("YELLOW_RECONSTRUCTOR_PROVIDER", "ollama")
+RECONSTRUCTOR_MODEL = os.environ.get("YELLOW_RECONSTRUCTOR_MODEL", "qwen2.5-coder:7b")
+CHECKER_MODEL = os.environ.get("YELLOW_CHECKER_MODEL", "gpt-5.4-mini")
 CHECKER_ENABLED = os.environ.get("YELLOW_CHECKER_ENABLED", "0") == "1"
 MAX_CLUSTER_FUNCTIONS = 20
-COMPILER_WORKERS = 6
+COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
 TARGET_SOURCE_BACKED = 1000
 ORDINARY_QWEN_TIMEOUT = 420
 HIGH_FANOUT_QWEN_TIMEOUT = 600
@@ -133,16 +134,20 @@ def rolling_metrics(connection: sqlite3.Connection) -> dict[str, dict[str, float
         promotions = sum(values.get(kind, (0, 0, 0))[0] for kind in
                          ("compile_first_promotions", "qwen_promotions"))
         qwen_calls = values.get("qwen_call", (0, 0, 0))[2]
+        reconstructor_calls = values.get("reconstructor_call", (0, 0, 0))[2]
+        model_calls = qwen_calls + reconstructor_calls
+        model_seconds = (values.get("qwen_call", (0, 0, 0))[1]
+                         + values.get("reconstructor_call", (0, 0, 0))[1])
         clusters = values.get("cluster", (0, 0, 0))
         result[f"{minutes}m"] = {
             "promotions": promotions,
             "promotions_per_hour": round(promotions * 60 / minutes, 2),
-            "qwen_calls": qwen_calls,
-            "qwen_calls_per_hour": round(qwen_calls * 60 / minutes, 2),
-            "promotions_per_qwen_call": round(values.get("qwen_promotions", (0, 0, 0))[0] / qwen_calls, 2)
-            if qwen_calls else 0,
+            "reconstructor_calls": model_calls,
+            "reconstructor_calls_per_hour": round(model_calls * 60 / minutes, 2),
+            "promotions_per_reconstructor_call": round(
+                values.get("qwen_promotions", (0, 0, 0))[0] / model_calls, 2) if model_calls else 0,
             "average_cluster_seconds": round(clusters[1] / clusters[2], 2) if clusters[2] else 0,
-            "qwen_seconds": round(values.get("qwen_call", (0, 0, 0))[1], 2),
+            "reconstructor_seconds": round(model_seconds, 2),
             "compiler_seconds": round(values.get("compiler", (0, 0, 0))[1], 2),
             "ghidra_seconds": 0,
         }
@@ -237,6 +242,11 @@ def compact_evidence(address: str, review: dict[str, str], catalog: dict[str, di
 
 
 def qwen_prompt(cluster: dict[str, str], evidence: list[dict[str, object]], correction: str = "") -> str:
+    review_policy = (
+        f"An independent {CHECKER_MODEL} invocation will adversarially review semantic candidates."
+        if CHECKER_ENABLED else
+        "The semantic checker is unavailable; compile-only approximations will be retained for later review."
+    )
     return f"""You are the local ARMv7 reverse engineer for Pokemon Moon NA v1.0 static.crs.
 Resolve this shared YELLOW cluster as a group. Infer only facts supported by repeated evidence.
 ARM EABI uses r0-r3; a C++ this pointer is r0. Preserve widths, signedness, offsets, calls, and returns.
@@ -247,8 +257,8 @@ member functions must include uint8_t* or const uint8_t* as arg0 for this. The b
 to arg0, arg1, etc. Return the body without outer braces. Never use this, class names, namespaces,
 undefined types, invented fields, includes, or assembly in the body. Put required helper prototypes
 in declarations as complete C++ declaration lines ending in semicolons. Skip unsupported functions.
-The GPT checker is unavailable. Prefer mechanically obvious definitions likely to reproduce the exact
-retail ARM bytes; compile-only semantic approximations will be retained for later review, not promoted.
+{review_policy} Prefer mechanically obvious definitions, but exact retail ARM bytes are not required
+when the independent reviewer confirms the reconstruction from evidence.
 
 Cluster: {cluster['cluster_id']} | {cluster['namespace']} | {cluster['blocker']}
 Shared dependency: {cluster['shared_dependency']} | offsets: {cluster['offsets']}
@@ -261,11 +271,34 @@ Return JSON matching this schema exactly:
 """
 
 
-def call_qwen(prompt: str, timeout: int) -> tuple[dict[str, object] | None, str]:
+def call_reconstructor(prompt: str, timeout: int) -> tuple[dict[str, object] | None, str]:
+    if RECONSTRUCTOR_PROVIDER == "codex":
+        with tempfile.TemporaryDirectory(prefix="yellow-reconstructor-") as directory:
+            schema = Path(directory) / "schema.json"
+            output = Path(directory) / "result.json"
+            schema.write_text(json.dumps(proposal_schema()), encoding="utf-8")
+            command = [
+                str(ROOT / "scripts/reagent/bin/codex"), "exec", "-m", RECONSTRUCTOR_MODEL,
+                "-s", "read-only", "-C", str(ROOT), "--skip-git-repo-check",
+                "--output-schema", str(schema), "-o", str(output), "-",
+            ]
+            try:
+                result = subprocess.run(command, input=prompt, cwd=ROOT, text=True, stdout=subprocess.PIPE,
+                                        stderr=subprocess.STDOUT, timeout=timeout, check=False)
+            except (OSError, subprocess.TimeoutExpired) as exc:
+                return None, str(exc)
+            if result.returncode or not output.exists():
+                return None, result.stdout[-2000:]
+            try:
+                return json.loads(output.read_text(encoding="utf-8")), result.stdout[-2000:]
+            except ValueError:
+                return None, result.stdout[-2000:]
+    if RECONSTRUCTOR_PROVIDER != "ollama":
+        return None, f"unsupported reconstructor provider: {RECONSTRUCTOR_PROVIDER}"
     request = urllib.request.Request(
         "http://127.0.0.1:11434/api/chat",
         data=json.dumps({
-            "model": QWEN_MODEL,
+            "model": RECONSTRUCTOR_MODEL,
             "messages": [{"role": "user", "content": prompt}],
             "stream": False,
             "format": proposal_schema(),
@@ -294,8 +327,10 @@ def checker_schema(path: Path) -> None:
     }), encoding="utf-8")
 
 
-def call_checker(cluster: dict[str, str], evidence: list[dict[str, object]], proposal: dict[str, object]) -> tuple[dict[str, object] | None, str]:
-    prompt = f"""Review this ARMv7 cluster proposal only. Do not edit files or run tools.
+def call_checker(cluster: dict[str, str], evidence: list[dict[str, object]], proposal: dict[str, object],
+                 compiler_results: list[dict[str, object]]) -> tuple[dict[str, object] | None, str]:
+    prompt = f"""Act as an independent, adversarial reviewer of this ARMv7 cluster proposal.
+Do not assume the reconstruction is correct and do not edit files or run tools.
 Check ARM EABI, this interpretation, argument/return widths, signedness, member offsets,
 external prototypes, and whether every statement is supported by the supplied evidence.
 PASS if sound. CORRECT by returning corrected definitions when a small evidence-supported fix
@@ -305,6 +340,7 @@ Never require exact instruction selection.
 Cluster: {json.dumps(cluster, separators=(',', ':'))}
 Evidence: {json.dumps(evidence, separators=(',', ':'))}
 Proposal: {json.dumps(proposal, separators=(',', ':'))}
+Compiler and retail diff results: {json.dumps(compiler_results, separators=(',', ':'))}
 """
     with tempfile.TemporaryDirectory(prefix="yellow-checker-") as directory:
         schema = Path(directory) / "schema.json"
@@ -315,8 +351,11 @@ Proposal: {json.dumps(proposal, separators=(',', ':'))}
             "-s", "read-only", "-C", str(ROOT), "--skip-git-repo-check",
             "--output-schema", str(schema), "-o", str(output), "-",
         ]
-        result = subprocess.run(command, input=prompt, cwd=ROOT, text=True, stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT, timeout=900, check=False)
+        try:
+            result = subprocess.run(command, input=prompt, cwd=ROOT, text=True, stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, timeout=900, check=False)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return None, str(exc)
         if result.returncode or not output.exists():
             return None, result.stdout[-2000:]
         try:
@@ -376,8 +415,37 @@ def compile_candidate(address: str, symbol: str, definition: str) -> tuple[bool,
         return True, "ASM_MATCH" if compare.returncode == 0 else "ASM_DIFFERENT", compare.stdout[-1000:]
 
 
+def compile_proposal(candidates: list[dict[str, object]], review_by_address: dict[str, dict[str, str]],
+                     symbols: dict[str, str]) -> list[dict[str, object]]:
+    prepared: list[tuple[str, str, str]] = []
+    diagnostics: list[dict[str, object]] = []
+    for row in candidates:
+        try:
+            address = resolver.normalize(str(row["address"]))
+        except (KeyError, ValueError):
+            diagnostics.append({"address": str(row.get("address", "")), "compile_ok": False,
+                                "asm_status": "ASM_DIFFERENT", "detail": "invalid candidate address"})
+            continue
+        if address not in review_by_address or address not in symbols:
+            diagnostics.append({"address": address, "compile_ok": False, "asm_status": "ASM_DIFFERENT",
+                                "detail": "candidate is not present in review evidence or retail symbols"})
+            continue
+        definition = build_definition(row, f"YellowAuto_{address[2:].lower()}", symbols[address])
+        if definition is None:
+            diagnostics.append({"address": address, "compile_ok": False, "asm_status": "ASM_DIFFERENT",
+                                "detail": "invalid structured definition envelope"})
+            continue
+        prepared.append((address, symbols[address], definition))
+    with ThreadPoolExecutor(max_workers=COMPILER_WORKERS) as executor:
+        results = executor.map(lambda item: compile_candidate(*item), prepared)
+        for (address, _, _), (ok, asm_status, detail) in zip(prepared, results):
+            diagnostics.append({"address": address, "compile_ok": ok, "asm_status": asm_status,
+                                "detail": re.sub(r"\s+", " ", detail)[-500:]})
+    return diagnostics
+
+
 def source_text(rows: list[dict[str, str]]) -> str:
-    lines = ["// Qwen reconstruction validated against retail ARM evidence.", PREAMBLE]
+    lines = ["// Model-assisted reconstruction validated against retail ARM evidence.", PREAMBLE]
     for row in rows:
         lines.extend([
             f"#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == {row['address']}",
@@ -464,8 +532,8 @@ def promote(cluster: dict[str, str], approved: list[dict[str, str]], review_by_a
             "matched_bytes": str(size) if asm_status == "ASM_MATCH" else "",
             "total_bytes": str(size) if asm_status == "ASM_MATCH" else "",
             "notes": f"Phase 4E cluster {cluster['cluster_id']}; "
-                     + ("Qwen reconstruction with exact retail ARM match"
-                        if require_asm_match else "Qwen reconstruction approved by GPT-5.4 mini"),
+                     + ("model-assisted reconstruction with exact retail ARM match"
+                        if require_asm_match else f"{RECONSTRUCTOR_MODEL} reconstruction approved by {CHECKER_MODEL}"),
         })
     resolver.write_csv(resolver.MANIFEST, manifest, fields)
     return len(compiled), "; ".join(failures)[:1500], time.monotonic() - started
@@ -562,14 +630,14 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
         update_cluster(connection, cluster["cluster_id"], "QWEN", qwen_attempts=attempt,
                        evidence_hash=fingerprint)
         qwen_started = time.monotonic()
-        proposal, detail = call_qwen(qwen_prompt(cluster, evidence, correction), qwen_timeout)
+        proposal, detail = call_reconstructor(qwen_prompt(cluster, evidence, correction), qwen_timeout)
         qwen_seconds = time.monotonic() - qwen_started
-        metric_event(connection, "qwen_call", duration_seconds=qwen_seconds)
+        metric_event(connection, "reconstructor_call", duration_seconds=qwen_seconds)
         if not proposal or not isinstance(proposal.get("candidates"), list):
-            last_error = f"Qwen attempt {attempt} produced no valid proposal: {detail}"
+            last_error = f"Reconstructor attempt {attempt} produced no valid proposal: {detail}"
             continue
         PROPOSALS.mkdir(parents=True, exist_ok=True)
-        (PROPOSALS / f"{cluster['cluster_id']}-qwen-{attempt}.json").write_text(
+        (PROPOSALS / f"{cluster['cluster_id']}-reconstructor-{attempt}.json").write_text(
             json.dumps(proposal, indent=2) + "\n", encoding="utf-8")
         if not CHECKER_ENABLED:
             candidates = [row for row in proposal["candidates"] if row.get("confidence") == "HIGH"]
@@ -583,7 +651,7 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
                                detail="Exact ARM matches promoted without unavailable GPT checker", last_error="")
                 metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
                 return count
-            last_error = compile_errors or "Qwen candidates require semantic review"
+            last_error = compile_errors or "Reconstructor candidates require semantic review"
             update_cluster(connection, cluster["cluster_id"], "REVIEW_LATER", last_error=last_error,
                            detail="GPT checker unavailable; no exact ARM match")
             metric_event(connection, "deferred_clusters", 1)
@@ -591,7 +659,10 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
             return 0
         for checker_round in range(1, 2):
             update_cluster(connection, cluster["cluster_id"], "CHECKER", checker_attempts=checker_round)
-            verdict, checker_detail = call_checker(cluster, evidence, proposal)
+            compiler_started = time.monotonic()
+            compiler_results = compile_proposal(proposal["candidates"], review_rows, symbols)
+            metric_event(connection, "compiler", duration_seconds=time.monotonic() - compiler_started)
+            verdict, checker_detail = call_checker(cluster, evidence, proposal, compiler_results)
             if verdict is None:
                 last_error = f"Checker unavailable: {checker_detail}"
                 checker_unavailable = True
@@ -640,10 +711,14 @@ def write_worker_status(connection: sqlite3.Connection, state: str, current: dic
         "current_cluster": current["cluster_id"] if current else None,
         "current_namespace": current["namespace"] if current else None,
         "clusters_processed": worker_processed, "phase4e_promoted": phase4e_promoted,
-        "cluster_states": counts, "reverser": QWEN_MODEL,
+        "cluster_states": counts, "reverser": RECONSTRUCTOR_MODEL,
+        "reconstructor_provider": RECONSTRUCTOR_PROVIDER,
         "checker": f"{CHECKER_MODEL} via Codex CLI" if CHECKER_ENABLED else "REVIEW_LATER",
         "rolling_rate": rolling_metrics(connection),
         "throughput_totals": {
+            "reconstructor_calls": int(connection.execute(
+                "SELECT COUNT(*) FROM throughput_events WHERE kind IN ('qwen_call','reconstructor_call')"
+            ).fetchone()[0]),
             "qwen_calls": int(connection.execute(
                 "SELECT COUNT(*) FROM throughput_events WHERE kind='qwen_call'").fetchone()[0]),
             "qwen_promotions": int(connection.execute(
@@ -709,7 +784,8 @@ class Worker:
         promoted_since_check = run_compile_first(connection)
         processed_this_run = 0
         checker = CHECKER_MODEL if CHECKER_ENABLED else "REVIEW_LATER"
-        log(f"START pid={os.getpid()} qwen={QWEN_MODEL} checker={checker}")
+        log(f"START pid={os.getpid()} reconstructor={RECONSTRUCTOR_PROVIDER}:{RECONSTRUCTOR_MODEL} "
+            f"checker={checker}")
         try:
             while not self.stopping and not STOP.exists():
                 if len(resolver.read_csv(resolver.MANIFEST)) >= TARGET_SOURCE_BACKED:
@@ -785,6 +861,19 @@ def reset_failed() -> int:
     return int(count)
 
 
+def reset_review_later() -> int:
+    connection = ensure_state()
+    with connection:
+        count = connection.execute("SELECT COUNT(*) FROM clusters WHERE status='REVIEW_LATER'").fetchone()[0]
+        connection.execute(
+            "UPDATE clusters SET status='PENDING',qwen_attempts=0,checker_attempts=0,last_error='',detail='',"
+            "evidence_hash='' WHERE status='REVIEW_LATER'"
+        )
+    connection.close()
+    log(f"RESET {count} review-later clusters for independent GPT reconstruction and review")
+    return int(count)
+
+
 def checkpoint_stopped() -> None:
     connection = ensure_state()
     with connection:
@@ -798,7 +887,8 @@ def checkpoint_stopped() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume", "reset-failed"))
+    parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume",
+                                            "reset-failed", "reset-review-later"))
     parser.add_argument("--max-clusters", type=int)
     parser.add_argument("--cluster-id")
     args = parser.parse_args()
@@ -812,6 +902,8 @@ def main() -> None:
         print(LOG.read_text(encoding="utf-8") if LOG.exists() else "No log yet", end="")
     elif args.command == "reset-failed":
         print(f"reset {reset_failed()} clusters")
+    elif args.command == "reset-review-later":
+        print(f"reset {reset_review_later()} clusters")
     else:
         STOP.write_text(stamp() + "\n", encoding="utf-8")
         if not service_active():

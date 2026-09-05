@@ -8,6 +8,7 @@ import csv
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import sqlite3
 import struct
@@ -30,6 +31,7 @@ STATUS = ROOT / "analysis/reagent/yellow_status.json"
 EMPTY_SOURCE = ROOT / "src/reagent/yellow_empty_functions.cpp"
 LEAF_SOURCE = ROOT / "src/reagent/yellow_leaf_functions.cpp"
 LEAF_RECORD = ROOT / "analysis/reagent/yellow_leaf_promotions.json"
+COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
 HARD_ARTIFACT = re.compile(r"\b(?:FUN|DAT|LAB|PTR)_[0-9A-Fa-f]+\b|\bundefined\d*\b")
 OFFSET = re.compile(r"(?:this|param_1)[^;\n]{0,80}?(?:\+\s*|,\s*)(0x[0-9a-fA-F]+)")
 CALL = re.compile(r"\b([A-Za-z_][A-Za-z0-9_:~]*)\s*\(")
@@ -231,7 +233,10 @@ def initialize_state(clusters: list[dict[str, object]]) -> None:
                 ON CONFLICT(cluster_id) DO UPDATE SET blocker=excluded.blocker,
                     namespace=excluded.namespace,candidate_count=excluded.candidate_count,
                     score=excluded.score,promoted=MAX(clusters.initial_count-excluded.candidate_count,0),
-                    status=CASE WHEN excluded.candidate_count < clusters.initial_count THEN 'PARTIAL' ELSE clusters.status END,
+                    status=CASE
+                        WHEN excluded.candidate_count < clusters.initial_count
+                             AND clusters.status NOT IN ('DEFERRED_HARD','ESCALATED','REVIEW_LATER','RESOLVED')
+                        THEN 'PARTIAL' ELSE clusters.status END,
                     updated_at=excluded.updated_at
             """, (row["cluster_id"], row["blocker"], row["namespace"], row["candidate_count"], row["score"], stamp,
                     row["candidate_count"]))
@@ -505,7 +510,7 @@ def promote_leaf(limit: int) -> tuple[int, int, int]:
     approved: list[dict[str, str]] = []
     failed = 0
     work = attempted[:max(limit * 4, limit)]
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=COMPILER_WORKERS) as executor:
         results = executor.map(compile_leaf, work)
         checked = zip(work, results)
         for row, (ok, _) in checked:
@@ -572,7 +577,7 @@ def promote_empty(limit: int) -> tuple[int, int]:
             selected.append({**row, "address": address, "symbol": symbols[address]})
             if len(selected) >= limit:
                 break
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=COMPILER_WORKERS) as executor:
         results = executor.map(lambda row: compile_empty(row, selected), selected)
         approved = [row for row, result in zip(selected, results) if result[0]]
     if not approved:
