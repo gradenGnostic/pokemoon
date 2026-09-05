@@ -1,6 +1,6 @@
 # Decompilation progress
 
-Updated: 2026-09-03
+Updated: 2026-09-05
 
 ## Target
 
@@ -14,28 +14,24 @@ Updated: 2026-09-03
 
 | Metric | Count |
 |---|---:|
-| Source-backed | 673 |
-| Compiling | 673 |
+| Source-backed | 1,000 |
+| Compiling | 1,000 |
 | `ASM_MATCH` | 298 |
 | `ASM_NEAR_MATCH` | 1 |
-| Semantic verified/nonmatching | 371 |
+| Semantic verified/nonmatching | 698 |
 | Semantic unverified | 3 |
 | Runtime-ready | 53 |
-| Remaining YELLOW | 949 |
+| Remaining YELLOW | 622 |
 
-`config/reconstructed_functions.csv` is authoritative. The latest YELLOW
-throughput-recovery pass added 26 source-backed retail functions: six
-checker-approved leaf reconstructions that also match retail ARM bytes exactly,
-and 20 compile-first semantic reconstructions that remain runtime-inactive.
-Together with the previous 102-function reviewed ARM promotion and the nine
-mapped retail functions contributed by the portable PC work, the canonical
-manifest now contains 673 source-backed functions.
+`config/reconstructed_functions.csv` is authoritative. The latest overnight
+GPT-reviewed YELLOW run added 327 source-backed retail functions and reached the
+1,000-function source-backed target. The resolver reports 622 functions
+remaining in the YELLOW queue.
 
-Six of the PC-port mappings have prior checker-passed semantic evidence; three
-remain source-backed but explicitly semantic-unverified because their older ARM
-candidates still had layout/store discrepancies. Host-only SDL/OpenGL/resource-
-decoder glue and work that maps only to `LangSelect.cro` are not counted in the
-`static.crs` headline.
+The 701 semantic/non-exact functions consist of 698 semantic-verified
+reconstructions plus the three explicitly semantic-unverified PC-port mappings.
+Host-only SDL/OpenGL/resource-decoder glue and work that maps only to
+`LangSelect.cro` are not counted in the `static.crs` headline.
 
 ## Runtime evidence
 
@@ -57,7 +53,7 @@ publishes it as the `eu_report` artifact.
 Because Pokemoon accepts semantic reconstructions instead of requiring every
 function to match retail compiler output byte-for-byte, the top-level
 decomp.dev `decompiled` percentage is normalized to source-backed function
-coverage. At this checkpoint that is 673 / 18,945 = 3.552%.
+coverage. At this checkpoint that is 1,000 / 18,945 = 5.278%.
 
 Exact ARM and partial byte-match evidence remains attached to individual report
 units. The `fully linked` field remains byte-weighted source coverage.
