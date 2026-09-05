@@ -89,3 +89,25 @@ extern "C" bool YellowAuto_004a77dc(const uint8_t* arg0) {
 return arg0[0x3088] != 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A77F0
+extern "C" bool YellowAuto_004a77f0(const uint8_t* arg0) __asm__("_ZNK8Savedata17JoinFestaDataSave32GetPlayerListShowAppTutorialFlagEv");
+extern "C" bool YellowAuto_004a77f0(const uint8_t* arg0) {
+return arg0[0x308a] != 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043F170
+extern "C" uint8_t YellowAuto_0043f170(uint8_t* arg0) __asm__("_ZN8Savedata17JoinFestaDataSave34GetQuestionnaireIdForPersonalEventEv");
+extern "C" uint8_t YellowAuto_0043f170(uint8_t* arg0) {
+return (uint8_t)(((arg0[0x37] = (uint8_t)((arg0[0x37] + 1) & 0x0f)) == 0) ? 0x0f : (arg0[0x37] - 1));
+}
+#endif

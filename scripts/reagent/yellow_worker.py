@@ -327,7 +327,8 @@ def checker_schema(path: Path) -> None:
     }), encoding="utf-8")
 
 
-def call_checker(cluster: dict[str, str], evidence: list[dict[str, object]], proposal: dict[str, object]) -> tuple[dict[str, object] | None, str]:
+def call_checker(cluster: dict[str, str], evidence: list[dict[str, object]], proposal: dict[str, object],
+                 compiler_results: list[dict[str, object]]) -> tuple[dict[str, object] | None, str]:
     prompt = f"""Act as an independent, adversarial reviewer of this ARMv7 cluster proposal.
 Do not assume the reconstruction is correct and do not edit files or run tools.
 Check ARM EABI, this interpretation, argument/return widths, signedness, member offsets,
@@ -339,6 +340,7 @@ Never require exact instruction selection.
 Cluster: {json.dumps(cluster, separators=(',', ':'))}
 Evidence: {json.dumps(evidence, separators=(',', ':'))}
 Proposal: {json.dumps(proposal, separators=(',', ':'))}
+Compiler and retail diff results: {json.dumps(compiler_results, separators=(',', ':'))}
 """
     with tempfile.TemporaryDirectory(prefix="yellow-checker-") as directory:
         schema = Path(directory) / "schema.json"
@@ -411,6 +413,35 @@ def compile_candidate(address: str, symbol: str, definition: str) -> tuple[bool,
             cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False,
         )
         return True, "ASM_MATCH" if compare.returncode == 0 else "ASM_DIFFERENT", compare.stdout[-1000:]
+
+
+def compile_proposal(candidates: list[dict[str, object]], review_by_address: dict[str, dict[str, str]],
+                     symbols: dict[str, str]) -> list[dict[str, object]]:
+    prepared: list[tuple[str, str, str]] = []
+    diagnostics: list[dict[str, object]] = []
+    for row in candidates:
+        try:
+            address = resolver.normalize(str(row["address"]))
+        except (KeyError, ValueError):
+            diagnostics.append({"address": str(row.get("address", "")), "compile_ok": False,
+                                "asm_status": "ASM_DIFFERENT", "detail": "invalid candidate address"})
+            continue
+        if address not in review_by_address or address not in symbols:
+            diagnostics.append({"address": address, "compile_ok": False, "asm_status": "ASM_DIFFERENT",
+                                "detail": "candidate is not present in review evidence or retail symbols"})
+            continue
+        definition = build_definition(row, f"YellowAuto_{address[2:].lower()}", symbols[address])
+        if definition is None:
+            diagnostics.append({"address": address, "compile_ok": False, "asm_status": "ASM_DIFFERENT",
+                                "detail": "invalid structured definition envelope"})
+            continue
+        prepared.append((address, symbols[address], definition))
+    with ThreadPoolExecutor(max_workers=COMPILER_WORKERS) as executor:
+        results = executor.map(lambda item: compile_candidate(*item), prepared)
+        for (address, _, _), (ok, asm_status, detail) in zip(prepared, results):
+            diagnostics.append({"address": address, "compile_ok": ok, "asm_status": asm_status,
+                                "detail": re.sub(r"\s+", " ", detail)[-500:]})
+    return diagnostics
 
 
 def source_text(rows: list[dict[str, str]]) -> str:
@@ -628,7 +659,10 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
             return 0
         for checker_round in range(1, 2):
             update_cluster(connection, cluster["cluster_id"], "CHECKER", checker_attempts=checker_round)
-            verdict, checker_detail = call_checker(cluster, evidence, proposal)
+            compiler_started = time.monotonic()
+            compiler_results = compile_proposal(proposal["candidates"], review_rows, symbols)
+            metric_event(connection, "compiler", duration_seconds=time.monotonic() - compiler_started)
+            verdict, checker_detail = call_checker(cluster, evidence, proposal, compiler_results)
             if verdict is None:
                 last_error = f"Checker unavailable: {checker_detail}"
                 checker_unavailable = True
@@ -827,6 +861,19 @@ def reset_failed() -> int:
     return int(count)
 
 
+def reset_review_later() -> int:
+    connection = ensure_state()
+    with connection:
+        count = connection.execute("SELECT COUNT(*) FROM clusters WHERE status='REVIEW_LATER'").fetchone()[0]
+        connection.execute(
+            "UPDATE clusters SET status='PENDING',qwen_attempts=0,checker_attempts=0,last_error='',detail='',"
+            "evidence_hash='' WHERE status='REVIEW_LATER'"
+        )
+    connection.close()
+    log(f"RESET {count} review-later clusters for independent GPT reconstruction and review")
+    return int(count)
+
+
 def checkpoint_stopped() -> None:
     connection = ensure_state()
     with connection:
@@ -840,7 +887,8 @@ def checkpoint_stopped() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume", "reset-failed"))
+    parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume",
+                                            "reset-failed", "reset-review-later"))
     parser.add_argument("--max-clusters", type=int)
     parser.add_argument("--cluster-id")
     args = parser.parse_args()
@@ -854,6 +902,8 @@ def main() -> None:
         print(LOG.read_text(encoding="utf-8") if LOG.exists() else "No log yet", end="")
     elif args.command == "reset-failed":
         print(f"reset {reset_failed()} clusters")
+    elif args.command == "reset-review-later":
+        print(f"reset {reset_review_later()} clusters")
     else:
         STOP.write_text(stamp() + "\n", encoding="utf-8")
         if not service_active():
