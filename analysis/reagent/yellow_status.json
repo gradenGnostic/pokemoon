@@ -1,74 +1,15 @@
 {
   "phase": "YELLOW RESOLUTION",
-  "starting_yellow": 1539,
-  "remaining_yellow": 622,
-  "clusters_analyzed": 260,
-  "clusters_processed": 287,
+  "starting_yellow": 4052,
+  "remaining_yellow": 2791,
+  "clusters_analyzed": 652,
+  "clusters_processed": 2,
   "shared_blockers_fixed": 2,
-  "promoted": 917,
-  "source_backed": 1000,
+  "promoted": 1261,
+  "source_backed": 1344,
   "exact": 298,
-  "semantic": 701,
+  "semantic": 1045,
   "near": 1,
   "runtime_ready": 53,
-  "updated_at": "2026-09-05T05:07:57+00:00",
-  "worker": "TARGET_REACHED",
-  "pid": null,
-  "current_cluster": null,
-  "current_namespace": null,
-  "phase4e_promoted": 491,
-  "cluster_states": {
-    "COMPLETE": 18,
-    "DEFERRED_HARD": 89,
-    "ESCALATED": 30,
-    "PARTIAL": 21,
-    "PENDING": 86,
-    "RESOLVED": 1020
-  },
-  "reverser": "gpt-5.4-mini",
-  "reconstructor_provider": "codex",
-  "checker": "gpt-5.4-mini via Codex CLI",
-  "rolling_rate": {
-    "15m": {
-      "promotions": 8.0,
-      "promotions_per_hour": 32.0,
-      "reconstructor_calls": 13,
-      "reconstructor_calls_per_hour": 52.0,
-      "promotions_per_reconstructor_call": 0.62,
-      "average_cluster_seconds": 70.14,
-      "reconstructor_seconds": 391.27,
-      "compiler_seconds": 2.18,
-      "ghidra_seconds": 0
-    },
-    "30m": {
-      "promotions": 20.0,
-      "promotions_per_hour": 40.0,
-      "reconstructor_calls": 28,
-      "reconstructor_calls_per_hour": 56.0,
-      "promotions_per_reconstructor_call": 0.71,
-      "average_cluster_seconds": 63.73,
-      "reconstructor_seconds": 766.49,
-      "compiler_seconds": 4.92,
-      "ghidra_seconds": 0
-    },
-    "60m": {
-      "promotions": 35.0,
-      "promotions_per_hour": 35.0,
-      "reconstructor_calls": 40,
-      "reconstructor_calls_per_hour": 40.0,
-      "promotions_per_reconstructor_call": 0.88,
-      "average_cluster_seconds": 89.01,
-      "reconstructor_seconds": 1512.55,
-      "compiler_seconds": 6.87,
-      "ghidra_seconds": 0
-    }
-  },
-  "throughput_totals": {
-    "reconstructor_calls": 713,
-    "qwen_calls": 409,
-    "qwen_promotions": 327,
-    "compile_first_promotions": 24,
-    "mechanical_promotions": 4,
-    "deferred_clusters": 505
-  }
+  "updated_at": "2026-09-06T13:26:23+00:00"
 }

@@ -24,3 +24,20 @@ extern "C" int32_t YellowAuto_0035a208(void* arg0, const uint8_t* arg1) {
 if (FUN_0051a80c((void*)((char*)arg0 + 4), (const uint8_t*)arg1, &local_10) == 0) amx_GetAddr((void*)((char*)arg0 + 4), local_10, &local_c); else local_c = 0; return local_c;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0051AFA8
+void* GetAmx(uint8_t*);
+void amx_Register(void*, const void*, int32_t);
+extern "C" void YellowAuto_0051afa8(uint8_t* arg0, const void* arg1) __asm__("_ZN4gfl24pawn8PawnBase20RegisterPawnFunctionEPK18tagAMX_NATIVE_INFO");
+extern "C" void YellowAuto_0051afa8(uint8_t* arg0, const void* arg1) {
+amx_Register(GetAmx(arg0), arg1, -1);
+}
+#endif

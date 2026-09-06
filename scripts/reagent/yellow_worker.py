@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import fcntl
+import hashlib
 import json
 import os
 import re
@@ -39,12 +40,19 @@ RECONSTRUCTOR_PROVIDER = os.environ.get("YELLOW_RECONSTRUCTOR_PROVIDER", "ollama
 RECONSTRUCTOR_MODEL = os.environ.get("YELLOW_RECONSTRUCTOR_MODEL", "qwen2.5-coder:7b")
 CHECKER_MODEL = os.environ.get("YELLOW_CHECKER_MODEL", "gpt-5.4-mini")
 CHECKER_ENABLED = os.environ.get("YELLOW_CHECKER_ENABLED", "0") == "1"
+CHECKER_PROVIDER = os.environ.get("YELLOW_CHECKER_PROVIDER", "codex")
+SOURCE_REFERENCE_INDEX_PATH = os.environ.get("YELLOW_SOURCE_REFERENCE_INDEX", "")
 MAX_CLUSTER_FUNCTIONS = 20
+MAX_REFERENCE_CHARS_PER_FUNCTION = 8000
+MAX_REFERENCE_CHARS_PER_CLUSTER = 48000
 COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
-TARGET_SOURCE_BACKED = 1000
+TARGET_SOURCE_BACKED = int(os.environ.get("YELLOW_TARGET_SOURCE_BACKED", "1000"))
 ORDINARY_QWEN_TIMEOUT = 420
 HIGH_FANOUT_QWEN_TIMEOUT = 600
 EVIDENCE_CACHE: dict[str, dict[str, object]] = {}
+SOURCE_REFERENCE_INDEX: dict[str, object] | None = None
+SOURCE_REFERENCE_HASH = ""
+REVIEW_QUALIFIED_NAMES: dict[str, str] | None = None
 ALLOWED_TYPES = {
     "void", "bool", "uint8_t", "int8_t", "uint16_t", "int16_t", "uint32_t", "int32_t",
     "void*", "const void*", "uint8_t*", "const uint8_t*", "uint16_t*", "const uint16_t*",
@@ -241,6 +249,101 @@ def compact_evidence(address: str, review: dict[str, str], catalog: dict[str, di
     return compact
 
 
+def load_source_reference_index() -> dict[str, object]:
+    global SOURCE_REFERENCE_INDEX, SOURCE_REFERENCE_HASH
+    if SOURCE_REFERENCE_INDEX is not None:
+        return SOURCE_REFERENCE_INDEX
+    SOURCE_REFERENCE_INDEX = {}
+    if not SOURCE_REFERENCE_INDEX_PATH:
+        return SOURCE_REFERENCE_INDEX
+    path = Path(SOURCE_REFERENCE_INDEX_PATH)
+    try:
+        raw = path.read_bytes()
+        payload = json.loads(raw)
+    except (OSError, ValueError) as exc:
+        log(f"source reference index unavailable: {exc}")
+        return SOURCE_REFERENCE_INDEX
+    entries = payload.get("entries", {}) if isinstance(payload, dict) else {}
+    if not isinstance(entries, dict):
+        log("source reference index has invalid entries")
+        return SOURCE_REFERENCE_INDEX
+    SOURCE_REFERENCE_HASH = hashlib.sha256(raw).hexdigest()
+    SOURCE_REFERENCE_INDEX = {
+        "revision": str(payload.get("revision", "unknown")),
+        "entries": entries,
+    }
+    log(f"loaded source reference index {path} with {len(entries)} qualified keys")
+    return SOURCE_REFERENCE_INDEX
+
+
+def source_reference_for(qualified_name: str, max_chars: int) -> dict[str, object] | None:
+    index = load_source_reference_index()
+    entries = index.get("entries", {})
+    base_name = qualified_name.split("(", 1)[0].strip()
+    parts = base_name.split("::")
+    if len(parts) < 2 or not isinstance(entries, dict):
+        return None
+    matches = entries.get("::".join(parts[-2:]), [])
+    if not isinstance(matches, list) or not matches or max_chars <= 0:
+        return None
+    selected: list[dict[str, object]] = []
+    remaining = min(max_chars, MAX_REFERENCE_CHARS_PER_FUNCTION)
+    for match in matches[:3]:
+        if not isinstance(match, dict) or remaining <= 0:
+            break
+        text = str(match.get("text", ""))
+        if not text:
+            continue
+        excerpt = text[:remaining]
+        selected.append({
+            "qualified_name": str(match.get("qualified_name", "")),
+            "path": str(match.get("path", "")),
+            "line": int(match.get("line", 0)),
+            "text": excerpt,
+            "truncated": len(excerpt) < len(text) or bool(match.get("truncated")),
+        })
+        remaining -= len(excerpt)
+    if not selected:
+        return None
+    return {"revision": index.get("revision", "unknown"), "definitions": selected}
+
+
+def has_source_reference(qualified_name: str) -> bool:
+    index = load_source_reference_index()
+    entries = index.get("entries", {})
+    parts = qualified_name.split("(", 1)[0].strip().split("::")
+    return len(parts) >= 2 and isinstance(entries, dict) and "::".join(parts[-2:]) in entries
+
+
+def cluster_source_reference_count(cluster: dict[str, str]) -> int:
+    global REVIEW_QUALIFIED_NAMES
+    if REVIEW_QUALIFIED_NAMES is None:
+        REVIEW_QUALIFIED_NAMES = {
+            resolver.normalize(row["address"]): row["qualified_name"]
+            for row in resolver.read_csv(resolver.REVIEW)
+        }
+    return sum(
+        has_source_reference(REVIEW_QUALIFIED_NAMES.get(resolver.normalize(address), ""))
+        for address in cluster["addresses"].split(";")
+    )
+
+
+def attach_source_references(evidence: list[dict[str, object]]) -> int:
+    remaining = MAX_REFERENCE_CHARS_PER_CLUSTER
+    matched = 0
+    for item in evidence:
+        reference = source_reference_for(str(item.get("qualified_name", "")), remaining)
+        if reference is None:
+            continue
+        item["private_cross_version_source_reference"] = reference
+        used = sum(len(str(row.get("text", ""))) for row in reference["definitions"])
+        remaining -= used
+        matched += 1
+        if remaining <= 0:
+            break
+    return matched
+
+
 def qwen_prompt(cluster: dict[str, str], evidence: list[dict[str, object]], correction: str = "") -> str:
     review_policy = (
         f"An independent {CHECKER_MODEL} invocation will adversarially review semantic candidates."
@@ -259,6 +362,10 @@ undefined types, invented fields, includes, or assembly in the body. Put require
 in declarations as complete C++ declaration lines ending in semicolons. Skip unsupported functions.
 {review_policy} Prefer mechanically obvious definitions, but exact retail ARM bytes are not required
 when the independent reviewer confirms the reconstruction from evidence.
+Private historical source excerpts may be attached to individual evidence items. They are strong
+cross-version hints, but the configured Moon target ARM, Ghidra evidence, compiler diagnostics, and
+retail diff take precedence. Adapt only the relevant function; do not reproduce comments or unrelated
+code, and reject reference types, offsets, constants, or behavior contradicted by the target.
 
 Cluster: {cluster['cluster_id']} | {cluster['namespace']} | {cluster['blocker']}
 Shared dependency: {cluster['shared_dependency']} | offsets: {cluster['offsets']}
@@ -271,7 +378,40 @@ Return JSON matching this schema exactly:
 """
 
 
+def call_opencode(prompt: str, model: str, timeout: int) -> tuple[dict[str, object] | None, str]:
+    command = [
+        "opencode", "run", "--pure", "--format", "json", "--model", model,
+    ]
+    environment = os.environ.copy()
+    environment["OPENCODE_CONFIG_CONTENT"] = json.dumps({
+        "$schema": "https://opencode.ai/config.json",
+        "permission": "deny",
+        "share": "disabled",
+    })
+    try:
+        result = subprocess.run(
+            command, input=prompt, cwd=ROOT, env=environment, text=True,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout, check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return None, str(exc)
+    texts: list[str] = []
+    for line in result.stdout.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        if event.get("type") == "text" and isinstance(event.get("part"), dict):
+            texts.append(str(event["part"].get("text", "")))
+    content = "\n".join(texts)
+    if result.returncode or not content:
+        return None, result.stdout[-2000:]
+    return extract_json(content), result.stdout[-2000:]
+
+
 def call_reconstructor(prompt: str, timeout: int) -> tuple[dict[str, object] | None, str]:
+    if RECONSTRUCTOR_PROVIDER == "opencode":
+        return call_opencode(prompt, RECONSTRUCTOR_MODEL, timeout)
     if RECONSTRUCTOR_PROVIDER == "codex":
         with tempfile.TemporaryDirectory(prefix="yellow-reconstructor-") as directory:
             schema = Path(directory) / "schema.json"
@@ -337,11 +477,19 @@ PASS if sound. CORRECT by returning corrected definitions when a small evidence-
 is enough. REJECT unsupported candidates. Preserve the structured ABI/body envelope exactly:
 allowed types only, arg0/arg1 names only, no class types, no this keyword, and body without braces.
 Never require exact instruction selection.
+Private historical source excerpts are advisory cross-version evidence. Reject any proposal that
+copies a reference assumption contradicted by the target ARM/Ghidra evidence or compiler diagnostics.
 Cluster: {json.dumps(cluster, separators=(',', ':'))}
 Evidence: {json.dumps(evidence, separators=(',', ':'))}
 Proposal: {json.dumps(proposal, separators=(',', ':'))}
 Compiler and retail diff results: {json.dumps(compiler_results, separators=(',', ':'))}
+Return JSON matching this schema exactly:
+{json.dumps({"type": "object", "additionalProperties": False, "required": ["verdict", "summary", "issues", "candidates"], "properties": {"verdict": {"type": "string", "enum": ["PASS", "CORRECT", "REJECT"]}, "summary": {"type": "string"}, "issues": {"type": "array", "items": {"type": "string"}}, "candidates": {"type": "array", "items": candidate_schema(approved=True)}}}, separators=(',', ':'))}
 """
+    if CHECKER_PROVIDER == "opencode":
+        return call_opencode(prompt, CHECKER_MODEL, 900)
+    if CHECKER_PROVIDER != "codex":
+        return None, f"unsupported checker provider: {CHECKER_PROVIDER}"
     with tempfile.TemporaryDirectory(prefix="yellow-checker-") as directory:
         schema = Path(directory) / "schema.json"
         output = Path(directory) / "result.json"
@@ -374,7 +522,7 @@ def build_definition(row: dict[str, object], artifact: str, symbol: str) -> str 
     if any(str(value) not in ALLOWED_TYPES or str(value) == "void" for value in param_types):
         return None
     forbidden = ("#include", "__asm", " asm(", "system(", "fopen(", "std::", "this", "undefined")
-    if any(token in body for token in forbidden) or "{" in body or "}" in body:
+    if any(token in body for token in forbidden) or body.count("{") != body.count("}"):
         return None
     declaration_lines = []
     for value in declarations:
@@ -551,8 +699,11 @@ def append_escalation(cluster: dict[str, str], reason: str) -> None:
 def evidence_fingerprint(cluster: dict[str, str]) -> str:
     payload = "|".join((cluster["blocker"], cluster["namespace"], cluster["shared_dependency"],
                         cluster["addresses"]))
-    import hashlib
-    return hashlib.sha1(payload.encode()).hexdigest()
+    reference_hash = SOURCE_REFERENCE_HASH
+    if SOURCE_REFERENCE_INDEX_PATH and not reference_hash:
+        load_source_reference_index()
+        reference_hash = SOURCE_REFERENCE_HASH
+    return hashlib.sha1(f"{payload}|{reference_hash}".encode()).hexdigest()
 
 
 def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[object, ...]:
@@ -570,7 +721,9 @@ def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[objec
     size_band = 0 if 2 <= count <= 8 else 1 if count == 1 else 2
     estimated_cost = max(int(cluster["total_size"]) + count * 80, 1)
     expected_yield = min(count, 8) * max(int(cluster["score"]), 1) / estimated_cost
-    return (int(state["qwen_attempts"]) > 0, hard_namespace, blocker_rank, size_band, -expected_yield)
+    reference_count = cluster_source_reference_count(cluster)
+    return (reference_count == 0, int(state["qwen_attempts"]) > 0, hard_namespace,
+            blocker_rank, size_band, -reference_count, -expected_yield)
 
 
 def select_cluster(connection: sqlite3.Connection, clusters: dict[str, dict[str, str]],
@@ -609,12 +762,15 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
     }
     addresses = [resolver.normalize(value) for value in cluster["addresses"].split(";")][:MAX_CLUSTER_FUNCTIONS]
     evidence = [compact_evidence(address, review_rows[address], catalog, symbols[address])
-                for address in addresses if address in review_rows and address in catalog and address in symbols]
+                 for address in addresses if address in review_rows and address in catalog and address in symbols]
     if not evidence:
         append_escalation(cluster, "No complete Ghidra/catalog/symbol evidence")
         update_cluster(connection, cluster["cluster_id"], "ESCALATED", last_error="missing evidence")
         metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
         return 0
+    matched_references = attach_source_references(evidence)
+    if matched_references:
+        log(f"cluster {cluster['cluster_id']} attached {matched_references} private source references")
     correction = ""
     last_error = ""
     checker_unavailable = False
@@ -713,7 +869,8 @@ def write_worker_status(connection: sqlite3.Connection, state: str, current: dic
         "clusters_processed": worker_processed, "phase4e_promoted": phase4e_promoted,
         "cluster_states": counts, "reverser": RECONSTRUCTOR_MODEL,
         "reconstructor_provider": RECONSTRUCTOR_PROVIDER,
-        "checker": f"{CHECKER_MODEL} via Codex CLI" if CHECKER_ENABLED else "REVIEW_LATER",
+        "checker": f"{CHECKER_MODEL} via {CHECKER_PROVIDER}" if CHECKER_ENABLED else "REVIEW_LATER",
+        "source_reference": "configured" if SOURCE_REFERENCE_INDEX_PATH else None,
         "rolling_rate": rolling_metrics(connection),
         "throughput_totals": {
             "reconstructor_calls": int(connection.execute(
@@ -783,7 +940,7 @@ class Worker:
         connection = ensure_state()
         promoted_since_check = run_compile_first(connection)
         processed_this_run = 0
-        checker = CHECKER_MODEL if CHECKER_ENABLED else "REVIEW_LATER"
+        checker = f"{CHECKER_PROVIDER}:{CHECKER_MODEL}" if CHECKER_ENABLED else "REVIEW_LATER"
         log(f"START pid={os.getpid()} reconstructor={RECONSTRUCTOR_PROVIDER}:{RECONSTRUCTOR_MODEL} "
             f"checker={checker}")
         try:
