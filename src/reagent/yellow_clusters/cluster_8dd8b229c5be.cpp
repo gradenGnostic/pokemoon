@@ -39,3 +39,20 @@ extern "C" void YellowAuto_003c15dc(void* arg0, uint32_t arg1, uint32_t arg2) {
 uint16_t uVar1 = FUN_003c1bc0(arg0, *(const void * const *)arg0, 0x43, arg2); FUN_003c11f8(arg0, arg1, *(const void * const *)arg0, uVar1 & 0xff | 0x200);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1D44
+uint16_t GetMonsName(const void*, uint32_t, uint32_t, uint32_t);
+void FUN_003c11f8(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void YellowAuto_003c1d44(uint32_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZN5print7WordSet22RegisterPokeMonsNameNoEj6MonsNo");
+extern "C" void YellowAuto_003c1d44(uint32_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) {
+uint16_t nameNo = GetMonsName((const void *)*(uint32_t *)arg0, arg2, arg2, arg3); FUN_003c11f8((uint32_t)arg0, arg1, *(uint32_t *)arg0, ((((uint32_t)nameNo & 0xffu) | 2u) << 8) | ((uint32_t)nameNo & 0xffu), 0u);
+}
+#endif

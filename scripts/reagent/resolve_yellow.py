@@ -32,6 +32,7 @@ EMPTY_SOURCE = ROOT / "src/reagent/yellow_empty_functions.cpp"
 LEAF_SOURCE = ROOT / "src/reagent/yellow_leaf_functions.cpp"
 LEAF_RECORD = ROOT / "analysis/reagent/yellow_leaf_promotions.json"
 COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
+STARTING_YELLOW = int(os.environ.get("YELLOW_STARTING_YELLOW", "1539"))
 HARD_ARTIFACT = re.compile(r"\b(?:FUN|DAT|LAB|PTR)_[0-9A-Fa-f]+\b|\bundefined\d*\b")
 OFFSET = re.compile(r"(?:this|param_1)[^;\n]{0,80}?(?:\+\s*|,\s*)(0x[0-9a-fA-F]+)")
 CALL = re.compile(r"\b([A-Za-z_][A-Za-z0-9_:~]*)\s*\(")
@@ -618,10 +619,10 @@ def write_status(clusters: list[dict[str, object]] | None = None) -> None:
     review_count = sum(int(row["candidate_count"]) for row in clusters)
     phase_rows = [row for row in manifest if row["notes"].startswith("Phase 4D")]
     rules_completed = len({row["source"] for row in phase_rows})
-    promoted = 1539 - review_count
+    promoted = STARTING_YELLOW - review_count
     payload = {
         "phase": "YELLOW RESOLUTION",
-        "starting_yellow": 1539,
+        "starting_yellow": STARTING_YELLOW,
         "remaining_yellow": review_count,
         "clusters_analyzed": len(clusters),
         "clusters_processed": rules_completed,
