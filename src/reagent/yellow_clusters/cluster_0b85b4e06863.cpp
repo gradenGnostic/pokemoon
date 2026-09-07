@@ -13,3 +13,29 @@ extern "C" void YellowAuto_002ebeb4(uint8_t* arg0, uint8_t* arg1, bool arg2) {
 FUN_002e7fb8(arg0, arg1, *(uint32_t *)(arg1 + 0x14), *(uint32_t *)(arg1 + 0x14)); *(uint32_t *)(arg0 + 0x88) = 0; *(uint32_t *)(arg0 + 0x0) = *(uint32_t *)0x002ebef8; *(uint32_t *)(arg0 + 0x80) = *(uint32_t *)0x002ebef8 + 0x78; *(uint8_t **)(arg0 + 0x84) = arg1; *(uint32_t *)(arg0 + 0x8c) = 0; *(uint32_t *)(arg0 + 0x90) = 0; *(uint8_t *)(arg0 + 0x94) = arg2;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EBCE0
+void* FUN_00304e98(void*);
+void operator_delete(void*);
+extern "C" void YellowAuto_002ebce0(uint8_t* arg0) __asm__("_ZN3app4tool12PaneListView14DeletePaneListEv");
+extern "C" void YellowAuto_002ebce0(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 136) == 0) return; operator_delete(FUN_00304e98((void*)(*(uint32_t*)(arg0 + 136)))); *(uint32_t*)(arg0 + 136) = 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EBDA0
+void* FUN_0031222c(void*);
+void operator_delete(void*);
+extern "C" void YellowAuto_002ebda0(uint8_t* arg0) __asm__("_ZN3app4tool12PaneListView15DeleteScrollBarEv");
+extern "C" void YellowAuto_002ebda0(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 140) == 0) return; operator_delete(FUN_0031222c((void*)(*(uint32_t*)(arg0 + 140)))); *(uint32_t*)(arg0 + 140) = 0;
+}
+#endif

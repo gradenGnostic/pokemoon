@@ -29,3 +29,43 @@ extern "C" void YellowAuto_003e05dc(uint8_t* arg0) {
 if (FUN_004a2da8((int32_t)arg0) != 0 && *(uint8_t*)(arg0 + 0x10) == 0 && *(uint32_t*)(arg0 + 0xc) != 0) Kill(*(void**)(*(uint32_t*)(arg0 + 0xc) + 0xe0)); if (FUN_004a2da8((int32_t)arg0) != 0 && *(uint8_t*)(arg0 + 0x10) == 0 && *(uint32_t*)(arg0 + 0x8) != 0) Kill(*(void**)(*(uint32_t*)(arg0 + 0x8) + 0xc8)); if (FUN_004a2da8((int32_t)arg0) != 0 && (*(uint8_t*)(arg0 + 0x10) == 1 || *(uint8_t*)(arg0 + 0x10) == 2) && *(uint32_t*)(arg0 + 0x20) != 0) (*(void (**)(void*))(*(uint32_t*)(*(uint32_t*)(arg0 + 0x20)) + 0x10))(*(void**)(arg0 + 0x20));
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E07A4
+extern "C" void YellowAuto_003e07a4(uint8_t* arg0) __asm__("_ZN6NetLib8Delivery15DeliveryManager6UpdateEv");
+extern "C" void YellowAuto_003e07a4(uint8_t* arg0) {
+if (*(void**)(arg0 + 0x20) != (void*)0) (*(void (**)(void*, void*))(*(uint32_t*)(*(void**)(arg0 + 0x20)) + 8))(*(void**)(arg0 + 0x20), *(void**)(arg0 + 0x1c));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E07C8
+void FUN_003e0670(uint8_t*);
+void FUN_004b4a4c(void*);
+extern "C" uint32_t YellowAuto_003e07c8(uint8_t* arg0) __asm__("_ZN6NetLib8Delivery15DeliveryManager8FinalizeEv");
+extern "C" uint32_t YellowAuto_003e07c8(uint8_t* arg0) {
+if (*(arg0 + 0x4) == (uint8_t)0) return 0;
+*(arg0 + 0x4) = (uint8_t)0;
+if (*(void**)(arg0 + 0x20) != (void*)0) {
+FUN_003e0670(arg0);
+if (*(void**)(arg0 + 0x20) != (void*)0) {
+(*(void (**)(void*))(*(uint32_t*)(*(void**)(arg0 + 0x20)) + 4))(*(void**)(arg0 + 0x20));
+*(void**)(arg0 + 0x20) = (void*)0;
+}
+}
+*(void**)(arg0 + 0x18) = (void*)0;
+*(void**)(arg0 + 0x1c) = (void*)0;
+*(void**)(arg0 + 0x14) = (void*)0;
+*(void**)(arg0 + 0x84) = (void*)0;
+*(void**)(arg0 + 0x88) = (void*)0;
+FUN_004b4a4c((void*)(arg0 + 0x8c));
+FUN_004b4a4c((void*)(arg0 + 0x96));
+return 0;
+}
+#endif
