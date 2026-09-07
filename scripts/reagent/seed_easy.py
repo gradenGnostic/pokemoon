@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import json
 from pathlib import Path
 
 
@@ -50,14 +49,9 @@ def normalize(value: str) -> str:
 
 def select(args: argparse.Namespace) -> int:
     code_families = {value.strip() for value in args.code_families.split(",") if value.strip()}
-    source_keys: set[str] | None = None
-    if args.source_index:
-        payload = json.loads(args.source_index.read_text(encoding="utf-8"))
-        source_keys = set(payload.get("entries", {}))
-    used_paths = (MANIFEST, REVIEW) if source_keys is not None else (MANIFEST, REVIEW, ESCALATION)
     used = {
         normalize(row["address"])
-        for path in used_paths
+        for path in (MANIFEST, REVIEW, ESCALATION)
         for row in read_csv(path)
         if row.get("address")
     }
@@ -81,10 +75,6 @@ def select(args: argparse.Namespace) -> int:
             or int(row["switch_count"]) > args.max_switches
         ):
             continue
-        if source_keys is not None:
-            parts = symbols[address].split("(", 1)[0].strip().split("::")
-            if len(parts) < 2 or "::".join(parts[-2:]) not in source_keys:
-                continue
         eligible.append(row)
     eligible.sort(key=lambda row: (
         int(row["indirect_call_count"]), int(row["loop_count"]), int(row["switch_count"]),
@@ -95,7 +85,7 @@ def select(args: argparse.Namespace) -> int:
         "address": normalize(row["address"]), "qualified_name": row["qualified_name"],
         "namespace": row["namespace"], "size": row["size"], "caller_count": row["caller_count"],
         "callee_count": row["callee_count"], "provenance": row["provenance"],
-        "review_status": "SOURCE_REFERENCE" if source_keys is not None else "UNRUN",
+        "review_status": "UNRUN",
     } for row in eligible[:args.limit]]
     write_csv(TARGETS, selected, TARGET_FIELDS)
     print(f"selected {len(selected)} easy-first targets in {TARGETS.relative_to(ROOT)}")
@@ -116,18 +106,13 @@ def register() -> int:
         if address in known:
             continue
         row = catalog[address]
-        source_reference = target.get("review_status") == "SOURCE_REFERENCE"
         review.append({
             "address": address, "qualified_name": target["qualified_name"],
             "tier": row["tier"].removeprefix("TIER_"), "size": target["size"], "candidate": "",
             "classification": "YELLOW",
-            "reason": "GPT_SOURCE_REFERENCE" if source_reference else "GPT_EASY_BATCH",
+            "reason": "GPT_EASY_BATCH",
             "checker_result": "UNRUN",
-            "checker_summary": (
-                "Queued with private historical source, Ghidra evidence, and independent GPT review."
-                if source_reference else
-                "Queued for independent GPT reconstruction and review from Ghidra evidence."
-            ),
+            "checker_summary": "Queued for independent GPT reconstruction and review from Ghidra evidence.",
         })
         known.add(address)
         added += 1
@@ -147,7 +132,6 @@ def main() -> None:
     parser.add_argument("--max-loops", type=int, default=1)
     parser.add_argument("--max-switches", type=int, default=1)
     parser.add_argument("--code-families", default="GAME,GFL2")
-    parser.add_argument("--source-index", type=Path)
     args = parser.parse_args()
     if args.command == "select":
         select(args)

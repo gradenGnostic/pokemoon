@@ -41,18 +41,12 @@ RECONSTRUCTOR_MODEL = os.environ.get("YELLOW_RECONSTRUCTOR_MODEL", "qwen2.5-code
 CHECKER_MODEL = os.environ.get("YELLOW_CHECKER_MODEL", "gpt-5.4-mini")
 CHECKER_ENABLED = os.environ.get("YELLOW_CHECKER_ENABLED", "0") == "1"
 CHECKER_PROVIDER = os.environ.get("YELLOW_CHECKER_PROVIDER", "codex")
-SOURCE_REFERENCE_INDEX_PATH = os.environ.get("YELLOW_SOURCE_REFERENCE_INDEX", "")
 MAX_CLUSTER_FUNCTIONS = 20
-MAX_REFERENCE_CHARS_PER_FUNCTION = 8000
-MAX_REFERENCE_CHARS_PER_CLUSTER = 48000
 COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
 TARGET_SOURCE_BACKED = int(os.environ.get("YELLOW_TARGET_SOURCE_BACKED", "1000"))
 ORDINARY_QWEN_TIMEOUT = 420
 HIGH_FANOUT_QWEN_TIMEOUT = 600
 EVIDENCE_CACHE: dict[str, dict[str, object]] = {}
-SOURCE_REFERENCE_INDEX: dict[str, object] | None = None
-SOURCE_REFERENCE_HASH = ""
-REVIEW_QUALIFIED_NAMES: dict[str, str] | None = None
 ALLOWED_TYPES = {
     "void", "bool", "uint8_t", "int8_t", "uint16_t", "int16_t", "uint32_t", "int32_t",
     "void*", "const void*", "uint8_t*", "const uint8_t*", "uint16_t*", "const uint16_t*",
@@ -249,101 +243,6 @@ def compact_evidence(address: str, review: dict[str, str], catalog: dict[str, di
     return compact
 
 
-def load_source_reference_index() -> dict[str, object]:
-    global SOURCE_REFERENCE_INDEX, SOURCE_REFERENCE_HASH
-    if SOURCE_REFERENCE_INDEX is not None:
-        return SOURCE_REFERENCE_INDEX
-    SOURCE_REFERENCE_INDEX = {}
-    if not SOURCE_REFERENCE_INDEX_PATH:
-        return SOURCE_REFERENCE_INDEX
-    path = Path(SOURCE_REFERENCE_INDEX_PATH)
-    try:
-        raw = path.read_bytes()
-        payload = json.loads(raw)
-    except (OSError, ValueError) as exc:
-        log(f"source reference index unavailable: {exc}")
-        return SOURCE_REFERENCE_INDEX
-    entries = payload.get("entries", {}) if isinstance(payload, dict) else {}
-    if not isinstance(entries, dict):
-        log("source reference index has invalid entries")
-        return SOURCE_REFERENCE_INDEX
-    SOURCE_REFERENCE_HASH = hashlib.sha256(raw).hexdigest()
-    SOURCE_REFERENCE_INDEX = {
-        "revision": str(payload.get("revision", "unknown")),
-        "entries": entries,
-    }
-    log(f"loaded source reference index {path} with {len(entries)} qualified keys")
-    return SOURCE_REFERENCE_INDEX
-
-
-def source_reference_for(qualified_name: str, max_chars: int) -> dict[str, object] | None:
-    index = load_source_reference_index()
-    entries = index.get("entries", {})
-    base_name = qualified_name.split("(", 1)[0].strip()
-    parts = base_name.split("::")
-    if len(parts) < 2 or not isinstance(entries, dict):
-        return None
-    matches = entries.get("::".join(parts[-2:]), [])
-    if not isinstance(matches, list) or not matches or max_chars <= 0:
-        return None
-    selected: list[dict[str, object]] = []
-    remaining = min(max_chars, MAX_REFERENCE_CHARS_PER_FUNCTION)
-    for match in matches[:3]:
-        if not isinstance(match, dict) or remaining <= 0:
-            break
-        text = str(match.get("text", ""))
-        if not text:
-            continue
-        excerpt = text[:remaining]
-        selected.append({
-            "qualified_name": str(match.get("qualified_name", "")),
-            "path": str(match.get("path", "")),
-            "line": int(match.get("line", 0)),
-            "text": excerpt,
-            "truncated": len(excerpt) < len(text) or bool(match.get("truncated")),
-        })
-        remaining -= len(excerpt)
-    if not selected:
-        return None
-    return {"revision": index.get("revision", "unknown"), "definitions": selected}
-
-
-def has_source_reference(qualified_name: str) -> bool:
-    index = load_source_reference_index()
-    entries = index.get("entries", {})
-    parts = qualified_name.split("(", 1)[0].strip().split("::")
-    return len(parts) >= 2 and isinstance(entries, dict) and "::".join(parts[-2:]) in entries
-
-
-def cluster_source_reference_count(cluster: dict[str, str]) -> int:
-    global REVIEW_QUALIFIED_NAMES
-    if REVIEW_QUALIFIED_NAMES is None:
-        REVIEW_QUALIFIED_NAMES = {
-            resolver.normalize(row["address"]): row["qualified_name"]
-            for row in resolver.read_csv(resolver.REVIEW)
-        }
-    return sum(
-        has_source_reference(REVIEW_QUALIFIED_NAMES.get(resolver.normalize(address), ""))
-        for address in cluster["addresses"].split(";")
-    )
-
-
-def attach_source_references(evidence: list[dict[str, object]]) -> int:
-    remaining = MAX_REFERENCE_CHARS_PER_CLUSTER
-    matched = 0
-    for item in evidence:
-        reference = source_reference_for(str(item.get("qualified_name", "")), remaining)
-        if reference is None:
-            continue
-        item["private_cross_version_source_reference"] = reference
-        used = sum(len(str(row.get("text", ""))) for row in reference["definitions"])
-        remaining -= used
-        matched += 1
-        if remaining <= 0:
-            break
-    return matched
-
-
 def qwen_prompt(cluster: dict[str, str], evidence: list[dict[str, object]], correction: str = "") -> str:
     review_policy = (
         f"An independent {CHECKER_MODEL} invocation will adversarially review semantic candidates."
@@ -362,11 +261,6 @@ undefined types, invented fields, includes, or assembly in the body. Put require
 in declarations as complete C++ declaration lines ending in semicolons. Skip unsupported functions.
 {review_policy} Prefer mechanically obvious definitions, but exact retail ARM bytes are not required
 when the independent reviewer confirms the reconstruction from evidence.
-Private historical source excerpts may be attached to individual evidence items. They are strong
-cross-version hints, but the configured Moon target ARM, Ghidra evidence, compiler diagnostics, and
-retail diff take precedence. Adapt only the relevant function; do not reproduce comments or unrelated
-code, and reject reference types, offsets, constants, or behavior contradicted by the target.
-
 Cluster: {cluster['cluster_id']} | {cluster['namespace']} | {cluster['blocker']}
 Shared dependency: {cluster['shared_dependency']} | offsets: {cluster['offsets']}
 Correction requested by checker: {correction or 'none'}
@@ -477,8 +371,6 @@ PASS if sound. CORRECT by returning corrected definitions when a small evidence-
 is enough. REJECT unsupported candidates. Preserve the structured ABI/body envelope exactly:
 allowed types only, arg0/arg1 names only, no class types, no this keyword, and body without braces.
 Never require exact instruction selection.
-Private historical source excerpts are advisory cross-version evidence. Reject any proposal that
-copies a reference assumption contradicted by the target ARM/Ghidra evidence or compiler diagnostics.
 Cluster: {json.dumps(cluster, separators=(',', ':'))}
 Evidence: {json.dumps(evidence, separators=(',', ':'))}
 Proposal: {json.dumps(proposal, separators=(',', ':'))}
@@ -699,11 +591,7 @@ def append_escalation(cluster: dict[str, str], reason: str) -> None:
 def evidence_fingerprint(cluster: dict[str, str]) -> str:
     payload = "|".join((cluster["blocker"], cluster["namespace"], cluster["shared_dependency"],
                         cluster["addresses"]))
-    reference_hash = SOURCE_REFERENCE_HASH
-    if SOURCE_REFERENCE_INDEX_PATH and not reference_hash:
-        load_source_reference_index()
-        reference_hash = SOURCE_REFERENCE_HASH
-    return hashlib.sha1(f"{payload}|{reference_hash}".encode()).hexdigest()
+    return hashlib.sha1(payload.encode()).hexdigest()
 
 
 def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[object, ...]:
@@ -721,9 +609,7 @@ def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[objec
     size_band = 0 if 2 <= count <= 8 else 1 if count == 1 else 2
     estimated_cost = max(int(cluster["total_size"]) + count * 80, 1)
     expected_yield = min(count, 8) * max(int(cluster["score"]), 1) / estimated_cost
-    reference_count = cluster_source_reference_count(cluster)
-    return (reference_count == 0, int(state["qwen_attempts"]) > 0, hard_namespace,
-            blocker_rank, size_band, -reference_count, -expected_yield)
+    return (int(state["qwen_attempts"]) > 0, hard_namespace, blocker_rank, size_band, -expected_yield)
 
 
 def select_cluster(connection: sqlite3.Connection, clusters: dict[str, dict[str, str]],
@@ -768,9 +654,6 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
         update_cluster(connection, cluster["cluster_id"], "ESCALATED", last_error="missing evidence")
         metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
         return 0
-    matched_references = attach_source_references(evidence)
-    if matched_references:
-        log(f"cluster {cluster['cluster_id']} attached {matched_references} private source references")
     correction = ""
     last_error = ""
     checker_unavailable = False
@@ -870,7 +753,6 @@ def write_worker_status(connection: sqlite3.Connection, state: str, current: dic
         "cluster_states": counts, "reverser": RECONSTRUCTOR_MODEL,
         "reconstructor_provider": RECONSTRUCTOR_PROVIDER,
         "checker": f"{CHECKER_MODEL} via {CHECKER_PROVIDER}" if CHECKER_ENABLED else "REVIEW_LATER",
-        "source_reference": "configured" if SOURCE_REFERENCE_INDEX_PATH else None,
         "rolling_rate": rolling_metrics(connection),
         "throughput_totals": {
             "reconstructor_calls": int(connection.execute(

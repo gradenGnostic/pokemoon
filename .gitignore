@@ -11,7 +11,7 @@
 *.exefs
 code.bin
 exheader.bin
-extracted/
+/extracted
 input/*
 !input/README.md
 romfs/
@@ -28,7 +28,7 @@ ghidra/**/*.tmp
 research/repos/
 tools/ghidra-ctr-loader/
 tools/Project_CTR/
-tools/3DS-Decomp-Pipeline/
+/tools/3DS-Decomp-Pipeline
 tools/3ds-Ghidra-Scripts/
 .decomp/
 build/
@@ -42,8 +42,9 @@ game-data/
 __pycache__/
 *.pyc
 config.mk
-.venv-reagent/
-.ghidra-exports/
+/.venv-reagent
+/.ghidra-exports
+/tmp-ghidra
 reports/re-agent/
 analysis/reagent/*
 !analysis/reagent/README.md
