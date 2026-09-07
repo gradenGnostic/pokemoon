@@ -1,13 +1,13 @@
 blocker,candidates
-unknown this-pointer type,287
-missing class declaration,89
+unknown this-pointer type,238
+missing class declaration,73
 uncertain member offset,0
 missing enum,0
 unresolved helper prototype,0
-shared header change required,17
-ABI uncertainty,156
+shared header change required,16
+ABI uncertainty,133
 unresolved external call,0
 CRO ownership,0
-checker uncertainty,2240
+checker uncertainty,1722
 missing prototype,2
 verified empty ARM body,0

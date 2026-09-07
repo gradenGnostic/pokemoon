@@ -35,3 +35,21 @@ extern "C" void* YellowAuto_0045b10c(uint32_t arg0) {
 if (arg0 >= 7u) return (void*)0; return (void*)(*(uint32_t*)(*(uint32_t*)0x0045B120u + arg0 * 4u));
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045B124
+void* GetInstance();
+extern "C" void YellowAuto_0045b124(int32_t arg0, uint8_t* arg1) __asm__("_ZN9NetAppLib4Util11BossUtility22CreateXYBossAttribute1ENS1_13BOSS_APP_TYPEEPc");
+extern "C" void YellowAuto_0045b124(int32_t arg0, uint8_t* arg1) {
+GetInstance();
+(void)arg0;
+(void)arg1;
+}
+#endif
