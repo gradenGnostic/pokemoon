@@ -98,3 +98,86 @@ extern "C" void YellowAuto_003c1394(uint8_t* arg0) {
 for (uint32_t i = 0; i < *(uint32_t*)(arg0 + 4); ++i) { *(uint32_t*)(*(uint8_t**)(arg0 + 8) + i * 12 + 4) = 0; func_00354314(*(uint8_t**)(*(uint8_t**)(arg0 + 8) + i * 12)); }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1F70
+uint32_t Func00492D4C(const uint8_t*, uint32_t);
+uint16_t Func004935AC(const uint8_t*);
+uint32_t Func00314780(uint8_t*, uint32_t);
+void Func003C11F8(uint8_t*, uint32_t, uint8_t*, uint32_t, uint32_t);
+extern "C" void YellowAuto_003c1f70(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2) __asm__("_ZN5print7WordSet28RegisterPokeMonsNameOrTamagoEjPKN3pml8pokepara9CoreParamE");
+extern "C" void YellowAuto_003c1f70(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2) {
+uint32_t v = *(uint32_t*)0x003C1FEC;
+uint32_t e = Func00492D4C(arg2, 2U);
+uint32_t n = v;
+if (e == 0U) {
+n = (uint32_t)Func004935AC(arg2);
+}
+uint8_t* b = *(uint8_t**)arg0;
+uint32_t r = Func00314780(b, n);
+uint32_t lo = r & 255U;
+uint32_t f = lo | 512U;
+Func003C11F8(arg0, arg1, b, f, 0U);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1AD8
+void Func00490D14(const uint8_t*, uint8_t*);
+uint32_t Func00491C3C(const uint8_t*);
+int32_t Func003ED8D8();
+void Func003C11F8(uint8_t*, uint32_t, uint8_t*, uint32_t, uint32_t);
+extern "C" void YellowAuto_003c1ad8(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2) __asm__("_ZN5print7WordSet20RegisterPokeNickNameEjPKN3pml8pokepara9CoreParamE");
+extern "C" void YellowAuto_003c1ad8(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2) {
+uint8_t* b = *(uint8_t**)arg0;
+Func00490D14(arg2, b);
+uint32_t s = Func00491C3C(arg2);
+uint32_t m = 0U;
+if (s != 0U) {
+if (s == 1U) {
+m = 1U;
+} else {
+int32_t l = Func003ED8D8();
+if (l == 5) {
+m = 2U;
+} else {
+m = 0U;
+}
+}
+} else {
+m = 0U;
+}
+uint32_t mm = m & 3U;
+uint32_t f = mm;
+Func003C11F8(arg0, arg1, b, f, 1600U);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1D9C
+uint32_t Func003C1BC0(uint8_t*, uint8_t*, uint32_t, uint32_t);
+void Func003C11F8(uint8_t*, uint32_t, uint8_t*, uint32_t, uint32_t);
+void Func0035BE88();
+extern "C" void YellowAuto_003c1d9c(uint8_t* arg0, uint32_t arg1, uint16_t arg2) __asm__("_ZN5print7WordSet23RegisterFieldPocketNameEjt");
+extern "C" void YellowAuto_003c1d9c(uint8_t* arg0, uint32_t arg1, uint16_t arg2) {
+uint32_t base = *(uint32_t*)0x003C1E5C;
+for (uint32_t i = 0U; i < 7U; i++) {
+int32_t p = *(int32_t*)(base + i * 8U);
+if (p == arg2) {
+uint32_t msg = *(uint32_t*)(base + i * 8U + 4U);
+uint8_t* b = *(uint8_t**)arg0;
+uint32_t r = Func003C1BC0(arg0, b, 2U, msg);
+uint32_t lo = r & 255U;
+uint32_t f = lo | 512U;
+Func003C11F8(arg0, arg1, b, f, 0U);
+return;
+}
+}
+Func0035BE88();
+}
+#endif

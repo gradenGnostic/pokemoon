@@ -27,3 +27,25 @@ WordSet((uint8_t*)arg0 + 0xf8, *(void**)((uint8_t*)(*(uint32_t*)((uint8_t*)arg0 
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D1DB0
+extern "C" void YellowAuto_002d1db0(uint8_t* arg0, int32_t arg1) __asm__("_ZN3App4Tool23CommonMessageWindowView38CommonMessageWindowManipulator_OnEventENS0_30CommonMessageWindowManipulator7EventIDE");
+extern "C" void YellowAuto_002d1db0(uint8_t* arg0, int32_t arg1) {
+if (*(uint32_t*)(arg0 + 224) == (uint32_t)0) return; if (arg1 == 0) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 224)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 224), 0); else if (arg1 == 1) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 224)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 224), 1); return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AC498
+extern "C" void YellowAuto_004ac498(uint8_t* arg0, int32_t arg1) __asm__("_ZThn128_N3App4Tool23CommonMessageWindowView38CommonMessageWindowManipulator_OnEventENS0_30CommonMessageWindowManipulator7EventIDE");
+extern "C" void YellowAuto_004ac498(uint8_t* arg0, int32_t arg1) {
+if (*(uint32_t*)(arg0 + 96) == (uint32_t)0) return; if (arg1 == 0) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 96)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 96), 0); else if (arg1 == 1) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 96)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 96), 1); return;
+}
+#endif

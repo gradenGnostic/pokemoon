@@ -13,6 +13,27 @@ arg0[0x2E] = 1;
 }
 #endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DF4F8
+extern "C" void YellowAuto_003df4f8(uint8_t* arg0) __asm__("_ZN6NetLib5Error23NijiNetworkErrorManager16NotNotifySpanOffEv");
+extern "C" void YellowAuto_003df4f8(uint8_t* arg0) {
+arg0[0x2E] = 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DF580
+extern "C" void YellowAuto_003df580(uint8_t* arg0) __asm__("_ZN6NetLib5Error23NijiNetworkErrorManager20P2pDisconnectSpanOffEv");
+extern "C" void YellowAuto_003df580(uint8_t* arg0) {
+arg0[0x2C] = 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DF5E0
+extern "C" void YellowAuto_003df5e0(uint8_t* arg0) __asm__("_ZN6NetLib5Error23NijiNetworkErrorManager31UnregistForceDisconnectListenerEv");
+extern "C" void YellowAuto_003df5e0(uint8_t* arg0) {
+*(uint32_t *)(arg0 + 0x28) = 0;
+}
+#endif
+
 #if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A2D24
 extern "C" bool YellowAuto_004a2d24(const uint8_t* arg0) __asm__("_ZNK6NetLib5Error23NijiNetworkErrorManager12IsFatalErrorEv");
 extern "C" bool YellowAuto_004a2d24(const uint8_t* arg0) {

@@ -34,3 +34,32 @@ extern "C" void YellowAuto_004a835c(void* arg0, const uint8_t* arg1) {
 uint8_t local[0x28]; for (uint32_t i = 0; i < 0x26; ++i) local[i] = 0xff; local[0x26] = 0; local[0x27] = 0; ConvertToDressUpParam((uint32_t *)local, (const uint32_t *)(arg1 + 0x5c)); __aeabi_memcpy(arg0, local, 0x28);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004439AC
+extern "C" void YellowAuto_004439ac(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZN8Savedata8MyStatus14SetNexUniqueIDEy");
+extern "C" void YellowAuto_004439ac(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) {
+*(uint32_t*)(arg0 + 24) = arg2; *(uint32_t*)(arg0 + 28) = arg3;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00443AD8
+extern "C" void YellowAuto_00443ad8(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZN8Savedata8MyStatus25SetPssPersonalDataStoreIdEy");
+extern "C" void YellowAuto_00443ad8(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) {
+*(uint32_t*)(arg0 + 16) = arg2; *(uint32_t*)(arg0 + 20) = arg3;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A8408
+extern "C" uint16_t YellowAuto_004a8408(const uint8_t* arg0) __asm__("_ZNK8Savedata8MyStatus11HasMegaRingEv");
+extern "C" uint16_t YellowAuto_004a8408(const uint8_t* arg0) {
+return (*(const uint16_t*)(arg0 + 128) & 1);
+}
+#endif

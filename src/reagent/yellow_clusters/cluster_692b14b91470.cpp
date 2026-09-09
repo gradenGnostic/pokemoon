@@ -29,6 +29,14 @@ if (*(uint32_t*)(arg0 + 0x120C) == 0) return; helper_set_enable((uint8_t*)(*(uin
 }
 #endif
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040F8FC
+void helper_update(uint8_t*);
+extern "C" void YellowAuto_0040f8fc(uint8_t* arg0) __asm__("_ZN7poke_3d5model12PokemonModel12UpdateSpringEv");
+extern "C" void YellowAuto_0040f8fc(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 0x120C) == 0) return; helper_update((uint8_t*)(*(uint32_t*)(arg0 + 0x120C)));
+}
+#endif
+
 #if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004100D0
 extern "C" uint32_t YellowAuto_004100d0(uint8_t* arg0) __asm__("_ZN7poke_3d5model12PokemonModel21IsEnabledAmbientColorEv");
 extern "C" uint32_t YellowAuto_004100d0(uint8_t* arg0) {

@@ -35,3 +35,19 @@ extern "C" int32_t YellowAuto_0037ed2c(uint8_t* arg0, int32_t arg1, int32_t arg2
 *reinterpret_cast<int32_t*>(arg0 + 0x48) = arg1; *reinterpret_cast<int32_t*>(arg0 + arg1 * 0x18 + 0x18) = arg2; *reinterpret_cast<int32_t*>(arg0 + arg1 * 0x18 + 0x1C) = arg3; *reinterpret_cast<int32_t*>(arg0 + arg1 * 0x18 + 0x20) = arg4; arg0[0x14] = 1; return 0;
 }
 #endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0037F360
+bool func_0010f43c(void*);
+extern "C" bool YellowAuto_0037f360(uint8_t* arg0, int32_t arg1) __asm__("_ZN5Field11FieldScript16ScriptTrialModel9PlayIsEndEi");
+extern "C" bool YellowAuto_0037f360(uint8_t* arg0, int32_t arg1) {
+return func_0010f43c(*reinterpret_cast<uint8_t**>(arg0 + arg1 * 0x18 + 0x28));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0037F2FC
+void func_0010f434(void*, int32_t);
+extern "C" void YellowAuto_0037f2fc(uint8_t* arg0, int32_t arg1, int32_t arg2) __asm__("_ZN5Field11FieldScript16ScriptTrialModel8PlayAnimEii");
+extern "C" void YellowAuto_0037f2fc(uint8_t* arg0, int32_t arg1, int32_t arg2) {
+func_0010f434(*reinterpret_cast<uint8_t**>(arg0 + arg1 * 0x18 + 0x28), arg2);
+}
+#endif

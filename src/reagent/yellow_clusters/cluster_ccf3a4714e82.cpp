@@ -109,3 +109,25 @@ extern "C" bool YellowAuto_003d6680(uint8_t* arg0, const uint8_t* arg1, const vo
 (void)arg0; uint8_t* _s = GetInstance(); uint8_t* _o = (uint8_t*)(*(uint32_t*)(_s + 128)); if (_o == 0) return true; return Func_003D33DC(_o, arg1, arg2);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004070A8
+extern "C" uint32_t YellowAuto_004070a8(uint8_t* arg0) __asm__("_ZN6NetApp3NBR6NBRNet12IsInitializeEv");
+extern "C" uint32_t YellowAuto_004070a8(uint8_t* arg0) {
+return *(uint32_t*)(arg0 + 8);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00407A94
+extern "C" uint32_t YellowAuto_00407a94(uint8_t* arg0) __asm__("_ZN6NetApp3NBR6NBRNet8GetNetIDEv");
+extern "C" uint32_t YellowAuto_00407a94(uint8_t* arg0) {
+return *(uint32_t*)(arg0 + 8);
+}
+#endif

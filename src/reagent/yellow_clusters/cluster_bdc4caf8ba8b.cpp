@@ -21,3 +21,18 @@ extern "C" uint32_t YellowAuto_00399ad4(uint32_t arg0) {
 return arg0 < 0x26 && (arg0 == 8 || arg0 == 0x15);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0039993C
+extern "C" void YellowAuto_0039993c(void* arg0) __asm__("_ZN5Field9Attribute10InitializeEPv");
+extern "C" void YellowAuto_0039993c(void* arg0) {
+*(uint32_t*)(*(uint32_t*)0x00399948) = (uint32_t)arg0;
+}
+#endif

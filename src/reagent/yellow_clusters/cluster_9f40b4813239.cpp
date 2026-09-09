@@ -29,3 +29,28 @@ extern "C" void YellowAuto_0048e6fc(const uint8_t* arg0, uint32_t* arg1, uint32_
 if (arg1 != 0) *arg1 = *(uint32_t*)(arg0 + 0x18); if (arg2 != 0) *arg2 = *(uint32_t*)(arg0 + 0x6c);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0030404C
+void SetButtonSelectSE(void* arg0, int32_t arg1, uint32_t arg2);
+extern "C" void YellowAuto_0030404c(uint8_t* arg0, int32_t arg1, uint32_t arg2) __asm__("_ZN3app4tool8PaneList20SetButtonSEPaneIndexEjj");
+extern "C" void YellowAuto_0030404c(uint8_t* arg0, int32_t arg1, uint32_t arg2) {
+SetButtonSelectSE(*(void**)(arg0 + 0x78), arg1, arg2); *(*(uint32_t**)(arg0 + 0x7c) + arg1) = arg2;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00304BC4
+uint32_t GetPosPaneIndex(uint8_t* arg0, uint32_t arg1);
+void Put(void* arg0, void* arg1, void* arg2);
+extern "C" void YellowAuto_00304bc4(uint8_t* arg0) __asm__("_ZN3app4tool8PaneList9PutCursorEv");
+extern "C" void YellowAuto_00304bc4(uint8_t* arg0) {
+if (*(void**)(arg0 + 0x40) != 0) Put(*(void**)(arg0 + 0x40), *(void**)(arg0 + 0x04), *(void**)(*(uint8_t**)(arg0 + 0x08) + GetPosPaneIndex(arg0, *(uint32_t*)(arg0 + 0x18)) * 0x20 + 0x0C));
+}
+#endif

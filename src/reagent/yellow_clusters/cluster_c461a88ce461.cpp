@@ -28,3 +28,27 @@ extern "C" uint8_t YellowAuto_00315410() {
 return *(uint8_t *)(*(int *)(DAT_0031541c + 0x1c) + 8);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00315890
+uint16_t FUN_0048f484(const void*, uint16_t);
+extern "C" uint16_t YellowAuto_00315890(uint16_t arg0) __asm__("_ZN3pml8personal16GetWazaOboeLevelEt");
+extern "C" uint16_t YellowAuto_00315890(uint16_t arg0) {
+return FUN_0048f484((const void*)(*(uint32_t*)(*(uint32_t*)0x003158A0 + 0x1C)), arg0);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003159D0
+uint16_t FUN_0048f4c4(const void*, uint16_t);
+extern "C" uint16_t YellowAuto_003159d0(uint16_t arg0) __asm__("_ZN3pml8personal17GetWazaOboeWazaNoEt");
+extern "C" uint16_t YellowAuto_003159d0(uint16_t arg0) {
+return FUN_0048f4c4((const void*)(*(uint32_t*)(*(uint32_t*)0x003159E0 + 0x1C)), arg0);
+}
+#endif

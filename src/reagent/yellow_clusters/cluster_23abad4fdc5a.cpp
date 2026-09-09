@@ -42,3 +42,32 @@ extern "C" void YellowAuto_0045c318(uint8_t* arg0) {
 uint32_t n = *(uint32_t*)(arg0 + 24); for (uint32_t i = 0; i < n; ++i) { uint8_t* e = *(uint8_t**)(arg0 + 16); if (e != 0) *(uint32_t*)(e + i * 64 + 40) = 0; }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045C7B8
+void SetFrame(uint8_t*, int32_t, int32_t, int32_t, int32_t);
+extern "C" void YellowAuto_0045c7b8(uint8_t* arg0, const uint8_t* arg1, bool arg2) __asm__("_ZN9NetAppLib4Util22NetAppPokeModelUtility16SetFramePositionEPKN2nw3lyt4PaneEb");
+extern "C" void YellowAuto_0045c7b8(uint8_t* arg0, const uint8_t* arg1, bool arg2) {
+if (arg1 == 0) return;
+float s = *(const float*)(arg1 + 0x3c) * *(const float*)0x0045c84c;
+float t = *(const float*)(arg1 + 0x40) * *(const float*)0x0045c84c;
+float b = *(const float*)0x0045c844;
+if (!arg2) b = *(const float*)0x0045c848;
+float h = *(const float*)(arg1 + 0x64);
+float w = *(const float*)(arg1 + 0x54);
+uint8_t* v = *(uint8_t**)(arg0 + 0x30);
+if (v == 0) return;
+int32_t a0 = (int32_t)(w - s + b);
+int32_t a1 = (int32_t)(-h - t + *(const float*)0x0045c850);
+int32_t a2 = (int32_t)(w + s + b);
+int32_t a3 = (int32_t)(t - h + *(const float*)0x0045c850);
+SetFrame(v, a0, a1, a2, a3);
+}
+#endif

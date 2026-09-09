@@ -35,3 +35,20 @@ if (owner != -1 && 0 < -owner) FUN_00108a20();
 return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x001076A8
+uint32_t helper_mrc_p15_0_c13_c0_3(void);
+void helper_00108bf8(uint8_t*);
+extern "C" void YellowAuto_001076a8(uint8_t* arg0) __asm__("_ZN2nn2os15CriticalSection5EnterEv");
+extern "C" void YellowAuto_001076a8(uint8_t* arg0) {
+if (helper_mrc_p15_0_c13_c0_3() != *(uint32_t*)(arg0 + 4)) { helper_00108bf8(arg0); *(uint32_t*)(arg0 + 4) = helper_mrc_p15_0_c13_c0_3(); } *(uint32_t*)(arg0 + 8) = *(uint32_t*)(arg0 + 8) + 1;
+}
+#endif

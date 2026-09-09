@@ -30,3 +30,36 @@ BinLinkerAccessor(arg0 + 0x10);
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00395A98
+uint32_t IsArcFileOpenFinished(uint8_t*, uint32_t);
+uint32_t IsArcFileLoadDataFinished(uint8_t*, uint8_t*);
+uint8_t* GetData(uint8_t*, uint32_t);
+void sub_00395B50(uint8_t*);
+extern "C" bool YellowAuto_00395a98(uint8_t* arg0) __asm__("_ZN5Field5World14InitializeWaitEv");
+extern "C" bool YellowAuto_00395a98(uint8_t* arg0) {
+uint8_t* _m0 = *reinterpret_cast<uint8_t**>(arg0 + 8);
+if (IsArcFileOpenFinished(_m0, 91) == 0) return false;
+uint8_t* _m1 = *reinterpret_cast<uint8_t**>(arg0 + 8);
+if (IsArcFileLoadDataFinished(_m1, arg0 + 12) == 0) return false;
+*reinterpret_cast<uint32_t*>(arg0 + 16) = *reinterpret_cast<uint32_t*>(arg0 + 12);
+*reinterpret_cast<uint8_t**>(arg0 + 20) = GetData(arg0 + 16, 0);
+*reinterpret_cast<uint8_t**>(arg0 + 44) = GetData(arg0 + 16, 1);
+uint8_t* _b = *reinterpret_cast<uint8_t**>(arg0 + 20);
+*reinterpret_cast<uint8_t**>(arg0 + 24) = _b + *reinterpret_cast<uint32_t*>(_b + 0);
+*reinterpret_cast<uint8_t**>(arg0 + 32) = _b + *reinterpret_cast<uint32_t*>(_b + 8);
+*reinterpret_cast<uint32_t*>(arg0 + 28) = (*reinterpret_cast<uint32_t*>(_b + 12) - *reinterpret_cast<uint32_t*>(_b + 8)) >> 2;
+*reinterpret_cast<uint8_t**>(arg0 + 36) = _b + *reinterpret_cast<uint32_t*>(_b + 4);
+*reinterpret_cast<uint32_t*>(arg0 + 40) = (*reinterpret_cast<uint32_t*>(_b + 8) - *reinterpret_cast<uint32_t*>(_b + 4)) >> 2;
+sub_00395B50(arg0);
+return true;
+}
+#endif

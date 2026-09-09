@@ -29,3 +29,26 @@ extern "C" void YellowAuto_0030f29c(void* arg0, void* arg1, void* arg2, int32_t 
 Delete(arg0); *(uint32_t *)(arg0 + 4) = CreateHeap(arg1, arg3, arg4, 0, 0); *(uint32_t *)(arg0 + 8) = CreateHeap(arg2, arg5, arg6, 0, 0); *(uint32_t *)(arg0 + 0x10) = operator_new(0xc, *(uint32_t *)(arg0 + 4)); if (*(uint32_t *)(arg0 + 0x10) != 0) *(uint32_t *)(arg0 + 0x10) = NwAllocator(*(uint32_t *)(arg0 + 0x10), *(uint32_t *)(arg0 + 4)); *(uint32_t *)(arg0 + 0x14) = operator_new(0xc, *(uint32_t *)(arg0 + 8)); if (*(uint32_t *)(arg0 + 0x14) != 0) *(uint32_t *)(arg0 + 0x14) = NwAllocator(*(uint32_t *)(arg0 + 0x14), *(uint32_t *)(arg0 + 8)); *(uint32_t *)(arg0 + 0x18) = operator_new(8, *(uint32_t *)(arg0 + 4)); if (*(uint32_t *)(arg0 + 0x18) != 0) *(uint32_t *)(arg0 + 0x18) = GLHeapAllocator(*(uint32_t *)(arg0 + 0x18), *(uint32_t *)(arg0 + 4)); *(uint32_t *)(arg0 + 0x1c) = operator_new(8, *(uint32_t *)(arg0 + 8)); if (*(uint32_t *)(arg0 + 0x1c) != 0) *(uint32_t *)(arg0 + 0x1c) = GLHeapAllocator(*(uint32_t *)(arg0 + 0x1c), *(uint32_t *)(arg0 + 8)); *(uint8_t *)(arg0 + 0x20) = 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0030F280
+extern "C" void YellowAuto_0030f280(uint8_t* arg0, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6) __asm__("_ZN3app4util4Heap6CreateEPN4gfl24heap11CtrHeapBaseES5_PNS3_11NwAllocatorES7_PNS2_4util15GLHeapAllocatorESA_");
+extern "C" void YellowAuto_0030f280(uint8_t* arg0, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6) {
+*(void**)(arg0 + 16) = arg3; *(void**)(arg0 + 4) = arg1; *(void**)(arg0 + 8) = arg2; *(void**)(arg0 + 20) = arg4; *(void**)(arg0 + 24) = arg5; *(void**)(arg0 + 28) = arg6;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0030F384
+void DeleteHeap(void*);
+extern "C" void YellowAuto_0030f384(uint8_t* arg0) __asm__("_ZN3app4util4Heap6DeleteEv");
+extern "C" void YellowAuto_0030f384(uint8_t* arg0) {
+if (*(arg0 + 32) == (uint8_t)0) { *(void**)(arg0 + 28) = (void*)0; *(void**)(arg0 + 24) = (void*)0; *(void**)(arg0 + 20) = (void*)0; *(void**)(arg0 + 16) = (void*)0; *(void**)(arg0 + 8) = (void*)0; *(void**)(arg0 + 4) = (void*)0; } else { if (*(void**)(arg0 + 28) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 28)) + 1)))(*(void**)(arg0 + 28)); *(void**)(arg0 + 28) = (void*)0; } if (*(void**)(arg0 + 24) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 24)) + 1)))(*(void**)(arg0 + 24)); *(void**)(arg0 + 24) = (void*)0; } if (*(void**)(arg0 + 20) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 20)) + 1)))(*(void**)(arg0 + 20)); *(void**)(arg0 + 20) = (void*)0; } if (*(void**)(arg0 + 16) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 16)) + 1)))(*(void**)(arg0 + 16)); *(void**)(arg0 + 16) = (void*)0; } DeleteHeap(*(void**)(arg0 + 8)); *(void**)(arg0 + 8) = (void*)0; DeleteHeap(*(void**)(arg0 + 4)); *(void**)(arg0 + 4) = (void*)0; *(arg0 + 32) = (uint8_t)0; } *(uint32_t*)(arg0 + 12) = (uint32_t)0;
+}
+#endif
