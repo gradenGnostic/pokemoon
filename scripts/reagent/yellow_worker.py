@@ -42,6 +42,9 @@ CHECKER_MODEL = os.environ.get("YELLOW_CHECKER_MODEL", "gpt-5.4-mini")
 CHECKER_ENABLED = os.environ.get("YELLOW_CHECKER_ENABLED", "0") == "1"
 CHECKER_PROVIDER = os.environ.get("YELLOW_CHECKER_PROVIDER", "codex")
 MAX_CLUSTER_FUNCTIONS = 20
+RETRY_JOB_SIZE = int(os.environ.get("YELLOW_RETRY_JOB_SIZE", "3"))
+RETRY_RECONSTRUCTOR_TIMEOUT = int(os.environ.get("YELLOW_RETRY_RECONSTRUCTOR_TIMEOUT", "300"))
+RETRY_CHECKER_TIMEOUT = int(os.environ.get("YELLOW_RETRY_CHECKER_TIMEOUT", "420"))
 COMPILER_WORKERS = int(os.environ.get("YELLOW_COMPILER_WORKERS", "6"))
 TARGET_SOURCE_BACKED = int(os.environ.get("YELLOW_TARGET_SOURCE_BACKED", "1000"))
 ORDINARY_QWEN_TIMEOUT = 420
@@ -87,6 +90,8 @@ def ensure_state() -> sqlite3.Connection:
             ("checker_attempts", "INTEGER NOT NULL DEFAULT 0"),
             ("last_error", "TEXT NOT NULL DEFAULT ''"),
             ("evidence_hash", "TEXT NOT NULL DEFAULT ''"),
+            ("retry_cursor", "INTEGER NOT NULL DEFAULT 0"),
+            ("split_retry", "INTEGER NOT NULL DEFAULT 0"),
         ):
             if name not in columns:
                 connection.execute(f"ALTER TABLE clusters ADD COLUMN {name} {declaration}")
@@ -362,7 +367,8 @@ def checker_schema(path: Path) -> None:
 
 
 def call_checker(cluster: dict[str, str], evidence: list[dict[str, object]], proposal: dict[str, object],
-                 compiler_results: list[dict[str, object]]) -> tuple[dict[str, object] | None, str]:
+                 compiler_results: list[dict[str, object]], timeout: int = 900
+                 ) -> tuple[dict[str, object] | None, str]:
     prompt = f"""Act as an independent, adversarial reviewer of this ARMv7 cluster proposal.
 Do not assume the reconstruction is correct and do not edit files or run tools.
 Check ARM EABI, this interpretation, argument/return widths, signedness, member offsets,
@@ -379,7 +385,7 @@ Return JSON matching this schema exactly:
 {json.dumps({"type": "object", "additionalProperties": False, "required": ["verdict", "summary", "issues", "candidates"], "properties": {"verdict": {"type": "string", "enum": ["PASS", "CORRECT", "REJECT"]}, "summary": {"type": "string"}, "issues": {"type": "array", "items": {"type": "string"}}, "candidates": {"type": "array", "items": candidate_schema(approved=True)}}}, separators=(',', ':'))}
 """
     if CHECKER_PROVIDER == "opencode":
-        return call_opencode(prompt, CHECKER_MODEL, 900)
+        return call_opencode(prompt, CHECKER_MODEL, timeout)
     if CHECKER_PROVIDER != "codex":
         return None, f"unsupported checker provider: {CHECKER_PROVIDER}"
     with tempfile.TemporaryDirectory(prefix="yellow-checker-") as directory:
@@ -393,7 +399,7 @@ Return JSON matching this schema exactly:
         ]
         try:
             result = subprocess.run(command, input=prompt, cwd=ROOT, text=True, stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT, timeout=900, check=False)
+                                    stderr=subprocess.STDOUT, timeout=timeout, check=False)
         except (OSError, subprocess.TimeoutExpired) as exc:
             return None, str(exc)
         if result.returncode or not output.exists():
@@ -612,13 +618,32 @@ def cluster_priority(cluster: dict[str, str], state: sqlite3.Row) -> tuple[objec
     return (int(state["qwen_attempts"]) > 0, hard_namespace, blocker_rank, size_band, -expected_yield)
 
 
+def retry_job(cluster: dict[str, str], state: sqlite3.Row) -> dict[str, str]:
+    if not int(state["split_retry"]):
+        return cluster
+    addresses = cluster["addresses"].split(";")
+    cursor = int(state["retry_cursor"])
+    if cursor >= len(addresses):
+        cursor = 0
+    selected = addresses[cursor:cursor + RETRY_JOB_SIZE]
+    job = dict(cluster)
+    job["addresses"] = ";".join(selected)
+    job["candidate_count"] = str(len(selected))
+    job["total_size"] = str(max(1, int(cluster["total_size"]) * len(selected) // len(addresses)))
+    job["retry_cursor"] = str(cursor)
+    job["parent_candidate_count"] = str(len(addresses))
+    job["split_retry"] = "1"
+    return job
+
+
 def select_cluster(connection: sqlite3.Connection, clusters: dict[str, dict[str, str]],
                    cluster_id: str | None = None) -> dict[str, str] | None:
     if cluster_id:
         row = connection.execute(
             "SELECT * FROM clusters WHERE cluster_id=? AND status IN ('PENDING','PARTIAL')", (cluster_id,),
         ).fetchone()
-        return clusters.get(cluster_id) if row else None
+        cluster = clusters.get(cluster_id)
+        return retry_job(cluster, row) if row and cluster else None
     rows = connection.execute("SELECT * FROM clusters WHERE status IN ('PENDING','PARTIAL')").fetchall()
     candidates: list[tuple[dict[str, str], sqlite3.Row]] = []
     for row in rows:
@@ -635,7 +660,25 @@ def select_cluster(connection: sqlite3.Connection, clusters: dict[str, dict[str,
         candidates.append((cluster, row))
     if not candidates:
         return None
-    return min(candidates, key=lambda item: cluster_priority(item[0], item[1]))[0]
+    cluster, state = min(candidates, key=lambda item: cluster_priority(item[0], item[1]))
+    return retry_job(cluster, state)
+
+
+def advance_retry_job(connection: sqlite3.Connection, cluster: dict[str, str], error: str) -> bool:
+    if cluster.get("split_retry") != "1":
+        return False
+    cursor = int(cluster["retry_cursor"])
+    attempted = len(cluster["addresses"].split(";"))
+    next_cursor = cursor + attempted
+    if next_cursor >= int(cluster["parent_candidate_count"]):
+        return False
+    update_cluster(
+        connection, cluster["cluster_id"], "PENDING", retry_cursor=next_cursor,
+        qwen_attempts=0, checker_attempts=0, evidence_hash="",
+        last_error=re.sub(r"\s+", " ", error)[-500:],
+        detail=f"Small-job retry advanced to candidate {next_cursor + 1}",
+    )
+    return True
 
 
 def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> int:
@@ -657,10 +700,13 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
     correction = ""
     last_error = ""
     checker_unavailable = False
+    split_retry = cluster.get("split_retry") == "1"
     high_fanout = int(cluster["candidate_count"]) >= 10
     max_attempts = 2 if high_fanout else 1
-    qwen_timeout = HIGH_FANOUT_QWEN_TIMEOUT if high_fanout else ORDINARY_QWEN_TIMEOUT
-    budget = 720 if high_fanout else 480
+    qwen_timeout = (RETRY_RECONSTRUCTOR_TIMEOUT if split_retry else
+                    HIGH_FANOUT_QWEN_TIMEOUT if high_fanout else ORDINARY_QWEN_TIMEOUT)
+    checker_timeout = RETRY_CHECKER_TIMEOUT if split_retry else 900
+    budget = RETRY_RECONSTRUCTOR_TIMEOUT + RETRY_CHECKER_TIMEOUT + 60 if split_retry else 720 if high_fanout else 480
     fingerprint = evidence_fingerprint(cluster)
     for attempt in range(1, max_attempts + 1):
         if time.monotonic() - cluster_started >= budget:
@@ -701,7 +747,7 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
             compiler_started = time.monotonic()
             compiler_results = compile_proposal(proposal["candidates"], review_rows, symbols)
             metric_event(connection, "compiler", duration_seconds=time.monotonic() - compiler_started)
-            verdict, checker_detail = call_checker(cluster, evidence, proposal, compiler_results)
+            verdict, checker_detail = call_checker(cluster, evidence, proposal, compiler_results, checker_timeout)
             if verdict is None:
                 last_error = f"Checker unavailable: {checker_detail}"
                 checker_unavailable = True
@@ -724,13 +770,21 @@ def process_cluster(connection: sqlite3.Connection, cluster: dict[str, str]) -> 
                 correction = last_error
             break
     if checker_unavailable and last_error.startswith("Checker unavailable"):
+        if advance_retry_job(connection, cluster, last_error):
+            metric_event(connection, "deferred_clusters", 1)
+            metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
+            return 0
         update_cluster(connection, cluster["cluster_id"], "REVIEW_LATER",
                        last_error=re.sub(r"\s+", " ", last_error)[-500:])
         metric_event(connection, "deferred_clusters", 1)
         log(f"cluster {cluster['cluster_id']} checker unavailable; deferred for later review")
         metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
         return 0
-    append_escalation(cluster, last_error or "Two Qwen/checker rounds exhausted")
+    if advance_retry_job(connection, cluster, last_error):
+        metric_event(connection, "deferred_clusters", 1)
+        metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
+        return 0
+    append_escalation(cluster, last_error or "Reconstructor/checker attempts exhausted")
     update_cluster(connection, cluster["cluster_id"], "DEFERRED_HARD", last_error=last_error)
     metric_event(connection, "deferred_clusters", 1)
     metric_event(connection, "cluster", duration_seconds=time.monotonic() - cluster_started)
@@ -913,6 +967,31 @@ def reset_review_later() -> int:
     return int(count)
 
 
+def requeue_small_jobs() -> int:
+    resolver.analyze()
+    current_ids = [row["cluster_id"] for row in resolver.read_csv(resolver.CLUSTERS)]
+    if not current_ids:
+        return 0
+    connection = ensure_state()
+    placeholders = ",".join("?" for _ in current_ids)
+    with connection:
+        count = connection.execute(
+            f"SELECT COUNT(*) FROM clusters WHERE cluster_id IN ({placeholders}) "
+            "AND status IN ('DEFERRED_HARD','REVIEW_LATER','COMPLETE','RESOLVED')",
+            current_ids,
+        ).fetchone()[0]
+        connection.execute(
+            f"UPDATE clusters SET status='PENDING',qwen_attempts=0,checker_attempts=0,last_error='',"
+            f"detail='Queued for small-job retry',evidence_hash='',retry_cursor=0,split_retry=1 "
+            f"WHERE cluster_id IN ({placeholders}) "
+            "AND status IN ('DEFERRED_HARD','REVIEW_LATER','COMPLETE','RESOLVED')",
+            current_ids,
+        )
+    connection.close()
+    log(f"REQUEUED {count} current clusters as jobs of at most {RETRY_JOB_SIZE} functions")
+    return int(count)
+
+
 def checkpoint_stopped() -> None:
     connection = ensure_state()
     with connection:
@@ -927,7 +1006,7 @@ def checkpoint_stopped() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=("start", "run", "status", "log", "stop", "resume",
-                                            "reset-failed", "reset-review-later"))
+                                            "reset-failed", "reset-review-later", "requeue-small"))
     parser.add_argument("--max-clusters", type=int)
     parser.add_argument("--cluster-id")
     args = parser.parse_args()
@@ -943,6 +1022,8 @@ def main() -> None:
         print(f"reset {reset_failed()} clusters")
     elif args.command == "reset-review-later":
         print(f"reset {reset_review_later()} clusters")
+    elif args.command == "requeue-small":
+        print(f"requeued {requeue_small_jobs()} clusters")
     else:
         STOP.write_text(stamp() + "\n", encoding="utf-8")
         if not service_active():
