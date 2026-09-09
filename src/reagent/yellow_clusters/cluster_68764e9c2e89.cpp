@@ -40,3 +40,25 @@ extern "C" bool YellowAuto_004ab2c4(const uint8_t* arg0) {
 return arg0[9] == 0x17 || arg0[9] == 0x18 || arg0[9] == 0x19;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00467DE0
+extern "C" void YellowAuto_00467de0(uint8_t* arg0, uint32_t arg1) __asm__("_ZN9NetAppLib9JoinFesta21JoinFestaPersonalData17SetCommRouteForceEN15JoinFestaScript13CommRouteTypeE");
+extern "C" void YellowAuto_00467de0(uint8_t* arg0, uint32_t arg1) {
+if (arg1 < 8) arg0[0x202] = (uint8_t)arg1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00468F00
+extern "C" void YellowAuto_00468f00(uint8_t* arg0, const uint8_t* arg1) __asm__("_ZN9NetAppLib9JoinFesta21JoinFestaPersonalData4CopyERKNS1_8CoreDataE");
+extern "C" void YellowAuto_00468f00(uint8_t* arg0, const uint8_t* arg1) {
+for (uint32_t i = 0; i < 0x200; ++i) arg0[8 + i] = arg1[i];
+}
+#endif

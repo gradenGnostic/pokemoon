@@ -6,6 +6,33 @@ typedef short int16_t;
 typedef unsigned int uint32_t;
 typedef int int32_t;
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D230C
+void f_003be8b8(uint8_t*, bool);
+extern "C" void YellowAuto_002d230c(uint8_t* arg0, bool arg1) __asm__("_ZN3App4Tool30CommonMessageWindowManipulator13SetSuspendKeyEb");
+extern "C" void YellowAuto_002d230c(uint8_t* arg0, bool arg1) {
+uint8_t* v0 = *(uint8_t**)(arg0 + 8);
+uint8_t* v1 = *(uint8_t**)(v0 + 96);
+uint8_t* v2 = *(uint8_t**)(v1 + 52);
+if (v2 != (uint8_t*)0) {
+ f_003be8b8(v2, arg1);
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D2344
+void f_003be9c4(uint8_t*, int32_t, int32_t);
+extern "C" void YellowAuto_002d2344(uint8_t* arg0, int32_t arg1) __asm__("_ZN3App4Tool30CommonMessageWindowManipulator15SetMessageSpeedEN8Savedata10ConfigSave9MSG_SPEEDE");
+extern "C" void YellowAuto_002d2344(uint8_t* arg0, int32_t arg1) {
+uint8_t* v0 = *(uint8_t**)(arg0 + 8);
+if (v0 == (uint8_t*)0) return;
+uint8_t* v1 = *(uint8_t**)(v0 + 96);
+if (v1 == (uint8_t*)0) return;
+uint8_t* v2 = *(uint8_t**)(v1 + 52);
+if (v2 == (uint8_t*)0) return;
+f_003be9c4(v2, arg1, 0);
+}
+#endif
+
 #if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D23A8
 void f_00354ed4(uint8_t*, int32_t, int32_t);
 extern "C" void YellowAuto_002d23a8(uint8_t* arg0) __asm__("_ZN3App4Tool30CommonMessageWindowManipulator23SetFinishMode_UserInputEv");

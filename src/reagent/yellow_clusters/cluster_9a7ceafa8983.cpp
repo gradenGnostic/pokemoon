@@ -20,3 +20,18 @@ extern "C" void YellowAuto_0035e088(uint8_t* arg0, void* arg1, const uint32_t* a
 uint32_t arg7[12]; arg7[0] = arg2[0]; arg7[1] = arg2[1]; arg7[2] = arg2[2]; arg7[3] = arg2[3]; arg7[4] = arg2[4]; arg7[5] = arg2[5]; arg7[6] = arg2[6]; arg7[7] = arg2[7]; arg7[8] = arg2[8]; arg7[9] = arg2[9]; arg7[10] = arg2[10]; arg7[11] = arg2[11]; FUN_0029b788(*(int32_t *)(arg0 + 4), arg1, arg7, arg3, arg4, arg5, arg6); return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0035DF68
+extern "C" void* YellowAuto_0035df68(uint8_t* arg0, uint32_t arg1) __asm__("_ZN4gfl26Effect6System11GetResourceEj");
+extern "C" void* YellowAuto_0035df68(uint8_t* arg0, uint32_t arg1) {
+return reinterpret_cast<void*>(*reinterpret_cast<const uint32_t*>(reinterpret_cast<const uint8_t*>(*reinterpret_cast<const uint32_t*>(reinterpret_cast<const uint8_t*>(*reinterpret_cast<const uint32_t*>(arg0 + 4)) + 12)) + arg1 * 4));
+}
+#endif

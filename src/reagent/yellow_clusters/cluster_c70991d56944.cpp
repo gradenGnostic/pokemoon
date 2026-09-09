@@ -23,3 +23,21 @@ extern "C" void YellowAuto_0045a808(uint8_t* arg0, uint32_t arg1, const void* ar
 if (*(uint32_t*)(arg0 + 0x2c) != 0 && arg1 < *(uint32_t*)(arg0 + 0x2c) && arg2 != 0) FUN_00459fc4(arg0, arg1 * 6 + 0, GetMemberPointerConst(arg2, 0)), FUN_00459fc4(arg0, arg1 * 6 + 1, GetMemberPointerConst(arg2, 1)), FUN_00459fc4(arg0, arg1 * 6 + 2, GetMemberPointerConst(arg2, 2)), FUN_00459fc4(arg0, arg1 * 6 + 3, GetMemberPointerConst(arg2, 3)), FUN_00459fc4(arg0, arg1 * 6 + 4, GetMemberPointerConst(arg2, 4)), FUN_00459fc4(arg0, arg1 * 6 + 5, GetMemberPointerConst(arg2, 5));
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045A888
+void FUN_0045a6cc(uint8_t*, void*);
+extern "C" void YellowAuto_0045a888(uint8_t* arg0, void* arg1) __asm__("_ZN9NetAppLib2UI22NetAppPokePartyUtilityC1EPNS_6System19ApplicationWorkBaseE");
+extern "C" void YellowAuto_0045a888(uint8_t* arg0, void* arg1) {
+FUN_0045a6cc(arg0, arg1);
+*(uint32_t*)(arg0 + 0x2C) = 0;
+*(uint32_t*)arg0 = *(uint32_t*)0x45A8A4;
+}
+#endif

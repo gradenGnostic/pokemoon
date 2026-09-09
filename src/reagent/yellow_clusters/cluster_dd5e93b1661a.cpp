@@ -13,3 +13,18 @@ if ((arg0[0] == arg1[0] && arg0[0] != 0) || (arg0[2] == arg1[2] && arg0[3] == ar
 return false;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00465DD0
+extern "C" bool YellowAuto_00465dd0(const uint32_t* arg0) __asm__("_ZN9NetAppLib9JoinFesta19JoinFestaPacketUtil16IsValidFriendKeyERK18nnfriendsFriendKey");
+extern "C" bool YellowAuto_00465dd0(const uint32_t* arg0) {
+return arg0[0] != 0 || arg0[2] != 0 || arg0[3] != 0;
+}
+#endif

@@ -68,3 +68,39 @@ DrawTree(v3, arg1);
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002FE700
+void FUN_002f1844(uint32_t);
+void FUN_002fc70c(uint32_t);
+extern "C" void YellowAuto_002fe700(uint8_t* arg0) __asm__("_ZN3app4tool27AppToolTrainerIconRendering9TerminateEv");
+extern "C" void YellowAuto_002fe700(uint8_t* arg0) {
+if (arg0[0xD8] != 0) {
+  return;
+}
+arg0[0xD8] = 1;
+*reinterpret_cast<uint32_t*>(arg0 + 0xDC) = 0;
+uint32_t n = *reinterpret_cast<uint32_t*>(arg0 + 0x04);
+uint8_t* base = *reinterpret_cast<uint8_t**>(arg0);
+for (uint32_t i = 0; i < n; ++i) {
+  uint8_t* e = base + i * 0xB4U;
+  uint32_t v1 = *reinterpret_cast<uint32_t*>(e + 0x04);
+  FUN_002f1844(v1);
+  uint8_t* o = *reinterpret_cast<uint8_t**>(e + 0x10);
+  void** vt = *reinterpret_cast<void***>(o);
+  reinterpret_cast<void(*)(uint8_t*)>(vt[3])(o);
+  uint32_t v0 = *reinterpret_cast<uint32_t*>(e);
+  if (v0 != 0) {
+    FUN_002fc70c(v0);
+  }
+  *reinterpret_cast<uint32_t*>(e + 0xAC) = 0;
+}
+}
+#endif

@@ -33,3 +33,19 @@ else return false;
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003FA720
+uint32_t Helper_003FA720_VTable();
+extern "C" void YellowAuto_003fa720(uint8_t* arg0) __asm__("_ZN7gflnet23nex16NexRankingClientC1Ev");
+extern "C" void YellowAuto_003fa720(uint8_t* arg0) {
+*(uint32_t*)arg0 = Helper_003FA720_VTable(); arg0[4] = 0; arg0[5] = 0; *(uint32_t*)(arg0 + 8) = 0; *(uint32_t*)(arg0 + 12) = 0; *(uint32_t*)(arg0 + 16) = 0; *(uint32_t*)(arg0 + 20) = 0; *(uint32_t*)(arg0 + 24) = 0; *(uint32_t*)(arg0 + 28) = 0; *(uint32_t*)(arg0 + 32) = 0; *(uint32_t*)(arg0 + 36) = 0; *(uint32_t*)(arg0 + 40) = 0; *(uint32_t*)(arg0 + 44) = 0; *(uint32_t*)(arg0 + 48) = 0; *(uint32_t*)(arg0 + 52) = 0; *(uint32_t*)(arg0 + 56) = 0;
+}
+#endif

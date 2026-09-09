@@ -6,6 +6,14 @@ typedef short int16_t;
 typedef unsigned int uint32_t;
 typedef int int32_t;
 
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004120A0
+void GFLassert();
+extern "C" void YellowAuto_004120a0(uint8_t* arg0, uint32_t arg1, void* arg2) __asm__("_ZN7poke_3d5model17CharaModelFactory8SetModelEjPv");
+extern "C" void YellowAuto_004120a0(uint8_t* arg0, uint32_t arg1, void* arg2) {
+if (*(uint32_t*)(*(uint8_t**)(arg0 + 20)) <= arg1) { GFLassert(); return; } uint8_t* a = *(uint8_t**)(arg0 + 12) + arg1 * 44; if (a != (uint8_t*)0) { *(void**)(a + 4) = arg2; *(uint32_t*)(a + 8) = 0; }
+}
+#endif
+
 #if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0041163C
 void GFLassert();
 void FUN_00412bb4(uint8_t*, uint32_t, uint32_t, uint32_t, void*, void*);

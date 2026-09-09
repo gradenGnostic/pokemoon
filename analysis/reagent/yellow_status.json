@@ -1,15 +1,15 @@
 {
   "phase": "YELLOW RESOLUTION",
   "starting_yellow": 4052,
-  "remaining_yellow": 2184,
-  "clusters_analyzed": 509,
+  "remaining_yellow": 1803,
+  "clusters_analyzed": 409,
   "clusters_processed": 2,
   "shared_blockers_fixed": 2,
-  "promoted": 1868,
-  "source_backed": 1951,
+  "promoted": 2249,
+  "source_backed": 2332,
   "exact": 298,
-  "semantic": 1652,
+  "semantic": 2033,
   "near": 1,
   "runtime_ready": 53,
-  "updated_at": "2026-09-07T18:19:15+00:00"
+  "updated_at": "2026-09-09T12:50:50+00:00"
 }

@@ -39,3 +39,81 @@ FUN_003c1ad8(arg1, arg2, tmp, extraout_r3);
 if (tmp != 0) ((void (*)(void *))(*(void ***)tmp)[2])(tmp);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003859E8
+void* H_New(uint32_t size, void* heap);
+void* H_Ctor(void* mem, void* heap);
+void H_Load(void* s, uint32_t id, uint32_t slot, void* out);
+uint32_t H_Level(void* p);
+uint32_t H_Sex(void* p);
+void H_RegNick(void* w, uint32_t idx, void* p);
+void H_RegNum(void* w, uint32_t idx, uint32_t val, uint32_t d, uint32_t e, uint32_t f);
+uint32_t H_Draw(void* p);
+void H_Del(void* p);
+extern "C" uint32_t YellowAuto_003859e8(uint8_t* arg0, void* arg1, uint32_t arg2, int32_t arg3, uint32_t arg4) __asm__("_ZN5Field13FieldSodateya23PokeTakeBackMenuWordsetEPN5print7WordSetEjN8Savedata10SodateyaIDEj");
+extern "C" uint32_t YellowAuto_003859e8(uint8_t* arg0, void* arg1, uint32_t arg2, int32_t arg3, uint32_t arg4) {
+void* h = *(void**)(arg0 + 4);
+void* s = *(void**)(arg0 + 16);
+void* m = H_New(16u, h);
+void* p = (void*)0;
+if (m != (void*)0) {
+p = H_Ctor(m, h);
+}
+H_Load(s, (uint32_t)arg3, (uint32_t)arg4, p);
+uint32_t l = H_Level(p);
+H_Sex(p);
+H_RegNick(arg1, arg2, p);
+H_RegNum(arg1, arg2 + 1u, l & 255u, 3u, 0u, 1u);
+uint32_t d = H_Draw(p);
+if (p != (void*)0) {
+H_Del(p);
+}
+return d;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00385D08
+uint32_t H_Num(void* s, uint32_t id);
+void* H_New(uint32_t size, void* heap);
+void* H_Ctor(void* mem, void* heap);
+void H_Load(void* s, uint32_t id, uint32_t slot, void* out);
+int8_t H_Compat(uint8_t* self, void* a, void* b);
+void H_Del(void* p);
+extern "C" int32_t YellowAuto_00385d08(uint8_t* arg0, int32_t arg1) __asm__("_ZN5Field13FieldSodateya9LoveCheckEN8Savedata10SodateyaIDE");
+extern "C" int32_t YellowAuto_00385d08(uint8_t* arg0, int32_t arg1) {
+uint32_t n = H_Num(*(void**)(arg0 + 16), (uint32_t)arg1);
+if (n < 2u) {
+return 3;
+}
+void* h = *(void**)(arg0 + 4);
+void* s = *(void**)(arg0 + 16);
+void* m0 = H_New(16u, h);
+void* p0 = (void*)0;
+if (m0 != (void*)0) {
+p0 = H_Ctor(m0, h);
+}
+void* m1 = H_New(16u, h);
+void* p1 = (void*)0;
+if (m1 != (void*)0) {
+p1 = H_Ctor(m1, h);
+}
+H_Load(s, (uint32_t)arg1, 0u, p0);
+H_Load(s, (uint32_t)arg1, 1u, p1);
+int8_t c = H_Compat(arg0, p0, p1);
+if (p1 != (void*)0) {
+H_Del(p1);
+}
+if (p0 != (void*)0) {
+H_Del(p0);
+}
+return (int32_t)c;
+}
+#endif

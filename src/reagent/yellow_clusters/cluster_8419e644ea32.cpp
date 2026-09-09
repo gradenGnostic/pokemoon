@@ -48,3 +48,27 @@ extern "C" bool YellowAuto_003d03d8(uint8_t* arg0, uint32_t arg1, const void* ar
 if (11u < arg1) return 0; if ((*(uint16_t*)(arg0 + 0x10Cu) == 0x100u) || (*(uint16_t*)(arg0 + 0x10Cu) == 0x700u)) __aeabi_memcpy((void*)(arg0 + arg1 * 400u + 0x10Eu), arg2, 0xA8u), __aeabi_memcpy((void*)(arg0 + arg1 * 400u + 0x1B6u), arg3, 0xE8u); else __aeabi_memcpy((void*)(arg0 + arg1 * 0xE8u + 0x10Eu), arg3, 0xE8u); return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003D0C84
+extern "C" void YellowAuto_003d0c84(uint8_t* arg0, void* arg1) __asm__("_ZN6NetLib10Validation17PokemonValidation28SetPokemonValidationListenerEPNS0_25PokemonValidationListenerE");
+extern "C" void YellowAuto_003d0c84(uint8_t* arg0, void* arg1) {
+*(void**)(arg0 + 0x13E0) = arg1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003D05DC
+int32_t FUN_003d100c(uint16_t*, uint32_t);
+uint16_t FUN_003147d4(uint16_t*, uint32_t);
+extern "C" uint16_t YellowAuto_003d05dc(uint16_t* arg0, uint32_t arg1, uint32_t arg2) __asm__("_ZN6NetLib10Validation17PokemonValidation15ReplaceMonsNameEPwh6MonsNo");
+extern "C" uint16_t YellowAuto_003d05dc(uint16_t* arg0, uint32_t arg1, uint32_t arg2) {
+if (FUN_003d100c(arg0, 13) == 0) return 0; return FUN_003147d4(arg0, arg2);
+}
+#endif

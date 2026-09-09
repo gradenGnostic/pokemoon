@@ -38,3 +38,52 @@ extern "C" bool YellowAuto_002f1168(uint8_t* arg0, uint32_t arg1) {
 if (*(arg0 + 0x30) != 2) return false; return Sub43506c((void*)(*(uint32_t*)(arg0 + 0x48)), arg1);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F1080
+extern "C" void YellowAuto_002f1080(uint8_t* arg0, bool arg1) __asm__("_ZN3app4tool15PokeSimpleModel10PauseAnimeEb");
+extern "C" void YellowAuto_002f1080(uint8_t* arg0, bool arg1) {
+if (*(uint8_t*)(arg0 + 0x30) == 2) {
+uint32_t v0 = *(uint32_t*)(arg0 + 0x48);
+uint32_t vt = *(uint32_t*)v0;
+uint32_t fn = *(uint32_t*)(vt + 0x48);
+float f = arg1 ? 0.0f : 1.0f;
+((void(*)(void*, uint32_t, uint32_t, float))fn)((void*)v0, 0, 31, f);
+}
+*(uint8_t*)(arg0 + 0x38) = arg1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F1518
+void ChangeAnimation(void*, int32_t, bool);
+void SetAnimationIsLoop(void*, bool);
+extern "C" uint32_t YellowAuto_002f1518(uint8_t* arg0, int32_t arg1, bool arg2, bool arg3) __asm__("_ZN3app4tool15PokeSimpleModel8SetAnimeEN8PokeTool11MODEL_ANIMEEbb");
+extern "C" uint32_t YellowAuto_002f1518(uint8_t* arg0, int32_t arg1, bool arg2, bool arg3) {
+uint32_t ret = *(uint8_t*)(arg0 + 0x30);
+if (ret == 2) {
+void* v0 = *(void**)(arg0 + 0x48);
+ChangeAnimation(v0, arg1, arg3);
+SetAnimationIsLoop(v0, arg2);
+if (*(uint8_t*)(arg0 + 0x30) == 2) {
+uint32_t o = *(uint32_t*)(arg0 + 0x48);
+uint32_t vt = *(uint32_t*)o;
+uint32_t fn = *(uint32_t*)(vt + 0x48);
+float f = (*(int8_t*)(arg0 + 0x38) != 0) ? 0.0f : 1.0f;
+ret = ((uint32_t(*)(void*, uint32_t, uint32_t, float))fn)((void*)o, 0, 31, f);
+} else {
+ret = 0;
+}
+}
+*(uint8_t*)(arg0 + 0x36) = (uint8_t)arg1;
+*(uint8_t*)(arg0 + 0x37) = arg2;
+*(uint8_t*)(arg0 + 0x39) = arg3;
+return ret;
+}
+#endif

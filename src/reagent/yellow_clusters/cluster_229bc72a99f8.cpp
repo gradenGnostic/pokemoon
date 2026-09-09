@@ -44,3 +44,79 @@ uint8_t* v1 = FUN_001054dc(v0);
 return *(uint8_t*)(v1 + 8) != 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E6C68
+void* operator_new(uint32_t, void*);
+void* ButtonManager(void*, void*, void*, uint32_t, uint32_t);
+void AddButton(void*, void*, int32_t, const void*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, void*);
+extern "C" void YellowAuto_002e6c68(uint8_t* arg0, uint8_t* arg1, void* arg2, const uint8_t* arg3, uint32_t arg4) __asm__("_ZN3app2ui11UIResponder19CreateButtonManagerEPNS_4util4HeapEPN4gfl23lyt5LytWkEPKNS0_12ButtonInfoExEj");
+extern "C" void YellowAuto_002e6c68(uint8_t* arg0, uint8_t* arg1, void* arg2, const uint8_t* arg3, uint32_t arg4) {
+void* alloc = *(void**)(arg1 + 4);
+void* mem = operator_new(48, alloc);
+void* mgr = (void*)0;
+if (mem != (void*)0) {
+uint32_t cfg = **(uint32_t**)0x2E6D20;
+mgr = ButtonManager(mem, alloc, (void*)0, arg4, cfg);
+}
+*(void**)(arg0 + 16) = mgr;
+uint32_t i = 0;
+if (arg4 != 0) {
+do {
+const uint8_t* e = arg3 + i * 36;
+AddButton(*(void**)(arg0 + 16), alloc, *(const int32_t*)e, arg2, *(const uint32_t*)(e + 4), *(const uint32_t*)(e + 8), *(const uint32_t*)(e + 12), *(const uint32_t*)(e + 16), *(const uint32_t*)(e + 20), *(const uint32_t*)(e + 24), *(const uint32_t*)(e + 28), *(const uint32_t*)(e + 32), (void*)arg0);
+i = i + 1;
+} while (i < arg4);
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E6BA4
+void* operator_new(uint32_t, void*);
+void* ButtonManager(void*, void*, void*, uint32_t, uint32_t);
+void AddButton(void*, void*, int32_t, const void*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, void*);
+extern "C" void YellowAuto_002e6ba4(uint8_t* arg0, uint8_t* arg1, const uint8_t* arg2, uint32_t arg3) __asm__("_ZN3app2ui11UIResponder19CreateButtonManagerEPNS_4util4HeapEPKNS0_15ButtonInfoLytWkEj");
+extern "C" void YellowAuto_002e6ba4(uint8_t* arg0, uint8_t* arg1, const uint8_t* arg2, uint32_t arg3) {
+void* alloc = *(void**)(arg1 + 4);
+void* mem = operator_new(48, alloc);
+void* mgr = (void*)0;
+if (mem != (void*)0) {
+uint32_t cfg = **(uint32_t**)0x2E6C64;
+mgr = ButtonManager(mem, alloc, (void*)0, arg3, cfg);
+}
+*(void**)(arg0 + 16) = mgr;
+uint32_t i = 0;
+if (arg3 != 0) {
+do {
+const uint8_t* e = arg2 + i * 40;
+AddButton(*(void**)(arg0 + 16), alloc, *(const int32_t*)e, *(const void**)(e + 12), *(const uint32_t*)(e + 4), *(const uint32_t*)(e + 8), *(const uint32_t*)(e + 16), *(const uint32_t*)(e + 20), *(const uint32_t*)(e + 24), *(const uint32_t*)(e + 28), *(const uint32_t*)(e + 32), *(const uint32_t*)(e + 36), (void*)arg0);
+i = i + 1;
+} while (i < arg3);
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E6F24
+extern "C" void YellowAuto_002e6f24(uint8_t* arg0) __asm__("_ZN3app2ui11UIResponder28CallbackFuncOnButtonSelectedEj");
+extern "C" void YellowAuto_002e6f24(uint8_t* arg0) {
+uint8_t en = *(arg0 + 45);
+if (en != 0) {
+void* mgr = *(void**)(arg0 + 20);
+if (mgr != (void*)0) {
+void* vt = *(void**)mgr;
+int32_t (*fn)(void*) = *(int32_t (**)(void*))((uint8_t*)vt + 8);
+int32_t r = fn(mgr);
+if (r == 0) {
+*(arg0 + 44) = 1;
+}
+}
+}
+}
+#endif

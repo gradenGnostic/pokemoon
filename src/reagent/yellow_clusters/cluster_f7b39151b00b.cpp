@@ -34,3 +34,20 @@ extern "C" uint32_t YellowAuto_004353cc(uint8_t* arg0, int32_t arg1, int32_t arg
 iVar1 = *(int *)(arg0 + arg1 * 0x20 + arg2 * 4 + 0x131c); if (iVar1 != 0) return (*(float *)arg3 = *(float *)(iVar1 + 0x54), *(float *)((char *)arg3 + 4) = *(float *)(iVar1 + 0x64), *(float *)((char *)arg3 + 8) = *(float *)(iVar1 + 0x74), 1); *(float *)arg3 = *(float *)(arg0 + 0x1b14) + *(float *)(arg0 + 0x1b20); *(float *)((char *)arg3 + 4) = *(float *)(arg0 + 0x1b18) + *(float *)(arg0 + 0x1b24); *(float *)((char *)arg3 + 8) = *(float *)(arg0 + 0x1b1c) + *(float *)(arg0 + 0x1b28); return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00434E30
+void FUN_00434E30(void* arg0, bool arg1);
+void SetAnimationLoop(void* arg0, int32_t arg1, int32_t arg2, int32_t arg3);
+extern "C" void YellowAuto_00434e30(void* arg0, bool arg1) __asm__("_ZN8PokeTool9PokeModel18SetAnimationIsLoopEb");
+extern "C" void YellowAuto_00434e30(void* arg0, bool arg1) {
+*(uint8_t *)((uint8_t *)arg0 + *(uint32_t *)0x434E48) = (uint8_t)arg1; SetAnimationLoop(arg0, (int32_t)*(uint8_t *)((uint8_t *)arg0 + *(uint32_t *)0x434E48), 0, 31);
+}
+#endif

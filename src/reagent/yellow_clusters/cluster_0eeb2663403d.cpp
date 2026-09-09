@@ -33,3 +33,19 @@ extern "C" uint32_t YellowAuto_002eb91c(uint8_t* arg0) {
 FileOpenSync(0x4c, *(const void**)(arg0 + 8), 0); FileLoadSync(); FileCloseSync(); return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EB8F4
+bool IsAnimeEnd(uint8_t*, uint32_t, uint32_t);
+extern "C" bool YellowAuto_002eb8f4(uint8_t* arg0, int32_t arg1) __asm__("_ZN3app4tool12FingerCursor14IsEndPushAnimeENS1_8FormTypeE");
+extern "C" bool YellowAuto_002eb8f4(uint8_t* arg0, int32_t arg1) {
+return IsAnimeEnd((uint8_t*)(*(uint32_t*)(arg0 + 96)), 0, *(uint32_t*)(*(uint32_t*)0x2EB918 + arg1 * 8 + 4));
+}
+#endif

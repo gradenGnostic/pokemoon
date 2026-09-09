@@ -37,3 +37,11 @@ extern "C" bool YellowAuto_00304f14(uint8_t* arg0, uint32_t arg1, const void* ar
 uint16_t a = GetMonsNo(arg2); uint8_t b = GetFormNo(arg2); uint8_t c = GetSex(arg2); bool d = IsEgg(arg2, 2U); uint32_t e = Func_00305094(a, b, c, d, arg3); bool r = Func_002f9ba0(*(void**)(arg0 + 0x04), *(void**)(arg0 + 0x08), arg1, 0x3EU, e, true); return r;
 }
 #endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003054A8
+bool Func_002f9bd0(void*, uint32_t);
+extern "C" bool YellowAuto_003054a8(uint8_t* arg0, uint32_t arg1) __asm__("_ZN3app4tool8PokeIcon24CancelLoadTextureRequestEj");
+extern "C" bool YellowAuto_003054a8(uint8_t* arg0, uint32_t arg1) {
+return Func_002f9bd0(*(void**)(arg0 + 0x04), arg1);
+}
+#endif
