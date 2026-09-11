@@ -141,3 +141,67 @@ extern "C" void YellowAuto_00319e6c(uint8_t* arg0, uint32_t arg1) {
 uint32_t a = *(uint32_t*)(arg0 + 12); FUN_0031a3b0(a); uint8_t* b = FUN_0049170c(a, 1); *(b + 0x2f) = (uint8_t)arg1; FUN_0031a338(a); return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0049104C
+void FUN_0031a3b0(const uint8_t*);
+void FUN_0031a338(const uint8_t*);
+const uint8_t* FUN_00491604(const uint8_t*, uint32_t);
+extern "C" uint32_t YellowAuto_0049104c(const uint8_t* arg0) __asm__("_ZNK3pml8pokepara9CoreParam12HaveNickNameEv");
+extern "C" uint32_t YellowAuto_0049104c(const uint8_t* arg0) {
+const uint8_t* h = *(const uint8_t* const*)(arg0 + 12);
+FUN_0031a3b0(h);
+const uint8_t* q = FUN_00491604(h, 0);
+uint32_t w = *(const uint32_t*)(q + 52);
+FUN_0031a338(h);
+return w >> 31;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00491008
+void FUN_0031a3b0(const uint8_t*);
+void FUN_0031a338(const uint8_t*);
+const uint8_t* FUN_00491584(const uint8_t*, uint32_t);
+extern "C" uint8_t YellowAuto_00491008(const uint8_t* arg0) __asm__("_ZNK3pml8pokepara9CoreParam12GetTokuseiNoEv");
+extern "C" uint8_t YellowAuto_00491008(const uint8_t* arg0) {
+const uint8_t* h = *(const uint8_t* const*)(arg0 + 12);
+FUN_0031a3b0(h);
+const uint8_t* q = FUN_00491584(h, 0);
+uint8_t r = *(const uint8_t*)(q + 12);
+FUN_0031a338(h);
+return r;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00490AF4
+void FUN_0031a3b0(const uint8_t*);
+void FUN_0031a338(const uint8_t*);
+extern const uint8_t* DAT_00490b4c;
+extern "C" uint32_t YellowAuto_00490af4(const uint8_t* arg0) __asm__("_ZNK3pml8pokepara9CoreParam13IsMegaEvolvedEv");
+extern "C" uint32_t YellowAuto_00490af4(const uint8_t* arg0) {
+const uint8_t* h = *(const uint8_t* const*)(arg0 + 12);
+uint32_t ret = 0;
+if (*(const uint32_t*)(h + 4) != 0) {
+FUN_0031a3b0(h);
+const uint8_t* p = DAT_00490b4c;
+const uint8_t* b = *(const uint8_t* const*)(h + 8);
+uint16_t f = *(const uint16_t*)(b + 4);
+if ((uint32_t)(f & 4) == 0) {
+p = *(const uint8_t* const*)(h + 4);
+}
+int8_t c = *(const int8_t*)(p + 24);
+FUN_0031a338(h);
+if (c != 0) {
+ret = 1;
+}
+}
+return ret;
+}
+#endif

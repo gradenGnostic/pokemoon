@@ -130,3 +130,76 @@ if (FUN_004a4ec8(e, hi, fm) == 0) return false;
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0041460C
+void FUN_00415b24(uint8_t*, uint16_t*, const uint16_t*);
+void FUN_00412bb4(uint8_t*, uint32_t, uint32_t, int32_t, void*, void*);
+extern "C" void YellowAuto_0041460c(uint8_t* arg0, const uint16_t* arg1) __asm__("_ZN7poke_3d5model27DressUpModelResourceManager21LoadDressUpPartsAsyncERKNS0_12DressUpParamE");
+extern "C" void YellowAuto_0041460c(uint8_t* arg0, const uint16_t* arg1) {
+uint8_t* base = arg0 + (int32_t)(int16_t)arg1[0] * 0x40;
+uint16_t tmp[14];
+FUN_00415b24(base, tmp, arg1);
+for (int32_t i = 0; i < 14; ++i) {
+if ((int16_t)tmp[i] >= 0) {
+uint8_t* e = (uint8_t*)(*(uint32_t*)(base + 0x24)) + i * 0xB4;
+uint32_t tbl = *((uint32_t*)(*(uint32_t*)(base + 0x04)) + i);
+int32_t fidx = (int32_t)(int16_t)tmp[i];
+void* v20 = (void*)(*(uint32_t*)(base + 0x20));
+void* v1c = (void*)(*(uint32_t*)(base + 0x1C));
+FUN_00412bb4(e, 1, tbl, fidx, v20, v1c);
+*(uint16_t*)(e + 0xB0) = arg1[i + 5];
+}
+}
+*(base + 0x3C) = *((const uint8_t*)arg1 + 0x27);
+return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004144AC
+void FUN_00415b24(uint8_t*, uint16_t*, const uint16_t*);
+uint32_t FUN_004a4cf4(uint8_t*, void*);
+extern "C" bool YellowAuto_004144ac(uint8_t* arg0, const uint16_t* arg1) __asm__("_ZN7poke_3d5model27DressUpModelResourceManager19IsSetupDressUpPartsERKNS0_12DressUpParamE");
+extern "C" bool YellowAuto_004144ac(uint8_t* arg0, const uint16_t* arg1) {
+uint8_t* base = arg0 + (int32_t)(int16_t)arg1[0] * 0x40;
+uint16_t tmp[16];
+FUN_00415b24(base, tmp, arg1);
+for (int32_t i = 0; i < 14; ++i) {
+uint8_t* e = (uint8_t*)(*(uint32_t*)(base + 0x24)) + i * 0xB4;
+if ((int16_t)(*(uint16_t*)(e + 0xB0)) != (int16_t)arg1[i + 5]) return false;
+if ((int16_t)tmp[i] >= 0) {
+void* mgr = (void*)(*(uint32_t*)(base + 0x1C));
+if (FUN_004a4cf4(e, mgr) == 0) return false;
+}
+}
+if (*(uint32_t*)(base + 0x28) < 2) return false;
+return true;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00414568
+void FUN_00415b24(uint8_t*, uint16_t*, const uint16_t*);
+uint32_t FUN_004a4cf4(uint8_t*, void*);
+extern "C" bool YellowAuto_00414568(uint8_t* arg0, const uint16_t* arg1) __asm__("_ZN7poke_3d5model27DressUpModelResourceManager20IsDressUpPartsLoadedERKNS0_12DressUpParamE");
+extern "C" bool YellowAuto_00414568(uint8_t* arg0, const uint16_t* arg1) {
+uint8_t* base = arg0 + (int32_t)(int16_t)arg1[0] * 0x40;
+uint16_t tmp[14];
+FUN_00415b24(base, tmp, arg1);
+for (int32_t i = 0; i < 14; ++i) {
+uint8_t* e = (uint8_t*)(*(uint32_t*)(base + 0x24)) + i * 0xB4;
+if ((int16_t)(*(uint16_t*)(e + 0xB0)) != (int16_t)arg1[i + 5]) return false;
+if ((int16_t)tmp[i] >= 0) {
+void* mgr = (void*)(*(uint32_t*)(base + 0x1C));
+if (FUN_004a4cf4(e, mgr) == 0) return false;
+}
+}
+return true;
+}
+#endif

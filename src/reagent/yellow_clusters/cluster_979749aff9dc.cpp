@@ -99,3 +99,63 @@ SetVisible((void*)cur, arg2);
 return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1AD0
+void GetNickName(const uint8_t*, uint8_t*, uint32_t);
+uint32_t GetSex(const uint8_t*);
+int8_t GetLang();
+void FUN_003c11f8(uint8_t*, uint32_t, uint8_t*, uint32_t);
+extern "C" void YellowAuto_003c1ad0(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) __asm__("_ZN3app4util7G2DUtil23SetRegisterPokeNickNameEjPKN3pml8pokepara9CoreParamE");
+extern "C" void YellowAuto_003c1ad0(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) {
+uint32_t t0 = *(uint32_t*)(arg0 + 40);
+uint8_t* a = (uint8_t*)t0;
+uint32_t t1 = *(uint32_t*)a;
+uint8_t* b = (uint8_t*)t1;
+GetNickName(arg2, b, arg3);
+uint32_t s = GetSex(arg2);
+uint32_t f = s == 1U ? 1U : s != 0U && GetLang() == 5 ? 2U : 0U;
+FUN_003c11f8(a, arg1, b, f);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1F08
+uint16_t GetString(uint8_t*, uint32_t, uint8_t*);
+void FUN_003c11f8(uint8_t*, uint32_t, uint8_t*, uint32_t);
+extern "C" void YellowAuto_003c1f08(uint8_t* arg0, uint32_t arg1, uint8_t* arg2, uint32_t arg3) __asm__("_ZN3app4util7G2DUtil26SetRegisterMonsNameMsgDataEjPN4gfl23str7MsgDataEj");
+extern "C" void YellowAuto_003c1f08(uint8_t* arg0, uint32_t arg1, uint8_t* arg2, uint32_t arg3) {
+uint32_t t0 = *(uint32_t*)(arg0 + 40);
+uint8_t* a = (uint8_t*)t0;
+uint32_t t1 = *(uint32_t*)a;
+uint8_t* b = (uint8_t*)t1;
+uint16_t c = GetString(arg2, arg3, b);
+FUN_003c11f8(a, arg1, b, (uint32_t)(c & 255U | 512U));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C1F68
+uint32_t IsEgg(const uint8_t*, uint32_t);
+uint16_t GetMonsNo(const uint8_t*);
+uint16_t GetMonsName(uint8_t*, uint32_t);
+void FUN_003c11f8(uint8_t*, uint32_t, uint8_t*, uint32_t);
+extern uint32_t DAT_003c1fec;
+extern "C" void YellowAuto_003c1f68(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) __asm__("_ZN3app4util7G2DUtil27SetRegisterMonsNameOrTamagoEjPKN3pml8pokepara9CoreParamE");
+extern "C" void YellowAuto_003c1f68(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) {
+uint32_t t0 = *(uint32_t*)(arg0 + 40);
+uint8_t* a = (uint8_t*)t0;
+uint32_t t1 = *(uint32_t*)a;
+uint8_t* b = (uint8_t*)t1;
+uint32_t d = DAT_003c1fec;
+if (IsEgg(arg2, 2U) == 0U)
+d = (uint32_t)GetMonsNo(arg2);
+uint16_t c = GetMonsName(b, d);
+FUN_003c11f8(a, arg1, b, (uint32_t)(c & 255U | 512U));
+}
+#endif

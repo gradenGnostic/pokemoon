@@ -120,3 +120,27 @@ if (r == 0) {
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E6F5C
+int32_t Helper_0xC(void* arg0);
+extern "C" void YellowAuto_002e6f5c(uint8_t* arg0) __asm__("_ZN3app2ui11UIResponder31CallbackFuncOnButtonLongPressedEj");
+extern "C" void YellowAuto_002e6f5c(uint8_t* arg0) {
+uint8_t b = *(arg0 + 0x2D); if (b == 0) return; void* v = *(void**)(arg0 + 0x14); if (v == 0) return; int32_t r = Helper_0xC(v); if (r != 0) return; *(arg0 + 0x2C) = 1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0048D354
+int32_t GetUpdateState(const void* arg0);
+extern "C" bool YellowAuto_0048d354(const uint8_t* arg0) __asm__("_ZNK3app2ui11UIResponder17IsButtonAnimationEv");
+extern "C" bool YellowAuto_0048d354(const uint8_t* arg0) {
+const void* v = *(const void**)(arg0 + 0x10); if (v == 0) return false; int32_t r = GetUpdateState(v); return r != 0;
+}
+#endif

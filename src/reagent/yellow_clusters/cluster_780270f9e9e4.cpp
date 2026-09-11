@@ -117,3 +117,70 @@ extern "C" void YellowAuto_0030ba50(uint8_t* arg0, uint32_t arg1, uint8_t* arg2,
 if (arg1 > 2 || *(uint32_t*)(arg0 + arg1 * 4 + 0xC0) <= arg3) { GFLassert(0, 0, 0); return; } AddNode((uint8_t*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + arg1 * 12 + 0xD0)) + 0x90)), (uint8_t*)(*(uint32_t*)(arg2 + 4))); if (arg4) { AddEdgeRenderingTarget((uint8_t*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + arg1 * 12 + 0xD0)) + 0x88)), (uint8_t*)(*(uint32_t*)(arg2 + 4))); } if (arg1 == 0 && *(uint32_t*)(arg0 + arg3 * 4 + 0xF4) != 0) { AddNode((uint8_t*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + 0xF4)) + 0x90)), (uint8_t*)(*(uint32_t*)(arg2 + 4))); if (arg4) { AddEdgeRenderingTarget((uint8_t*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + 0xF4)) + 0x88)), (uint8_t*)(*(uint32_t*)(arg2 + 4))); } }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00307CE0
+uint32_t GFLassert(uint32_t arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3);
+void AddNode(void* arg0, void* arg1);
+void AddEdgeRenderingTarget(void* arg0, void* arg1);
+void* GetDistortionModel(void* arg0);
+uint32_t AddDistortionRenderingTarget(void* arg0, void* arg1);
+extern "C" uint32_t YellowAuto_00307ce0(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) __asm__("_ZN3app4util19AppRenderingManager12AddPokeModelENS1_15RenderPlaceType3TagEPN8PokeTool9PokeModelEj");
+extern "C" uint32_t YellowAuto_00307ce0(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) {
+if (arg1 > 2 || *(uint32_t*)(arg0 + arg1 * 4 + 0xC0) <= arg3) return GFLassert(0, 0, 0, 0);
+uint8_t* base = (uint8_t*)(*(uint32_t*)(arg0 + arg1 * 12 + arg3 * 4 + 0xD0));
+AddNode((void*)(*(uint32_t*)(base + 0x90)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+if (*(uint32_t*)((uint8_t*)arg2 + 0x129C) != 0) AddNode((void*)(*(uint32_t*)(base + 0x90)), (void*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)((uint8_t*)arg2 + 0x129C)) + 4)));
+AddEdgeRenderingTarget((void*)(*(uint32_t*)(base + 0x88)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+uint32_t ret = 0;
+void* d0 = GetDistortionModel(arg2);
+if (d0 != (void*)0) if (*(uint32_t*)(base + 0x98) == 0) ret = 0;
+if (d0 != (void*)0) if (*(uint32_t*)(base + 0x98) != 0) ret = AddDistortionRenderingTarget((void*)(*(uint32_t*)(base + 0x98)), (void*)(*(uint32_t*)((uint8_t*)GetDistortionModel(arg2) + 4)));
+if (arg1 != 0) return ret;
+uint8_t* base2 = (uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + 0xF4));
+if (base2 == (uint8_t*)0) return ret;
+AddNode((void*)(*(uint32_t*)(base2 + 0x90)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+if (*(uint32_t*)((uint8_t*)arg2 + 0x129C) != 0) AddNode((void*)(*(uint32_t*)(base2 + 0x90)), (void*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)((uint8_t*)arg2 + 0x129C)) + 4)));
+AddEdgeRenderingTarget((void*)(*(uint32_t*)(base2 + 0x88)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+void* e0 = GetDistortionModel(arg2);
+if (e0 == (void*)0) return 0;
+if (*(uint32_t*)(base2 + 0x98) == 0) return GFLassert(0, 0, 0, 0);
+return AddDistortionRenderingTarget((void*)(*(uint32_t*)(base2 + 0x98)), (void*)(*(uint32_t*)((uint8_t*)GetDistortionModel(arg2) + 4)));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003081CC
+uint32_t GFLassert(uint32_t arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3);
+void RemoveNode(void* arg0, void* arg1);
+void RemoveEdgeRenderingTarget(void* arg0, void* arg1);
+void* GetDistortionModel(void* arg0);
+void RemoveDistortionRenderingTarget(void* arg0, void* arg1);
+uint32_t AddDistortionRenderingTarget(void* arg0, void* arg1);
+extern "C" void YellowAuto_003081cc(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) __asm__("_ZN3app4util19AppRenderingManager15RemovePokeModelENS1_15RenderPlaceType3TagEPN8PokeTool9PokeModelEj");
+extern "C" void YellowAuto_003081cc(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) {
+if (arg1 > 2 || *(uint32_t*)(arg0 + arg1 * 4 + 0xC0) <= arg3) GFLassert(0, 0, 0, 0);
+if (arg1 > 2 || *(uint32_t*)(arg0 + arg1 * 4 + 0xC0) <= arg3) return;
+uint8_t* base = (uint8_t*)(*(uint32_t*)(arg0 + arg1 * 12 + arg3 * 4 + 0xD0));
+RemoveNode((void*)(*(uint32_t*)(base + 0x90)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+if (*(uint32_t*)((uint8_t*)arg2 + 0x129C) != 0) RemoveNode((void*)(*(uint32_t*)(base + 0x90)), (void*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)((uint8_t*)arg2 + 0x129C)) + 4)));
+RemoveEdgeRenderingTarget((void*)(*(uint32_t*)(base + 0x88)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+void* d0 = GetDistortionModel(arg2);
+if (d0 != (void*)0) if (*(uint32_t*)(base + 0x98) != 0) RemoveDistortionRenderingTarget((void*)(*(uint32_t*)(base + 0x98)), (void*)(*(uint32_t*)((uint8_t*)GetDistortionModel(arg2) + 4)));
+if (arg1 != 0) return;
+uint8_t* base2 = (uint8_t*)(*(uint32_t*)(arg0 + arg3 * 4 + 0xF4));
+if (base2 == (uint8_t*)0) return;
+RemoveNode((void*)(*(uint32_t*)(base2 + 0x90)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+if (*(uint32_t*)((uint8_t*)arg2 + 0x129C) != 0) RemoveNode((void*)(*(uint32_t*)(base2 + 0x90)), (void*)(*(uint32_t*)((uint8_t*)(*(uint32_t*)((uint8_t*)arg2 + 0x129C)) + 4)));
+RemoveEdgeRenderingTarget((void*)(*(uint32_t*)(base2 + 0x88)), (void*)(*(uint32_t*)((uint8_t*)arg2 + 4)));
+void* e0 = GetDistortionModel(arg2);
+if (e0 != (void*)0) if (*(uint32_t*)(base2 + 0x98) != 0) AddDistortionRenderingTarget((void*)(*(uint32_t*)(base2 + 0x98)), (void*)(*(uint32_t*)((uint8_t*)GetDistortionModel(arg2) + 4)));
+return;
+}
+#endif

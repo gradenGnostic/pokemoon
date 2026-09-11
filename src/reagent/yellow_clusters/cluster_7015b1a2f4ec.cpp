@@ -53,3 +53,20 @@ i = i + 1;
 return reinterpret_cast<uint8_t*>(0);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0032B044
+int32_t FUN_003233a0(uint8_t*);
+void FUN_00323448(uint8_t*);
+extern "C" void YellowAuto_0032b044(uint8_t* arg0, uint8_t* arg1) __asm__("_ZN4gfl215renderingengine10scenegraph8instance17ModelInstanceNode8PostDrawERNS0_8renderer11RenderStateE");
+extern "C" void YellowAuto_0032b044(uint8_t* arg0, uint8_t* arg1) {
+if (FUN_003233a0(arg0) != 0) return; FUN_00323448(arg0);
+}
+#endif

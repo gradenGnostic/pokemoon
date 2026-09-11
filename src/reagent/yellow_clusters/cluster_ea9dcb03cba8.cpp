@@ -81,3 +81,43 @@ MemCpy(arg0 + 68, arg2, 40);
 *(arg0 + 39) = 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F2224
+uint32_t FUN_002f1f1c(uint8_t*, void*);
+void* FUN_00105500(uint32_t, void*);
+void* FUN_004120e4(void*);
+void* FUN_00358174(void*, int32_t, uint32_t, uint32_t, uint32_t, uint32_t);
+void FUN_00411270(void*, void*, void*, uint32_t);
+void* FUN_00414b54(void*);
+void FUN_004142c0(void*, void*, void*, void*);
+extern "C" void YellowAuto_002f2224(uint8_t* arg0, void* arg1, void* arg2, uint32_t arg3, void* arg4) __asm__("_ZN3app4tool16CharaSimpleModel5SetupERNS1_11SETUP_PARAMEPN4gfl22fs16AsyncFileManagerEjPi");
+extern "C" void YellowAuto_002f2224(uint8_t* arg0, void* arg1, void* arg2, uint32_t arg3, void* arg4) {
+if (FUN_002f1f1c(arg0, arg1) == 0) return;
+*(uint32_t*)(arg0 + 0) = arg3;
+void* a0 = *(void**)(arg0 + 108);
+void* a1 = FUN_00105500(28, a0);
+if (a1 != (void*)0) a1 = FUN_004120e4(a1);
+*(void**)(arg0 + 3492) = a1;
+void* b0 = *(void**)(arg0 + 3468);
+void* b1 = FUN_00358174(b0, -2, 196608, 0, 0, 0);
+*(void**)(arg0 + 3500) = b1;
+FUN_00411270(*(void**)(arg0 + 3492), arg2, b1, arg3);
+void* c0 = *(void**)(arg0 + 108);
+void* c1 = FUN_00105500(132, c0);
+if (c1 != (void*)0) c1 = FUN_00414b54(c1);
+*(void**)(arg0 + 3496) = c1;
+void* d0 = *(void**)(arg0 + 3468);
+void* d1 = FUN_00358174(d0, -2, 1769472, 0, 0, 0);
+*(void**)(arg0 + 3504) = d1;
+FUN_004142c0(*(void**)(arg0 + 3496), arg2, d1, arg4);
+*(arg0 + 32) = (uint8_t)1;
+}
+#endif

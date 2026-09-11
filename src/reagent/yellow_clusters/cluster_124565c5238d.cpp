@@ -36,3 +36,20 @@ extern "C" void* YellowAuto_004550a0(uint8_t* arg0, uint32_t arg1) {
 uint32_t v0 = *(uint32_t*)(arg0 + 0x118); if (v0 == 0) return (void*)0; uint32_t v1 = *(uint32_t*)v0; uint32_t v2 = *(uint32_t*)(v1 + 4); uint32_t v3 = 0; for (; v2 != v1; v2 = *(uint32_t*)(v2 + 4), v3 = v3 + 1) if (v3 == arg1) return (void*)(v2 + 8); return (void*)0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00455158
+void sub_0048e6fc(void*, void*, void*);
+void* sub_004550a0(uint8_t*, uint32_t);
+extern "C" void YellowAuto_00455158(uint8_t* arg0, uint32_t arg1) __asm__("_ZN9NetAppLib11JoinFestaUI38JoinFestaPlayerListSelectLowerViewBase26PaneListItemSelectListenerEj");
+extern "C" void YellowAuto_00455158(uint8_t* arg0, uint32_t arg1) {
+if (((int32_t (*)(uint8_t *))(*(uint32_t *)(*(uint32_t *)arg0 + 0x20)))(arg0) == 0 && *(uint8_t *)(arg0 + 0x11D) != 0) { if (*(uint32_t *)(arg0 + 0xFC) != 0) { uint32_t _v = *(uint32_t *)(*(uint32_t *)(arg0 + 0xFC) + 0x88); if (_v != 0) { uint32_t _n = *(uint8_t *)(arg0 + 0xF4); sub_0048e6fc((void *)_v, (void *)(arg0 + _n * 12 + 0xD0), (void *)(arg0 + _n * 12 + 0xD4)); } } void *_q = sub_004550a0(arg0, arg1); if (_q != 0 && *(uint32_t *)(arg0 + 0xF8) != 0) { uint32_t _s = *(uint32_t *)(arg0 + 0xF8); if (*(uint8_t *)((uint8_t *)_q + 0x2C2) == 0) { *(uint32_t *)(_s + 4) = 6; *(uint32_t *)(_s + 8) = (uint32_t)_q; } uint32_t _t = *(uint32_t *)(arg0 + 0xF8); *(uint32_t *)(_t + 12) = (uint32_t)_q; *(uint8_t *)(_t + 16) = 1; } }
+}
+#endif

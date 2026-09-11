@@ -48,3 +48,23 @@ if (!IsArcFileLoadDataFinished(v0, arg0 + 0x50)) return false;
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00430020
+void operator_delete__(void* arg0);
+extern "C" uint8_t* YellowAuto_00430020(uint8_t* arg0) __asm__("_ZN8PokeTool15PokeModelSystemD1Ev");
+extern "C" uint8_t* YellowAuto_00430020(uint8_t* arg0) {
+*reinterpret_cast<uint32_t*>(arg0 + 0x2C) = *reinterpret_cast<uint32_t*>(0x00430088);
+if (*reinterpret_cast<uint32_t*>(arg0 + 0x30) != 0) { operator_delete__(reinterpret_cast<void*>(*reinterpret_cast<uint32_t*>(arg0 + 0x30))); *reinterpret_cast<uint32_t*>(arg0 + 0x30) = 0; }
+if (*reinterpret_cast<uint32_t*>(arg0 + 0x34) != 0) { operator_delete__(reinterpret_cast<void*>(*reinterpret_cast<uint32_t*>(arg0 + 0x34))); *reinterpret_cast<uint32_t*>(arg0 + 0x34) = 0; }
+if (*reinterpret_cast<uint32_t*>(arg0 + 0x38) != 0) { operator_delete__(reinterpret_cast<void*>(*reinterpret_cast<uint32_t*>(arg0 + 0x38))); *reinterpret_cast<uint32_t*>(arg0 + 0x38) = 0; }
+return arg0;
+}
+#endif
