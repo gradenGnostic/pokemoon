@@ -180,3 +180,72 @@ extern "C" uint8_t* YellowAuto_00459674(uint8_t* arg0, uint8_t* arg1) {
 NetApplicationViewBase(arg0, *(uint32_t*)(arg1 + 8)); *(uint32_t*)arg0 = *(uint32_t*)0x459730; *(uint32_t*)(arg0 + 0xA0) = *(uint32_t*)0x459730 + 0x6C; *(uint32_t*)(arg0 + 0xA4) = *(uint32_t*)0x459730 + 0x90; *(uint32_t*)(arg0 + 0xA8) = (uint32_t)arg1; CursorController(arg0 + 0xAC, *(uint32_t*)(arg1 + 8), *(uint32_t*)(arg1 + 0x2C)); *(uint32_t*)(arg0 + 0x10C) = 0; *(uint32_t*)(arg0 + 0x110) = 0; LytMultiResID(arg0 + 0x114); *(uint32_t*)(arg0 + 0x118) = 0; *(uint32_t*)(arg0 + 0x11C) = 0; *(uint8_t*)(arg0 + 0x120) = 1; *(uint32_t*)(arg0 + 0x124) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x128) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x12C) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x130) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x134) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x138) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x13C) = *(uint32_t*)(*(uint32_t*)0x459734); *(uint32_t*)(arg0 + 0x10C) = (uint32_t)(arg0 + 0xAC); *(uint32_t*)(arg0 + 0x14) = (uint32_t)(arg0 + 0xA0); return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045912C
+void operator delete(void*);
+void* GetLayoutWorkSetup(void*, int32_t);
+void* GetResourceBuffer(void*, int32_t);
+void* GetLayoutResourceID(void*, uint32_t);
+extern "C" void YellowAuto_0045912c(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZN9NetAppLib2UI16NetAppCursorView12CreateCursorEijj");
+extern "C" void YellowAuto_0045912c(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint32_t arg3) {
+void* g = (void*)(*(uint32_t*)(arg0 + 0x60));
+if (*(uint32_t*)(arg0 + 0x118) != 0) {
+operator delete((void*)(*(uint32_t*)(arg0 + 0x118)));
+*(uint32_t*)(arg0 + 0x118) = 0;
+}
+uint32_t gp = *(uint32_t*)(void*)0x00459218;
+uint32_t gv = *(uint32_t*)(void*)gp;
+*(uint32_t*)(arg0 + 0x124) = gv;
+*(uint32_t*)(arg0 + 0x128) = gv;
+*(uint32_t*)(arg0 + 0x12C) = gv;
+*(uint32_t*)(arg0 + 0x130) = gv;
+*(uint32_t*)(arg0 + 0x134) = gv;
+uint32_t ctrl = *(uint32_t*)(arg0 + 0x10C);
+uint32_t w3c = *(uint32_t*)((uint8_t*)g + 0x3C);
+void* setup = GetLayoutWorkSetup(g, 1);
+uint32_t w4 = *(uint32_t*)((uint8_t*)g + 0x4);
+uint32_t a8 = *(uint32_t*)(arg0 + 0xA8);
+void* rm = (void*)(*(uint32_t*)(void*)(a8 + 0x28));
+void* rbuf = GetResourceBuffer(rm, arg1);
+uint32_t vt = *(uint32_t*)(void*)ctrl;
+void* fptr = (void*)(*(uint32_t*)(void*)(vt + 8));
+((void (*)(void*, void*, uint32_t, void*, uint32_t, int32_t))fptr)((void*)ctrl, rbuf, w4, setup, w3c, 0);
+*(uint32_t*)(void*)(ctrl + 0x58) = (uint32_t)(arg0 + 0xA4);
+*(uint32_t*)(arg0 + 0x110) = arg3;
+void* rid = GetLayoutResourceID(g, arg2);
+*(uint32_t*)(arg0 + 0x114) = *(uint32_t*)rid;
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00458FC0
+int32_t ThunkTarget(uint8_t*, void*, void*, void*);
+extern "C" int32_t YellowAuto_00458fc0(uint8_t* arg0, void* arg1, void* arg2, void* arg3) __asm__("_ZThn160_N9NetAppLib2UI16NetAppCursorView11OnKeyActionEPN4gfl22ui6ButtonEPNS3_12VectorDeviceES7_");
+extern "C" int32_t YellowAuto_00458fc0(uint8_t* arg0, void* arg1, void* arg2, void* arg3) {
+return ThunkTarget(arg0 - 160, arg1, arg2, arg3);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00458FC8
+int32_t IsTrigger(void*, uint32_t, int32_t);
+void StartSelectedAct(int32_t, uint32_t);
+extern "C" int32_t YellowAuto_00458fc8(uint8_t* arg0, void* arg1, void* arg2, void* arg3) __asm__("_ZN9NetAppLib2UI16NetAppCursorView11OnKeyActionEPN4gfl22ui6ButtonEPNS3_12VectorDeviceES7_");
+extern "C" int32_t YellowAuto_00458fc8(uint8_t* arg0, void* arg1, void* arg2, void* arg3) {
+uint32_t vt = *(uint32_t*)arg0; uint32_t fa = *(uint32_t*)(vt + 32); int32_t v0 = ((int32_t (*)(uint8_t*))fa)(arg0); if (v0 != 0) return 0; if (*(arg0 + 288) != 0) { uint8_t* c = *(uint8_t**)(arg0 + 268); uint32_t vt2 = *(uint32_t*)c; uint32_t fa2 = *(uint32_t*)(vt2 + 24); int32_t v1 = ((int32_t (*)(uint8_t*, void*, void*, void*))fa2)(c, arg1, arg2, arg3); if (v1 != 1) return 0; } int32_t s = *(int32_t*)(arg0 + 16); uint32_t sent = *(uint32_t*)(*(uint32_t*)0x459128); uint32_t base = *(uint32_t*)0x459124; for (uint32_t i = 0; i < 7; i++) { uint32_t even = *(uint32_t*)(base + i * 8); uint32_t odd = *(uint32_t*)(arg0 + 292 + i * 4); if (odd == sent) continue; if (IsTrigger(arg1, even, 0) == 0) continue; StartSelectedAct(s, odd); return 0; } return 1;
+}
+#endif

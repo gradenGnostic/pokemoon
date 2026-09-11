@@ -61,3 +61,68 @@ extern "C" uint8_t YellowAuto_0015d324(uint8_t* arg0) {
 uint8_t ret = 4u; void* xess = GetNijiExtSaveSystem(*(void**)(arg0 + 4)); if (IsFileExists(xess, 0, 100) == 0) return ret; uint8_t rf = ReadFile(xess, 0, 100, *(void**)(arg0 + 8), 11200u); uint8_t g = GetSaveLoadResult(arg0, rf, false); ret = g; if (g == 0u) *(arg0 + 12) = 1u; return ret;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015D390
+void* GetNijiExtSaveSystem(uint32_t);
+int32_t FUN_0015b250(void*, int32_t, int32_t);
+uint32_t FUN_0015b2e0(void*, int32_t, int32_t, int32_t);
+uint8_t FUN_0015d4c4(uint8_t*, uint32_t, int32_t);
+uint8_t FUN_0015be48(void*, int32_t, int32_t, uint32_t, int32_t);
+extern "C" uint8_t YellowAuto_0015d390(uint8_t* arg0) __asm__("_ZN11ExtSavedata22BattleRecorderSaveData15LiveCupSaveDataEv");
+extern "C" uint8_t YellowAuto_0015d390(uint8_t* arg0) {
+if (arg0[12] == 0) return 10;
+void* v0 = GetNijiExtSaveSystem(*(uint32_t*)(arg0 + 4));
+int32_t v1 = FUN_0015b250(v0, 0, 100);
+if (v1 == 0) {
+uint32_t v2 = FUN_0015b2e0(v0, 0, 100, 11200);
+uint8_t v3 = FUN_0015d4c4(arg0, v2, 0);
+if (v3 > 1) return v3;
+}
+uint8_t v4 = FUN_0015be48(v0, 0, 100, *(uint32_t*)(arg0 + 8), 11200);
+return FUN_0015d4c4(arg0, v4, 1);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015D9CC
+void* GflHeapAllocMemoryBlock(void*, uint32_t);
+void __aeabi_memcpy4(void*, void*, uint32_t);
+void* GetNijiExtSaveSystem(uint32_t);
+int32_t FUN_0015b250(void*, int32_t, int32_t);
+uint8_t FUN_0015bdec(void*, int32_t, int32_t, uint32_t, int32_t);
+uint8_t FUN_0015d4c4(uint8_t*, uint32_t, int32_t);
+uint8_t FUN_0015b348(void*, int32_t, int32_t);
+void GflHeapFreeMemoryBlock(void*);
+extern "C" uint32_t YellowAuto_0015d9cc(uint8_t* arg0, void* arg1) __asm__("_ZN11ExtSavedata22BattleRecorderSaveData28CheckLiveCupSaveDataValidityEPN4gfl24heap11CtrHeapBaseE");
+extern "C" uint32_t YellowAuto_0015d9cc(uint8_t* arg0, void* arg1) {
+void* v0 = arg1;
+if (v0 == (void*)0) v0 = (void*)(*(uint32_t*)arg0);
+uint32_t v1 = 1;
+void* v2 = GflHeapAllocMemoryBlock(v0, 11200);
+__aeabi_memcpy4(v2, (void*)(*(uint32_t*)(arg0 + 8)), 11200);
+void* v3 = GetNijiExtSaveSystem(*(uint32_t*)(arg0 + 4));
+int32_t v4 = FUN_0015b250(v3, 0, 100);
+if (v4 != 0) {
+uint8_t v5 = FUN_0015bdec(v3, 0, 100, *(uint32_t*)(arg0 + 8), 11200);
+uint8_t v6 = FUN_0015d4c4(arg0, v5, 0);
+if (v6 == 0) arg0[12] = 1;
+else if (v6 == 6) {
+v1 = 0;
+void* v7 = GetNijiExtSaveSystem(*(uint32_t*)(arg0 + 4));
+uint8_t v8 = FUN_0015b348(v7, 0, 100);
+FUN_0015d4c4(arg0, v8, 0);
+}
+}
+__aeabi_memcpy4((void*)(*(uint32_t*)(arg0 + 8)), v2, 11200);
+*(uint32_t*)(arg0 + 16) = 4294967295U;
+GflHeapFreeMemoryBlock(v2);
+return v1;
+}
+#endif

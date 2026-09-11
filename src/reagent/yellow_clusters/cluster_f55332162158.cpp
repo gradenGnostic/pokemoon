@@ -26,3 +26,27 @@ extern "C" void YellowAuto_00381014(uint8_t* arg0, const uint32_t* arg1) {
 *(uint32_t*)(arg0 + 160) = 1; *(uint32_t*)(arg0 + 164) = arg1[0]; *(uint32_t*)(arg0 + 168) = arg1[1]; *(uint32_t*)(arg0 + 172) = arg1[2];
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00380D14
+uint32_t FloatSubBits(uint32_t a, uint32_t b);
+extern "C" void YellowAuto_00380d14(uint8_t* arg0, uint8_t* arg1, const uint8_t* arg2) __asm__("_ZN5Field11FieldScript17FieldScriptSystem23CalcEventPositionOffsetERKN4gfl24math7Vector3E");
+extern "C" void YellowAuto_00380d14(uint8_t* arg0, uint8_t* arg1, const uint8_t* arg2) {
+if (*(uint32_t*)(arg1 + 80) == 0) { *(uint32_t*)arg0 = *(const uint32_t*)arg2; *(uint32_t*)(arg0 + 4) = *(const uint32_t*)(arg2 + 4); *(uint32_t*)(arg0 + 8) = *(const uint32_t*)(arg2 + 8); return; } uint32_t tmp = *(uint32_t*)(arg1 + 80); uint32_t inner = *(uint32_t*)(tmp + 144); if (inner == 0) { *(uint32_t*)arg0 = *(const uint32_t*)arg2; *(uint32_t*)(arg0 + 4) = *(const uint32_t*)(arg2 + 4); *(uint32_t*)(arg0 + 8) = *(const uint32_t*)(arg2 + 8); return; } *(uint32_t*)arg0 = FloatSubBits(*(const uint32_t*)arg2, *(uint32_t*)(inner + 492)); *(uint32_t*)(arg0 + 4) = FloatSubBits(*(const uint32_t*)(arg2 + 4), *(uint32_t*)(inner + 496)); *(uint32_t*)(arg0 + 8) = FloatSubBits(*(const uint32_t*)(arg2 + 8), *(uint32_t*)(inner + 500)); return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00380A64
+uint32_t FloatAddBits(uint32_t a, uint32_t b);
+extern "C" void* YellowAuto_00380a64(uint8_t* arg0, uint8_t* arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4) __asm__("_ZN5Field11FieldScript17FieldScriptSystem22CalcEventPositionWorldEfff");
+extern "C" void* YellowAuto_00380a64(uint8_t* arg0, uint8_t* arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4) {
+if (*(uint32_t*)(arg1 + 80) == 0) { *(uint32_t*)arg0 = arg2; *(uint32_t*)(arg0 + 4) = arg3; *(uint32_t*)(arg0 + 8) = arg4; return (void*)0; } uint32_t tmp = *(uint32_t*)(arg1 + 80); uint32_t inner = *(uint32_t*)(tmp + 144); if (inner == 0) { *(uint32_t*)arg0 = arg2; *(uint32_t*)(arg0 + 4) = arg3; *(uint32_t*)(arg0 + 8) = arg4; return (void*)0; } *(uint32_t*)arg0 = FloatAddBits(arg2, *(uint32_t*)(inner + 492)); *(uint32_t*)(arg0 + 4) = FloatAddBits(arg3, *(uint32_t*)(inner + 496)); *(uint32_t*)(arg0 + 8) = FloatAddBits(arg4, *(uint32_t*)(inner + 500)); return (void*)(inner + 492);
+}
+#endif

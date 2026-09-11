@@ -81,3 +81,47 @@ cur = *(uint8_t**)cur;
 } while (cur != end);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E7FB8
+uint8_t* func_002e6fe4(uint8_t*, void*);
+void* func_00357638();
+void func_002e720c(void*, uint8_t*);
+extern "C" uint8_t* YellowAuto_002e7fb8(uint8_t* arg0, void* arg1, void* arg2, void* arg3) __asm__("_ZN3app2ui6UIViewC2EPNS_4util4HeapEPN4gfl24heap11NwAllocatorES8_");
+extern "C" uint8_t* YellowAuto_002e7fb8(uint8_t* arg0, void* arg1, void* arg2, void* arg3) {
+arg0 = func_002e6fe4(arg0, arg1);
+*(uint32_t*)arg0 = *(uint32_t*)0x2E8054;
+*(uint8_t**)(arg0 + 0x34) = arg0;
+*(uint32_t*)(arg0 + 0x38) = 0;
+*(uint32_t*)(arg0 + 0x3C) = 0;
+*(uint32_t*)(arg0 + 0x40) = 0;
+*(uint32_t*)(arg0 + 0x44) = 0;
+*(uint8_t**)(arg0 + 0x48) = arg0 + 0x48;
+*(uint8_t**)(arg0 + 0x4C) = arg0 + 0x48;
+*(void**)(arg0 + 0x50) = arg2;
+*(void**)(arg0 + 0x54) = arg3;
+*(uint32_t*)(arg0 + 0x60) = 0;
+*(uint32_t*)(arg0 + 0x64) = 0;
+*(uint8_t*)(arg0 + 0x68) = 0;
+*(uint8_t*)(arg0 + 0x69) = 0;
+*(uint8_t*)(arg0 + 0x6A) = 0;
+*(uint8_t*)(arg0 + 0x6B) = 0;
+*(uint8_t*)(arg0 + 0x6C) = 1;
+*(uint8_t*)(arg0 + 0x6D) = 0;
+*(uint8_t*)(arg0 + 0x6E) = 1;
+*(uint8_t*)(arg0 + 0x6F) = 1;
+*(uint8_t*)(arg0 + 0x70) = 0;
+*(uint32_t*)(arg0 + 0x74) = 0x10000;
+*(uint32_t*)(arg0 + 0x78) = 0;
+*(uint32_t*)(arg0 + 0x7C) = 0;
+func_002e720c(func_00357638(), arg0);
+return arg0;
+}
+#endif

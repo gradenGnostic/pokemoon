@@ -48,3 +48,33 @@ extern "C" void YellowAuto_00361c50(uint8_t* arg0) {
 ((void(*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(arg0 + 32) + 16)))(arg0 + 32);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040D530
+void func_0040d5d4(uint8_t*);
+void func_00361920(uint8_t*, void*, void*);
+extern "C" uint32_t YellowAuto_0040d530(uint8_t* arg0, void* arg1, void* arg2, void* arg3, uint32_t arg4) __asm__("_ZN7poke_3d5model10BaseCamera6CreateEPN4gfl23gfx12IGLAllocatorEPNS2_4heap11CtrHeapBaseEPNS2_15renderingengine10scenegraph8instance11DrawEnvNodeEj");
+extern "C" uint32_t YellowAuto_0040d530(uint8_t* arg0, void* arg1, void* arg2, void* arg3, uint32_t arg4) {
+if (arg3 == (void*)0) return 0;
+*(void**)(arg0 + 0x5c) = arg2;
+void* tbl = *(void**)((uint8_t*)arg3 + 0x20c);
+void* elem = *(void**)((uint8_t*)tbl + arg4 * 4);
+void* v0 = *(void**)elem;
+void* v1 = *(void**)v0;
+*(void**)(arg0 + 0x8) = v1;
+*(uint32_t*)(arg0 + 0xc) = arg4;
+func_0040d5d4(arg0);
+func_00361920(arg0 + 0x20, *(void**)(arg0 + 0x5c), arg3);
+*(arg0 + 0x68) = 0;
+*(uint32_t*)(arg0 + 0x64) = 0;
+*(uint32_t*)(arg0 + 0x60) = 0;
+return 1;
+}
+#endif

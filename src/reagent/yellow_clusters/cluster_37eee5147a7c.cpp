@@ -40,3 +40,35 @@ h_str_dtor(t6);
 return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0010417A
+void FUN_001035ac(const uint8_t*, int32_t);
+extern "C" void YellowAuto_0010417a(const uint8_t* arg0, int32_t arg1) __asm__("_ZNKSt8messagesIcE8do_closeEi");
+extern "C" void YellowAuto_0010417a(const uint8_t* arg0, int32_t arg1) {
+FUN_001035ac(arg0 + 16, arg1);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00104170
+int32_t FUN_0010353e(const uint8_t*, const void*, const void*);
+extern "C" int32_t YellowAuto_00104170(const uint8_t* arg0, const void* arg1, const void* arg2) __asm__("_ZNKSt8messagesIcE7do_openERKSsRKSt6locale");
+extern "C" int32_t YellowAuto_00104170(const uint8_t* arg0, const void* arg1, const void* arg2) {
+return FUN_0010353e(arg0 + 16, arg1, arg2);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00103D56
+uint8_t* FUN_00301904(uint8_t*);
+extern "C" uint8_t* YellowAuto_00103d56(uint8_t* arg0) __asm__("_ZNSt8messagesIcED2Ev");
+extern "C" uint8_t* YellowAuto_00103d56(uint8_t* arg0) {
+return FUN_00301904(arg0 + 16) - 16;
+}
+#endif

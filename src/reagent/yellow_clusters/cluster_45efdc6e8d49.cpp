@@ -81,3 +81,29 @@ if (strcmp(arg1, *reinterpret_cast<const uint8_t* const*>(j + 264)) == 0) return
 return 4294967295U;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004177D4
+void func_00412af0(uint8_t*, uint32_t, uint32_t, uint8_t);
+void func_004128fc(uint8_t*, int32_t);
+extern "C" uint8_t* YellowAuto_004177d4(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint8_t arg3) __asm__("_ZN7poke_3d5model9BaseModel16SetAnimationLoopEijNS1_12AnimationBitE");
+extern "C" uint8_t* YellowAuto_004177d4(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint8_t arg3) {
+uint8_t tmp[16]; func_00412af0(tmp, *(uint32_t*)(arg0 + 32), arg2, arg3); func_004128fc(tmp, arg1); return tmp;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004180DC
+void func_00412af0(uint8_t*, uint32_t, uint32_t, uint8_t);
+void func_00412880(uint8_t*, void*, uint32_t);
+extern "C" uint8_t* YellowAuto_004180dc(uint8_t* arg0, void* arg1, uint32_t arg2, uint8_t arg3) __asm__("_ZN7poke_3d5model9BaseModel29ChangeAnimationByResourceNodeEPN4gfl215renderingengine10scenegraph8resource12ResourceNodeEjNS1_12AnimationBitE");
+extern "C" uint8_t* YellowAuto_004180dc(uint8_t* arg0, void* arg1, uint32_t arg2, uint8_t arg3) {
+uint8_t tmp[20]; func_00412af0(tmp, *(uint32_t*)(arg0 + 32), arg2, arg3); func_00412880(tmp, arg1, *(uint32_t*)(*(uint32_t*)(arg0 + 4) + 260)); return tmp;
+}
+#endif

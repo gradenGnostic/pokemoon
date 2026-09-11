@@ -61,3 +61,56 @@ extern "C" uint32_t* YellowAuto_004a7fd4(const uint8_t* arg0, uint16_t arg1) {
 uint32_t pocket = func_0036dcd0(arg1, 11U); uint32_t m = 0U; uint32_t* b = func_004a7e00(arg0, pocket, &m); if (b != 0 && m != 0U) { for (uint32_t i = 0U; i < m; i = i + 1U) { if ((b[i] & 0x3FFU) == arg1) { return &b[i]; } } } return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A7EB0
+uint32_t* GetPocketItem(const uint8_t*, uint32_t, uint32_t*);
+extern "C" int32_t YellowAuto_004a7eb0(const uint8_t* arg0, uint32_t arg1, uint16_t arg2, bool arg3) __asm__("_ZNK8Savedata6MyItem16GetItemPocketPosEjtb");
+extern "C" int32_t YellowAuto_004a7eb0(const uint8_t* arg0, uint32_t arg1, uint16_t arg2, bool arg3) {
+if (arg2 == 0) return -1;
+uint32_t n = arg3;
+uint32_t* p = GetPocketItem(arg0, arg1, &n);
+if (p == 0) return -1;
+if (n == 0) return -1;
+int32_t r = 0;
+for (uint32_t i = 0; i < n; ++i) {
+uint32_t e = p[i];
+if ((e & 1023U) == arg2) return r;
+if ((arg3 != 0) || (((e & 1073741823U) >> 20) == 0)) ++r;
+}
+return -1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00442214
+void FUN_00441bac(uint8_t*, uint32_t, void*, uint32_t);
+uint32_t* GetPocketItem(const uint8_t*, uint32_t, uint32_t*);
+extern "C" uint32_t YellowAuto_00442214(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) __asm__("_ZN8Savedata6MyItem19MakePocketItemTableEjPPNS0_7ITEM_STEj");
+extern "C" uint32_t YellowAuto_00442214(uint8_t* arg0, uint32_t arg1, void* arg2, uint32_t arg3) {
+uint32_t n = arg3;
+FUN_00441bac(arg0, arg1, arg2, arg3);
+uint32_t* p = GetPocketItem(arg0, arg1, &n);
+if (p == 0) return 0;
+if (n == 0) return 0;
+uint32_t k = 0;
+uint32_t* o = (uint32_t*)arg2;
+uint32_t i = 0;
+while (n != 0) {
+uint32_t e = p[i];
+if (((e & 1023U) != 0) && (((e & 1048575U) >> 10) != 0) && (((e & 1073741823U) >> 20) == 0)) {
+o[k] = (uint32_t)(p + i);
+++k;
+}
+--n;
+++i;
+}
+return k;
+}
+#endif

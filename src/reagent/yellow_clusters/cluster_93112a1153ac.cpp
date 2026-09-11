@@ -109,3 +109,76 @@ if (arg1 < 11U) return *(arg0 + arg1 + 1348U);
 return 0U;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043EE2C
+uint32_t FUN_0046f6bc(uint32_t arg0);
+extern "C" int32_t YellowAuto_0043ee2c(uint8_t* arg0) __asm__("_ZN8Savedata17JoinFestaDataSave27GetCoinNecessaryForNextRankEv");
+extern "C" int32_t YellowAuto_0043ee2c(uint8_t* arg0) {
+uint16_t rank = *(uint16_t*)(arg0 + 0x542);
+if (rank == 999) {
+uint16_t v = *(uint16_t*)(arg0 + 0x550);
+if (v >= 300) { *(uint16_t*)(arg0 + 0x550) = (uint16_t)(v - 300); return 0; }
+return (int32_t)(300 - v);
+}
+uint32_t total = 0;
+uint16_t cur = 1;
+if ((uint16_t)(rank + 1) > 1) { do { total += FUN_0046f6bc((uint32_t)cur); cur = (uint16_t)(cur + 1); } while (cur < (uint16_t)(rank + 1)); }
+uint32_t have = *(uint32_t*)(arg0 + 0x514);
+if (have > total) return 0;
+return (int32_t)(total - have);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A72C8
+bool IsValidFriendKey(const void* arg0);
+bool IsSameFriendKey(const void* arg0, const void* arg1);
+extern "C" bool YellowAuto_004a72c8(const uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZNK8Savedata17JoinFestaDataSave11IsBlackListE18nnfriendsFriendKey");
+extern "C" bool YellowAuto_004a72c8(const uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) {
+for (uint32_t i = 0; i < 100; i++) {
+uint32_t base = i * 88;
+if (*(const uint8_t*)(arg0 + base + 0x84F) != 1) continue;
+const void* stored = (const void*)(arg0 + base + 0x814);
+if (!IsValidFriendKey(stored)) continue;
+uint32_t q[3];
+q[0] = arg1; q[1] = arg2; q[2] = arg3;
+if (IsSameFriendKey(stored, (const void*)q)) return true;
+}
+return false;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043E43C
+bool IsSameFriendKey(const void* arg0, const void* arg1);
+void* __aeabi_memcpy4(void* arg0, const void* arg1, uint32_t arg2);
+void* FUN_004491cc(void* arg0);
+extern "C" bool YellowAuto_0043e43c(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) __asm__("_ZN8Savedata17JoinFestaDataSave15DeleteBlackListE18nnfriendsFriendKey");
+extern "C" bool YellowAuto_0043e43c(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3) {
+for (uint32_t i = 0; i < 100; i++) {
+if (*(uint8_t*)(arg0 + i * 88 + 0x84F) != 1) continue;
+const void* stored = (const void*)(arg0 + i * 88 + 0x814);
+uint32_t q[3];
+q[0] = arg1; q[1] = arg2; q[2] = arg3;
+if (!IsSameFriendKey(stored, (const void*)q)) continue;
+uint32_t j = i + 1;
+while (j < 100) {
+if (*(uint8_t*)(arg0 + j * 88 + 0x84F) != 1) break;
+__aeabi_memcpy4((void*)(arg0 + j * 88 + 0x7A0), (const void*)(arg0 + j * 88 + 0x7F8), 88);
+j++;
+}
+uint8_t tmp[88];
+void* def = FUN_004491cc((void*)tmp);
+__aeabi_memcpy4((void*)(arg0 + j * 88 + 0x7A0), (const void*)def, 88);
+*(uint8_t*)(arg0 + j * 88 + 0x7F7) = 0;
+return true;
+}
+return false;
+}
+#endif

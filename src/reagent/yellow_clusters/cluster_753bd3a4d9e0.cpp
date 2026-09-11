@@ -44,3 +44,30 @@ extern "C" void YellowAuto_00159e70(uint8_t* arg0, uint16_t arg1, uint16_t arg2)
 uint8_t* v0 = *(uint8_t**)(arg0 + 0x1318); uint8_t* v1 = *(uint8_t**)(v0 + 0x34); uint8_t* v2 = *(uint8_t**)(v1 + 0x20); void* ws = *(void**)(v2 + 0x0); uint16_t tt = *(uint16_t*)(*(uint8_t**)(arg0 + arg2 * 4 + 0xc)); RegisterTrTypeName(ws, arg1, tt); return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015851C
+void* operator_new(uint32_t, void*);
+uint32_t GetMessageArcId(uint32_t);
+void* MsgData(void*, uint32_t, uint32_t, void*, uint32_t);
+extern "C" void YellowAuto_0015851c(uint8_t* arg0) __asm__("_ZN10BattleInst10BattleInst14CreateForRoyalEv");
+extern "C" void YellowAuto_0015851c(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 0x1330) == 0) {
+void* v0 = *(void**)(arg0 + 0x1310);
+void* v1 = operator_new(0x30, v0);
+void* v2 = (void*)0;
+if (v1 != (void*)0) {
+uint32_t v3 = GetMessageArcId(10);
+v2 = MsgData(v1, v3, 0x56, *(void**)(arg0 + 0x1310), 1);
+}
+*(void**)(arg0 + 0x1330) = v2;
+}
+}
+#endif

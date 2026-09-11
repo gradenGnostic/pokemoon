@@ -87,3 +87,93 @@ cur = nxt;
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0033443C
+void* Update(uint8_t*);
+uint32_t FUN_00333e28(uint8_t*, void*, void*);
+void FUN_00333f5c(uint8_t*, uint32_t*, void*, void*, uint32_t);
+extern "C" void YellowAuto_0033443c(uint8_t* arg0, int32_t arg1) __asm__("_ZN4gfl215renderingengine8renderer11DrawManager4DrawEi");
+extern "C" void YellowAuto_0033443c(uint8_t* arg0, int32_t arg1) {
+if (arg1 != 0) {
+Update(arg0);
+}
+uint32_t tIdx = 0;
+uint8_t* tBase = arg0 + 108;
+if (*(uint32_t*)(arg0 + 116) != 0) {
+tBase = (uint8_t*)*(uint32_t*)(arg0 + 116);
+}
+uint32_t tCount = *(uint32_t*)(tBase + 4);
+if (tCount != 0) {
+uint32_t tArr = *(uint32_t*)(tBase + 0);
+while (tIdx < tCount) {
+uint32_t tItem = *(uint32_t*)(tArr + tIdx * 4);
+void* tVis = (void*)*(uint32_t*)((uint8_t*)tItem + 20);
+uint32_t tEnvN = *(uint32_t*)(arg0 + 92);
+uint32_t tEnvVal = 0;
+uint32_t tEnvI = 0;
+if (tEnvN != 0) {
+uint32_t tEnvBase = *(uint32_t*)(arg0 + 76);
+while (tEnvI < tEnvN) {
+uint32_t tE0 = *(uint32_t*)(tEnvBase + tEnvI * 4);
+uint32_t tE1 = *(uint32_t*)(tE0);
+uint32_t tE2 = *(uint32_t*)(tE1);
+void* tCand = (void*)tE2;
+uint32_t tOk = FUN_00333e28(arg0, tVis, tCand);
+if (tOk != 0) {
+tEnvVal = tE2;
+int32_t tFlag = (int32_t)*(uint32_t*)((uint8_t*)tItem + 12);
+if (tFlag >= 0) {
+uint32_t tLocal[32];
+for (uint32_t tJ = 0; tJ < 32; tJ = tJ + 1) {
+tLocal[tJ] = 0;
+}
+FUN_00333f5c(arg0, tLocal, tVis, tCand, (uint32_t)tFlag);
+for (uint32_t tK = 0; tK < 32; tK = tK + 1) {
+*(uint32_t*)(arg0 + 176 + tK * 4) = 0;
+}
+for (uint32_t tM = 0; tM < 32; tM = tM + 1) {
+uint32_t tV = tLocal[tM];
+if (tV == 0) {
+break;
+}
+*(uint32_t*)(arg0 + 176 + tM * 4) = tV;
+}
+}
+break;
+}
+tEnvI = tEnvI + 1;
+tEnvVal = 0;
+}
+}
+if (*(uint32_t*)(arg0 + 324) != tEnvVal) {
+*(uint32_t*)(arg0 + 324) = tEnvVal;
+*(uint8_t*)(arg0 + 328) = 0;
+}
+uint32_t tAux = *(uint32_t*)((uint8_t*)tItem + 32);
+if (tAux != 0) {
+uint32_t tVt0 = *(uint32_t*)(tAux);
+uint32_t tFn0 = *(uint32_t*)(tVt0);
+((void(*)(void*, uint8_t*))tFn0)((void*)tAux, arg0 + 120);
+}
+uint32_t tVt = *(uint32_t*)(tItem);
+uint32_t tFn1 = *(uint32_t*)(tVt + 8);
+((void(*)(void*, uint8_t*))tFn1)((void*)tItem, arg0 + 120);
+uint32_t tAux2 = *(uint32_t*)((uint8_t*)tItem + 32);
+if (tAux2 != 0) {
+uint32_t tVt2 = *(uint32_t*)(tAux2);
+uint32_t tFn2 = *(uint32_t*)(tVt2 + 4);
+((void(*)(void*, uint8_t*))tFn2)((void*)tAux2, arg0 + 120);
+}
+tIdx = tIdx + 1;
+}
+}
+}
+#endif
