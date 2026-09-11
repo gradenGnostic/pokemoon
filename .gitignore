@@ -33,6 +33,7 @@ tools/3ds-Ghidra-Scripts/
 .decomp/
 build/
 game-data/
+/howtocheck.md
 *.o
 *.elf
 *.a
