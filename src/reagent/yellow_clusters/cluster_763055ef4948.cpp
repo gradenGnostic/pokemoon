@@ -35,3 +35,27 @@ extern "C" uint8_t* YellowAuto_002389c4(uint8_t* arg0) {
 *(uint8_t*)(arg0 + 4) = 0; *(uint32_t*)(arg0 + 12) = 0; *(uint32_t*)(arg0 + 0x18) = 0x6c; *(uint32_t*)(arg0 + 0x20) = 0; *(uint32_t*)(arg0 + 0x24) = 0; *(uint32_t*)(arg0 + 0x28) = 0; *(uint32_t*)(arg0 + 0x2c) = 0; *(uint32_t*)(arg0 + 0x30) = 0; *(uint32_t*)(arg0 + 0x34) = 0; *(uint8_t*)(arg0 + 0x38) = 0; *(uint8_t*)(arg0 + 0x39) = 0; *(uint8_t*)(arg0 + 0x3a) = 0; *(uint8_t*)(arg0 + 0x3b) = 0; *(uint32_t*)(*(uint8_t**)(arg0 + 8) + 0x10) = 0; *(uint32_t*)(*(uint8_t**)(arg0 + 8) + 0x18) = 0; *(uint32_t*)(arg0 + 0x18) = 0x73; if (*(uint32_t*)(*(uint8_t**)(arg0 + 8) + 0x10) > 3) *(uint32_t*)(arg0 + 12) = 4; return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00238B34
+void FUN_0017933c(uint8_t*);
+extern "C" void YellowAuto_00238b34(uint8_t* arg0) __asm__("_ZN2nn3nex7MessageD1Ev");
+extern "C" void YellowAuto_00238b34(uint8_t* arg0) {
+*(uint32_t*)arg0 = *(uint32_t*)0x00238B6C;
+uint8_t* tmp1 = *(uint8_t**)(arg0 + 0x34);
+if (tmp1 != (uint8_t*)0) {
+uint8_t* tmp2 = *(uint8_t**)(tmp1 + 4);
+uint8_t* tmp3 = *(uint8_t**)tmp2;
+void (*tmp4)(uint8_t*) = *(void(**)(uint8_t*))(tmp3 + 0x40);
+tmp4(tmp2);
+}
+FUN_0017933c(arg0);
+}
+#endif

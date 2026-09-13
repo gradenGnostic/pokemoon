@@ -49,3 +49,19 @@ extern "C" void YellowAuto_003fa720(uint8_t* arg0) {
 *(uint32_t*)arg0 = Helper_003FA720_VTable(); arg0[4] = 0; arg0[5] = 0; *(uint32_t*)(arg0 + 8) = 0; *(uint32_t*)(arg0 + 12) = 0; *(uint32_t*)(arg0 + 16) = 0; *(uint32_t*)(arg0 + 20) = 0; *(uint32_t*)(arg0 + 24) = 0; *(uint32_t*)(arg0 + 28) = 0; *(uint32_t*)(arg0 + 32) = 0; *(uint32_t*)(arg0 + 36) = 0; *(uint32_t*)(arg0 + 40) = 0; *(uint32_t*)(arg0 + 44) = 0; *(uint32_t*)(arg0 + 48) = 0; *(uint32_t*)(arg0 + 52) = 0; *(uint32_t*)(arg0 + 56) = 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003F9C48
+uint32_t Cancel(uint8_t*, uint32_t);
+extern "C" uint32_t YellowAuto_003f9c48(uint8_t* arg0) __asm__("_ZN7gflnet23nex16NexRankingClient16CancelConnectingEv");
+extern "C" uint32_t YellowAuto_003f9c48(uint8_t* arg0) {
+if (arg0[5] == 0) return 0; if (*(uint8_t**)(arg0 + 24) == 0) return 0; if ((*(uint8_t**)(arg0 + 24))[16] != 1) return 0; return Cancel(*(uint8_t**)(arg0 + 24), 4);
+}
+#endif

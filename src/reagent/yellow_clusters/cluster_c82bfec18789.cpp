@@ -126,3 +126,30 @@ GflHeapFreeMemoryBlock(v2);
 return v1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015C740
+void* func_00105500(uint32_t, void*);
+void* func_0031f2d4(void*, void*);
+void func_0031ecac(void*, const uint8_t*);
+extern "C" void* YellowAuto_0015c740(uint8_t* arg0, int16_t arg1, void* arg2) __asm__("_ZN11ExtSavedata22BattleRecorderSaveData12GetPokePartyE13BTL_CLIENT_IDPN4gfl24heap11CtrHeapBaseE");
+extern "C" void* YellowAuto_0015c740(uint8_t* arg0, int16_t arg1, void* arg2) {
+if (arg0[0xC] == 0) return (void*)0;
+int32_t s = (int32_t)(int16_t)(*(uint16_t*)0x15C7B8);
+int32_t o = (int32_t)arg1 * s;
+uint8_t* b = (uint8_t*)(*(uint32_t*)(arg0 + 8));
+if (b[o + 0xE40] == 0) return (void*)0;
+void* p = func_00105500(0x1Cu, arg2);
+void* q = (void*)0;
+if (p != (void*)0) q = func_0031f2d4(p, arg2);
+func_0031ecac(q, (const uint8_t*)(b + o + 0xE41));
+return q;
+}
+#endif

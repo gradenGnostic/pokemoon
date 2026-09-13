@@ -68,3 +68,25 @@ uint32_t bit = 1U << (arg1 & 255U);
 return (bit & mask) != 0U;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A8B5C
+extern "C" bool YellowAuto_004a8b5c(const uint8_t* arg0, uint32_t arg1) __asm__("_ZNK8Savedata9FieldMenu9IsIconNewENS0_6IconIDE");
+extern "C" bool YellowAuto_004a8b5c(const uint8_t* arg0, uint32_t arg1) {
+return (((*(const uint32_t*)(arg0 + 4) & 65535u) >> 4 & (1u << (arg1 & 255u))) != 0);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004455C4
+extern "C" void YellowAuto_004455c4(uint8_t* arg0, uint32_t arg1) __asm__("_ZN8Savedata9FieldMenu16ResetRideNewFlagENS0_6RideIDE");
+extern "C" void YellowAuto_004455c4(uint8_t* arg0, uint32_t arg1) {
+*(arg0 + 26) = (uint8_t)(((1u << (arg1 & 255u)) ^ 255u) & *(arg0 + 26));
+}
+#endif

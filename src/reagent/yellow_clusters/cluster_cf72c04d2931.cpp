@@ -77,3 +77,55 @@ func_004920c4(v0, v3);
 return v0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00317E08
+uint8_t* func_0031de70(uint8_t*, void*, uint32_t, uint32_t, uint32_t, uint32_t);
+uint32_t func_00491210(uint8_t*);
+void* func_00318aa8(void*, uint32_t);
+void func_00319d88(void*, uint32_t, void*);
+bool func_0049255c(uint8_t*);
+void func_003195a8(void*);
+void func_0031c764(uint8_t*, uint32_t);
+void func_00318e38(uint8_t*);
+void func_004920c4(uint8_t*, bool);
+extern "C" uint8_t* YellowAuto_00317e08(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4, uint32_t arg5) __asm__("_ZN3pml8pokepara12PokemonParamC1EPN4gfl24heap11CtrHeapBaseE6MonsNoty");
+extern "C" uint8_t* YellowAuto_00317e08(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4, uint32_t arg5) {
+func_0031de70(arg0, arg1, arg2, arg3, arg4, arg5);
+uint32_t rnd = func_00491210(arg0);
+*(uint32_t*)(arg0 + 8) = (uint32_t)func_00318aa8(arg1, rnd);
+func_00319d88((void*)*(uint32_t*)(arg0 + 12), *(uint32_t*)(arg0 + 4), (void*)*(uint32_t*)(arg0 + 8));
+bool fast = func_0049255c(arg0);
+func_003195a8((void*)*(uint32_t*)(arg0 + 12));
+func_0031c764(arg0, 1);
+func_00318e38(arg0);
+func_004920c4(arg0, fast);
+return arg0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00317FB4
+uint8_t* func_0031de10(uint8_t*, void*, const uint8_t*);
+uint32_t func_00491210(uint8_t*);
+void* func_00318aa8(void*, uint32_t);
+void func_00319d88(void*, uint32_t, void*);
+void func_00319e64(void*, uint32_t);
+void func_0031a0bc(void*, uint32_t);
+extern "C" uint8_t* YellowAuto_00317fb4(uint8_t* arg0, void* arg1, const uint8_t* arg2) __asm__("_ZN3pml8pokepara12PokemonParamC1EPN4gfl24heap11CtrHeapBaseERKS1_");
+extern "C" uint8_t* YellowAuto_00317fb4(uint8_t* arg0, void* arg1, const uint8_t* arg2) {
+func_0031de10(arg0, arg1, arg2);
+uint32_t rnd = func_00491210(arg0);
+*(uint32_t*)(arg0 + 8) = (uint32_t)func_00318aa8(arg1, rnd);
+func_00319d88((void*)*(uint32_t*)(arg0 + 12), *(uint32_t*)(arg0 + 4), (void*)*(uint32_t*)(arg0 + 8));
+func_00319e64((void*)*(uint32_t*)(arg2 + 12), *(uint32_t*)0x318020);
+func_0031a0bc((void*)*(uint32_t*)(arg0 + 12), *(uint32_t*)0x318020);
+return arg0;
+}
+#endif

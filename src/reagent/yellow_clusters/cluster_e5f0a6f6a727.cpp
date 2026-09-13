@@ -203,3 +203,97 @@ if (FUN_004a4cf4(e, mgr) == 0) return false;
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00415D8C
+int32_t FUN_004a4b4c(void* arg0, uint32_t arg1);
+void FUN_00413148(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3, void* arg4, void* arg5);
+extern "C" void YellowAuto_00415d8c(uint8_t* arg0, void* arg1, const uint16_t* arg2, uint32_t arg3) __asm__("_ZN7poke_3d5model27DressUpModelResourceManager31LoadDressUpDynamicAnimationSyncEPN4gfl24heap11CtrHeapBaseERKNS0_12DressUpParamEj");
+extern "C" void YellowAuto_00415d8c(uint8_t* arg0, void* arg1, const uint16_t* arg2, uint32_t arg3) {
+int32_t s = (int32_t)(int16_t)arg2[0];
+uint8_t* b = arg0 + s * 64;
+uint32_t hi = arg3 >> 16;
+void* hp = arg1;
+uint32_t stk[2];
+stk[0] = *(uint32_t*)(b + 8);
+stk[1] = (uint32_t)(const void*)arg2;
+uint32_t i = 0;
+while (1) {
+int32_t arc = (int32_t)*(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 4)) + i * 4);
+uint32_t tab = *(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 16)) + i * 4);
+int32_t sel = (int32_t)(int16_t)arg2[i + 5];
+if (arc >= 0 && tab != 0 && sel >= 0) {
+if (i != 12) {
+uint32_t idx = i & 255;
+int32_t q = FUN_004a4b4c((void*)stk, idx);
+int32_t mi = -1;
+if (q >= 0) {
+uint32_t inner = *(uint32_t*)((uint8_t*)stk[0] + idx * 4);
+uint32_t cnt = *(uint32_t*)((uint8_t*)inner);
+uint8_t* slot = (uint8_t*)0;
+if ((uint32_t)q < cnt) slot = (uint8_t*)inner + 4 + (uint32_t)q * 8;
+mi = (int32_t)(int16_t)*(uint16_t*)slot;
+}
+uint8_t* dst = (uint8_t*)(*(uint32_t*)(b + 36)) + i * 180;
+uint32_t tval = *(uint32_t*)((uint8_t*)tab + mi * 4);
+uint32_t f = hi + tval - 1;
+uint32_t aid = *(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 4)) + i * 4);
+void* am = (void*)(*(uint32_t*)(b + 28));
+FUN_00413148(dst, aid, f, hi, hp, am);
+}
+}
+i = i + 1;
+if (i > 13) break;
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00415F14
+int32_t FUN_004a4b4c(void* arg0, uint32_t arg1);
+void FUN_004131ec(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3, void* arg4, void* arg5);
+extern "C" void YellowAuto_00415f14(uint8_t* arg0, void* arg1, const uint16_t* arg2, uint32_t arg3) __asm__("_ZN7poke_3d5model27DressUpModelResourceManager32LoadDressUpDynamicAnimationAsyncEPN4gfl24heap11CtrHeapBaseERKNS0_12DressUpParamEj");
+extern "C" void YellowAuto_00415f14(uint8_t* arg0, void* arg1, const uint16_t* arg2, uint32_t arg3) {
+int32_t s = (int32_t)(int16_t)arg2[0];
+uint8_t* b = arg0 + s * 64;
+uint32_t hi = arg3 >> 16;
+void* hp = arg1;
+uint32_t stk[2];
+stk[0] = *(uint32_t*)(b + 8);
+stk[1] = (uint32_t)(const void*)arg2;
+uint32_t i = 0;
+while (1) {
+int32_t arc = (int32_t)*(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 4)) + i * 4);
+uint32_t tab = *(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 16)) + i * 4);
+int32_t sel = (int32_t)(int16_t)arg2[i + 5];
+if (arc >= 0 && tab != 0 && sel >= 0) {
+if (i != 12) {
+uint32_t idx = i & 255;
+int32_t q = FUN_004a4b4c((void*)stk, idx);
+int32_t mi = -1;
+if (q >= 0) {
+uint32_t inner = *(uint32_t*)((uint8_t*)stk[0] + idx * 4);
+uint32_t cnt = *(uint32_t*)((uint8_t*)inner);
+uint8_t* slot = (uint8_t*)0;
+if ((uint32_t)q < cnt) slot = (uint8_t*)inner + 4 + (uint32_t)q * 8;
+mi = (int32_t)(int16_t)*(uint16_t*)slot;
+}
+uint8_t* dst = (uint8_t*)(*(uint32_t*)(b + 36)) + i * 180;
+uint32_t tval = *(uint32_t*)((uint8_t*)tab + mi * 4);
+uint32_t f = hi + tval - 1;
+uint32_t aid = *(uint32_t*)((uint8_t*)(*(uint32_t*)(b + 4)) + i * 4);
+void* am = (void*)(*(uint32_t*)(b + 28));
+FUN_004131ec(dst, aid, f, hi, hp, am);
+}
+}
+i = i + 1;
+if (i > 13) break;
+}
+}
+#endif

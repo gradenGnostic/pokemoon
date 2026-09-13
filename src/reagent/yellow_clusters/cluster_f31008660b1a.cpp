@@ -37,3 +37,25 @@ Location(arg0 + 0x50);
 *(uint8_t *)(arg0 + 0xa9) = 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00394E88
+void* GetHeapByHeapId(int32_t arg0);
+extern "C" void YellowAuto_00394e88(uint8_t* arg0, const uint32_t* arg1) __asm__("_ZN5Field5Event27EventPokeFinderForPlacement10InitializeERKNS1_9SetupDataE");
+extern "C" void YellowAuto_00394e88(uint8_t* arg0, const uint32_t* arg1) {
+*reinterpret_cast<uint32_t*>(arg0 + 8) = 0;
+*reinterpret_cast<uint32_t*>(arg0 + 24) = reinterpret_cast<uint32_t>(GetHeapByHeapId(11));
+*reinterpret_cast<uint32_t*>(arg0 + 28) = reinterpret_cast<uint32_t>(GetHeapByHeapId(7));
+*reinterpret_cast<uint32_t*>(arg0 + 116) = arg1[0];
+uint32_t v = arg1[1];
+*reinterpret_cast<uint32_t*>(arg0 + 124) = v;
+if (v != 0) *reinterpret_cast<uint32_t*>(arg0 + 44) = arg1[2];
+}
+#endif

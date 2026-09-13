@@ -24,3 +24,25 @@ break;
 return false;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004412DC
+extern "C" void YellowAuto_004412dc(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint16_t arg3) __asm__("_ZN8Savedata3BOX14SetTeamPokePosEjjt");
+extern "C" void YellowAuto_004412dc(uint8_t* arg0, uint32_t arg1, uint32_t arg2, uint16_t arg3) {
+int32_t i = 0;
+for (; i < 6; ++i) {
+ if (*(uint16_t*)(arg0 + arg1 * 12 + i * 2 + 0x4C8) == arg3) {
+  *(uint16_t*)(arg0 + arg1 * 12 + i * 2 + 0x4C8) = 0xFFFF;
+  break;
+ }
+}
+*(uint16_t*)(arg0 + arg1 * 12 + arg2 * 2 + 0x4C8) = (uint16_t)arg3;
+}
+#endif

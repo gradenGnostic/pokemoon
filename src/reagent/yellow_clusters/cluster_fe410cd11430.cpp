@@ -51,3 +51,58 @@ break;
 return -1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00399C80
+uint32_t IsArcFileOpenFinished(void* arg0, uint32_t arg1);
+uint32_t IsArcFileLoadDataFinished(void* arg0, uint8_t* arg1);
+uint32_t FUN_00399d94(uint8_t* arg0, uint8_t* arg1, uint8_t* arg2);
+void GflHeapFreeMemoryBlock(uint32_t arg0, uint32_t arg1);
+void AddArcFileCloseReq(void* arg0, uint8_t* arg1);
+uint32_t IsArcFileCloseFinished(void* arg0, uint32_t arg1);
+extern "C" uint32_t YellowAuto_00399c80(uint8_t* arg0) __asm__("_ZN5Field9EventList20EventListDataManager14InitializeWaitEv");
+extern "C" uint32_t YellowAuto_00399c80(uint8_t* arg0) {
+uint32_t state = *(uint32_t*)(arg0 + 0x1C);
+if (state == 0) {
+void* mgr = *(void**)(arg0 + 0x4);
+if (IsArcFileOpenFinished(mgr, 0x9B) == 0) return 0;
+if (IsArcFileLoadDataFinished(mgr, arg0 + 0xC) == 0) return 0;
+uint8_t* buf = *(uint8_t**)(arg0 + 0xC);
+uint32_t parsed = FUN_00399d94(arg0, buf, arg0 + 0x14);
+*(uint32_t*)(arg0 + 0x18) = parsed;
+uint32_t cur = *(uint32_t*)(arg0 + 0xC);
+if (cur != 0) {
+GflHeapFreeMemoryBlock(cur, parsed);
+*(uint32_t*)(arg0 + 0xC) = 0;
+}
+void* inner = *(void**)arg0;
+void* vt = *(void**)inner;
+void* fnPtr = *(void**)((uint8_t*)vt + 0x34);
+uint32_t heap = ((uint32_t(*)(void*))fnPtr)(inner);
+uint8_t req[28];
+*(uint32_t*)(req + 0) = 0;
+*(uint32_t*)(req + 4) = 0x9B;
+*(req + 8) = 0x10;
+*(uint32_t*)(req + 12) = heap;
+*(req + 16) = 1;
+*(uint32_t*)(req + 20) = 0;
+*(uint32_t*)(req + 24) = 0;
+AddArcFileCloseReq(mgr, req);
+*(uint32_t*)(arg0 + 0x1C) = state + 1;
+} else if (state != 1) {
+if (state == 2) return 1;
+return 0;
+}
+void* mgr2 = *(void**)(arg0 + 0x4);
+if (IsArcFileCloseFinished(mgr2, 0x9B) == 0) return 0;
+*(uint32_t*)(arg0 + 0x1C) = *(uint32_t*)(arg0 + 0x1C) + 1;
+return 1;
+}
+#endif

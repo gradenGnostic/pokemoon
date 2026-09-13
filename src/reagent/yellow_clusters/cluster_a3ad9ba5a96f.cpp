@@ -33,3 +33,19 @@ extern "C" uint32_t YellowAuto_004a2b78(const uint8_t* arg0, int32_t arg1) {
 if (*(int*)(arg0 + 0x80) != 0) return *(uint32_t*)(*(int*)(arg0 + 0x80) + arg1 * 8 + 0x10); return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A2C88
+void Func_00407a9c(void*);
+extern "C" void YellowAuto_004a2c88(const uint8_t* arg0) __asm__("_ZNK6NetLib3P2P20P2pConnectionManager8GetNetIDEv");
+extern "C" void YellowAuto_004a2c88(const uint8_t* arg0) {
+uint32_t v0 = *(const uint32_t*)(arg0 + 32); if (v0 != 0) Func_00407a9c((void*)v0);
+}
+#endif

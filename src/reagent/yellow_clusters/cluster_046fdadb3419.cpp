@@ -179,3 +179,251 @@ void** _v1 = *(void***)_h;
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CE9D4
+void func_002e6b00(void* arg0, uint8_t arg1);
+void func_002ea2c8(void* arg0, uint8_t arg1);
+void func_002eaaec(uint32_t arg0, uint32_t arg1, void* arg2, uint8_t arg3, int32_t arg4);
+extern "C" void YellowAuto_002ce9d4(uint8_t* arg0, int32_t arg1) __asm__("_ZN3App4Tool15MessageMenuView31CommonMessageWindowView_OnEventENS0_23CommonMessageWindowView13IEventHandler9EventCodeE");
+extern "C" void YellowAuto_002ce9d4(uint8_t* arg0, int32_t arg1) {
+if (arg1 == (int32_t)0) {
+if (*(uint8_t*)(arg0 + 0xA6) == (uint8_t)0 && *(uint8_t*)(arg0 + 0xA5) != (uint8_t)0) {
+func_002e6b00(*(void**)(arg0 + 0x98), (uint8_t)1);
+if (*(uint8_t*)(arg0 + 0xA4) == (uint8_t)0) {
+func_002eaaec(*(uint32_t*)(*(uint32_t*)0x002CEB0C), *(uint32_t*)(*(uint32_t*)0x002CEB08), *(void**)(arg0 + 0x98), (uint8_t)0, (int32_t)3);
+} else {
+func_002ea2c8(*(void**)(arg0 + 0x98), (uint8_t)0);
+}
+*(uint8_t*)(*(uint8_t**)(arg0 + 0x98) + 0x6D) = (uint8_t)1;
+*(uint8_t*)(arg0 + 0xA5) = (uint8_t)0;
+}
+if (*(void**)(arg0 + 0x90) != (void*)0) {
+((void(*)(void*, int32_t))*(uint32_t*)(*(uint32_t*)*(void**)(arg0 + 0x90) + (uint32_t)8))(*(void**)(arg0 + 0x90), (int32_t)0);
+}
+} else if (arg1 == (int32_t)1) {
+if (*(uint8_t*)(arg0 + 0xA5) != (uint8_t)0) {
+func_002e6b00(*(void**)(arg0 + 0x98), (uint8_t)1);
+if (*(uint8_t*)(arg0 + 0xA4) == (uint8_t)0) {
+func_002eaaec(*(uint32_t*)(*(uint32_t*)0x002CEB0C), *(uint32_t*)(*(uint32_t*)0x002CEB08), *(void**)(arg0 + 0x98), (uint8_t)0, (int32_t)3);
+} else {
+func_002ea2c8(*(void**)(arg0 + 0x98), (uint8_t)0);
+}
+*(uint8_t*)(*(uint8_t**)(arg0 + 0x98) + 0x6D) = (uint8_t)1;
+*(uint8_t*)(arg0 + 0xA5) = (uint8_t)0;
+}
+if (*(void**)(arg0 + 0x90) != (void*)0) {
+((void(*)(void*, int32_t))*(uint32_t*)(*(uint32_t*)*(void**)(arg0 + 0x90) + (uint32_t)8))(*(void**)(arg0 + 0x90), (int32_t)1);
+}
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CE4C8
+void func_002ea2c8(void* arg0, uint8_t arg1);
+void func_002ea7d4(void* arg0, int32_t arg1);
+void func_002ea750(void* arg0, const void* arg1, uint8_t arg2, uint8_t arg3, int32_t arg4);
+void func_002d1d04(void* arg0, const void* arg1, bool arg2, uint8_t arg3, int32_t arg4);
+uint32_t func_0048cb14(void* arg0);
+void func_00355020(void* arg0, uint32_t arg1);
+extern "C" void YellowAuto_002ce4c8(uint8_t* arg0, const uint8_t* arg1, bool arg2, const uint8_t* arg3, const uint8_t* arg4, const uint8_t* arg5, const uint8_t* arg6, const uint8_t* arg7, const uint8_t* arg8) __asm__("_ZN3App4Tool15MessageMenuView23ShowMessageWithListMenuEPKN4gfl23str6StrBufEbS6_S6_S6_S6_S6_S6_");
+extern "C" void YellowAuto_002ce4c8(uint8_t* arg0, const uint8_t* arg1, bool arg2, const uint8_t* arg3, const uint8_t* arg4, const uint8_t* arg5, const uint8_t* arg6, const uint8_t* arg7, const uint8_t* arg8) {
+if (*(uint8_t*)(*(uint8_t**)(arg0 + 0x98) + 0x158) != (uint8_t)0 && (arg3 != (const uint8_t*)0 || arg4 != (const uint8_t*)0 || arg5 != (const uint8_t*)0 || arg6 != (const uint8_t*)0 || arg7 != (const uint8_t*)0 || arg8 != (const uint8_t*)0)) {
+if (*(void**)(arg0 + 0x98) != (void*)0 && *(uint8_t*)(*(uint8_t**)(arg0 + 0x98) + 0x158) != (uint8_t)0) {
+func_002ea2c8(*(void**)(arg0 + 0x98), (uint8_t)0);
+func_002ea7d4(*(void**)(arg0 + 0x98), (int32_t)1);
+}
+*(uint8_t*)(arg0 + 0xA5) = (uint8_t)0;
+}
+if (arg3 != (const uint8_t*)0) {
+uint8_t f0 = (uint8_t)0;
+if (*(uint8_t*)(arg0 + 0xA4) != (uint8_t)0 && *(int32_t*)(arg0 + 0xA0) == (int32_t)0) { f0 = (uint8_t)1; }
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg3, f0, (uint8_t)0, (int32_t)0);
+}
+if (arg4 != (const uint8_t*)0) {
+uint8_t f1 = (uint8_t)0;
+if (*(uint8_t*)(arg0 + 0xA4) != (uint8_t)0 && *(int32_t*)(arg0 + 0xA0) == (int32_t)1) { f1 = (uint8_t)1; }
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg4, f1, (uint8_t)0, (int32_t)0);
+}
+if (arg5 != (const uint8_t*)0) {
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg5, (uint8_t)0, (uint8_t)0, (int32_t)0);
+}
+if (arg6 != (const uint8_t*)0) {
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg6, (uint8_t)0, (uint8_t)0, (int32_t)0);
+}
+if (arg7 != (const uint8_t*)0) {
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg7, (uint8_t)0, (uint8_t)0, (int32_t)0);
+}
+if (arg8 != (const uint8_t*)0) {
+func_002ea750(*(void**)(arg0 + 0x98), (const void*)arg8, (uint8_t)0, (uint8_t)0, (int32_t)0);
+}
+func_002d1d04(*(void**)(arg0 + 0x94), (const void*)arg1, arg2, (uint8_t)0, (int32_t)1);
+if (*(void**)(arg0 + 0x94) != (void*)0) {
+uint32_t t = func_0048cb14((void*)((uint8_t*)*(void**)(arg0 + 0x94) + 0x8C));
+if (t != (uint32_t)0) {
+uint32_t u = *(uint32_t*)(t + 0x34);
+if (u != (uint32_t)0) {
+func_00355020((void*)u, (uint32_t)0);
+func_00355020((void*)u, (uint32_t)1);
+}
+}
+}
+*(uint8_t*)(arg0 + 0xA5) = (uint8_t)0;
+*(uint8_t*)(arg0 + 0x6D) = (uint8_t)1;
+*(uint8_t*)(arg0 + 0xA5) = (uint8_t)1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CE258
+uint16_t func_0049a978(const void* arg0);
+void* func_00105500(uint32_t arg0, void* arg1);
+void* func_00354664(void* arg0, uint32_t arg1, void* arg2);
+void func_00355f6c(const void* arg0, uint32_t arg1, void* arg2);
+void func_002ce4c8(void* arg0, const void* arg1, bool arg2, const void* arg3, const void* arg4, const void* arg5, const void* arg6, const void* arg7, const void* arg8);
+extern "C" void YellowAuto_002ce258(uint8_t* arg0, const uint8_t* arg1, bool arg2, const void* arg3, uint32_t arg4, uint32_t arg5, uint32_t arg6, uint32_t arg7, uint32_t arg8, uint32_t arg9) __asm__("_ZN3App4Tool15MessageMenuView23ShowMessageWithListMenuEPKN4gfl23str6StrBufEbRKNS3_7MsgDataEjjjjjj");
+extern "C" void YellowAuto_002ce258(uint8_t* arg0, const uint8_t* arg1, bool arg2, const void* arg3, uint32_t arg4, uint32_t arg5, uint32_t arg6, uint32_t arg7, uint32_t arg8, uint32_t arg9) {
+uint32_t cnt = (uint32_t)func_0049a978(arg3);
+void* alloc = *(void**)((uint8_t*)*(void**)(arg0 + 0x88) + 0x08);
+void* b0 = (void*)0;
+void* b1 = (void*)0;
+void* b2 = (void*)0;
+void* b3 = (void*)0;
+void* b4 = (void*)0;
+void* b5 = (void*)0;
+if (arg4 < cnt) {
+void* m0 = func_00105500((uint32_t)0x10, alloc);
+if (m0 != (void*)0) { b0 = func_00354664(m0, (uint32_t)0x100, alloc); }
+}
+if (arg5 < cnt) {
+void* m1 = func_00105500((uint32_t)0x10, alloc);
+if (m1 != (void*)0) { b1 = func_00354664(m1, (uint32_t)0x100, alloc); }
+}
+if (arg6 < cnt) {
+void* m2 = func_00105500((uint32_t)0x10, alloc);
+if (m2 != (void*)0) { b2 = func_00354664(m2, (uint32_t)0x100, alloc); }
+}
+if (arg7 < cnt) {
+void* m3 = func_00105500((uint32_t)0x10, alloc);
+if (m3 != (void*)0) { b3 = func_00354664(m3, (uint32_t)0x100, alloc); }
+}
+if (arg8 < cnt) {
+void* m4 = func_00105500((uint32_t)0x10, alloc);
+if (m4 != (void*)0) { b4 = func_00354664(m4, (uint32_t)0x100, alloc); }
+}
+if (arg9 < cnt) {
+void* m5 = func_00105500((uint32_t)0x10, alloc);
+if (m5 != (void*)0) { b5 = func_00354664(m5, (uint32_t)0x100, alloc); }
+}
+if (b0 != (void*)0) { func_00355f6c(arg3, arg4, b0); }
+if (b1 != (void*)0) { func_00355f6c(arg3, arg5, b1); }
+if (b2 != (void*)0) { func_00355f6c(arg3, arg6, b2); }
+if (b3 != (void*)0) { func_00355f6c(arg3, arg7, b3); }
+if (b4 != (void*)0) { func_00355f6c(arg3, arg8, b4); }
+if (b5 != (void*)0) { func_00355f6c(arg3, arg9, b5); }
+func_002ce4c8((void*)arg0, (const void*)arg1, arg2, (const void*)b0, (const void*)b1, (const void*)b2, (const void*)b3, (const void*)b4, (const void*)b5);
+if (b0 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b0 + (uint32_t)4))(b0); }
+if (b1 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b1 + (uint32_t)4))(b1); }
+if (b2 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b2 + (uint32_t)4))(b2); }
+if (b3 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b3 + (uint32_t)4))(b3); }
+if (b4 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b4 + (uint32_t)4))(b4); }
+if (b5 != (void*)0) { ((void(*)(void*))*(uint32_t*)(*(uint32_t*)b5 + (uint32_t)4))(b5); }
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E7F38
+void FUN_002d1d04(void*, const void*, bool, bool, bool);
+void* FUN_0048cb14(void*);
+void FUN_00355020(void*, uint32_t);
+extern "C" void YellowAuto_002e7f38(uint8_t* arg0, const void* arg1, bool arg2, bool arg3, bool arg4) __asm__("_ZN3App4Tool15MessageMenuView11ShowMessageEPKN4gfl23str6StrBufEbbb");
+extern "C" void YellowAuto_002e7f38(uint8_t* arg0, const void* arg1, bool arg2, bool arg3, bool arg4) {
+void* _v0 = (void*)(*(uint32_t*)(arg0 + 0x94));
+FUN_002d1d04(_v0, arg1, arg2, arg3, arg4);
+uint32_t _b = *(uint32_t*)(arg0 + 0x94);
+if (_b != 0) {
+void* _c = (void*)(_b + 0x8C);
+void* _d = FUN_0048cb14(_c);
+if (_d != (void*)0) {
+uint32_t _e = *(uint32_t*)((uint8_t*)_d + 0x34);
+if (_e != 0) {
+void* _f = (void*)_e;
+FUN_00355020(_f, 0);
+FUN_00355020(_f, 1);
+}
+}
+}
+*(uint8_t*)(arg0 + 0xA5) = 0;
+*(uint8_t*)(arg0 + 0x6D) = (uint8_t)arg4;
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CEC44
+void sub_002e7314(uint8_t*, uint8_t*);
+void* sub_00105500(uint32_t, void*);
+uint8_t* sub_002eae0c(uint8_t*, uint8_t*, uint32_t, uint32_t, int32_t, int32_t);
+extern "C" void YellowAuto_002cec44(uint8_t* arg0, int32_t arg1, uint32_t arg2) __asm__("_ZN3App4Tool15MessageMenuView5SetupEPvS2_");
+extern "C" void YellowAuto_002cec44(uint8_t* arg0, int32_t arg1, uint32_t arg2) {
+uint8_t* _b0 = (uint8_t*)(*(uint32_t*)(arg0 + 0x88));
+uint32_t _b1 = *(uint32_t*)(arg0 + 0x8C);
+uint32_t _sp[2];
+_sp[0] = (uint32_t)_b0;
+_sp[1] = _b1;
+uint8_t* _vt0 = (uint8_t*)(*(uint32_t*)arg0);
+uint32_t _fn0 = *(uint32_t*)(_vt0 + 0x58);
+uint8_t* _cr = ((uint8_t* (*)(uint8_t*, void*, uint8_t*))_fn0)(arg0, (void*)_sp, arg0 + 0x84);
+*(uint32_t*)(arg0 + 0x94) = (uint32_t)_cr;
+sub_002e7314(arg0, _cr);
+void* _alc = (void*)(*(uint32_t*)(_b0 + 0x8));
+void* _nw = sub_00105500(0x15C, _alc);
+uint8_t* _mw = (uint8_t*)0;
+if (_nw != (void*)0)
+_mw = sub_002eae0c((uint8_t*)_nw, _b0, _b1, arg2, 1, arg1);
+*(uint32_t*)(arg0 + 0x98) = (uint32_t)_mw;
+*(uint32_t*)(_mw + 0x154) = (uint32_t)(arg0 + 0x80);
+sub_002e7314(_cr, _mw);
+*(arg0 + 0x6D) = 0;
+*(_mw + 0x6D) = 0;
+uint8_t* _pv = (uint8_t*)(*(uint32_t*)(arg0 + 0x94));
+uint8_t* _vt1 = (uint8_t*)(*(uint32_t*)_pv);
+uint32_t _fn1 = *(uint32_t*)(_vt1 + 0x54);
+((void (*)(uint8_t*, int32_t))_fn1)(_pv, arg1);
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CE9CC
+void helper_002CE9CC_target(uint8_t*, int32_t);
+extern "C" void YellowAuto_002ce9cc(uint8_t* arg0, int32_t arg1) __asm__("_ZThn132_N3App4Tool15MessageMenuView31CommonMessageWindowView_OnEventENS0_23CommonMessageWindowView13IEventHandler9EventCodeE");
+extern "C" void YellowAuto_002ce9cc(uint8_t* arg0, int32_t arg1) {
+helper_002CE9CC_target(arg0 - 132, arg1);
+}
+#endif

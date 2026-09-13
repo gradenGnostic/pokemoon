@@ -48,3 +48,32 @@ if (arg3 != 1) return;
 FUN_00309c34(arg1, 1, lyt, arg5, arg4);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E961C
+uint8_t* GetPane(void* arg0, uint32_t arg1);
+extern "C" void YellowAuto_002e961c(uint8_t* arg0, bool arg1, uint32_t arg2) __asm__("_ZN3app4tool10MenuCursor10SetVisibleEbj");
+extern "C" void YellowAuto_002e961c(uint8_t* arg0, bool arg1, uint32_t arg2) {
+void* _lyt = (void*)(*(uint32_t*)(arg0 + 0x10));
+if (_lyt == (void*)0) return;
+if ((arg2 & 1u) != 0u) {
+uint8_t* _p0 = GetPane(_lyt, *(uint32_t*)(*(uint32_t*)(arg0 + 0x18) + 8));
+*(_p0 + 0x44) = (uint8_t)((*(_p0 + 0x44) & 0xFEu) | (uint8_t)arg1);
+}
+if (arg2 == 3u) {
+uint8_t* _p1 = GetPane(_lyt, *(uint32_t*)(*(uint32_t*)(arg0 + 0x18) + 4));
+*(_p1 + 0x44) = (uint8_t)((*(_p1 + 0x44) & 0xFEu) | (uint8_t)arg1);
+} else {
+if (arg1 == 0) return;
+uint8_t* _p2 = GetPane(_lyt, *(uint32_t*)(*(uint32_t*)(arg0 + 0x18) + 4));
+*(_p2 + 0x44) = (uint8_t)((*(_p2 + 0x44) & 0xFEu) | 1u);
+}
+}
+#endif

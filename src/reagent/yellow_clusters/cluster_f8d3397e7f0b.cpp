@@ -48,3 +48,35 @@ AddArcFileLoadDataReq(arg3, local0);
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043092C
+int32_t IsArcFileLoadDataFinished(void* arg0, uint8_t* arg1);
+void SyncArcFileClose(void* arg0, uint8_t* arg1);
+extern "C" int32_t YellowAuto_0043092c(uint8_t* arg0) __asm__("_ZN8PokeTool29KawaigariParamCareCoreManager8IsLoadedEv");
+extern "C" int32_t YellowAuto_0043092c(uint8_t* arg0) {
+int32_t r;
+uint8_t buf[32];
+if (arg0[12] != 0) return 1;
+r = IsArcFileLoadDataFinished(*(void**)arg0, arg0 + 4);
+arg0[12] = (uint8_t)r;
+if (r == 0) return (int8_t)arg0[12];
+*(uint32_t*)(arg0 + 8) = **(uint32_t**)(arg0 + 4);
+*(uint32_t*)(buf + 0) = 0;
+*(uint32_t*)(buf + 12) = 0;
+*(uint32_t*)(buf + 20) = 0;
+*(uint32_t*)(buf + 24) = 0;
+buf[8] = 16;
+buf[16] = 1;
+*(uint32_t*)(buf + 4) = *(uint32_t*)0x004309B0;
+SyncArcFileClose(*(void**)arg0, buf);
+return (int8_t)arg0[12];
+}
+#endif

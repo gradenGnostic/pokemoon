@@ -249,3 +249,25 @@ extern "C" int32_t YellowAuto_00458fc8(uint8_t* arg0, void* arg1, void* arg2, vo
 uint32_t vt = *(uint32_t*)arg0; uint32_t fa = *(uint32_t*)(vt + 32); int32_t v0 = ((int32_t (*)(uint8_t*))fa)(arg0); if (v0 != 0) return 0; if (*(arg0 + 288) != 0) { uint8_t* c = *(uint8_t**)(arg0 + 268); uint32_t vt2 = *(uint32_t*)c; uint32_t fa2 = *(uint32_t*)(vt2 + 24); int32_t v1 = ((int32_t (*)(uint8_t*, void*, void*, void*))fa2)(c, arg1, arg2, arg3); if (v1 != 1) return 0; } int32_t s = *(int32_t*)(arg0 + 16); uint32_t sent = *(uint32_t*)(*(uint32_t*)0x459128); uint32_t base = *(uint32_t*)0x459124; for (uint32_t i = 0; i < 7; i++) { uint32_t even = *(uint32_t*)(base + i * 8); uint32_t odd = *(uint32_t*)(arg0 + 292 + i * 4); if (odd == sent) continue; if (IsTrigger(arg1, even, 0) == 0) continue; StartSelectedAct(s, odd); return 0; } return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00459778
+uint8_t* helper_002f349c(uint8_t*);
+void helper_004611d8(uint8_t*);
+extern "C" void YellowAuto_00459778(uint8_t* arg0) __asm__("_ZN9NetAppLib2UI16NetAppCursorViewD1Ev");
+extern "C" void YellowAuto_00459778(uint8_t* arg0) {
+uint32_t v0 = *(uint32_t*)0x004597B0;
+*(uint32_t*)arg0 = v0;
+*(uint32_t*)(arg0 + 0xA0) = v0 + 0x6C;
+*(uint32_t*)(arg0 + 0xA4) = v0 + 0x90;
+uint8_t* r = helper_002f349c(arg0 + 0xAC);
+return helper_004611d8(r - 0xAC);
+}
+#endif

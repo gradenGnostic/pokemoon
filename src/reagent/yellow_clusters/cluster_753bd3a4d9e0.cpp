@@ -71,3 +71,30 @@ v2 = MsgData(v1, v3, 0x56, *(void**)(arg0 + 0x1310), 1);
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00158348
+void FUN_00158648(uint8_t*, uint32_t, uint8_t*, void*);
+int32_t GetBattleRule(uint8_t*, uint32_t);
+int32_t GetWinCount(uint8_t*, int32_t, uint32_t);
+extern "C" void YellowAuto_00158348(uint8_t* arg0) __asm__("_ZN10BattleInst10BattleInst13SetupSendDataEv");
+extern "C" void YellowAuto_00158348(uint8_t* arg0) {
+FUN_00158648(arg0, 0, arg0 + 0x38, reinterpret_cast<void*>(*(uint32_t*)(arg0 + 0x12E0)));
+*(uint8_t*)(arg0 + 0x12E4) = static_cast<uint8_t>(*(int8_t*)(arg0 + 0x5AC));
+uint32_t v0 = *(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 0x1318) + 0x24) + 0x4);
+int32_t r = GetBattleRule(arg0 + 0x5D0, v0);
+int32_t m;
+if (r == 0) m = 0; else if (r == 1) m = 1; else if (r == 3) m = 3; else m = 0;
+uint32_t nz = (*(int8_t*)(arg0 + 0x5AC) != 0) ? 1u : 0u;
+int32_t w = GetWinCount(reinterpret_cast<uint8_t*>(v0 + 0x690CC), m, nz);
+*(int32_t*)(arg0 + 0x12E8) = w;
+if (*(uint8_t*)(arg0 + 0x5AC) == 0 && w > 0x13) *(int32_t*)(arg0 + 0x12E8) = 0;
+}
+#endif

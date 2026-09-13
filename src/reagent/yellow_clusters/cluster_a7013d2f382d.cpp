@@ -105,3 +105,36 @@ for (int32_t i = (int32_t)cap; i < 128; i = i + 1)
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D34C4
+extern "C" void YellowAuto_002d34c4(uint8_t* arg0) __asm__("_ZN3App4Tool8ListMenu5StartEv");
+extern "C" void YellowAuto_002d34c4(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 0x90) == 0) {
+*(uint32_t*)(arg0 + 0xC8) = 0x47;
+*(uint32_t*)(arg0 + 0xD0) = ((uint32_t (*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8)) + 0x34)))(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8));
+*(uint32_t*)(arg0 + 0xD8) = ((uint32_t (*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8)) + 0x34)))(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8));
+*(uint8_t**)(arg0 + 0x100) = (uint8_t*)(arg0 + 0xC0);
+*(uint32_t*)(arg0 + 0xF4) = 0x47;
+*(uint32_t*)(arg0 + 0xF8) = 0;
+*(uint32_t*)(arg0 + 0x10C) = *(uint32_t*)(*(uint8_t**)(arg0 + 0x84) + 8);
+*(uint32_t*)(arg0 + 0x114) = ((uint32_t (*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8)) + 0x34)))(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8));
+*(uint32_t*)(arg0 + 0x118) = ((uint32_t (*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8)) + 0x34)))(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8));
+*(uint32_t*)(arg0 + 0x110) = 0x80;
+*(uint32_t*)(arg0 + 0x130) = 0x47;
+*(uint32_t*)(arg0 + 0x138) = ((uint32_t (*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8)) + 0x34)))(*(uint8_t**)(*(uint8_t**)(arg0 + 0x84) + 8));
+*(uint32_t*)(arg0 + 0x148) = 0;
+} else {
+*(uint32_t*)(arg0 + 0x148) = 4;
+}
+*(uint16_t*)(arg0 + 0x35C) = 1;
+return;
+}
+#endif

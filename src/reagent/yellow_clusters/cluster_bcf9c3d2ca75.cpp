@@ -50,3 +50,32 @@ if (v0 != (uint8_t*)0)
  (*(void(**)(uint8_t*))(*(uint8_t**)v0 + 0x18))(v0);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00464CF0
+extern "C" void YellowAuto_00464cf0(uint8_t* arg0) __asm__("_ZN9NetAppLib8P2PTrade21P2PTradeRequestClient23CancelFirstTradeRequestEv");
+extern "C" void YellowAuto_00464cf0(uint8_t* arg0) {
+if (*(uint32_t *)(arg0 + 0x2190) != 0) ((void (*)(uint32_t))(*(uint32_t *)(*(uint32_t *)(*(uint32_t *)(arg0 + 0x2190)) + 0x14)))(*(uint32_t *)(arg0 + 0x2190));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00464D18
+extern "C" void YellowAuto_00464d18(uint8_t* arg0) __asm__("_ZN9NetAppLib8P2PTrade21P2PTradeRequestClient25AddFinalSyncCancelRequestEv");
+extern "C" void YellowAuto_00464d18(uint8_t* arg0) {
+if (*(uint32_t *)(arg0 + 0x2190) != 0) ((void (*)(uint32_t))(*(uint32_t *)(*(uint32_t *)(*(uint32_t *)(arg0 + 0x2190)) + 0x2C)))(*(uint32_t *)(arg0 + 0x2190));
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00464D38
+extern "C" void YellowAuto_00464d38(uint8_t* arg0) __asm__("_ZN9NetAppLib8P2PTrade21P2PTradeRequestClient25AddSendTradeCancelRequestEv");
+extern "C" void YellowAuto_00464d38(uint8_t* arg0) {
+if (*(uint32_t *)(arg0 + 0x2190) != 0) ((void (*)(uint32_t))(*(uint32_t *)(*(uint32_t *)(*(uint32_t *)(arg0 + 0x2190)) + 0x20)))(*(uint32_t *)(arg0 + 0x2190));
+}
+#endif

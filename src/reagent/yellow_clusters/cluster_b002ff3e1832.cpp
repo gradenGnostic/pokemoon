@@ -38,3 +38,20 @@ extern "C" uint32_t YellowAuto_004432e4(int32_t arg0) {
 uint32_t i; for (i = 0; (int32_t)DAT_00443348[i * 2 + 1] != -1; i++) if ((int32_t)DAT_00443348[i * 2 + 1] == arg0) return DAT_00443348[i * 2] & 0xffu; return 6u;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004433E8
+uint8_t* FUN_00442f5c(uint8_t*, uint32_t, int32_t);
+extern "C" bool YellowAuto_004433e8(uint8_t* arg0, uint32_t arg1, int32_t arg2) __asm__("_ZN8Savedata7Fashion7IsOwnedEji");
+extern "C" bool YellowAuto_004433e8(uint8_t* arg0, uint32_t arg1, int32_t arg2) {
+uint8_t* p = FUN_00442f5c(arg0, arg1, arg2);
+return p ? ((*p & 1) != 0) : false;
+}
+#endif

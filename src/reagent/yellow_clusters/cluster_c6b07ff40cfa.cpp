@@ -190,3 +190,84 @@ func_00354704(_tmp);
 return _b;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00461584
+uint8_t* func_003c23f4(uint8_t* arg0);
+uint8_t* func_00354704(uint8_t* arg0);
+void func_00357cd8(void* arg0);
+void func_0030181c(void* arg0);
+void invoke_addr(uint32_t arg0, void* arg1);
+extern "C" uint8_t* YellowAuto_00461584(uint8_t* arg0) __asm__("_ZN9NetAppLib7Message14MessageUtilityD1Ev");
+extern "C" uint8_t* YellowAuto_00461584(uint8_t* arg0) {
+*(uint32_t*)arg0 = *(uint32_t*)0x004616A0;
+uint32_t* _n = *(uint32_t**)(arg0 + 0x10);
+uint32_t* _head = *(uint32_t**)(arg0 + 0x0C);
+if (_n == (uint32_t*)0) {
+_n = _head;
+} else {
+uint32_t _v = *(uint32_t*)_n;
+if (_v != 0) {
+uint32_t* _c = (uint32_t*)_v;
+while (*(uint32_t*)_c != 0) {
+_c = *(uint32_t**)_c;
+}
+_n = _c;
+}
+}
+while (_n != _head) {
+uint8_t* _obj = *(uint8_t**)((uint8_t*)_n + 0x10);
+if (_obj != (uint8_t*)0) {
+uint8_t* _vt = *(uint8_t**)_obj;
+uint32_t _fn = *(uint32_t*)(_vt + 4);
+invoke_addr(_fn, _obj);
+}
+uint32_t* _l = *(uint32_t**)((uint8_t*)_n + 4);
+if (_l == (uint32_t*)0) {
+uint32_t* _p = *(uint32_t**)((uint8_t*)_n + 8);
+if (*(uint32_t**)((uint8_t*)_p + 4) == _n) {
+do {
+_n = _p;
+_p = *(uint32_t**)((uint8_t*)_n + 8);
+} while (*(uint32_t**)((uint8_t*)_p + 4) == _n);
+}
+if (*(uint32_t**)((uint8_t*)_n + 4) != _p) {
+_n = _p;
+}
+} else {
+uint32_t _w = *_l;
+while (1) {
+_n = _l;
+if (_w == 0) break;
+_l = *(uint32_t**)_l;
+_w = *_l;
+}
+}
+}
+uint8_t* _ws = func_003c23f4(arg0 + 0x34);
+uint8_t* _sb = func_00354704(_ws - 0x10);
+uint8_t* _base = _sb - 0x18;
+uint32_t _d1 = *(uint32_t*)(_sb - 0x10);
+if (_d1 != 0) {
+func_00357cd8((void*)_d1);
+*(uint32_t*)(_base + 8) = 0;
+}
+uint32_t _d0 = *(uint32_t*)_base;
+if (_d0 != 0) {
+func_0030181c((void*)_d0);
+*(uint32_t*)_base = 0;
+}
+*(uint32_t*)(_base + 4) = 0;
+*(uint32_t*)(_base + 12) = 0;
+*(uint32_t*)(_base + 16) = 0;
+*(uint32_t*)(_base + 20) = 0;
+return arg0;
+}
+#endif

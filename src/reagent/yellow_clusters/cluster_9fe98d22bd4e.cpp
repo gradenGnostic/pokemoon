@@ -43,3 +43,22 @@ sub_0038c1a4(*(uint32_t*)(arg0 + 0x1C), v, *(uint32_t*)(arg0 + 0x88), *(uint32_t
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0038109C
+void FUN_0038204c(uint32_t);
+void FUN_0037f3bc(uint32_t);
+extern "C" void YellowAuto_0038109c(uint8_t* arg0) __asm__("_ZN5Field11FieldScript17FieldScriptSystem6DeleteEv");
+extern "C" void YellowAuto_0038109c(uint8_t* arg0) {
+arg0[0x4C] = 0;
+FUN_0038204c(*(uint32_t*)(arg0 + 0x28));
+if (*(uint32_t*)(arg0 + 0x34) != 0) FUN_0037f3bc(*(uint32_t*)(arg0 + 0x34));
+}
+#endif

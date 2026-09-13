@@ -70,3 +70,29 @@ extern "C" void YellowAuto_00455b9c(uint8_t* arg0, uint32_t arg1, const uint16_t
 func_00455568(arg0, arg2, arg1); func_00354454((void*)(arg0 + 232), func_00461340(*(void**)(*(uint8_t**)(arg0 + 168) + 48), 43, 138)); func_00354454((void*)(arg0 + 248), func_00461340(*(void**)(*(uint8_t**)(arg0 + 168) + 48), 43, 139)); func_002ce0f8(*(void**)(arg0 + 176), true, true); func_00459b1c(*(void**)(arg0 + 176), (void*)(arg0 + 216), false, (void*)(arg0 + 232), (void*)(arg0 + 248), 0, 0, 0, 0); *(uint32_t*)(arg0 + 180) = arg1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CE108
+void Func00455568(uint8_t*, const uint16_t*, uint32_t);
+const void* Func00461340(uint8_t*, uint32_t, uint32_t);
+void Func00354454(uint8_t*, const void*);
+void Func002CE0F8(uint8_t*, uint32_t, uint32_t);
+extern "C" void YellowAuto_002ce108(uint8_t* arg0, uint32_t arg1, const uint16_t* arg2, uint32_t arg3, uint32_t arg4) __asm__("_ZN9NetAppLib11JoinFestaUI39JoinFestaPlayerListMessageMenuLowerView25SetMessageMenuBlackFilterEjPKwjj");
+extern "C" void YellowAuto_002ce108(uint8_t* arg0, uint32_t arg1, const uint16_t* arg2, uint32_t arg3, uint32_t arg4) {
+*(uint32_t*)(arg0 + 0xC4) = 2;
+*(uint32_t*)(arg0 + 0xBC) = arg4;
+*(uint32_t*)(arg0 + 0xB4) = arg1;
+*(uint32_t*)(arg0 + 0xB8) = arg3;
+Func00455568(arg0, arg2, arg1);
+Func00354454(arg0 + 0xE8, Func00461340(*(uint8_t**)(*(uint8_t**)(arg0 + 0xA8) + 0x30), 43, arg3));
+Func00354454(arg0 + 0xF8, Func00461340(*(uint8_t**)(*(uint8_t**)(arg0 + 0xA8) + 0x30), 43, arg4));
+Func002CE0F8(*(uint8_t**)(arg0 + 0xB0), 0, 1);
+}
+#endif
