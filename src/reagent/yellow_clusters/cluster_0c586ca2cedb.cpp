@@ -51,3 +51,19 @@ extern "C" void YellowAuto_00459bcc(uint8_t* arg0, void* arg1, void* arg2) {
 *((void**)(arg0 + 0xAC)) = 0; *((void**)(arg0 + 0xA8)) = arg1; (void)arg2;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CEBFC
+void* GetResourceBuffer(void*, uint32_t);
+extern "C" void YellowAuto_002cebfc(uint8_t* arg0, uint32_t arg1, uint32_t arg2, void* arg3) __asm__("_ZN9NetAppLib2UI17NetAppMessageMenu5SetupEjjPNS_7Message14MessageUtilityE");
+extern "C" void YellowAuto_002cebfc(uint8_t* arg0, uint32_t arg1, uint32_t arg2, void* arg3) {
+*(void**)(arg0 + 0xAC) = arg3; GetResourceBuffer(*(void**)((uint8_t*)*(void**)(arg0 + 0xA8) + 0x28), arg2); GetResourceBuffer(*(void**)((uint8_t*)*(void**)(arg0 + 0xA8) + 0x28), arg1);
+}
+#endif

@@ -89,3 +89,61 @@ if (arg2 != (void*)0) __aeabi_memcpy4(arg2, (const void*)info, (uint32_t)0x19);
 return status;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043DEA4
+void* FUN_0035e394(void* arg0, uint32_t arg1, uint32_t arg2);
+void __aeabi_memcpy(void* arg0, const void* arg1, uint32_t arg2);
+extern "C" void YellowAuto_0043dea4(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3) __asm__("_ZN8Savedata16QRReaderSaveData26RegisterScannedDataHistoryEPN4gfl24heap11CtrHeapBaseEPKvj");
+extern "C" void YellowAuto_0043dea4(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3) {
+uint32_t c = *(uint32_t*)(arg0 + 0x158);
+if (c == 4294967295U) return;
+uint32_t idx = c % 10U;
+uint8_t* dst = arg0 + idx * 32U + 0x18;
+void* tmp = FUN_0035e394(arg1, 256U, 17U);
+uint32_t vt = *(uint32_t*)tmp;
+uint32_t slot = *(uint32_t*)(vt + 0x14);
+void* dec = ((void* (*)(void*, const void*, uint32_t))slot)(tmp, arg2, arg3);
+uint32_t srcAddr = *(uint32_t*)((uint8_t*)dec + 0x8);
+uint32_t len = *(uint32_t*)((uint8_t*)dec + 0x10);
+__aeabi_memcpy(dst, (const void*)srcAddr, len);
+uint32_t freeSlot = *(uint32_t*)(vt + 0x4);
+((void (*)(void*))freeSlot)(tmp);
+*(uint32_t*)(arg0 + 0x158) = c + 1U;
+return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A7008
+void* FUN_0035e394(void* arg0, uint32_t arg1, uint32_t arg2);
+void __aeabi_memcpy(void* arg0, const void* arg1, uint32_t arg2);
+int32_t memcmp(const void* arg0, const void* arg1, uint32_t arg2);
+extern "C" uint32_t YellowAuto_004a7008(const uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3) __asm__("_ZNK8Savedata16QRReaderSaveData16IsRegisteredDataEPN4gfl24heap11CtrHeapBaseEPKvj");
+extern "C" uint32_t YellowAuto_004a7008(const uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3) {
+uint32_t n = *(const uint32_t*)(arg0 + 0x158);
+if (n > 10U) n = 10U;
+void* tmp = FUN_0035e394(arg1, 256U, 17U);
+uint32_t vt = *(uint32_t*)tmp;
+uint32_t slot = *(uint32_t*)(vt + 0x14);
+void* dec = ((void* (*)(void*, const void*, uint32_t))slot)(tmp, arg2, arg3);
+uint32_t srcAddr = *(uint32_t*)((uint8_t*)dec + 0x8);
+uint32_t len = *(uint32_t*)((uint8_t*)dec + 0x10);
+uint8_t buf[32];
+__aeabi_memcpy(buf, (const void*)srcAddr, len);
+uint32_t freeSlot = *(uint32_t*)(vt + 0x4);
+((void (*)(void*))freeSlot)(tmp);
+uint32_t i = 0U;
+while (i < n) {
+if (memcmp(buf, arg0 + i * 32U + 0x18, 32U) == 0) return 1U;
+i = i + 1U;
+}
+return 0U;
+}
+#endif

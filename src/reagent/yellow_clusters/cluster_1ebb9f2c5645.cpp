@@ -49,3 +49,23 @@ extern "C" void YellowAuto_004ac498(uint8_t* arg0, int32_t arg1) {
 if (*(uint32_t*)(arg0 + 96) == (uint32_t)0) return; if (arg1 == 0) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 96)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 96), 0); else if (arg1 == 1) ((void(*)(uint8_t*, int32_t))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 96)) + 8))((uint8_t*)*(uint32_t*)(arg0 + 96), 1); return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D2078
+void Delete2D(uint8_t*, int32_t);
+void DeleteGraphicsSystem(uint8_t*);
+void WordSet_dtor(uint8_t*);
+void StrBuf_dtor(uint8_t*);
+void UIView_dtor(uint8_t*);
+extern "C" void YellowAuto_002d2078(uint8_t* arg0) __asm__("_ZN3App4Tool23CommonMessageWindowViewD1Ev");
+extern "C" void YellowAuto_002d2078(uint8_t* arg0) {
+Delete2D(arg0, *(int32_t*)(arg0 + 128)); DeleteGraphicsSystem(arg0); WordSet_dtor(arg0 + 248); StrBuf_dtor(arg0 + 232); UIView_dtor(arg0); return;
+}
+#endif

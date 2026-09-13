@@ -95,3 +95,120 @@ FUN_00361920(v4, v0, v1);
 return v4;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00366730
+void FUN_00361c58(void*);
+extern "C" void YellowAuto_00366730(uint8_t* arg0) __asm__("_ZN4gfl29animation19AnimationController8FinalizeEv");
+extern "C" void YellowAuto_00366730(uint8_t* arg0) {
+uint32_t n0 = *reinterpret_cast<uint32_t*>(arg0 + 0x38);
+uint32_t i0 = 0;
+while (i0 < n0) {
+uint8_t* e0 = *reinterpret_cast<uint8_t**>(arg0 + 0x08 + i0 * 4);
+if (e0 != nullptr) {
+FUN_00361c58(e0);
+e0 = *reinterpret_cast<uint8_t**>(arg0 + 0x08 + i0 * 4);
+if (e0 != nullptr) {
+uint32_t* vt0 = *reinterpret_cast<uint32_t**>(e0);
+reinterpret_cast<void(*)(void*)>(vt0[1])(e0);
+*reinterpret_cast<uint8_t**>(arg0 + 0x08 + i0 * 4) = nullptr;
+}
+}
+n0 = *reinterpret_cast<uint32_t*>(arg0 + 0x38);
+i0 = i0 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0x38) = 0;
+uint32_t n1 = *reinterpret_cast<uint32_t*>(arg0 + 0x6C);
+uint32_t i1 = 0;
+while (i1 < n1) {
+uint8_t* e1 = *reinterpret_cast<uint8_t**>(arg0 + 0x3C + i1 * 4);
+if (e1 != nullptr) {
+FUN_00361c58(e1);
+e1 = *reinterpret_cast<uint8_t**>(arg0 + 0x3C + i1 * 4);
+if (e1 != nullptr) {
+uint32_t* vt1 = *reinterpret_cast<uint32_t**>(e1);
+reinterpret_cast<void(*)(void*)>(vt1[1])(e1);
+*reinterpret_cast<uint8_t**>(arg0 + 0x3C + i1 * 4) = nullptr;
+}
+}
+n1 = *reinterpret_cast<uint32_t*>(arg0 + 0x6C);
+i1 = i1 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0x6C) = 0;
+uint32_t n2 = *reinterpret_cast<uint32_t*>(arg0 + 0xB4);
+uint32_t i2 = 0;
+while (i2 < n2) {
+uint8_t* e2 = *reinterpret_cast<uint8_t**>(arg0 + 0x84 + i2 * 4);
+if (e2 != nullptr) {
+FUN_00361c58(e2);
+e2 = *reinterpret_cast<uint8_t**>(arg0 + 0x84 + i2 * 4);
+if (e2 != nullptr) {
+uint32_t* vt2 = *reinterpret_cast<uint32_t**>(e2);
+reinterpret_cast<void(*)(void*)>(vt2[1])(e2);
+*reinterpret_cast<uint8_t**>(arg0 + 0x84 + i2 * 4) = nullptr;
+}
+}
+n2 = *reinterpret_cast<uint32_t*>(arg0 + 0xB4);
+i2 = i2 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0xB4) = 0;
+uint32_t n3 = *reinterpret_cast<uint32_t*>(arg0 + 0xE8);
+uint32_t i3 = 0;
+while (i3 < n3) {
+uint8_t* e3 = *reinterpret_cast<uint8_t**>(arg0 + 0xB8 + i3 * 4);
+if (e3 != nullptr) {
+FUN_00361c58(e3);
+e3 = *reinterpret_cast<uint8_t**>(arg0 + 0xB8 + i3 * 4);
+if (e3 != nullptr) {
+uint32_t* vt3 = *reinterpret_cast<uint32_t**>(e3);
+reinterpret_cast<void(*)(void*)>(vt3[1])(e3);
+*reinterpret_cast<uint8_t**>(arg0 + 0xB8 + i3 * 4) = nullptr;
+}
+}
+n3 = *reinterpret_cast<uint32_t*>(arg0 + 0xE8);
+i3 = i3 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0xE8) = 0;
+uint32_t n4 = *reinterpret_cast<uint32_t*>(arg0 + 0x11C);
+uint32_t i4 = 0;
+while (i4 < n4) {
+uint8_t* e4 = *reinterpret_cast<uint8_t**>(arg0 + 0xEC + i4 * 4);
+if (e4 != nullptr) {
+FUN_00361c58(e4);
+e4 = *reinterpret_cast<uint8_t**>(arg0 + 0xEC + i4 * 4);
+if (e4 != nullptr) {
+uint32_t* vt4 = *reinterpret_cast<uint32_t**>(e4);
+reinterpret_cast<void(*)(void*)>(vt4[1])(e4);
+*reinterpret_cast<uint8_t**>(arg0 + 0xEC + i4 * 4) = nullptr;
+}
+}
+n4 = *reinterpret_cast<uint32_t*>(arg0 + 0x11C);
+i4 = i4 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0x11C) = 0;
+uint32_t n5 = *reinterpret_cast<uint32_t*>(arg0 + 0x150);
+uint32_t i5 = 0;
+while (i5 < n5) {
+uint8_t* e5 = *reinterpret_cast<uint8_t**>(arg0 + 0x120 + i5 * 4);
+if (e5 != nullptr) {
+FUN_00361c58(e5);
+e5 = *reinterpret_cast<uint8_t**>(arg0 + 0x120 + i5 * 4);
+if (e5 != nullptr) {
+uint32_t* vt5 = *reinterpret_cast<uint32_t**>(e5);
+reinterpret_cast<void(*)(void*)>(vt5[1])(e5);
+*reinterpret_cast<uint8_t**>(arg0 + 0x120 + i5 * 4) = nullptr;
+}
+}
+n5 = *reinterpret_cast<uint32_t*>(arg0 + 0x150);
+i5 = i5 + 1;
+}
+*reinterpret_cast<uint32_t*>(arg0 + 0x150) = 0;
+}
+#endif

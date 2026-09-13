@@ -117,3 +117,50 @@ extern "C" void* YellowAuto_0031ef08(uint8_t* arg0, uint32_t arg1) {
 if (arg1 >= 6) { GFLassertStop(0, 0, 0); return reinterpret_cast<void*>(0); } return reinterpret_cast<void*>(*reinterpret_cast<uint32_t*>(arg0 + arg1 * 4));
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0031EBDC
+void GFLassert();
+bool IsNull(const void*);
+void CopyFrom(void*, const void*);
+uint32_t IsEgg(const void*, uint32_t);
+extern "C" void YellowAuto_0031ebdc(uint8_t* arg0, uint32_t arg1, const void* arg2) __asm__("_ZN3pml9PokeParty13ReplaceMemberEjRKNS_8pokepara12PokemonParamE");
+extern "C" void YellowAuto_0031ebdc(uint8_t* arg0, uint32_t arg1, const void* arg2) {
+if (arg1 > 5U) {
+GFLassert();
+return;
+}
+if (*(void**)(arg0 + arg1 * 4U) == (void*)0) {
+return;
+}
+if (IsNull(arg2)) {
+return;
+}
+bool b0 = IsNull((const void*)*(void**)(arg0 + arg1 * 4U));
+CopyFrom(*(void**)(arg0 + arg1 * 4U), arg2);
+if (b0) {
+arg0[0x18] = (uint8_t)(arg0[0x18] + 1U);
+}
+if ((uint32_t)arg0[0x19] != arg1) {
+return;
+}
+uint32_t i0 = 0U;
+if (arg0[0x18] != 0U) {
+while (i0 < (uint32_t)arg0[0x18]) {
+if (IsEgg((const void*)*(void**)(arg0 + i0 * 4U), 2U) == 0U) {
+arg0[0x19] = (uint8_t)i0;
+return;
+}
+i0 = i0 + 1U;
+}
+}
+arg0[0x19] = 0U;
+}
+#endif

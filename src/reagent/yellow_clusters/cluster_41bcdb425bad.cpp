@@ -60,3 +60,28 @@ extern "C" void YellowAuto_003deb70(uint8_t* arg0, int32_t arg1) {
 arg0[5] = 15; arg0[4] = func_003dea4c(arg0, 15); if (arg1 == 500) { arg0[6] = 1; *(uint32_t*)(arg0 + 8) = 10; return; } if (arg1 == 502) { arg0[6] = 1; *(uint32_t*)(arg0 + 8) = 11; return; } if (arg1 == 503) { arg0[6] = 1; *(uint32_t*)(arg0 + 8) = 12; return; } if (arg1 == 401) { uint8_t _b[12]; uint32_t _c; _c = *(uint32_t*)0x003DEC8C; func_00240c90(_b, &_c); arg0[6] = 0; *(uint32_t*)(arg0 + 8) = func_001d1e5c(_b); return; } if (arg1 == 404) { uint8_t _b[12]; uint32_t _c; _c = *(uint32_t*)0x003DEC90; func_00240c90(_b, &_c); arg0[6] = 0; *(uint32_t*)(arg0 + 8) = func_001d1e5c(_b); return; } { uint8_t _b[12]; uint32_t _c; _c = *(uint32_t*)0x003DEC88; func_00240c90(_b, &_c); arg0[6] = 0; *(uint32_t*)(arg0 + 8) = func_001d1e5c(_b); return; }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DE5C4
+uint8_t FUN_003dea4c(uint8_t*, int32_t);
+void qResult(void*, uint32_t*);
+int32_t FUN_001d1e5c(void*);
+extern "C" void YellowAuto_003de5c4(uint8_t* arg0, int32_t arg1) __asm__("_ZN6NetLib5Error16NijiNetworkError15SetResultPGL5xxEj");
+extern "C" void YellowAuto_003de5c4(uint8_t* arg0, int32_t arg1) {
+arg0[5] = 13;
+arg0[4] = FUN_003dea4c(arg0, 13);
+if (arg1 == 500) { arg0[6] = 1; *(uint32_t *)(arg0 + 8) = 25; return; }
+if (arg1 == 502) { arg0[6] = 1; *(uint32_t *)(arg0 + 8) = 26; return; }
+if (arg1 == 503) { arg0[6] = 1; *(uint32_t *)(arg0 + 8) = 27; return; }
+if (arg1 == 401) { uint32_t _t[4]; _t[3] = *(uint32_t *)0x3DE6E0; qResult((void *)_t, &_t[3]); arg0[6] = 0; *(int32_t *)(arg0 + 8) = FUN_001d1e5c((void *)_t); return; }
+if (arg1 == 404) { uint32_t _t[4]; _t[3] = *(uint32_t *)0x3DE6E4; qResult((void *)_t, &_t[3]); arg0[6] = 0; *(int32_t *)(arg0 + 8) = FUN_001d1e5c((void *)_t); return; }
+uint32_t _d[4]; _d[3] = *(uint32_t *)0x3DE6DC; qResult((void *)_d, &_d[3]); arg0[6] = 0; *(int32_t *)(arg0 + 8) = FUN_001d1e5c((void *)_d); return;
+}
+#endif

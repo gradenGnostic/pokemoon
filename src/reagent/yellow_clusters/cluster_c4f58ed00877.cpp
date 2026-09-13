@@ -52,3 +52,19 @@ extern "C" void YellowAuto_0030f384(uint8_t* arg0) {
 if (*(arg0 + 32) == (uint8_t)0) { *(void**)(arg0 + 28) = (void*)0; *(void**)(arg0 + 24) = (void*)0; *(void**)(arg0 + 20) = (void*)0; *(void**)(arg0 + 16) = (void*)0; *(void**)(arg0 + 8) = (void*)0; *(void**)(arg0 + 4) = (void*)0; } else { if (*(void**)(arg0 + 28) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 28)) + 1)))(*(void**)(arg0 + 28)); *(void**)(arg0 + 28) = (void*)0; } if (*(void**)(arg0 + 24) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 24)) + 1)))(*(void**)(arg0 + 24)); *(void**)(arg0 + 24) = (void*)0; } if (*(void**)(arg0 + 20) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 20)) + 1)))(*(void**)(arg0 + 20)); *(void**)(arg0 + 20) = (void*)0; } if (*(void**)(arg0 + 16) != (void*)0) { ((void(*)(void*))(*(*(void***)(*(void**)(arg0 + 16)) + 1)))(*(void**)(arg0 + 16)); *(void**)(arg0 + 16) = (void*)0; } DeleteHeap(*(void**)(arg0 + 8)); *(void**)(arg0 + 8) = (void*)0; DeleteHeap(*(void**)(arg0 + 4)); *(void**)(arg0 + 4) = (void*)0; *(arg0 + 32) = (uint8_t)0; } *(uint32_t*)(arg0 + 12) = (uint32_t)0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0030F4A4
+void Delete(uint8_t*);
+extern "C" uint8_t* YellowAuto_0030f4a4(uint8_t* arg0) __asm__("_ZN3app4util4HeapD1Ev");
+extern "C" uint8_t* YellowAuto_0030f4a4(uint8_t* arg0) {
+*(uint32_t*)arg0 = *(uint32_t*)(uint32_t)0x30F4C4; Delete(arg0); return arg0;
+}
+#endif

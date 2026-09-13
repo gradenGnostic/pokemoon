@@ -38,3 +38,39 @@ uint8_t* tag = FUN_003be50c(base + 0x9c);
 return tag - 0x9c;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003BE9C4
+uint8_t Func_003ED8D8();
+void Func_00354F58(uint8_t *, int8_t, int8_t);
+extern const int32_t Dat_003BEABC[];
+extern const int32_t Dat_003BEAC0[];
+extern const int32_t Dat_003BEAC4[];
+extern const int32_t Dat_003BEAC8[];
+extern "C" void YellowAuto_003be9c4(uint8_t* arg0, int32_t arg1, bool arg2) __asm__("_ZN5print13MessageWindow15SetMessageSpeedEN8Savedata10ConfigSave9MSG_SPEEDEb");
+extern "C" void YellowAuto_003be9c4(uint8_t* arg0, int32_t arg1, bool arg2) {
+*(int16_t *)(arg0 + 240) = (int16_t)arg2;
+uint8_t lang = Func_003ED8D8();
+bool alt = lang == 2 || lang == 3 || lang == 4 || lang == 5 || lang == 7;
+if (arg2 != 0) {
+if (alt) {
+Func_00354F58(arg0, (int8_t)(*(Dat_003BEABC - 12 + arg1)), (int8_t)(*(Dat_003BEABC + arg1)));
+} else {
+Func_00354F58(arg0, (int8_t)(*(Dat_003BEAC0 - 4 + arg1)), (int8_t)(*(Dat_003BEAC0 + arg1)));
+}
+} else {
+if (alt) {
+Func_00354F58(arg0, (int8_t)(*(Dat_003BEAC4 - 16 + arg1)), (int8_t)(*(Dat_003BEAC4 + arg1)));
+} else {
+Func_00354F58(arg0, (int8_t)(*(Dat_003BEAC8 - 4 + arg1)), (int8_t)(*(Dat_003BEAC8 + arg1)));
+}
+}
+}
+#endif

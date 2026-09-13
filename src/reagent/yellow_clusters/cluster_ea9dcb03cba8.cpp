@@ -121,3 +121,38 @@ FUN_004142c0(*(void**)(arg0 + 3496), arg2, d1, arg4);
 *(arg0 + 32) = (uint8_t)1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F2B4C
+void func_002F2434(uint8_t*);
+void func_00411FDC(void*);
+void func_00414AAC(void*);
+extern "C" bool YellowAuto_002f2b4c(uint8_t* arg0) __asm__("_ZN3app4tool16CharaSimpleModel8IsDeleteEv");
+extern "C" bool YellowAuto_002f2b4c(uint8_t* arg0) {
+func_002F2434(arg0);
+if (*(arg0 + 0x1D) != 1) return false;
+uint32_t v = *(uint32_t*)(arg0 + 0x18);
+if (v == 0) {
+if (*(arg0 + 0x04) == 0) *(uint32_t*)(arg0 + 0x18) = 1;
+return false;
+}
+if (v == 1) {
+if (*(arg0 + 0x20) != 1) *(uint32_t*)(arg0 + 0x18) = 2;
+else {
+func_00411FDC((void*)*(uint32_t*)(arg0 + 0xDA4));
+func_00414AAC((void*)*(uint32_t*)(arg0 + 0xDA8));
+*(uint32_t*)(arg0 + 0x18) = *(uint32_t*)(arg0 + 0x18) + 1;
+}
+return false;
+}
+if (v == 2) return true;
+return false;
+}
+#endif

@@ -38,3 +38,21 @@ func_leave((void*)(arg0 + 0x2C));
 return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DAB98
+void FUN_0040b620(uint32_t);
+void FUN_0040c174(uint32_t);
+void FUN_003f76c0(uint32_t);
+extern "C" void YellowAuto_003dab98(uint8_t* arg0) __asm__("_ZN6NetLib4Wifi17WifiConnectRunner8FinalizeEv");
+extern "C" void YellowAuto_003dab98(uint8_t* arg0) {
+if (*(uint32_t *)(arg0 + 0x44) != 0) FUN_0040b620(*(uint32_t *)(arg0 + 0x44)); if (*(uint32_t *)(arg0 + 0x38) != 0) FUN_0040c174(*(uint32_t *)(arg0 + 0x38)); if (*(int8_t *)((*(uint32_t *)(arg0 + 0x3C)) + 0x3) != 0) FUN_003f76c0(*(uint32_t *)(arg0 + 0x3C)); *(uint32_t *)((*(uint32_t *)(arg0 + 0x3C)) + 0x1B8) = 0; *(uint32_t *)(arg0 + 0x34) = 4294967295U; return;
+}
+#endif

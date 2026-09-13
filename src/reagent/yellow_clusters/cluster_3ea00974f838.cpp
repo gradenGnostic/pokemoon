@@ -241,3 +241,36 @@ extern "C" bool YellowAuto_00474eb4(const uint8_t* arg0) {
 if (*(const uint32_t*)(arg0 + 16) == 0) return false; return Crc16((const void*)0, (const uint8_t*)(*(const uint32_t*)(arg0 + 16)), DAT_00474f0c) == *(const uint16_t*)((const uint8_t*)(*(const uint32_t*)(arg0 + 16)) + 0x4A4);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015AEB0
+void GflHeapFreeMemoryBlock(void*, int32_t);
+void* GflHeapAllocMemoryBlock(void*, uint32_t);
+void __aeabi_memclr(void*, uint32_t);
+void FileOpenSync(uint32_t, void*, uint32_t, uint32_t);
+void FUN_00306bbc(uint32_t, int32_t, void*, uint32_t, void*, uint32_t, uint32_t, uint32_t);
+void FileCloseSync(uint32_t);
+extern "C" void YellowAuto_0015aeb0(uint8_t* arg0, int32_t arg1) __asm__("_ZN10Regulation8LoadDataENS_6PRESETE");
+extern "C" void YellowAuto_0015aeb0(uint8_t* arg0, int32_t arg1) {
+uint32_t v0 = *(uint32_t*)0x15AF5C;
+if (*(uint32_t*)(arg0 + 8) != 0) {
+GflHeapFreeMemoryBlock(*(void**)(arg0 + 8), arg1);
+*(uint32_t*)(arg0 + 8) = 0;
+}
+*(uint32_t*)(arg0 + 12) = v0;
+*(void**)(arg0 + 8) = GflHeapAllocMemoryBlock(*(void**)(arg0 + 4), v0);
+__aeabi_memclr(*(void**)(arg0 + 8), v0);
+FileOpenSync(137, *(void**)(arg0 + 4), 0, 255);
+void* v1 = ((void* (*)(void*))(*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 4)) + 52)))(*(void**)(arg0 + 4));
+FUN_00306bbc(137, arg1, *(void**)(arg0 + 8), *(uint32_t*)(arg0 + 12), v1, 0, 4, 255);
+FileCloseSync(137);
+*(uint32_t*)(arg0 + 16) = *(uint32_t*)(arg0 + 8);
+}
+#endif

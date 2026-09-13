@@ -216,3 +216,35 @@ CheckGraphicsError();
 return v2;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0034AAD8
+uint32_t FUN_00477fcc(uint8_t*, uint32_t);
+uint32_t FUN_004776bc(uint8_t*, uint32_t);
+uint32_t FUN_00476648(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00476588(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00476a98(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_004764fc(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00476af0(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_004766c4(uint8_t*, uint32_t);
+uint32_t FUN_004768e4(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_004755b4(uint32_t, uint32_t);
+uint32_t FUN_0016ddd0(uint32_t, uint32_t);
+uint32_t FUN_0016de1c(uint32_t, void*, uint32_t, uint32_t);
+void FUN_004991bc(uint32_t, uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00477860(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00477af8(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_00477cc0(uint8_t*, uint32_t, uint32_t);
+uint32_t FUN_0047776c(uint8_t*, uint32_t, uint32_t);
+extern "C" void YellowAuto_0034aad8(uint8_t* arg0, uint32_t* arg1) __asm__("_ZN4gfl23gfx3ctr5CTRGL21FlushAllDirtyCommand_EPN2nn2gr3CTR23CommandBufferJumpHelperE");
+extern "C" void YellowAuto_0034aad8(uint8_t* arg0, uint32_t* arg1) {
+if ((*(uint32_t*)(arg0 + 0x2C0) & 0x8U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFF7U; arg1[0] = FUN_00477fcc(arg0 + 0x1F4, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x200U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFDFFU; arg1[0] = FUN_004776bc(arg0 + 0x1D4, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x800U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFF7FFU; arg1[0] = FUN_00476648(arg0 + 0x1B0, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x80U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFF7FU; arg1[0] = FUN_00476588(arg0 + 0x154, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x40U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFBFU; arg1[0] = FUN_00476a98(arg0 + 0x184, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x2U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFFDU; arg1[0] = FUN_004764fc(arg0 + 0x18C, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x1U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFFEU; arg1[0] = FUN_00476af0(arg0 + 0x1A8, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x400U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFBFFU; arg1[0] = FUN_004766c4(arg0 + 0x1B8, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x100U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFEFFU; arg1[0] = FUN_004768e4(arg0 + 0x1D0, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x10U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFEFU; arg1[0] = FUN_004755b4(*(uint32_t*)(arg0 + 0x1C) + 8U, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x20U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFDFU; uint32_t t0 = *(uint32_t*)(*(uint32_t*)(arg0 + 0x20) + 8U); uint32_t t1 = *(uint32_t*)(*(uint32_t*)(arg0 + 0x20) + 12U); uint32_t cur = arg1[0]; if (cur != 0U && t0 != 0U) { int32_t l; uint32_t nn = ((cur - arg1[2]) & 0xFFFFFFFCU) + 0x18U; uint32_t pp = FUN_0016ddd0(cur, nn); arg1[0] = pp; uint32_t qq = FUN_0016de1c(pp, &l, t0, t1); arg1[0] = qq; uint32_t o3 = arg1[3]; uint32_t o2 = arg1[2]; uint32_t o4 = arg1[4]; uint32_t o1 = arg1[1]; if (o3 != 0U) { *(uint32_t*)o3 = (qq - o2) >> 3; } arg1[2] = qq; arg1[3] = (uint32_t)l; if (o4 == 0U) { arg1[4] = (qq - o1) & 0xFFFFFFFCU; } } } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x1000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFEFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x34), arg0 + 0x204, 0U, *(uint32_t*)(arg0 + 0x28)); arg1[0] = FUN_00477860(arg0 + 0x204, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x2000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFDFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x38), arg0 + 0x204, 1U, *(uint32_t*)(arg0 + 0x2C)); arg1[0] = FUN_00477af8(arg0 + 0x240, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x4000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFBFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x3C), arg0 + 0x204, 2U, *(uint32_t*)(arg0 + 0x30)); arg1[0] = FUN_00477cc0(arg0 + 0x264, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x8000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFF7FFFU; arg1[0] = FUN_0047776c(arg0 + 0x204, arg1[0], 1U); }
+}
+#endif

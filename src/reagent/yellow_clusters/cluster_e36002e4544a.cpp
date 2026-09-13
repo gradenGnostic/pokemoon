@@ -142,3 +142,132 @@ SignalEvent(*(void**)(arg0 + 0x44));
 LeaveCs(cs);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00497320
+void Enter(const void*);
+void Leave(const void*);
+extern "C" bool YellowAuto_00497320(const uint8_t* arg0, uint32_t arg1) __asm__("_ZNK4gfl22fs16AsyncFileManager22IsArcFileCloseFinishedEj");
+extern "C" bool YellowAuto_00497320(const uint8_t* arg0, uint32_t arg1) {
+const void* cs = *reinterpret_cast<const void* const*>(arg0 + 0x34);
+Enter(cs);
+const uint8_t* list = *reinterpret_cast<const uint8_t* const*>(arg0 + 0x1C);
+const uint8_t* node = *reinterpret_cast<const uint8_t* const*>(list + 0x04);
+while (node != nullptr) {
+const uint32_t* vtbl = *reinterpret_cast<const uint32_t* const*>(node);
+uint32_t (*fn)(const void*) = *reinterpret_cast<uint32_t (*const*)(const void*)>(reinterpret_cast<const uint8_t*>(vtbl) + 8);
+uint32_t kind = fn(node);
+if (kind == 4) {
+uint32_t id = *reinterpret_cast<const uint32_t*>(node + 0x14);
+if (id == arg1) {
+Leave(cs);
+return false;
+}
+}
+node = *reinterpret_cast<const uint8_t* const*>(node + 0x08);
+}
+Leave(cs);
+return true;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0049739C
+void Enter(const void*);
+void Leave(const void*);
+extern "C" bool YellowAuto_0049739c(const uint8_t* arg0, void* arg1) __asm__("_ZNK4gfl22fs16AsyncFileManager22IsFileEasyReadFinishedEPPv");
+extern "C" bool YellowAuto_0049739c(const uint8_t* arg0, void* arg1) {
+const void* cs0 = *reinterpret_cast<const void* const*>(arg0 + 0x34);
+Enter(cs0);
+const void* cs1 = *reinterpret_cast<const void* const*>(arg0 + 0x38);
+Enter(cs1);
+const uint8_t* list0 = *reinterpret_cast<const uint8_t* const*>(arg0 + 0x1C);
+const uint8_t* node = *reinterpret_cast<const uint8_t* const*>(list0 + 0x04);
+while (node != nullptr) {
+const uint32_t* vtbl = *reinterpret_cast<const uint32_t* const*>(node);
+uint32_t (*fn)(const void*) = *reinterpret_cast<uint32_t (*const*)(const void*)>(reinterpret_cast<const uint8_t*>(vtbl) + 8);
+uint32_t kind = fn(node);
+if (kind == 1) {
+const void* key = *reinterpret_cast<const void* const*>(node + 0x18);
+if (key == arg1) {
+Leave(cs1);
+Leave(cs0);
+return false;
+}
+}
+node = *reinterpret_cast<const uint8_t* const*>(node + 0x08);
+}
+const uint8_t* list1 = *reinterpret_cast<const uint8_t* const*>(arg0 + 0x20);
+node = *reinterpret_cast<const uint8_t* const*>(list1 + 0x04);
+while (node != nullptr) {
+const uint32_t* vtbl = *reinterpret_cast<const uint32_t* const*>(node);
+uint32_t (*fn)(const void*) = *reinterpret_cast<uint32_t (*const*)(const void*)>(reinterpret_cast<const uint8_t*>(vtbl) + 8);
+uint32_t kind = fn(node);
+if (kind == 1) {
+const void* key = *reinterpret_cast<const void* const*>(node + 0x18);
+if (key == arg1) {
+Leave(cs1);
+Leave(cs0);
+return false;
+}
+}
+node = *reinterpret_cast<const uint8_t* const*>(node + 0x08);
+}
+Leave(cs1);
+Leave(cs0);
+return true;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00497524
+void Enter(const void*);
+void Leave(const void*);
+extern "C" bool YellowAuto_00497524(const uint8_t* arg0, void* arg1) __asm__("_ZNK4gfl22fs16AsyncFileManager25IsArcFileLoadDataFinishedEPPv");
+extern "C" bool YellowAuto_00497524(const uint8_t* arg0, void* arg1) {
+const void* cs0 = *reinterpret_cast<const void* const*>(arg0 + 0x34);
+Enter(cs0);
+const void* cs1 = *reinterpret_cast<const void* const*>(arg0 + 0x38);
+Enter(cs1);
+const uint8_t* list0 = *reinterpret_cast<const uint8_t* const*>(arg0 + 0x1C);
+const uint8_t* node = *reinterpret_cast<const uint8_t* const*>(list0 + 0x04);
+while (node != nullptr) {
+const uint32_t* vtbl = *reinterpret_cast<const uint32_t* const*>(node);
+uint32_t (*fn)(const void*) = *reinterpret_cast<uint32_t (*const*)(const void*)>(reinterpret_cast<const uint8_t*>(vtbl) + 8);
+uint32_t kind = fn(node);
+if (kind == 5) {
+const void* key = *reinterpret_cast<const void* const*>(node + 0x20);
+if (key == arg1) {
+Leave(cs1);
+Leave(cs0);
+return false;
+}
+}
+node = *reinterpret_cast<const uint8_t* const*>(node + 0x08);
+}
+const uint8_t* list1 = *reinterpret_cast<const uint8_t* const*>(arg0 + 0x20);
+node = *reinterpret_cast<const uint8_t* const*>(list1 + 0x04);
+while (node != nullptr) {
+const uint32_t* vtbl = *reinterpret_cast<const uint32_t* const*>(node);
+uint32_t (*fn)(const void*) = *reinterpret_cast<uint32_t (*const*)(const void*)>(reinterpret_cast<const uint8_t*>(vtbl) + 8);
+uint32_t kind = fn(node);
+if (kind == 5) {
+const void* key = *reinterpret_cast<const void* const*>(node + 0x20);
+if (key == arg1) {
+Leave(cs1);
+Leave(cs0);
+return false;
+}
+}
+node = *reinterpret_cast<const uint8_t* const*>(node + 0x08);
+}
+Leave(cs1);
+Leave(cs0);
+return true;
+}
+#endif

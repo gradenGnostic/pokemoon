@@ -71,3 +71,27 @@ int32_t a3 = (int32_t)(t - h + *(const float*)0x0045c850);
 SetFrame(v, a0, a1, a2, a3);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045C8D0
+void* func_00105500(uint32_t, void*);
+void* func_0035B2B4(void*, void*);
+void* func_0042FFC4(void*);
+void func_001048B4();
+extern "C" void YellowAuto_0045c8d0(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) __asm__("_ZN9NetAppLib4Util22NetAppPokeModelUtility5SetupEjPKNS1_12InFrameParamEj");
+extern "C" void YellowAuto_0045c8d0(uint8_t* arg0, uint32_t arg1, const uint8_t* arg2, uint32_t arg3) {
+*(uint32_t*)(arg0 + 0x18) = arg1;
+*(void**)(arg0 + 0x2C) = func_00105500(8, *(void**)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x04) + 8) + 8));
+if (*(void**)(arg0 + 0x2C) != (void*)0) *(void**)(arg0 + 0x2C) = func_0035B2B4(*(void**)(arg0 + 0x2C), *(void**)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x04) + 8) + 8));
+*(void**)(arg0 + 0x08) = func_00105500(116, *(void**)(*(uint8_t**)(*(uint8_t**)(arg0 + 0x04) + 8) + 8));
+if (*(void**)(arg0 + 0x08) != (void*)0) *(void**)(arg0 + 0x08) = func_0042FFC4(*(void**)(arg0 + 0x08));
+func_001048B4();
+}
+#endif

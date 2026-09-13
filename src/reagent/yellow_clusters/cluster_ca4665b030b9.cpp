@@ -14,3 +14,23 @@ extern "C" void YellowAuto_0045dbd4(uint8_t* arg0, uint32_t arg1, const void* ar
 if ((*(uint8_t **)(arg0 + 8) != 0) && AppToolTrainerIconRendering_IsReady(*(uint8_t **)(arg0 + 8))) AppToolTrainerIconRendering_SetIconObjectData(*(uint8_t **)(arg0 + 8), arg1, arg2, arg3);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045DC1C
+bool IsReady(const void*);
+bool IsLoadedObject(const void*, uint32_t);
+extern "C" bool YellowAuto_0045dc1c(uint8_t* arg0, uint32_t arg1) __asm__("_ZN9NetAppLib4Util24NetAppTrainerIconUtility19IsEndIconObjectDataEj");
+extern "C" bool YellowAuto_0045dc1c(uint8_t* arg0, uint32_t arg1) {
+const void* p = *reinterpret_cast<const void* const*>(arg0 + 8);
+if (!p) return true;
+if (!IsReady(p)) return true;
+return IsLoadedObject(p, arg1);
+}
+#endif

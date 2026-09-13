@@ -103,3 +103,30 @@ SetData(arg0 + 8, arg2, arg3);
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00459F24
+uint8_t* sub_0015AF60(uint8_t*, void*);
+void sub_0015AE50(uint8_t*, const void*, uint32_t);
+extern "C" uint8_t* YellowAuto_00459f24(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3, int32_t arg4) __asm__("_ZN9NetAppLib2UI18RegulationDrawInfoC1EPN4gfl24heap11CtrHeapBaseEPKvji");
+extern "C" uint8_t* YellowAuto_00459f24(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3, int32_t arg4) {
+*(uint32_t*)arg0 = *(uint32_t*)0x00459F84;
+*(void**)(arg0 + 4) = arg1;
+uint8_t* t0 = sub_0015AF60(arg0 + 8, arg1);
+uint8_t* t1 = t0 - 8;
+*(t1 + 0x1C) = (uint8_t)0;
+*(t1 + 0x1D) = (uint8_t)0;
+*(t1 + 0x1E) = (uint8_t)0;
+*(t1 + 0x1F) = (uint8_t)0x18;
+*(int32_t*)(t1 + 0x20) = arg4;
+sub_0015AE50(arg0 + 8, arg2, arg3);
+return t1;
+}
+#endif

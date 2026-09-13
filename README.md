@@ -20,49 +20,16 @@ layout record.
 
 ## Current state
 
-The canonical manifest currently records 1,000 source-backed functions out of
-18,945 inventoried internal functions:
+The canonical manifest currently records 2,676 source-backed functions out of
+18,945 inventoried internal functions (14.13%):
 
 | Status | Count |
 |---|---:|
 | Exact ARM match | 298 |
 | Near match | 1 |
-| Semantic verified, nonmatching | 698 |
+| Semantic verified, nonmatching | 2,374 |
 | Semantic unverified | 3 |
 | Runtime-ready | 53 |
-| Remaining YELLOW review queue | 622 |
-
-The status terms are deliberately separate:
-
-- **Source-backed** means the function has maintained C or C++ source in this repository.
-- **Exact** means the selected compiler output matches the retail ARM bytes.
-- **Semantic verified** means the reconstruction is accepted but compiler output differs from retail.
-- **Semantic unverified** means maintained source is mapped to a retail function but still needs stronger equivalence evidence.
-- **Runtime-ready** means the function is approved for inclusion in a semantic runtime image.
-
-Exact matching remains useful evidence, but it is not required for every
-source reconstruction. Most compile-first promotions remain runtime-inactive
-until they receive stronger validation.
-
-The latest overnight GPT-reviewed YELLOW run added 327 source-backed retail
-functions and reached the 1,000-function source-backed target. The resolver now
-reports 622 functions remaining in the YELLOW queue. The portable PC runtime
-also contributes mapped retail reconstructions for `gfl2::proc::Manager`,
-`applib::frame::Manager`, GameManager singleton access, and GameManager
-buffer-clear handling. Host-only SDL/OpenGL glue and code that belongs only to
-`LangSelect.cro` are not counted in the `static.crs` headline.
-
-## decomp.dev
-
-GitHub Actions publishes an objdiff v2 progress artifact named `eu_report` on
-pushes to `main`. Pokemoon is semantic-first rather than matching-first, so the
-top-level decomp.dev **decompiled** percentage is normalized to maintained
-source coverage: source-backed functions divided by inventoried functions.
-With the current manifest that is 1,000 / 18,945 = 5.278%.
-
-Byte-weighted exact ARM evidence is still retained inside the report for
-per-function/detail views, while the `fully linked` field remains byte-weighted
-source coverage.
 
 ## Local game input
 
@@ -139,11 +106,3 @@ data root.
 - `analysis/`: function catalogs, queues, and compact progress reports
 - `scripts/`: build, verification, Ghidra export, and queue tooling
 - `docs/`: target, runtime, subsystem, and research notes
-
-
-## Contributions
-
-Keep retail data out of commits. New reconstructions should preserve address,
-symbol, module, status, and provenance metadata in the canonical manifest.
-Run `make status`, `make check`, and `make MODE=semantic check` before submitting
-changes. Avoid changing shared layouts without evidence from multiple functions.

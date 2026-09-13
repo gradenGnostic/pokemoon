@@ -70,3 +70,18 @@ extern "C" void YellowAuto_00354578(uint8_t* arg0, const uint16_t* arg1, void* a
 *(uint32_t*)arg0 = 0x003545fc; arg0[0xc] = 0; *(uint16_t*)(arg0 + 0xa) = (uint16_t)FUN_0035472c(arg1); *(uint16_t*)(arg0 + 0x8) = (uint16_t)((uint32_t)*(uint16_t*)(arg0 + 0xa) + 1U); *(uint16_t**)(arg0 + 4) = GflHeapAllocMemoryBlock(arg2, (uint32_t)*(uint16_t*)(arg0 + 0x8) << 1); if (*(uint16_t**)(arg0 + 4) != 0) FUN_00356704(*(uint16_t**)(arg0 + 4), arg1, (uint32_t)*(uint16_t*)(arg0 + 0x8)), arg0[0xc] = 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00354314
+extern "C" void YellowAuto_00354314(uint8_t* arg0) __asm__("_ZN4gfl23str6StrBuf5ClearEv");
+extern "C" void YellowAuto_00354314(uint8_t* arg0) {
+if (arg0[0xC] != 0) { **reinterpret_cast<uint16_t**>(arg0 + 4) = 0; *reinterpret_cast<uint16_t*>(arg0 + 10) = 0; }
+}
+#endif

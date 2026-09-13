@@ -39,3 +39,24 @@ extern "C" void YellowAuto_003a13ac(uint8_t* arg0) {
 uint32_t v0 = GetMoveCode(arg0[0x2C]); if (v0 != 0) MoveCodeLockDir(v0, arg0 + 0x164, 1);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A0370
+void Func_0039cd74(uint8_t*, const void*, int32_t, int32_t, int32_t, int32_t);
+extern "C" void YellowAuto_003a0370(uint8_t* arg0, const void* arg1, int32_t arg2, int32_t arg3, int32_t arg4) __asm__("_ZN5Field9MoveModel20FieldMoveModelPlayer16IsEnableStepJumpERKN4gfl24math7Vector3Eiii");
+extern "C" void YellowAuto_003a0370(uint8_t* arg0, const void* arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
+uint8_t* v0 = *(uint8_t**)(arg0 + 0x34C);
+uint32_t v1 = *(uint32_t*)(v0 + 0x20);
+*(uint32_t*)(v0 + 0x20) = 1;
+Func_0039cd74(arg0, arg1, 2, arg2, arg3, arg4);
+*(uint32_t*)(v0 + 0x20) = v1;
+return;
+}
+#endif

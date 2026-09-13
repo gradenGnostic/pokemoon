@@ -51,3 +51,19 @@ if (n <= i) return 0;
 goto loop_start;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00301594
+void FUN_00304294(uint8_t *, int32_t);
+extern "C" uint32_t YellowAuto_00301594(uint8_t* arg0, int32_t arg1) __asm__("_ZN3app4tool8PaneList12InitExScrollEi");
+extern "C" uint32_t YellowAuto_00301594(uint8_t* arg0, int32_t arg1) {
+if (arg1 == -1) { if (*reinterpret_cast<float *>(arg0 + 0x1c) != *reinterpret_cast<float *>(0x003015E4)) { FUN_00304294(arg0, arg1); return 1; } return 0; } if (arg1 != 1) { FUN_00304294(arg0, arg1); return 1; } if (*reinterpret_cast<float *>(arg0 + 0x1c) < *reinterpret_cast<float *>(arg0 + 0x68)) { FUN_00304294(arg0, arg1); return 1; } return 0;
+}
+#endif
