@@ -448,3 +448,129 @@ if (((uint32_t(*)(void*))*(uint32_t*)((uint8_t*)v12 + 12))(v11) != 0) return 2;
 return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002ECDB8
+void FUN_002ed188(uint8_t*, int32_t, int32_t);
+float GetAnimeMaxFrame(void*, uint32_t);
+void SetAutoAnime(void*, uint32_t, bool);
+void SetAnimeFrame(void*, uint32_t, float);
+extern "C" void YellowAuto_002ecdb8(uint8_t* arg0, int32_t arg1) __asm__("_ZN3app4tool13ButtonManager29SetButtonActiveAnimeFrameLastEj");
+extern "C" void YellowAuto_002ecdb8(uint8_t* arg0, int32_t arg1) {
+uint32_t n = *(uint32_t*)(arg0 + 24);
+if (n != 0) {
+uint8_t** list = *(uint8_t***)(arg0 + 16);
+for (uint32_t i = 0; i < n; ++i) {
+uint8_t* btn = list[i];
+if (*(int32_t*)(btn + 4) == arg1) {
+if (*(uint8_t*)(btn + 57) != (uint8_t)1) {
+FUN_002ed188(btn, 1, 1);
+}
+uint32_t anime = *(uint32_t*)(btn + 40);
+if (*(uint32_t*)(btn + 20) != anime) {
+void* lyt = *(void**)(btn + 8);
+float maxf = GetAnimeMaxFrame(lyt, anime);
+float v = maxf - 1.0f;
+if (v < 0.0f) {
+v = 0.0f;
+}
+SetAutoAnime(lyt, anime, false);
+SetAnimeFrame(lyt, anime, v);
+}
+}
+}
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002ECE78
+void FUN_002ed188(uint8_t*, int32_t, int32_t);
+float GetAnimeMaxFrame(void*, uint32_t);
+void SetAutoAnime(void*, uint32_t, bool);
+void SetAnimeFrame(void*, uint32_t, float);
+extern "C" void YellowAuto_002ece78(uint8_t* arg0, int32_t arg1) __asm__("_ZN3app4tool13ButtonManager30SetButtonPassiveAnimeFrameLastEj");
+extern "C" void YellowAuto_002ece78(uint8_t* arg0, int32_t arg1) {
+uint32_t n = *(uint32_t*)(arg0 + 24);
+if (n != 0) {
+uint8_t** list = *(uint8_t***)(arg0 + 16);
+for (uint32_t i = 0; i < n; ++i) {
+uint8_t* btn = list[i];
+if (*(int32_t*)(btn + 4) == arg1) {
+if (*(uint8_t*)(btn + 57) != (uint8_t)0) {
+FUN_002ed188(btn, 0, 1);
+}
+uint32_t anime = *(uint32_t*)(btn + 44);
+if (*(uint32_t*)(btn + 20) != anime) {
+void* lyt = *(void**)(btn + 8);
+float maxf = GetAnimeMaxFrame(lyt, anime);
+float v = maxf - 1.0f;
+if (v < 0.0f) {
+v = 0.0f;
+}
+SetAutoAnime(lyt, anime, false);
+SetAnimeFrame(lyt, anime, v);
+}
+}
+}
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EE220
+void* GetTouchPanel(const void*, uint32_t);
+void* GetButton(const void*, uint32_t);
+void* FUN_004b4968(uint32_t, void*);
+void ChangeButtonProcessMode(uint8_t*, uint32_t, void*);
+extern "C" uint8_t* YellowAuto_002ee220(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3, uint32_t arg4) __asm__("_ZN3app4tool13ButtonManagerC1EPN4gfl24heap11CtrHeapBaseEPKNS2_2ui13DeviceManagerEjj");
+extern "C" uint8_t* YellowAuto_002ee220(uint8_t* arg0, void* arg1, const void* arg2, uint32_t arg3, uint32_t arg4) {
+*(uint32_t*)(arg0 + 8) = 0;
+*(uint32_t*)(arg0 + 12) = 0;
+*(uint32_t*)(arg0 + 16) = 0;
+*(uint32_t*)(arg0 + 24) = 0;
+*(uint8_t*)(arg0 + 36) = (uint8_t)0;
+*(uint8_t*)(arg0 + 37) = (uint8_t)1;
+*(uint32_t*)(arg0 + 40) = 0;
+*(uint8_t*)(arg0 + 44) = (uint8_t)0;
+*(uint32_t*)(arg0 + 32) = arg4;
+*(uint32_t*)(arg0 + 20) = arg3;
+*(const void**)(arg0 + 4) = arg2;
+if (arg2 != (const void*)0) {
+*(void**)(arg0 + 8) = GetTouchPanel(arg2, 0);
+*(void**)(arg0 + 12) = GetButton(arg2, 1);
+}
+void* mem = FUN_004b4968(arg3 << 2, arg1);
+*(void**)(arg0 + 16) = mem;
+if (arg3 != 0) {
+uint32_t* arr = (uint32_t*)mem;
+for (uint32_t i = 0; i < arg3; ++i) {
+arr[i] = 0;
+}
+}
+ChangeButtonProcessMode(arg0, 0, arg1);
+return arg0;
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EE0D0
+void* operator_new(uint32_t, void*);
+void GFLassert();
+extern "C" void YellowAuto_002ee0d0(uint8_t* arg0, void* arg1, uint32_t arg2, void* arg3, void* arg4, void* arg5, uint32_t arg6, uint32_t arg7, uint32_t arg8, uint32_t arg9, uint32_t arg10, uint32_t arg11, void* arg12) __asm__("_ZN3app4tool13ButtonManager9AddButtonEPN4gfl24heap11CtrHeapBaseEjPNS2_3lyt5LytWkEPN2nw3lyt4PaneESC_jjjjjjPNS1_15IButtonCallbackE");
+extern "C" void YellowAuto_002ee0d0(uint8_t* arg0, void* arg1, uint32_t arg2, void* arg3, void* arg4, void* arg5, uint32_t arg6, uint32_t arg7, uint32_t arg8, uint32_t arg9, uint32_t arg10, uint32_t arg11, void* arg12) {
+if (*(uint32_t*)(arg0 + 0x18) < *(uint32_t*)(arg0 + 0x14)) { void* np = operator_new(0x6c, arg1); if (np == (void*)0) { GFLassert(); return; } uint32_t w = *(uint32_t*)0x002EE218; *(void**)np = *(void**)0x002EE21C; *(uint32_t*)((uint8_t*)np + 0x04) = arg2; *(void**)((uint8_t*)np + 0x08) = arg3; *(void**)((uint8_t*)np + 0x0C) = arg4; *(void**)((uint8_t*)np + 0x10) = arg5; *(uint32_t*)((uint8_t*)np + 0x14) = *(uint32_t*)(arg0 + 0x20); *(uint32_t*)((uint8_t*)np + 0x18) = arg6; *(uint32_t*)((uint8_t*)np + 0x1C) = arg7; *(uint32_t*)((uint8_t*)np + 0x20) = arg8; *(uint32_t*)((uint8_t*)np + 0x24) = arg9; *(uint32_t*)((uint8_t*)np + 0x28) = arg10; *(uint32_t*)((uint8_t*)np + 0x2C) = arg11; *(uint32_t*)((uint8_t*)np + 0x30) = *(uint32_t*)(w + 4); *(void**)((uint8_t*)np + 0x34) = arg12; *(uint8_t*)((uint8_t*)np + 0x38) = 1; *(uint8_t*)((uint8_t*)np + 0x39) = 1; *(uint32_t*)((uint8_t*)np + 0x3C) = 0; *(uint32_t*)((uint8_t*)np + 0x40) = *(uint32_t*)(w + 8); *(uint32_t*)((uint8_t*)np + 0x44) = 0x20000; *(uint8_t*)((uint8_t*)np + 0x48) = 0; *(uint8_t*)((uint8_t*)np + 0x49) = 1; *(uint8_t*)((uint8_t*)np + 0x4A) = 1; *(uint8_t*)((uint8_t*)np + 0x4B) = 0; *(uint8_t*)((uint8_t*)np + 0x4C) = 0; *(uint8_t*)((uint8_t*)np + 0x4D) = 0; *(uint8_t*)((uint8_t*)np + 0x4E) = 0; *(uint8_t*)((uint8_t*)np + 0x4F) = 0; *(uint16_t*)((uint8_t*)np + 0x50) = 0; *(uint16_t*)((uint8_t*)np + 0x52) = 0; *(uint8_t*)((uint8_t*)np + 0x60) = 0; *(uint8_t*)((uint8_t*)np + 0x61) = 1; *(uint8_t*)((uint8_t*)np + 0x62) = 0; *(uint8_t*)((uint8_t*)np + 0x63) = 0; *(uint32_t*)((uint8_t*)np + 0x64) = 0; *(uint8_t*)((uint8_t*)np + 0x68) = 0; if (*(void**)(*(uint32_t*)(arg0 + 0x10) + (*(uint32_t*)(arg0 + 0x18) << 2)) != (void*)0) { ((void(**)(void*))*(void**)np)[1](np); return; } *(void**)(*(uint32_t*)(arg0 + 0x10) + (*(uint32_t*)(arg0 + 0x18) << 2)) = np; *(uint32_t*)(arg0 + 0x18) = *(uint32_t*)(arg0 + 0x18) + 1; } return;
+}
+#endif

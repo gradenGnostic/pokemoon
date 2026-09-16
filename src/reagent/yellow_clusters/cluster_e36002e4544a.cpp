@@ -271,3 +271,59 @@ Leave(cs0);
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00340680
+void CsEnter(uint32_t);
+void CsLeave(uint32_t);
+void* OpNew(uint32_t, uint32_t);
+void MemClr(void*, uint32_t);
+void InitReq(void*);
+int32_t EnqReq(int32_t, void*);
+void EvtSignal(uint32_t);
+extern "C" void YellowAuto_00340680(uint8_t* arg0, const uint8_t* arg1) __asm__("_ZN4gfl22fs16AsyncFileManager29AddArcFileLoadDataPieceBufReqERKNS1_26ArcFileLoadDataPieceBufReqE");
+extern "C" void YellowAuto_00340680(uint8_t* arg0, const uint8_t* arg1) {
+uint32_t rf = *reinterpret_cast<const uint32_t*>(arg1 + 12); uint32_t r18 = *reinterpret_cast<const uint32_t*>(arg1 + 24); uint32_t a0 = *reinterpret_cast<const uint32_t*>(arg1 + 0); uint32_t a4 = *reinterpret_cast<const uint32_t*>(arg1 + 4); uint32_t a8 = *reinterpret_cast<const uint32_t*>(arg1 + 8); uint32_t a10 = *reinterpret_cast<const uint32_t*>(arg1 + 16); uint32_t a14 = *reinterpret_cast<const uint32_t*>(arg1 + 20); uint32_t a1c = *reinterpret_cast<const uint32_t*>(arg1 + 28); uint32_t a20 = *reinterpret_cast<const uint32_t*>(arg1 + 32); uint32_t a24 = *reinterpret_cast<const uint32_t*>(arg1 + 36); uint32_t a28 = *reinterpret_cast<const uint32_t*>(arg1 + 40); uint32_t a2c = *reinterpret_cast<const uint32_t*>(arg1 + 44); uint32_t a30 = *reinterpret_cast<const uint32_t*>(arg1 + 48); uint32_t drv = rf & 255u; if (drv == 255u) { drv = static_cast<uint32_t>(*(arg0 + 24)); drv &= 255u; } uint32_t merged = (rf & 4294967040u) | drv; uint32_t cs = *reinterpret_cast<const uint32_t*>(arg0 + 52); CsEnter(cs); int32_t q = *reinterpret_cast<const int32_t*>(arg0 + 28); void* obj = OpNew(72u, a28); MemClr(obj, 72u); InitReq(obj); uint8_t* o = static_cast<uint8_t*>(obj); *reinterpret_cast<uint32_t*>(o + 16) = a0; *reinterpret_cast<uint32_t*>(o + 20) = a4; *reinterpret_cast<uint32_t*>(o + 24) = a8; *reinterpret_cast<uint32_t*>(o + 28) = merged; *reinterpret_cast<uint32_t*>(o + 32) = a10; *reinterpret_cast<uint32_t*>(o + 36) = a14; *reinterpret_cast<uint32_t*>(o + 40) = r18; *reinterpret_cast<uint32_t*>(o + 44) = a1c; *reinterpret_cast<uint32_t*>(o + 48) = a20; *reinterpret_cast<uint32_t*>(o + 52) = a24; *reinterpret_cast<uint32_t*>(o + 56) = a28; *reinterpret_cast<uint32_t*>(o + 60) = a2c; *reinterpret_cast<uint32_t*>(o + 64) = a30; *(o + 68) = 1; *reinterpret_cast<uint32_t*>(o + 12) = (r18 & 255u) + 128u; EnqReq(q, obj); uint32_t ev = *reinterpret_cast<const uint32_t*>(arg0 + 68); EvtSignal(ev); CsLeave(cs); return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0033F960
+void CsEnter(uint32_t);
+void CsLeave(uint32_t);
+void MemClr(void*, uint32_t);
+void InitSyncData(void*);
+int32_t EnqReq(int32_t, void*);
+void EvtSignal(uint32_t);
+void EvtWait(uint32_t);
+void EvtClear(uint32_t);
+void ThrYield(void);
+int32_t PollDataFin(void*, uint32_t);
+extern "C" int32_t YellowAuto_0033f960(uint8_t* arg0, const uint8_t* arg1) __asm__("_ZN4gfl22fs16AsyncFileManager19SyncArcFileLoadDataERKNS1_18ArcFileLoadDataReqE");
+extern "C" int32_t YellowAuto_0033f960(uint8_t* arg0, const uint8_t* arg1) {
+uint32_t rf = *reinterpret_cast<const uint32_t*>(arg1 + 12); uint32_t key = *reinterpret_cast<const uint32_t*>(arg1 + 16); uint32_t a0 = *reinterpret_cast<const uint32_t*>(arg1 + 0); uint32_t a4 = *reinterpret_cast<const uint32_t*>(arg1 + 4); uint32_t a8 = *reinterpret_cast<const uint32_t*>(arg1 + 8); uint32_t a20 = *reinterpret_cast<const uint32_t*>(arg1 + 20); uint32_t a24 = *reinterpret_cast<const uint32_t*>(arg1 + 24); uint32_t a28 = *reinterpret_cast<const uint32_t*>(arg1 + 28); uint32_t a32 = *reinterpret_cast<const uint32_t*>(arg1 + 32); uint32_t a36 = *reinterpret_cast<const uint32_t*>(arg1 + 36); uint32_t a40 = *reinterpret_cast<const uint32_t*>(arg1 + 40); uint32_t a44 = *reinterpret_cast<const uint32_t*>(arg1 + 44); uint32_t a48 = *reinterpret_cast<const uint32_t*>(arg1 + 48); uint32_t a52 = *reinterpret_cast<const uint32_t*>(arg1 + 52); uint32_t a56 = *reinterpret_cast<const uint32_t*>(arg1 + 56); uint32_t drv = rf & 255u; if (drv == 255u) { drv = static_cast<uint32_t>(*(arg0 + 24)); drv &= 255u; } uint32_t merged = (rf & 4294967040u) | drv; uint8_t buf[80]; MemClr(static_cast<void*>(buf), 80u); InitSyncData(static_cast<void*>(buf)); uint8_t* o = buf; *reinterpret_cast<uint32_t*>(o + 16) = a0; *reinterpret_cast<uint32_t*>(o + 20) = a4; *reinterpret_cast<uint32_t*>(o + 24) = a8; *reinterpret_cast<uint32_t*>(o + 28) = merged; *reinterpret_cast<uint32_t*>(o + 32) = key; *reinterpret_cast<uint32_t*>(o + 36) = a20; *reinterpret_cast<uint32_t*>(o + 40) = a24; *reinterpret_cast<uint32_t*>(o + 44) = a28; *reinterpret_cast<uint32_t*>(o + 48) = a32; *reinterpret_cast<uint32_t*>(o + 52) = a36; *reinterpret_cast<uint32_t*>(o + 56) = a40; *reinterpret_cast<uint32_t*>(o + 60) = a44; *reinterpret_cast<uint32_t*>(o + 64) = a48; *reinterpret_cast<uint32_t*>(o + 68) = a52; *reinterpret_cast<uint32_t*>(o + 72) = a56; *reinterpret_cast<uint32_t*>(o + 12) = ((merged >> 8) & 255u) + 64u; uint32_t cs40 = *reinterpret_cast<const uint32_t*>(arg0 + 64); CsEnter(cs40); uint8_t fl = *(arg0 + 48); uint32_t wev = 0u; if (fl == 0u) { *(arg0 + 48) = 1; wev = *reinterpret_cast<const uint32_t*>(arg0 + 76); *reinterpret_cast<uint32_t*>(o + 72) = wev; } CsLeave(cs40); uint32_t cs34 = *reinterpret_cast<const uint32_t*>(arg0 + 52); CsEnter(cs34); int32_t q = *reinterpret_cast<const int32_t*>(arg0 + 28); EnqReq(q, static_cast<void*>(o)); uint32_t ev = *reinterpret_cast<const uint32_t*>(arg0 + 68); EvtSignal(ev); CsLeave(cs34); if (wev != 0u) { EvtWait(wev); EvtClear(wev); CsEnter(cs40); *(arg0 + 48) = 0; CsLeave(cs40); } uint32_t n = 0u; int32_t r = 0; while (true) { r = PollDataFin(arg0, key); if (r != 0) { break; } ThrYield(); n = n + 1u; if (n > 2147483645u) { return 0; } } return r;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0033FE48
+void CsEnter(uint32_t);
+void CsLeave(uint32_t);
+void MemClr(void*, uint32_t);
+void InitSyncBuf(void*);
+int32_t EnqReq(int32_t, void*);
+void EvtSignal(uint32_t);
+void EvtWait(uint32_t);
+void EvtClear(uint32_t);
+void ThrYield(void);
+int32_t PollBufFin(void*, uint32_t);
+extern "C" int32_t YellowAuto_0033fe48(uint8_t* arg0, const uint8_t* arg1) __asm__("_ZN4gfl22fs16AsyncFileManager22SyncArcFileLoadDataBufERKNS1_21ArcFileLoadDataBufReqE");
+extern "C" int32_t YellowAuto_0033fe48(uint8_t* arg0, const uint8_t* arg1) {
+uint32_t rf = *reinterpret_cast<const uint32_t*>(arg1 + 12); uint32_t key = *reinterpret_cast<const uint32_t*>(arg1 + 16); uint32_t a0 = *reinterpret_cast<const uint32_t*>(arg1 + 0); uint32_t a4 = *reinterpret_cast<const uint32_t*>(arg1 + 4); uint32_t a8 = *reinterpret_cast<const uint32_t*>(arg1 + 8); uint32_t a20 = *reinterpret_cast<const uint32_t*>(arg1 + 20); uint32_t a24 = *reinterpret_cast<const uint32_t*>(arg1 + 24); uint32_t a28 = *reinterpret_cast<const uint32_t*>(arg1 + 28); uint32_t a32 = *reinterpret_cast<const uint32_t*>(arg1 + 32); uint32_t a36 = *reinterpret_cast<const uint32_t*>(arg1 + 36); uint32_t a40 = *reinterpret_cast<const uint32_t*>(arg1 + 40); uint32_t a44 = *reinterpret_cast<const uint32_t*>(arg1 + 44); uint32_t a48 = *reinterpret_cast<const uint32_t*>(arg1 + 48); uint32_t a52 = *reinterpret_cast<const uint32_t*>(arg1 + 52); uint32_t a56 = *reinterpret_cast<const uint32_t*>(arg1 + 56); uint32_t drv = rf & 255u; if (drv == 255u) { drv = static_cast<uint32_t>(*(arg0 + 24)); drv &= 255u; } uint32_t merged = (rf & 4294967040u) | drv; uint8_t buf[80]; MemClr(static_cast<void*>(buf), 80u); InitSyncBuf(static_cast<void*>(buf)); uint8_t* o = buf; *reinterpret_cast<uint32_t*>(o + 16) = a0; *reinterpret_cast<uint32_t*>(o + 20) = a4; *reinterpret_cast<uint32_t*>(o + 24) = a8; *reinterpret_cast<uint32_t*>(o + 28) = merged; *reinterpret_cast<uint32_t*>(o + 32) = key; *reinterpret_cast<uint32_t*>(o + 36) = a20; *reinterpret_cast<uint32_t*>(o + 40) = a24; *reinterpret_cast<uint32_t*>(o + 44) = a28; *reinterpret_cast<uint32_t*>(o + 48) = a32; *reinterpret_cast<uint32_t*>(o + 52) = a36; *reinterpret_cast<uint32_t*>(o + 56) = a40; *reinterpret_cast<uint32_t*>(o + 60) = a44; *reinterpret_cast<uint32_t*>(o + 64) = a48; *reinterpret_cast<uint32_t*>(o + 68) = a52; *reinterpret_cast<uint32_t*>(o + 72) = a56; *reinterpret_cast<uint32_t*>(o + 12) = ((merged >> 8) & 255u) + 64u; uint32_t cs40 = *reinterpret_cast<const uint32_t*>(arg0 + 64); CsEnter(cs40); uint8_t fl = *(arg0 + 48); uint32_t wev = 0u; if (fl == 0u) { *(arg0 + 48) = 1; wev = *reinterpret_cast<const uint32_t*>(arg0 + 76); *reinterpret_cast<uint32_t*>(o + 72) = wev; } CsLeave(cs40); uint32_t cs34 = *reinterpret_cast<const uint32_t*>(arg0 + 52); CsEnter(cs34); int32_t q = *reinterpret_cast<const int32_t*>(arg0 + 28); EnqReq(q, static_cast<void*>(o)); uint32_t ev = *reinterpret_cast<const uint32_t*>(arg0 + 68); EvtSignal(ev); CsLeave(cs34); if (wev != 0u) { EvtWait(wev); EvtClear(wev); CsEnter(cs40); *(arg0 + 48) = 0; CsLeave(cs40); } uint32_t n = 0u; int32_t r = 0; while (true) { r = PollBufFin(arg0, key); if (r != 0) { break; } ThrYield(); n = n + 1u; if (n > 2147483645u) { return 0; } } return r;
+}
+#endif

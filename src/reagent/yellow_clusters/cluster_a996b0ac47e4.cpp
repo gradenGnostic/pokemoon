@@ -51,3 +51,23 @@ _h = AddRequestSequenceInternal(_m1, _seq);
 return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003C9128
+void* operator_new(uint32_t, void*);
+void* __aeabi_vec_ctor_nocookie_nodtor(void*, uint32_t, uint32_t, uint32_t);
+void __aeabi_memclr4(void*, uint32_t);
+void* GetInstance();
+void Initialize(void*, void*);
+extern "C" uint8_t* YellowAuto_003c9128(uint8_t* arg0, void* arg1, void* arg2) __asm__("_ZN6NetApp11BattleVideo24BattleVideoRequestClientC1EPNS0_27BattleVideoResponseListenerEPN4gfl24heap11CtrHeapBaseE");
+extern "C" uint8_t* YellowAuto_003c9128(uint8_t* arg0, void* arg1, void* arg2) {
+*reinterpret_cast<uint32_t*>(arg0 + 0x14) = 0u; *reinterpret_cast<uint32_t*>(arg0 + 0x00) = *reinterpret_cast<uint32_t*>(0x003C91FC); *reinterpret_cast<void**>(arg0 + 0x10) = arg1; *reinterpret_cast<void**>(arg0 + 0x18) = arg2; *reinterpret_cast<uint32_t*>(arg0 + 0x7C) = 0u; *reinterpret_cast<uint32_t*>(arg0 + 0x08) = 0u; *reinterpret_cast<uint32_t*>(arg0 + 0x0C) = 0u; *reinterpret_cast<void**>(arg0 + 0x14) = operator_new(*reinterpret_cast<uint32_t*>(0x003C9200), arg2); if (*reinterpret_cast<void**>(arg0 + 0x14) != (void*)0) { *reinterpret_cast<void**>(arg0 + 0x14) = reinterpret_cast<uint8_t*>(__aeabi_vec_ctor_nocookie_nodtor(reinterpret_cast<uint8_t*>(*reinterpret_cast<void**>(arg0 + 0x14)) + 0x9C, *reinterpret_cast<uint32_t*>(0x003C9204), 0x24u, 4u)) - 0x9C; } __aeabi_memclr4(*reinterpret_cast<void**>(arg0 + 0x14), *reinterpret_cast<uint32_t*>(0x003C9200)); __aeabi_memclr4(arg0 + 0x20, 0x50u); __aeabi_memclr4(arg0 + 0x70, 10u); if (GetInstance() != (void*)0) { Initialize(GetInstance(), *reinterpret_cast<void**>(arg0 + 0x18)); } return arg0;
+}
+#endif

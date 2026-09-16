@@ -35,3 +35,20 @@ extern "C" bool YellowAuto_004a2fe0(const uint8_t* arg0) {
 if (*(uint8_t*)(arg0 + 0x94) != 0 && *(uint8_t**)(arg0 + 0x1c) != 0 && ((int32_t (*)(uint8_t*))(*(uint32_t*)(*(uint8_t**)(arg0 + 0x1c) + 0x18)))(*(uint8_t**)(arg0 + 0x1c)) != 0) return true; return false;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E8550
+extern uint32_t* PTR_003E8568;
+extern uint32_t DAT_003E856C;
+extern "C" void YellowAuto_003e8550(uint8_t* arg0) __asm__("_ZN6System6Camera19CModelViewerInFrame19ResetCameraYawPitchEv");
+extern "C" void YellowAuto_003e8550(uint8_t* arg0) {
+*reinterpret_cast<uint32_t*>(arg0 + 0x28) = *PTR_003E8568; *reinterpret_cast<uint32_t*>(arg0 + 0x2C) = DAT_003E856C;
+}
+#endif

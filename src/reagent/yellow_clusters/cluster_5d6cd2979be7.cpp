@@ -68,3 +68,52 @@ if (*reinterpret_cast<uint32_t*>(arg0 + 0x38) != 0) { operator_delete__(reinterp
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0042EFBC
+void FUN_00435c90(uint8_t*);
+extern "C" void YellowAuto_0042efbc(uint8_t* arg0, uint8_t* arg1) __asm__("_ZN8PokeTool15PokeModelSystem11DeleteModelEPNS_9PokeModelE");
+extern "C" void YellowAuto_0042efbc(uint8_t* arg0, uint8_t* arg1) {
+if (*(uint8_t**)(arg0 + 0x5c) != (uint8_t*)0) {
+int32_t n = *(int32_t*)(arg0 + 0x10);
+if (n > 0) {
+uint8_t* f = *(uint8_t**)(arg0 + 0x64);
+int32_t* a = *(int32_t**)(arg0 + 0x5c);
+int32_t k = *(int32_t*)(arg1 + 0x121c);
+for (int32_t i = 0; i < n; i++) {
+if (*(uint8_t*)(f + i) == (uint8_t)1 && *(a + i) == k) {
+*(uint8_t*)(f + i) = (uint8_t)0;
+break;
+}
+}
+}
+}
+uint8_t* l = *(uint8_t**)(arg0 + 0x14);
+uint8_t* h = *(uint8_t**)l;
+uint8_t* c = *(uint8_t**)(h + 4);
+while (c != h) {
+uint8_t* nx = *(uint8_t**)(c + 4);
+uint8_t* p = *(uint8_t**)(c + 8);
+if (p == arg1 && c != *(uint8_t**)l) {
+*(uint8_t**)(*(uint8_t**)(c + 0) + 4) = nx;
+*(uint8_t**)(nx + 0) = *(uint8_t**)(c + 0);
+*(uint8_t*)(c + 12) = (uint8_t)0;
+*(uint8_t**)(c + 0) = (uint8_t*)0;
+*(uint8_t**)(c + 4) = (uint8_t*)0;
+*(int32_t*)(l + 16) = *(int32_t*)(l + 16) - (int32_t)1;
+}
+c = nx;
+}
+FUN_00435c90(arg1);
+if (arg1 != (uint8_t*)0) {
+(*(void(***)(uint8_t*))arg1)[1](arg1);
+}
+}
+#endif

@@ -43,3 +43,19 @@ extern "C" void YellowAuto_0045ce34(uint8_t* arg0, void* arg1) {
 *(uint32_t *)(arg0 + 52) = 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045C854
+void SetFrame(void* arg0, int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4);
+extern "C" void YellowAuto_0045c854(uint8_t* arg0, int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) __asm__("_ZN9NetAppLib4Util22NetAppPokeModelUtility16SetFramePositionEiiii");
+extern "C" void YellowAuto_0045c854(uint8_t* arg0, int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
+if (*(void**)(arg0 + 0x30) != (void*)0) SetFrame(*(void**)(arg0 + 0x30), arg1, arg2, arg3, arg4);
+}
+#endif

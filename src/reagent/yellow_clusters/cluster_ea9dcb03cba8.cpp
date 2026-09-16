@@ -156,3 +156,56 @@ if (v == 2) return true;
 return false;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F2044
+void Update(uint8_t *);
+void SetAutoBlinkMode(uint8_t *, uint32_t);
+extern const uint32_t DAT_002F2098;
+extern "C" void YellowAuto_002f2044(uint8_t* arg0) __asm__("_ZN3app4tool16CharaSimpleModel12PlayEyeAnimeEv");
+extern "C" void YellowAuto_002f2044(uint8_t* arg0) {
+if (arg0[4] != (uint8_t)2) Update(arg0);
+if (arg0[0x27] != (uint8_t)1 && arg0[4] == (uint8_t)2) {
+SetAutoBlinkMode(arg0 + 0x74, (uint32_t)2);
+*(uint32_t *)(arg0 + 0x184) = DAT_002F2098;
+}
+arg0[0x22] = (uint8_t)1;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F2178
+void Update(uint8_t *);
+float GetAnimationFrame(const uint8_t *, uint32_t, uint32_t);
+extern "C" uint32_t YellowAuto_002f2178(uint8_t* arg0) __asm__("_ZN3app4tool16CharaSimpleModel22GetNowMotionAnimeFrameEv");
+extern "C" uint32_t YellowAuto_002f2178(uint8_t* arg0) {
+if (arg0[4] != (uint8_t)2) Update(arg0);
+if (arg0[0x27] != (uint8_t)1 && arg0[4] == (uint8_t)2) {
+float f = GetAnimationFrame(arg0 + 0x74, (uint32_t)0, (uint32_t)31);
+return (uint32_t)f;
+}
+return (uint32_t)0;
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F2C74
+void sub_0040f3d8(uint8_t* arg0);
+extern "C" void YellowAuto_002f2c74(uint8_t* arg0) __asm__("_ZN3app4tool16CharaSimpleModelC1Ev");
+extern "C" void YellowAuto_002f2c74(uint8_t* arg0) {
+*(uint16_t*)(arg0+0x44)=65535U; *(uint16_t*)(arg0+0x46)=65535U; *(uint16_t*)(arg0+0x48)=65535U; *(uint16_t*)(arg0+0x4A)=65535U; *(uint16_t*)(arg0+0x4C)=65535U; *(uint16_t*)(arg0+0x4E)=65535U; *(uint16_t*)(arg0+0x50)=65535U; *(uint16_t*)(arg0+0x52)=65535U; *(uint16_t*)(arg0+0x54)=65535U; *(uint16_t*)(arg0+0x56)=65535U; *(uint16_t*)(arg0+0x58)=65535U; *(uint16_t*)(arg0+0x5A)=65535U; *(uint16_t*)(arg0+0x5C)=65535U; *(uint16_t*)(arg0+0x5E)=65535U; *(uint16_t*)(arg0+0x60)=65535U; *(uint16_t*)(arg0+0x62)=65535U; *(uint16_t*)(arg0+0x64)=65535U; *(uint16_t*)(arg0+0x66)=65535U; *(uint16_t*)(arg0+0x68)=65535U; *(uint8_t*)(arg0+0x6A)=0; *(uint8_t*)(arg0+0x6B)=0; sub_0040f3d8(arg0+0x74); *(uint16_t*)(arg0+0xD5C)=65535U; *(uint16_t*)(arg0+0xD5E)=65535U; *(uint16_t*)(arg0+0xD60)=65535U; *(uint16_t*)(arg0+0xD62)=65535U; *(uint16_t*)(arg0+0xD64)=65535U; *(uint16_t*)(arg0+0xD66)=65535U; *(uint16_t*)(arg0+0xD68)=65535U; *(uint16_t*)(arg0+0xD6A)=65535U; *(uint16_t*)(arg0+0xD6C)=65535U; *(uint16_t*)(arg0+0xD6E)=65535U; *(uint16_t*)(arg0+0xD70)=65535U; *(uint16_t*)(arg0+0xD72)=65535U; *(uint16_t*)(arg0+0xD74)=65535U; *(uint16_t*)(arg0+0xD76)=65535U; *(uint16_t*)(arg0+0xD78)=65535U; *(uint16_t*)(arg0+0xD7A)=65535U; *(uint16_t*)(arg0+0xD7C)=65535U; *(uint16_t*)(arg0+0xD7E)=65535U; *(uint16_t*)(arg0+0xD80)=65535U; *(uint8_t*)(arg0+0xD82)=0; *(uint8_t*)(arg0+0xD83)=0; *(uint32_t*)(arg0+0xD8C)=0; *(uint32_t*)(arg0+0xD90)=0; *(uint8_t*)(arg0+0xD94)=3; *(uint8_t*)(arg0+0xD95)=3; *(uint8_t*)(arg0+0xD96)=3; *(uint32_t*)(arg0+0xD98)=0; *(uint32_t*)(arg0+0xD9C)=0; *(uint32_t*)(arg0+0xDA0)=0; *(uint32_t*)(arg0+0xDA4)=0; *(uint32_t*)(arg0+0xDA8)=0; *(uint32_t*)(arg0+0x00)=4294967295U; *(uint8_t*)(arg0+0x04)=0; *(uint32_t*)(arg0+0x08)=4294967295U; *(uint32_t*)(arg0+0x0C)=4294967295U; *(uint32_t*)(arg0+0x10)=0; *(uint8_t*)(arg0+0x14)=0; *(uint32_t*)(arg0+0x18)=0; *(uint8_t*)(arg0+0x1C)=0; *(uint8_t*)(arg0+0x1D)=0; *(uint8_t*)(arg0+0x1E)=0; *(uint8_t*)(arg0+0x1F)=0; *(uint8_t*)(arg0+0x20)=0; *(uint8_t*)(arg0+0x21)=0; *(uint8_t*)(arg0+0x22)=0; *(uint8_t*)(arg0+0x23)=1; *(uint8_t*)(arg0+0x24)=1; *(uint8_t*)(arg0+0x25)=1; *(uint8_t*)(arg0+0x26)=1; *(uint8_t*)(arg0+0x27)=0; *(uint32_t*)(arg0+0x40)=4294967295U; *(uint32_t*)(arg0+0x6C)=0; *(uint32_t*)(arg0+0x70)=0; *(uint32_t*)(arg0+0xD84)=0; *(uint32_t*)(arg0+0xD88)=0; *(uint32_t*)(arg0+0xDAC)=0; *(uint32_t*)(arg0+0xDB0)=0;
+}
+#endif

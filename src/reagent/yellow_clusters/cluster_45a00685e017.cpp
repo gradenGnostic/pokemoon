@@ -59,3 +59,18 @@ extern "C" void YellowAuto_002ea6c0(uint8_t* arg0, void* arg1, uint32_t arg2, bo
 if (*(arg0 + 0x158) != 8) { GetString(arg1, arg2, reinterpret_cast<void*>(*reinterpret_cast<uint32_t*>(arg0 + *(arg0 + 0x158) * 0x10 + 0xD8))); *(arg0 + *(arg0 + 0x158) * 0x10 + 0xDD) = arg3; *(arg0 + *(arg0 + 0x158) * 0x10 + 0xDC) = arg4; *reinterpret_cast<uint32_t*>(arg0 + *(arg0 + 0x158) * 0x10 + 0xE0) = arg5; *(arg0 + 0x158) = static_cast<uint8_t>(*(arg0 + 0x158) + 1); return; } GFLassert(0, 0, 0, 0); return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E76BC
+extern "C" void YellowAuto_002e76bc(uint8_t* arg0) __asm__("_ZN3app4tool10MenuWindow13RemoveSubViewEv");
+extern "C" void YellowAuto_002e76bc(uint8_t* arg0) {
+(void)arg0; return;
+}
+#endif

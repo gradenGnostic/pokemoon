@@ -58,3 +58,35 @@ if (FUN_004a8c24(arg0, arg1, 1, arg3, arg4) != 0) return true;
 return false;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A9020
+extern "C" bool YellowAuto_004a9020(const uint8_t* arg0, uint32_t arg1) __asm__("_ZNK8Savedata9ZukanData14GetPokeGetFlagE6MonsNo");
+extern "C" bool YellowAuto_004a9020(const uint8_t* arg0, uint32_t arg1) {
+if (arg1 == 0) return false;
+if (arg1 > *(const uint32_t*)0x004A90A4) return false;
+uint32_t v = static_cast<uint16_t>(arg1 - 1);
+return ((static_cast<uint32_t>(*(arg0 + 0x8C + (v >> 3))) >> (v & 7U)) & 1U) != 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A9FD8
+uint8_t GetLang();
+extern "C" bool YellowAuto_004a9fd8(const uint8_t* arg0, int32_t arg1, uint32_t arg2) __asm__("_ZNK8Savedata9ZukanData20GetTextVersionUpFlagE6MonsNoj");
+extern "C" bool YellowAuto_004a9fd8(const uint8_t* arg0, int32_t arg1, uint32_t arg2) {
+uint32_t lang = GetLang();
+if (lang == arg2) return true;
+if (arg2 > 10 || arg2 == 6 || arg2 == 0) return false;
+uint32_t a = arg2;
+if (a >= 7) a -= 1;
+uint32_t v = static_cast<uint16_t>((arg1 - 1) * 9 + a - 1);
+return ((static_cast<uint32_t>(*(arg0 + 0x554 + (v >> 3))) >> (v & 7U)) & 1U) != 0;
+}
+#endif

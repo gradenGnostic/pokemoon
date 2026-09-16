@@ -153,3 +153,127 @@ func_0031ecac(q, (const uint8_t*)(b + o + 0xE41));
 return q;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015DAAC
+void* heap_alloc(void*, uint32_t);
+void memcpy4(void*, void*, uint32_t);
+void heap_free(void*);
+void* get_ext_save(void*);
+uint32_t ext_slot_valid(void*, uint32_t, int32_t);
+uint8_t ext_slot_read(void*, uint32_t, int32_t, void*, uint32_t);
+uint8_t rec_validate(uint8_t*, uint32_t, uint32_t);
+uint8_t ext_slot_flag(void*, uint32_t, int32_t);
+extern "C" uint32_t YellowAuto_0015daac(uint8_t* arg0, void* arg1, uint8_t* arg2, int32_t arg3, bool arg4) __asm__("_ZN11ExtSavedata22BattleRecorderSaveData32CheckAllSaveDataValidityContinueEPN4gfl24heap11CtrHeapBaseEPbib");
+extern "C" uint32_t YellowAuto_0015daac(uint8_t* arg0, void* arg1, uint8_t* arg2, int32_t arg3, bool arg4) {
+if (arg4) {
+if (arg3 == 0) arg3 = 1;
+arg0[25] = 1;
+*(uint32_t*)(arg0 + 28) = (uint32_t)arg3;
+*(uint32_t*)(arg0 + 32) = 0;
+arg0[26] = 1;
+}
+if (!arg4 && arg0[25] == 0) return 0;
+if (arg1 == (void*)0) arg1 = (void*)(*(uint32_t*)(arg0 + 0));
+uint32_t _ret = 1;
+void* _tmp = heap_alloc(arg1, 11200);
+memcpy4(_tmp, (void*)(*(uint32_t*)(arg0 + 8)), 11200);
+int32_t _cur = (int32_t)(*(uint32_t*)(arg0 + 32));
+int32_t _cnt = (int32_t)(*(uint32_t*)(arg0 + 28));
+int32_t _end = _cur + _cnt;
+while (_cur < _end) {
+void* _sys = get_ext_save((void*)(*(uint32_t*)(arg0 + 4)));
+uint32_t _v = ext_slot_valid(_sys, 0, _cur);
+if (_v != 0) {
+uint8_t _b = ext_slot_read(_sys, 0, _cur, (void*)(*(uint32_t*)(arg0 + 8)), 11200);
+uint8_t _c = rec_validate(arg0, _b, 0);
+if (_c == 0) {
+*(uint32_t*)(arg0 + 16) = (uint32_t)_cur;
+arg0[12] = 1;
+} else {
+if (_c == 6) {
+arg0[26] = 0;
+*(uint32_t*)(arg0 + 20) = 4294967295;
+void* _sys2 = get_ext_save((void*)(*(uint32_t*)(arg0 + 4)));
+uint8_t _b2 = ext_slot_flag(_sys2, 0, _cur);
+rec_validate(arg0, _b2, 0);
+}
+}
+}
+if (_cur + 1 > 99) {
+_ret = 0;
+arg0[25] = 0;
+break;
+}
+_cur = _cur + 1;
+}
+*(uint32_t*)(arg0 + 32) = (uint32_t)_cur;
+memcpy4((void*)(*(uint32_t*)(arg0 + 8)), _tmp, 11200);
+*(uint32_t*)(arg0 + 16) = 4294967295;
+heap_free(_tmp);
+if (arg2 != (uint8_t*)0) *arg2 = arg0[26];
+return _ret;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0015DCCC
+void* get_ext_save(void*);
+uint8_t sub_15de84(uint8_t*, int32_t, bool);
+uint32_t ext_slot_valid(void*, uint32_t, int32_t);
+uint32_t sub_15b2e0(void*, uint32_t, int32_t, uint32_t);
+uint8_t rec_validate(uint8_t*, uint32_t, uint32_t);
+uint32_t sub_15be48(void*, uint32_t, int32_t, void*, uint32_t);
+int32_t sub_15b448(void*, void*, uint32_t, int32_t, void*, uint32_t);
+extern "C" uint8_t YellowAuto_0015dccc(uint8_t* arg0, bool arg1) __asm__("_ZN11ExtSavedata22BattleRecorderSaveData8SaveDataEb");
+extern "C" uint8_t YellowAuto_0015dccc(uint8_t* arg0, bool arg1) {
+if (arg0[12] == 0) return 10;
+void* _sys = get_ext_save((void*)(*(uint32_t*)(arg0 + 4)));
+int32_t _slot = (int32_t)(*(uint32_t*)(arg0 + 16));
+if (_slot != -1) return sub_15de84(arg0, _slot, arg1);
+int32_t _i = 0;
+while (ext_slot_valid(_sys, 0, _i) != 0) {
+_i = _i + 1;
+if (_i > 99) return 2;
+}
+if (arg0[12] == 0) return 10;
+if (arg1 == 0 && arg0[24] != 0) return 8;
+_sys = get_ext_save((void*)(*(uint32_t*)(arg0 + 4)));
+if (_i > 99) return 2;
+if (ext_slot_valid(_sys, 0, _i) != 0) {
+*(uint32_t*)(arg0 + 20) = 4294967295;
+} else {
+uint32_t _c = sub_15b2e0(_sys, 0, _i, 11200);
+uint8_t _r = rec_validate(arg0, _c, 0);
+*(uint32_t*)(arg0 + 20) = 4294967295;
+if (_r > 1) return _r;
+}
+if (arg1 == 0) {
+uint32_t _b = sub_15be48(_sys, 0, _i, (void*)(*(uint32_t*)(arg0 + 8)), 11200);
+uint8_t _r2 = rec_validate(arg0, _b, 1);
+arg0[24] = 0;
+if (_r2 < 2) {
+*(uint32_t*)(arg0 + 16) = (uint32_t)_i;
+return _r2;
+}
+*(uint32_t*)(arg0 + 16) = 4294967295;
+return _r2;
+} else {
+int32_t _q = sub_15b448(_sys, (void*)(*(uint32_t*)(arg0 + 0)), 0, _i, (void*)(*(uint32_t*)(arg0 + 8)), 11200);
+uint8_t _ret = 10;
+if (_q != 0) {
+*(uint32_t*)(arg0 + 36) = 0;
+arg0[24] = 1;
+_ret = 11;
+}
+*(uint32_t*)(arg0 + 16) = 4294967295;
+return _ret;
+}
+}
+#endif

@@ -147,3 +147,56 @@ i = i + 1U;
 return 0U;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043DD20
+void* DateInit(void* arg0);
+void DateNow(void* arg0);
+void DateGetTicks(const void* arg0, uint32_t* arg1, uint32_t* arg2);
+extern "C" bool YellowAuto_0043dd20(uint8_t* arg0) __asm__("_ZN8Savedata16QRReaderSaveData18UseBatteryOnQRScanEv");
+extern "C" bool YellowAuto_0043dd20(uint8_t* arg0) {
+uint8_t cur = *(arg0 + 10);
+if (cur < 10)
+return false;
+*(arg0 + 10) = (uint8_t)(cur - 10);
+uint8_t buf[8];
+void* d = DateInit((void*)buf);
+DateNow(d);
+uint32_t lo = 0;
+uint32_t hi = 0;
+DateGetTicks((const void*)buf, &lo, &hi);
+*(uint32_t*)(arg0 + 360) = lo;
+*(uint32_t*)(arg0 + 364) = hi;
+return true;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043DCA8
+void* DateInit(void* arg0);
+void DateNow(void* arg0);
+void DateGetTicks(const void* arg0, uint32_t* arg1, uint32_t* arg2);
+extern "C" bool YellowAuto_0043dca8(uint8_t* arg0) __asm__("_ZN8Savedata16QRReaderSaveData17ActivateFieldScanEb");
+extern "C" bool YellowAuto_0043dca8(uint8_t* arg0) {
+uint8_t cnt = *(arg0 + 11);
+if (cnt < 100)
+return *(arg0 + 9) == 2;
+*(arg0 + 9) = 2;
+uint8_t buf[8];
+void* d = DateInit((void*)buf);
+DateNow(d);
+uint32_t lo = 0;
+uint32_t hi = 0;
+DateGetTicks((const void*)buf, &lo, &hi);
+*(uint32_t*)(arg0 + 16) = lo;
+*(uint32_t*)(arg0 + 20) = hi;
+*(arg0 + 11) = (uint8_t)(cnt - 100);
+return *(arg0 + 9) == 2;
+}
+#endif

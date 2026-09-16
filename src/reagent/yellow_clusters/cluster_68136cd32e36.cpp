@@ -102,3 +102,32 @@ cur = nxt;
 *(arg0 + 0xb4) = 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E4210
+extern "C" void YellowAuto_003e4210(void* arg0) __asm__("_ZN6System10MotionBlurC1Ev");
+extern "C" void YellowAuto_003e4210(void* arg0) {
+*(uint32_t*)(arg0 + 0x38) = 0; *(uint32_t*)(arg0 + 0x3c) = 0; *(uint8_t*)(arg0 + 0xb4) = 1; *(uint8_t*)(arg0 + 0xb5) = 0; *(uint8_t*)(arg0 + 0xb6) = 0; *(uint32_t*)(arg0 + 0xb8) = 0; *(uint32_t*)(arg0 + 0xbc) = 0; *(uint8_t*)(arg0 + 0xc1) = 0; *(uint8_t*)(arg0 + 0xc2) = 0; *(uint32_t*)(arg0 + 0xd0) = 0; return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E449C
+extern "C" void YellowAuto_003e449c(void* arg0) __asm__("_ZN6System10MotionBlurD1Ev");
+extern "C" void YellowAuto_003e449c(void* arg0) {
+*(uint32_t*)(arg0 + 0x118); return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003E3A38
+extern "C" uint32_t YellowAuto_003e3a38(void* arg0) __asm__("_ZN6System10MotionBlur26InitializeMotionBlurUpdateEv");
+extern "C" uint32_t YellowAuto_003e3a38(void* arg0) {
+if (*(uint32_t*)(arg0 + 0x38) == 0) return 1; if (*(uint32_t*)(arg0 + 0xd8) != 0) return 1; *(uint8_t*)(arg0 + 0xc1) = 1; return 1;
+}
+#endif

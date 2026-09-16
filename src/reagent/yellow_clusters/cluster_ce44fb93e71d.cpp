@@ -81,3 +81,33 @@ float o7 = k * s;
 return (o0 == k && o1 == k && o2 == k && o3 == k && o4 == k && o5 == k && o6 == k && o7 == k) ? 0u : 1u;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043346C
+void SetAmbientColor(uint8_t*, const void*);
+extern "C" void YellowAuto_0043346c(uint8_t* arg0, int32_t arg1) __asm__("_ZN8PokeTool9PokeModel11SetEnvColorENS_13POKE_ENV_TYPEE");
+extern "C" void YellowAuto_0043346c(uint8_t* arg0, int32_t arg1) {
+uint32_t d0 = *reinterpret_cast<const uint32_t*>(0x004334D0);
+uint32_t d1 = *reinterpret_cast<const uint32_t*>(0x004334D4);
+uint32_t d2 = *reinterpret_cast<const uint32_t*>(0x004334D8);
+uint32_t sel = d0;
+if (arg1 != 0) {
+if (arg1 == 1) sel = d1;
+else if (arg1 == 2 || arg1 == 3) sel = d2;
+}
+uint32_t buf[4];
+buf[0] = sel;
+buf[1] = sel;
+buf[2] = sel;
+buf[3] = d0;
+*reinterpret_cast<uint32_t*>(arg0 + 0x2CC) = 1u;
+SetAmbientColor(arg0, buf);
+}
+#endif

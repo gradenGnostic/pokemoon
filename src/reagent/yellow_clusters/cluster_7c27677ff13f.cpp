@@ -248,3 +248,60 @@ extern "C" void YellowAuto_0034aad8(uint8_t* arg0, uint32_t* arg1) {
 if ((*(uint32_t*)(arg0 + 0x2C0) & 0x8U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFF7U; arg1[0] = FUN_00477fcc(arg0 + 0x1F4, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x200U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFDFFU; arg1[0] = FUN_004776bc(arg0 + 0x1D4, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x800U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFF7FFU; arg1[0] = FUN_00476648(arg0 + 0x1B0, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x80U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFF7FU; arg1[0] = FUN_00476588(arg0 + 0x154, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x40U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFBFU; arg1[0] = FUN_00476a98(arg0 + 0x184, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x2U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFFDU; arg1[0] = FUN_004764fc(arg0 + 0x18C, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x1U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFFEU; arg1[0] = FUN_00476af0(arg0 + 0x1A8, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x400U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFBFFU; arg1[0] = FUN_004766c4(arg0 + 0x1B8, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x100U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFEFFU; arg1[0] = FUN_004768e4(arg0 + 0x1D0, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x10U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFEFU; arg1[0] = FUN_004755b4(*(uint32_t*)(arg0 + 0x1C) + 8U, arg1[0]); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x20U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFFFDFU; uint32_t t0 = *(uint32_t*)(*(uint32_t*)(arg0 + 0x20) + 8U); uint32_t t1 = *(uint32_t*)(*(uint32_t*)(arg0 + 0x20) + 12U); uint32_t cur = arg1[0]; if (cur != 0U && t0 != 0U) { int32_t l; uint32_t nn = ((cur - arg1[2]) & 0xFFFFFFFCU) + 0x18U; uint32_t pp = FUN_0016ddd0(cur, nn); arg1[0] = pp; uint32_t qq = FUN_0016de1c(pp, &l, t0, t1); arg1[0] = qq; uint32_t o3 = arg1[3]; uint32_t o2 = arg1[2]; uint32_t o4 = arg1[4]; uint32_t o1 = arg1[1]; if (o3 != 0U) { *(uint32_t*)o3 = (qq - o2) >> 3; } arg1[2] = qq; arg1[3] = (uint32_t)l; if (o4 == 0U) { arg1[4] = (qq - o1) & 0xFFFFFFFCU; } } } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x1000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFEFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x34), arg0 + 0x204, 0U, *(uint32_t*)(arg0 + 0x28)); arg1[0] = FUN_00477860(arg0 + 0x204, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x2000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFDFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x38), arg0 + 0x204, 1U, *(uint32_t*)(arg0 + 0x2C)); arg1[0] = FUN_00477af8(arg0 + 0x240, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x4000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFFBFFFU; FUN_004991bc(*(uint32_t*)(arg0 + 0x3C), arg0 + 0x204, 2U, *(uint32_t*)(arg0 + 0x30)); arg1[0] = FUN_00477cc0(arg0 + 0x264, arg1[0], 0U); } if ((*(uint32_t*)(arg0 + 0x2C0) & 0x8000U) != 0U) { *(uint32_t*)(arg0 + 0x2C0) = *(uint32_t*)(arg0 + 0x2C0) & 0xFFFF7FFFU; arg1[0] = FUN_0047776c(arg0 + 0x204, arg1[0], 1U); }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0034BDF4
+uint32_t FUN_0016de74(uint32_t);
+void FUN_00523ef4(uint8_t*, uint8_t*, uint8_t*);
+void FUN_00522b9c(uint8_t*);
+uint32_t FUN_005230e8(uint8_t*);
+uint8_t* FUN_0016ddb4(uint8_t*, uint32_t);
+uint32_t FUN_0051febc(uint8_t*);
+void GFLassert(uint32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void YellowAuto_0034bdf4(uint8_t* arg0) __asm__("_ZN4gfl23gfx3ctr5CTRGL9EndScene_Ev");
+extern "C" void YellowAuto_0034bdf4(uint8_t* arg0) {
+int32_t v0 = *(int32_t*)(arg0 + 224);
+uint32_t L = *(uint32_t*)0x0034BE9C;
+uint8_t* r2 = (uint8_t*)L;
+uint8_t* g0 = (uint8_t*)*(uint32_t*)r2;
+*(uint32_t*)(g0 + 684) = FUN_0016de74(*(uint32_t*)(g0 + 684));
+uint8_t* g1 = g0 + 684;
+FUN_00523ef4(arg0, arg0 + v0 * 76 + 72, g1);
+FUN_00522b9c(arg0 + v0 * 76 + 80);
+uint32_t v1 = FUN_005230e8(arg0 + v0 * 76 + 80);
+uint32_t tmp[6];
+uint8_t* p = FUN_0016ddb4((uint8_t*)tmp, v1);
+*(uint32_t*)(g1 + 0) = *(uint32_t*)(p + 0);
+*(uint32_t*)(g1 + 4) = *(uint32_t*)(p + 4);
+*(uint32_t*)(g1 + 8) = *(uint32_t*)(p + 8);
+*(uint32_t*)(g1 + 12) = *(uint32_t*)(p + 12);
+*(uint32_t*)(g1 + 16) = *(uint32_t*)(p + 16);
+if (FUN_0051febc((uint8_t*)tmp) != 0) GFLassert(0, 0, 0, 0);
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0034A228
+int32_t nngxIsStereoVisionAllowed();
+void FUN_002776b0(uint8_t*, const uint8_t*);
+void FUN_00277660(uint8_t*, const uint8_t*);
+void FUN_00277748(uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint32_t, uint32_t, uint8_t*, uint32_t, uint32_t);
+extern "C" void YellowAuto_0034a228(const uint8_t* arg0, const uint8_t* arg1, uint32_t arg2, uint32_t arg3, uint8_t* arg4, uint8_t* arg5, uint8_t* arg6, uint8_t* arg7) __asm__("_ZN4gfl23gfx3ctr5CTRGL15GetStereoMatrixERKNS_4math8Matrix44ERKNS3_8Matrix34EffPS4_PS7_SA_SB_");
+extern "C" void YellowAuto_0034a228(const uint8_t* arg0, const uint8_t* arg1, uint32_t arg2, uint32_t arg3, uint8_t* arg4, uint8_t* arg5, uint8_t* arg6, uint8_t* arg7) {
+FUN_002776b0((uint8_t*)((uint8_t*)(*(uint32_t*)(*(uint32_t*)0x34A2D4)) + 0x2C4), arg0); FUN_00277660((uint8_t*)((uint8_t*)(*(uint32_t*)(*(uint32_t*)0x34A2D4)) + 0x2C4), arg1); FUN_00277748((uint8_t*)((uint8_t*)(*(uint32_t*)(*(uint32_t*)0x34A2D4)) + 0x2C4), arg4, arg5, arg6, arg2, ((*(uint32_t*)((uint8_t*)(*(uint32_t*)(*(uint32_t*)0x34A2D4)) + 0x328) == 0 || nngxIsStereoVisionAllowed() == 0) ? (*(uint32_t*)0x34A2D8) : arg3), arg7, 1, 1);
+}
+#endif

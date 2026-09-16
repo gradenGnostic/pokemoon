@@ -63,3 +63,25 @@ sub_00395B50(arg0);
 return true;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0049E37C
+extern "C" uint32_t YellowAuto_0049e37c(const uint8_t* arg0, uint16_t arg1) __asm__("_ZNK5Field5World18GetZoneIndexInAreaEt");
+extern "C" uint32_t YellowAuto_0049e37c(const uint8_t* arg0, uint16_t arg1) {
+uint32_t count = *(const uint32_t*)(arg0 + 0x1C); const uint8_t* base = (const uint8_t*)(*(const uint32_t*)(arg0 + 0x20)); uint32_t last = 4294967295U; uint32_t inner = 0; for (uint32_t i = 0; i < count; ++i) { const uint8_t* e = base + i * 4; uint16_t area = *(const uint16_t*)(e + 2); if (area != last) { last = area; inner = 0; } uint16_t id = *(const uint16_t*)(e + 0); if (id == arg1) return inner; inner = inner + 1; } return 0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0049E1D8
+extern "C" const uint8_t* YellowAuto_0049e1d8(const uint8_t* arg0, uint16_t arg1) __asm__("_ZNK5Field5World13GetIDZoneInfoEt");
+extern "C" const uint8_t* YellowAuto_0049e1d8(const uint8_t* arg0, uint16_t arg1) {
+uint32_t count = *(const uint32_t*)(arg0 + 0x1C); const uint8_t* base = (const uint8_t*)(*(const uint32_t*)(arg0 + 0x20)); for (uint32_t i = 0; i < count; ++i) { const uint8_t* e = base + i * 4; if (*(const uint16_t*)e == arg1) return e; } return base;
+}
+#endif

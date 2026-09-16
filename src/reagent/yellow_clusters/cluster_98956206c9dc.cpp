@@ -56,3 +56,50 @@ extern "C" void YellowAuto_003dab98(uint8_t* arg0) {
 if (*(uint32_t *)(arg0 + 0x44) != 0) FUN_0040b620(*(uint32_t *)(arg0 + 0x44)); if (*(uint32_t *)(arg0 + 0x38) != 0) FUN_0040c174(*(uint32_t *)(arg0 + 0x38)); if (*(int8_t *)((*(uint32_t *)(arg0 + 0x3C)) + 0x3) != 0) FUN_003f76c0(*(uint32_t *)(arg0 + 0x3C)); *(uint32_t *)((*(uint32_t *)(arg0 + 0x3C)) + 0x1B8) = 0; *(uint32_t *)(arg0 + 0x34) = 4294967295U; return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003DABE4
+uint32_t helper_00357748();
+uint32_t helper_00357708();
+uint32_t helper_00357738();
+uint32_t helper_00357678();
+void helper_00106398(void*);
+extern "C" uint8_t* YellowAuto_003dabe4(uint8_t* arg0, uint8_t arg1, bool arg2) __asm__("_ZN6NetLib4Wifi17WifiConnectRunnerC1ENS1_11E_EXEC_MODEEb");
+extern "C" uint8_t* YellowAuto_003dabe4(uint8_t* arg0, uint8_t arg1, bool arg2) {
+*(uint32_t*)arg0 = *(uint32_t*)0x3DAC8C;
+*(uint32_t*)(arg0 + 4) = *(uint32_t*)0x3DAC8C + 64;
+*(uint32_t*)(arg0 + 8) = *(uint32_t*)0x3DAC8C + 112;
+arg0[12] = arg1;
+arg0[13] = 0;
+arg0[14] = 0;
+arg0[15] = 0;
+arg0[16] = 0;
+arg0[17] = 0;
+arg0[18] = 0;
+arg0[19] = 0;
+arg0[20] = 0;
+*(uint32_t*)(arg0 + 24) = 0;
+*(uint32_t*)(arg0 + 36) = 0;
+*(uint32_t*)(arg0 + 28) = 0;
+*(uint32_t*)(arg0 + 32) = 0;
+arg0[40] = arg2;
+*(uint32_t*)(arg0 + 44) = 0;
+*(uint32_t*)(arg0 + 48) = 0;
+*(uint32_t*)(arg0 + 52) = 4294967295u;
+arg0[72] = 0;
+*(uint32_t*)(arg0 + 56) = helper_00357748();
+*(uint32_t*)(arg0 + 60) = helper_00357708();
+*(uint32_t*)(arg0 + 68) = helper_00357738();
+*(uint32_t*)(arg0 + 64) = helper_00357678();
+helper_00106398(arg0 + 44);
+*(uint32_t*)(*(uint32_t*)(arg0 + 60) + 440) = (uint32_t)(arg0 + 4);
+return arg0;
+}
+#endif

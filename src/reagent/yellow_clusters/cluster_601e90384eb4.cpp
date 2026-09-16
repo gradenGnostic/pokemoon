@@ -77,3 +77,93 @@ uint8_t* _p2 = GetPane(_lyt, *(uint32_t*)(*(uint32_t*)(arg0 + 0x18) + 4));
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E9C80
+void* GetPane(void*, uint32_t);
+extern "C" void YellowAuto_002e9c80(uint8_t* arg0, const uint8_t* arg1) __asm__("_ZN3app4tool10MenuCursor6SetPosEPN4gfl24math22ExtendedVectorTemplateINS3_33SpecializedExtendedVectorTemplateIN2nn4math4VEC3EEEEE");
+extern "C" void YellowAuto_002e9c80(uint8_t* arg0, const uint8_t* arg1) {
+if (*(void**)(arg0 + 0x10) == (void*)0) return;
+void* v0 = *(void**)(arg0 + 0x10);
+uint32_t v1 = *(uint32_t*)(*(uint8_t**)(arg0 + 0x18) + 4);
+void* v2 = GetPane(v0, v1);
+*(uint32_t*)((uint8_t*)v2 + 0x1C) = *(const uint32_t*)(arg1 + 0);
+*(uint32_t*)((uint8_t*)v2 + 0x20) = *(const uint32_t*)(arg1 + 4);
+*(uint32_t*)((uint8_t*)v2 + 0x24) = *(const uint32_t*)(arg1 + 8);
+*(uint8_t*)((uint8_t*)v2 + 0x44) = (uint8_t)((*(uint8_t*)((uint8_t*)v2 + 0x44) & (uint8_t)0xEF) | (uint8_t)0x10);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E9870
+void* GetLayoutCore(void*);
+void* GetPane(void*, uint32_t);
+extern "C" void YellowAuto_002e9870(uint8_t* arg0, void* arg1, uint8_t* arg2) __asm__("_ZN3app4tool10MenuCursor13PutNonVisibleEPN4gfl23lyt5LytWkEPN2nw3lyt4PaneE");
+extern "C" void YellowAuto_002e9870(uint8_t* arg0, void* arg1, uint8_t* arg2) {
+void* v0 = *(void**)(arg0 + 0x10);
+uint8_t* v1 = *(uint8_t**)(arg0 + 0x18);
+float v2 = *(float*)(arg2 + 0x3C);
+float v3 = *(float*)(arg2 + 0x1C);
+float v4 = *(float*)(arg2 + 0x20);
+float v5 = *(float*)(arg2 + 0x24);
+void* v6 = GetLayoutCore(arg1);
+void* v7 = *(void**)((uint8_t*)v6 + 0x10);
+if (v0 != (void*)0) {
+float v8 = *(float*)(v1 + 0x10);
+if (v2 < v8) v2 = v8;
+uint32_t v9 = *(uint32_t*)(v1 + 4);
+void* v10 = GetPane(v0, v9);
+uint32_t v11 = *(uint32_t*)((uint8_t*)v10 + 0x40);
+void* v12 = GetPane(v0, v9);
+*(float*)((uint8_t*)v12 + 0x3C) = v2;
+*(uint32_t*)((uint8_t*)v12 + 0x40) = v11;
+*(uint8_t*)((uint8_t*)v12 + 0x44) = (uint8_t)((*(uint8_t*)((uint8_t*)v12 + 0x44) & (uint8_t)0xEF) | (uint8_t)0x10);
+}
+uint8_t* v13 = *(uint8_t**)(arg2 + 0x0C);
+while (v13 != (uint8_t*)0 && v13 != (uint8_t*)v7) {
+v3 += *(float*)(v13 + 0x1C);
+v4 += *(float*)(v13 + 0x20);
+v5 += *(float*)(v13 + 0x24);
+v13 = *(uint8_t**)(v13 + 0x0C);
+}
+uint32_t v14 = *(uint32_t*)(*(uint8_t**)(arg0 + 0x18) + 4);
+void* v15 = GetPane(*(void**)(arg0 + 0x10), v14);
+*(uint32_t*)((uint8_t*)v15 + 0x28) = *(uint32_t*)(arg2 + 0x28);
+*(uint32_t*)((uint8_t*)v15 + 0x2C) = *(uint32_t*)(arg2 + 0x2C);
+*(uint32_t*)((uint8_t*)v15 + 0x30) = *(uint32_t*)(arg2 + 0x30);
+*(uint8_t*)((uint8_t*)v15 + 0x44) = (uint8_t)((*(uint8_t*)((uint8_t*)v15 + 0x44) & (uint8_t)0xEF) | (uint8_t)0x10);
+*(uint32_t*)((uint8_t*)v15 + 0x34) = *(uint32_t*)(arg2 + 0x34);
+*(uint32_t*)((uint8_t*)v15 + 0x38) = *(uint32_t*)(arg2 + 0x38);
+*(uint8_t*)((uint8_t*)v15 + 0x44) = (uint8_t)((*(uint8_t*)((uint8_t*)v15 + 0x44) & (uint8_t)0xEF) | (uint8_t)0x10);
+if (*(void**)(arg0 + 0x10) != (void*)0) {
+uint32_t v16 = *(uint32_t*)(*(uint8_t**)(arg0 + 0x18) + 4);
+void* v17 = GetPane(*(void**)(arg0 + 0x10), v16);
+*(float*)((uint8_t*)v17 + 0x1C) = v3;
+*(float*)((uint8_t*)v17 + 0x20) = v4;
+*(float*)((uint8_t*)v17 + 0x24) = v5;
+*(uint8_t*)((uint8_t*)v17 + 0x44) = (uint8_t)((*(uint8_t*)((uint8_t*)v17 + 0x44) & (uint8_t)0xEF) | (uint8_t)0x10);
+}
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002E9DA0
+uint8_t* func_0034fec0(uint8_t*);
+extern "C" void YellowAuto_002e9da0(uint8_t* arg0, void* arg1, void* arg2) __asm__("_ZN3app4tool10MenuCursorC1EPNS_4util4HeapEPPv");
+extern "C" void YellowAuto_002e9da0(uint8_t* arg0, void* arg1, void* arg2) {
+*(void**)(arg0 + 4) = arg1; *(void**)(arg0 + 8) = arg2; *(uint32_t*)(arg0 + 12) = 0; *(uint32_t*)(arg0 + 16) = 0; func_0034fec0(arg0 + 20); *(uint32_t*)(arg0 + 28) = 0; *(uint8_t*)(arg0 + 32) = 0; *(uint8_t*)(arg0 + 33) = 1; *(uint8_t*)(arg0 + 34) = 1;
+}
+#endif

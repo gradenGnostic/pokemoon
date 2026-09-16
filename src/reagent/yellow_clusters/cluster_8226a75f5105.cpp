@@ -35,6 +35,15 @@ typedef short int16_t;
 typedef unsigned int uint32_t;
 typedef int int32_t;
 
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
 #if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045ED6C
 void* HelperAlloc(uint32_t, void*);
 extern "C" void YellowAuto_0045ed6c(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint32_t arg3, bool arg4, bool arg5, uint8_t arg6) __asm__("_ZN9NetAppLib6System15ResourceManager14AddLoadRequestEijjbbN4gfl22fs10ToolDefine11ArcLangType3TagE");

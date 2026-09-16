@@ -118,3 +118,39 @@ __aeabi_vec_ctor_nocookie_nodtor((void*)(arg0 + 0x10), Const_002C8E54, (uint32_t
 return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002C8490
+extern const uint8_t* DAT_002c84c0;
+extern "C" bool YellowAuto_002c8490(uint8_t* arg0, uint32_t arg1) __asm__("_ZN3App4Tool10ItemEffect14IsUpdateTimingEj");
+extern "C" bool YellowAuto_002c8490(uint8_t* arg0, uint32_t arg1) {
+return *(uint16_t*)(arg0 + arg1 * 24 + 26) == *(uint32_t*)(DAT_002c84c0 + (uint32_t)*(arg0 + arg1 * 24 + 16) * 12 + 8);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002C8CF0
+extern void* DAT_002c8dc8;
+void FileClose(void*, uint32_t);
+void FileCloseSync(void*);
+uint32_t IsFileClose(void*);
+extern "C" uint32_t YellowAuto_002c8cf0(uint8_t* arg0, bool arg1) __asm__("_ZN3App4Tool10ItemEffect9TerminateEb");
+extern "C" uint32_t YellowAuto_002c8cf0(uint8_t* arg0, bool arg1) {
+if (*(arg0 + 67) == 0) { if (arg1 == 0) FileClose(DAT_002c8dc8, *(uint32_t*)(*(uint32_t*)arg0 + 4)); else FileCloseSync(DAT_002c8dc8); *(arg0 + 67) = (uint8_t)(*(arg0 + 67) + 1); } if (*(arg0 + 67) == 1) { if (arg1 == 0) { if (IsFileClose(DAT_002c8dc8) == 0) return 0; } *(arg0 + 67) = (uint8_t)(*(arg0 + 67) + 1); } if (*(arg0 + 67) == 2) { if (*(uint32_t*)(arg0 + 12) != 0) { ((void (*)(void*))(*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 12)) + 4)))((void*)(*(uint32_t*)(arg0 + 12))); *(uint32_t*)(arg0 + 12) = 0; } *(arg0 + 67) = (uint8_t)(*(arg0 + 67) + 1); return 1; } if (*(arg0 + 67) == 3) return 1; return 0;
+}
+#endif

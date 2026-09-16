@@ -97,3 +97,47 @@ i = i + 1;
 return cnt;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003D2730
+void FUN_003dffc8(int32_t);
+uint8_t* FUN_00357788();
+int32_t FUN_004aaa90(uint8_t*);
+void FUN_00357758();
+extern "C" void YellowAuto_003d2730() __asm__("_ZN6NetLib17NijiNetworkSystem19RestartBeaconSystemEv");
+extern "C" void YellowAuto_003d2730() {
+int32_t v = *(int32_t*)(*(uint8_t**)(0x3D2778) + 12);
+if (v == 0) return;
+FUN_003dffc8(v);
+uint8_t* p0 = FUN_00357788();
+int32_t v1 = FUN_004aaa90(p0 + 8);
+if (v1 == 3) FUN_00357758();
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00172FF8
+int32_t FUN_00106874(uint32_t*, uint32_t, uint32_t);
+void ThrowFatalErrAll(uint32_t, uint32_t);
+extern "C" uint32_t YellowAuto_00172ff8() __asm__("_ZN6NetLib17NijiNetworkSystem26IsParentalModeOnlyInternetEv");
+extern "C" uint32_t YellowAuto_00172ff8() {
+uint32_t buf[49];
+int32_t r = FUN_00106874(buf, 0xC0, 0xC0000);
+if (r < 0) ThrowFatalErrAll((uint32_t)r, 0x17301C);
+return (buf[0] & 0x10U) >> 4;
+}
+#endif

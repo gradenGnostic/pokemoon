@@ -90,3 +90,50 @@ extern "C" void YellowAuto_004455c4(uint8_t* arg0, uint32_t arg1) {
 *(arg0 + 26) = (uint8_t)(((1u << (arg1 & 255u)) ^ 255u) & *(arg0 + 26));
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004453F8
+extern "C" uint32_t YellowAuto_004453f8(uint8_t* arg0, uint32_t arg1) __asm__("_ZN8Savedata9FieldMenu14GetMenuIconPosENS0_6IconIDE");
+extern "C" uint32_t YellowAuto_004453f8(uint8_t* arg0, uint32_t arg1) {
+uint32_t outer = 0U;
+while (true) {
+uint32_t inner = 0U;
+while (true) {
+uint32_t i = inner + outer * 6U;
+if ((uint32_t)arg0[i + 8U] == arg1) return inner;
+if ((uint32_t)arg0[i + 9U] == arg1) return inner + 1U;
+inner += 2U;
+if (inner >= 6U) break;
+}
+outer += 1U;
+if (outer > 1U) break;
+}
+return 0U;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A8A90
+extern "C" uint32_t YellowAuto_004a8a90(const uint8_t* arg0, uint32_t arg1, uint32_t arg2) __asm__("_ZNK8Savedata9FieldMenu13GetMenuIconIDEjj");
+extern "C" uint32_t YellowAuto_004a8a90(const uint8_t* arg0, uint32_t arg1, uint32_t arg2) {
+if (arg1 > 1U || arg2 > 5U) return 12U;
+return (uint32_t)arg0[arg2 + arg1 * 6U + 8U];
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A8B18
+extern "C" bool YellowAuto_004a8b18(const uint8_t* arg0, uint32_t arg1) __asm__("_ZNK8Savedata9FieldMenu16IsMenuPageEnableEj");
+extern "C" bool YellowAuto_004a8b18(const uint8_t* arg0, uint32_t arg1) {
+if (arg1 > 1U) return false;
+uint32_t w = *(const uint32_t*)(arg0 + 4U);
+uint32_t bits = (w & 15U) >> 2U;
+uint32_t mask = 1U << arg1;
+return (mask & bits) != 0U;
+}
+#endif

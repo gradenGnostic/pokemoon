@@ -184,3 +184,61 @@ if (t != (void*)0) {
 return r;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0043754C
+void* heap_alloc(uint32_t, void*, int32_t);
+void* temp_init(void*, void*);
+int32_t CheckPokemon(uint8_t*, uint32_t, uint32_t, void*, bool);
+void temp_release(void*);
+extern "C" int32_t YellowAuto_0043754c(uint8_t* arg0, void* arg1, bool arg2) __asm__("_ZN8Savedata10BoxPokemon18GetPokemonCountAllEPN4gfl24heap11CtrHeapBaseEb");
+extern "C" int32_t YellowAuto_0043754c(uint8_t* arg0, void* arg1, bool arg2) {
+void* _a = heap_alloc(16, arg1, 1);
+void* _t = nullptr;
+if (_a != nullptr) _t = temp_init(_a, arg1);
+int32_t _total = 0;
+for (uint32_t _b = 0; _b < 32; ++_b) {
+int32_t _c = 0;
+for (uint32_t _s = 0; _s < 30; ++_s) {
+int32_t _r = CheckPokemon(arg0, _b, _s, _t, arg2);
+if (_r != 0) _c = _c + 1;
+}
+_total = _total + _c;
+}
+if (_t != nullptr) temp_release(_t);
+return _total;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00437388
+void* heap_alloc(uint32_t, void*, int32_t);
+void* temp_init(void*, void*);
+int32_t CheckPokemon(uint8_t*, uint32_t, uint32_t, void*, bool);
+void temp_release(void*);
+extern "C" int32_t YellowAuto_00437388(uint8_t* arg0, void* arg1) __asm__("_ZN8Savedata10BoxPokemon16GetSpaceCountAllEPN4gfl24heap11CtrHeapBaseE");
+extern "C" int32_t YellowAuto_00437388(uint8_t* arg0, void* arg1) {
+void* _a = heap_alloc(16, arg1, 1);
+void* _t = nullptr;
+if (_a != nullptr) _t = temp_init(_a, arg1);
+uint32_t _total = 0;
+for (uint32_t _b = 0; _b < 32; ++_b) {
+int32_t _c = 0;
+for (uint32_t _s = 0; _s < 30; ++_s) {
+int32_t _r = CheckPokemon(arg0, _b, _s, _t, true);
+if (_r != 0) _c = _c + 1;
+}
+_total = _total + _c;
+}
+if (_t != nullptr) temp_release(_t);
+int32_t _free = 0;
+if (_total < 961) _free = 960 - _total;
+return _free;
+}
+#endif

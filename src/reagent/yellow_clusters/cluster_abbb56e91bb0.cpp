@@ -114,3 +114,33 @@ o[k] = (uint32_t)(p + i);
 return k;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00441D18
+void FUN_00441bac(uint8_t*, uint32_t, int32_t, uint32_t);
+uint32_t* GetPocketItem(uint8_t*, uint32_t, uint32_t*);
+extern "C" int32_t YellowAuto_00441d18(uint8_t* arg0, uint32_t arg1, int32_t arg2, uint32_t arg3) __asm__("_ZN8Savedata6MyItem12GetItemCountEjb");
+extern "C" int32_t YellowAuto_00441d18(uint8_t* arg0, uint32_t arg1, int32_t arg2, uint32_t arg3) {
+uint32_t len = arg3;
+FUN_00441bac(arg0, arg1, arg2, arg3);
+uint32_t* base = GetPocketItem(arg0, arg1, &len);
+int32_t cnt = 0;
+if (base != 0 && len != 0) {
+for (uint32_t i = 0; i < len; ++i) {
+uint32_t v = base[i];
+if ((v & 0x3FFu) == 0) break;
+if (((v >> 10) & 0x3FFu) == 0) continue;
+if (arg2 != 0 && (((v >> 20) & 0x3FFu) != 0)) continue;
+cnt = cnt + 1;
+}
+}
+return cnt;
+}
+#endif

@@ -154,3 +154,47 @@ k = k + 1;
 }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0039D4E8
+void Func_003A61BC(uint8_t*, int32_t, int32_t, uint32_t, int32_t, uint32_t, int32_t, int32_t);
+extern "C" void YellowAuto_0039d4e8(uint8_t* arg0, int32_t arg1, int32_t arg2, uint32_t arg3, int32_t arg4, uint32_t arg5, int32_t arg6, int32_t arg7) __asm__("_ZN5Field9MoveModel14FieldMoveModel24SetActionCommandStepMoveENS0_20FieldActionCommandIdEijifii");
+extern "C" void YellowAuto_0039d4e8(uint8_t* arg0, int32_t arg1, int32_t arg2, uint32_t arg3, int32_t arg4, uint32_t arg5, int32_t arg6, int32_t arg7) {
+((void(*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)arg0 + 124)))(arg0);
+Func_003A61BC(arg0 + 488, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0039D47C
+void Func_003A6140(uint8_t*, int32_t, uint32_t, uint32_t, uint32_t, uint32_t, int32_t, int32_t, int32_t);
+extern "C" void YellowAuto_0039d47c(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4, uint32_t arg5, int32_t arg6, int32_t arg7, int32_t arg8) __asm__("_ZN5Field9MoveModel14FieldMoveModel24SetActionCommandRotationENS0_20FieldActionCommandIdEfffjiii");
+extern "C" void YellowAuto_0039d47c(uint8_t* arg0, int32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4, uint32_t arg5, int32_t arg6, int32_t arg7, int32_t arg8) {
+((void(*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)arg0 + 124)))(arg0);
+Func_003A6140(arg0 + 488, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0039D550
+void Func_003A6238(uint8_t*, int32_t, int32_t, uint32_t*, uint32_t*, int32_t, int32_t, int32_t, uint32_t);
+extern "C" void YellowAuto_0039d550(uint8_t* arg0, int32_t arg1, int32_t arg2, const uint32_t* arg3, const uint32_t* arg4, int32_t arg5, int32_t arg6, int32_t arg7, uint32_t arg8) __asm__("_ZN5Field9MoveModel14FieldMoveModel26SetActionCommandTargetMoveENS0_20FieldActionCommandIdEiN4gfl24math7Vector3ENS4_10QuaternionEiiif");
+extern "C" void YellowAuto_0039d550(uint8_t* arg0, int32_t arg1, int32_t arg2, const uint32_t* arg3, const uint32_t* arg4, int32_t arg5, int32_t arg6, int32_t arg7, uint32_t arg8) {
+((void(*)(uint8_t*))(*(uint32_t*)(*(uint32_t*)arg0 + 124)))(arg0);
+uint32_t _v[3];
+uint32_t _q[4];
+_v[0] = arg3[0];
+_v[1] = arg3[1];
+_v[2] = arg3[2];
+_q[0] = arg4[0];
+_q[1] = arg4[1];
+_q[2] = arg4[2];
+_q[3] = arg4[3];
+Func_003A6238(arg0 + 488, arg1, arg2, _v, _q, arg5, arg6, arg7, arg8);
+}
+#endif
