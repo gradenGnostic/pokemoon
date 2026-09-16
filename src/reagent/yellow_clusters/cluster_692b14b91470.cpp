@@ -43,3 +43,18 @@ extern "C" uint32_t YellowAuto_004100d0(uint8_t* arg0) {
 return *(uint32_t*)(arg0 + 0x2CC);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040FE10
+extern "C" void YellowAuto_0040fe10(uint8_t* arg0, int32_t arg1, uint32_t arg2) __asm__("_ZN7poke_3d5model12PokemonModel18SetSpringDownForceENS1_10SpringSideEf");
+extern "C" void YellowAuto_0040fe10(uint8_t* arg0, int32_t arg1, uint32_t arg2) {
+uint8_t* t0 = *(uint8_t**)(arg0 + 0x120C); if (t0 == 0) return; uint8_t* t1 = *(uint8_t**)(t0 + (uint32_t)arg1 * 4 + 0x10); if (t1 == 0) return; *(uint32_t*)(t1 + 0x30) = arg2;
+}
+#endif

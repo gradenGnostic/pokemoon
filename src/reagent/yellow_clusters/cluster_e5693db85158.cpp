@@ -61,3 +61,31 @@ extern "C" uint32_t YellowAuto_002f8df4(uint8_t* arg0) {
 if (*(void**)(arg0 + 0x24) != 0) { Clear(*(void**)(arg0 + 0x24)); if (*(void**)(arg0 + 0x24) != 0) { ((void(*)(void*))(*(void**)((uint8_t*)(*(void**)(*(void**)(arg0 + 0x24))) + 0x4)))(*(void**)(arg0 + 0x24)); *(void**)(arg0 + 0x24) = 0; } } return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F8FDC
+extern "C" void YellowAuto_002f8fdc(uint8_t* arg0) __asm__("_ZN3app4tool19CommonMessageObjectC1Ev");
+extern "C" void YellowAuto_002f8fdc(uint8_t* arg0) {
+*(uint32_t*)(arg0 + 0) = 0; *(uint32_t*)(arg0 + 4) = 0; *(uint32_t*)(arg0 + 8) = 0; *(uint32_t*)(arg0 + 12) = 0; *(uint32_t*)(arg0 + 16) = 0; *(uint32_t*)(arg0 + 28) = 0; *(uint32_t*)(arg0 + 32) = 0; *(uint32_t*)(arg0 + 36) = 0; *(uint32_t*)(arg0 + 20) = 65535; *(uint32_t*)(arg0 + 24) = 65535; *(uint8_t*)(arg0 + 40) = 0; *(uint8_t*)(arg0 + 41) = 0; *(uint8_t*)(arg0 + 42) = 0;
+}
+#endif
+
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002F8C54
+void GFLassert();
+void SetTextBoxPaneString(void*, void*, const void*);
+void SetPaneVisible(void*, void*, uint32_t);
+void StopAnime(void*, void*, uint32_t, uint32_t);
+void StartAnime(void*, void*, uint32_t, uint32_t, uint32_t);
+extern "C" void YellowAuto_002f8c54(uint8_t* arg0, void* arg1, uint32_t arg2) __asm__("_ZN3app4tool19CommonMessageObject19ShowMessageTextPaneEPPN4gfl23str6StrBufEj");
+extern "C" void YellowAuto_002f8c54(uint8_t* arg0, void* arg1, uint32_t arg2) {
+if (*(uint32_t*)(arg0 + 16) < arg2) { GFLassert(); return; } uint32_t _i = 0; uint32_t _n = *(uint32_t*)(arg0 + 16); for (_i = 0; _i < _n; ++_i) { void* _pane = (void*)(*(uint32_t*)(arg0 + 8 + _i * 4)); void* _root = (void*)(*(uint32_t*)(arg0 + 0)); SetTextBoxPaneString(_root, _pane, (const void*)0x002F8D98); } for (_i = 0; _i < arg2; ++_i) { void* _pane2 = (void*)(*(uint32_t*)(arg0 + 8 + _i * 4)); void* _root2 = (void*)(*(uint32_t*)(arg0 + 0)); const void* _s = (const void*)(*(uint32_t*)((uint8_t*)arg1 + _i * 4)); SetTextBoxPaneString(_root2, _pane2, _s); SetPaneVisible(_root2, _pane2, 1); } *(uint8_t*)(arg0 + 42) = 0; if (*(uint8_t*)(arg0 + 40) == 0) { if (*(uint32_t*)(arg0 + 20) == 65535) { void* _r0 = (void*)(*(uint32_t*)(arg0 + 0)); void* _p = (void*)(*(uint32_t*)(arg0 + 32)); SetPaneVisible(_r0, _p, 1); } else { void* _a0 = (void*)(*(uint32_t*)(arg0 + 0)); void* _a1 = (void*)(*(uint32_t*)(arg0 + 4)); uint32_t _b = *(uint32_t*)(arg0 + 24); uint32_t _c = *(uint32_t*)(arg0 + 20); StopAnime(_a0, _a1, _b, 0); StopAnime(_a0, _a1, _c, 0); StartAnime(_a0, _a1, _c, 1, 1); } *(uint8_t*)(arg0 + 40) = 1; }
+}
+#endif

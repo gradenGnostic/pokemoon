@@ -172,3 +172,145 @@ SetSubobjectToMoveModel(arg0, _m, 0, &_v, 0);
 return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A4074
+void RemoveChild(void*, void*);
+extern "C" void YellowAuto_003a4074(uint8_t* arg0) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager18TerminateSubobjectEv");
+extern "C" void YellowAuto_003a4074(uint8_t* arg0) {
+uint32_t i = 0;
+do {
+uint8_t* obj = *(uint8_t**)(arg0 + i * 4 + 0x8C);
+if (*(uint32_t*)(obj + 0x88) != 0) {
+RemoveChild(*(void**)(arg0 + 0x08), (void*)obj);
+void* vtbl = *(void**)(void*)obj;
+void (*fn)(void*) = *(void (**)(void*))((uint8_t*)vtbl + 0x1C);
+fn((void*)obj);
+}
+i = i + 1;
+} while (i < 10);
+return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A4610
+extern "C" void YellowAuto_003a4610(uint8_t* arg0) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager19PullEventRequestAllEv");
+extern "C" void YellowAuto_003a4610(uint8_t* arg0) {
+if (*(uint8_t*)(arg0 + 0xBE) != 0) {
+*(uint8_t*)(arg0 + 0xBE) = (uint8_t)(*(uint8_t*)(arg0 + 0xBE) - 1);
+}
+uint32_t outer = 0;
+do {
+uint32_t inner = 0;
+do {
+uint8_t* base = *(uint8_t**)(arg0 + (outer & 0xFF) * 4 + 0x0C);
+if (base == (uint8_t*)0) break;
+if (*(uint32_t*)(base + 0xBC) == 0) break;
+uint32_t cur = *(uint32_t*)(base + 0xD8);
+uint32_t ctr = (uint32_t)*(uint8_t*)(arg0 + 0xBE);
+if (cur > ctr) {
+if (cur != 0) {
+*(uint32_t*)(base + 0xD8) = cur - 1;
+}
+} else {
+if (ctr <= cur) break;
+cur = cur + 1;
+*(uint32_t*)(base + 0xD8) = cur;
+if (cur == 1) {
+if (*(uint32_t*)(base + 0xDC) == 1) {
+*(uint32_t*)(base + 0x1E0) = 1;
+*(uint32_t*)(base + 0x1E4) = 1;
+}
+}
+}
+inner = inner + 1;
+} while (inner < 0xFF);
+outer = outer + 1;
+if (outer > 0x1F) return;
+} while (true);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A3F94
+void FUN_0039d348(void*);
+extern "C" void YellowAuto_003a3f94(uint8_t* arg0) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager18AddEventRequestAllEv");
+extern "C" void YellowAuto_003a3f94(uint8_t* arg0) {
+*(uint8_t*)(arg0 + 0xBE) = (uint8_t)(*(uint8_t*)(arg0 + 0xBE) + 1);
+uint32_t outer = 0;
+do {
+uint8_t* outerBase = *(uint8_t**)(arg0 + outer * 4 + 0x0C);
+if (*(uint32_t*)(outerBase + 0xC0) != 0) {
+uint32_t bc = *(uint32_t*)(outerBase + 0xBC);
+if (bc != 0) {
+uint32_t inner = 0;
+do {
+uint8_t* base = *(uint8_t**)(arg0 + (outer & 0xFF) * 4 + 0x0C);
+if (base == (uint8_t*)0) break;
+if (*(uint32_t*)(base + 0xBC) == 0) break;
+uint32_t cur = *(uint32_t*)(base + 0xD8);
+uint32_t ctr = (uint32_t)*(uint8_t*)(arg0 + 0xBE);
+if (cur > ctr) {
+if (cur != 0) {
+*(uint32_t*)(base + 0xD8) = cur - 1;
+}
+} else {
+if (ctr <= cur) break;
+cur = cur + 1;
+*(uint32_t*)(base + 0xD8) = cur;
+if (cur == 1) {
+if (*(uint32_t*)(base + 0xDC) == 1) {
+*(uint32_t*)(base + 0x1E0) = 1;
+*(uint32_t*)(base + 0x1E4) = 1;
+}
+}
+}
+inner = inner + 1;
+} while (inner < 0xFF);
+FUN_0039d348((void*)outerBase);
+}
+}
+outer = outer + 1;
+if (outer > 0x1F) return;
+} while (true);
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A4B04
+void FUN_00358200(void*);
+void FUN_00411FDC(void*);
+void FUN_00414A78(void*);
+extern "C" void YellowAuto_003a4b04(uint8_t* arg0) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager24TerminateManagerResourceEv");
+extern "C" void YellowAuto_003a4b04(uint8_t* arg0) {
+uint32_t i = 0; for (i = 0; i < 32; i++) { void* p = *(void**)(arg0 + i * 4 + 0xD8); if (p != (void*)0) { FUN_00358200(p); *(void**)(arg0 + i * 4 + 0xD8) = (void*)0; } } for (i = 0; i < 10; i++) { void* p = *(void**)(arg0 + i * 4 + 0x158); if (p != (void*)0) { FUN_00358200(p); *(void**)(arg0 + i * 4 + 0x158) = (void*)0; } } FUN_00411FDC((void*)(arg0 + 0x1A8)); FUN_00414A78((void*)(arg0 + 0x1C4)); for (i = 0; i < 3; i++) { uint32_t present = *(uint32_t*)(arg0 + i * 4 + 0xCC); if (present != 0) { void* q = *(void**)(arg0 + i * 4 + 0x184); if (q != (void*)0) { void** vtbl = *(void***)(q); void* f = *(void**)((uint8_t*)vtbl + 0x04); ((void(*)(void*))f)(q); *(void**)(arg0 + i * 4 + 0x184) = (void*)0; } void* h = *(void**)(arg0 + i * 4 + 0xCC); FUN_00358200(h); *(void**)(arg0 + i * 4 + 0xCC) = (void*)0; } *(int32_t*)(arg0 + i * 4 + 0x190) = -1; *(int32_t*)(arg0 + i * 4 + 0x19C) = -1; } return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A45B8
+extern "C" bool YellowAuto_003a45b8(uint8_t* arg0, int32_t arg1, const void* arg2) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager19InitializeSubobjectENS0_19FIELD_SUB_OBJECT_IDEPKNS0_20FieldSubobjectHeaderE");
+extern "C" bool YellowAuto_003a45b8(uint8_t* arg0, int32_t arg1, const void* arg2) {
+void* s = *(void**)(arg0 + arg1 * 4 + 0x8C); int32_t f = *(int32_t*)((uint8_t*)s + 0x88); if (f != 0) return true; void* h = *(void**)(arg0 + arg1 * 4 + 0x158); uint32_t b = *(uint32_t*)(arg0 + 0xB4); void* o = (void*)(arg0 + 0x1A8); void** v1 = *(void***)(s); void* f1 = *(void**)((uint8_t*)v1 + 0x18); ((void(*)(void*, void*, uint32_t, void*, const void*))f1)(s, h, b, o, arg2); void* m = *(void**)(arg0 + 0x08); void* sl = *(void**)(arg0 + arg1 * 4 + 0x8C); void** v2 = *(void***)(m); void* f2 = *(void**)((uint8_t*)v2 + 0x10); ((void(*)(void*, void*))f2)(m, sl); return false;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003A4908
+void FUN_003A3A60(void*, uint32_t);
+extern "C" bool YellowAuto_003a4908(uint8_t* arg0, uint32_t arg1, const void* arg2) __asm__("_ZN5Field9MoveModel21FieldMoveModelManager23InitializeMoveModelWorkENS0_19FIELD_MOVE_MODEL_IDEPKNS0_24FieldMoveModelHeaderWorkE");
+extern "C" bool YellowAuto_003a4908(uint8_t* arg0, uint32_t arg1, const void* arg2) {
+void* s = *(void**)(arg0 + arg1 * 4 + 0x0C); int32_t f = *(int32_t*)((uint8_t*)s + 0xBC); if (f != 0) return true; void** v1 = *(void***)(s); void* f1 = *(void**)((uint8_t*)v1 + 0x3C); ((void(*)(void*, const void*))f1)(s, arg2); void* m = *(void**)(arg0 + 0x08); void* sl = *(void**)(arg0 + arg1 * 4 + 0x0C); void** v2 = *(void***)(m); void* f2 = *(void**)((uint8_t*)v2 + 0x10); ((void(*)(void*, void*))f2)(m, sl); *(uint32_t*)((uint8_t*)s + 0xC4) = (uint32_t)(((uint32_t)arg1 & 3U) << 1); FUN_003A3A60((void*)arg0, arg1); return false;
+}
+#endif

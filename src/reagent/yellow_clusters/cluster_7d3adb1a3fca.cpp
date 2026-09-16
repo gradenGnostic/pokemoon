@@ -69,3 +69,28 @@ extern "C" void YellowAuto_0035ea50(uint8_t* arg0, int32_t arg1) {
 uint32_t tmp[2]; FUN_0047889c((uint8_t*)tmp, arg0, arg1); ((uint32_t*)arg0)[0] = tmp[0]; ((uint32_t*)arg0)[1] = tmp[1];
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0049BC3C
+void FUN_004786fc(uint8_t *, uint32_t *);
+extern "C" void YellowAuto_0049bc3c(uint8_t* arg0, uint32_t* arg1) __asm__("_ZNK4gfl26system4Date13GetParametersEv");
+extern "C" void YellowAuto_0049bc3c(uint8_t* arg0, uint32_t* arg1) {
+uint8_t tmp[16];
+FUN_004786fc(tmp, arg1);
+*(int32_t *)(arg0 + 0) = *(int32_t *)(tmp + 0);
+*(int32_t *)(arg0 + 4) = (int32_t)*(int8_t *)(tmp + 4);
+*(int32_t *)(arg0 + 8) = (int32_t)*(int8_t *)(tmp + 5);
+*(uint32_t *)(arg0 + 12) = (uint32_t)*(uint8_t *)(tmp + 6);
+*(int32_t *)(arg0 + 16) = (int32_t)*(int8_t *)(tmp + 7);
+*(int32_t *)(arg0 + 20) = (int32_t)*(int8_t *)(tmp + 8);
+*(int32_t *)(arg0 + 24) = (int32_t)*(int8_t *)(tmp + 9);
+*(int32_t *)(arg0 + 28) = (int32_t)*(int16_t *)(tmp + 10);
+}
+#endif

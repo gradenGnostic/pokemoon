@@ -197,3 +197,35 @@ if (arg2 == 2U) GetInstance();
 GFLassert(0U, 0U, 0U, 0U);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0042B76C
+void* GetInstance();
+extern "C" uint32_t YellowAuto_0042b76c(const uint8_t* arg0, uint32_t arg1, uint8_t* arg2, uint8_t* arg3) __asm__("_ZN8PokeTool11PokeGetUtil25DoesDecidePlaceSpaceIfPutEPKN3pml8pokepara12PokemonParamENS0_10CallerType3TagEPNS0_8PutPlace3TagEPNS0_8PutSpace3TagE");
+extern "C" uint32_t YellowAuto_0042b76c(const uint8_t* arg0, uint32_t arg1, uint8_t* arg2, uint8_t* arg3) {
+*arg2 = 0;
+*arg3 = 0;
+if (arg1 == 0U || arg1 == 1U || arg1 == 8U || arg1 == 9U || arg1 == 10U || arg1 == 11U || arg1 == 12U || arg1 == 13U || arg1 == 14U) (void)GetInstance();
+return 0U;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0042B958
+uint16_t GetMonsNo(const uint8_t*);
+int16_t GetLocalNumberStatic(uint32_t, uint32_t);
+void* GetInstance();
+extern "C" uint32_t YellowAuto_0042b958(const uint8_t* arg0, uint32_t arg1) __asm__("_ZN8PokeTool11PokeGetUtil5CheckEPKN3pml8pokepara12PokemonParamENS0_10CallerType3TagE");
+extern "C" uint32_t YellowAuto_0042b958(const uint8_t* arg0, uint32_t arg1) {
+if (arg1 < 14U && arg1 != 9U && GetLocalNumberStatic((uint32_t)GetMonsNo(arg0), 1U) != 0) (void)GetInstance();
+if (arg1 == 0U || arg1 == 1U || arg1 == 6U || arg1 == 7U || arg1 == 10U || arg1 == 11U || arg1 == 13U) return 1U;
+if (arg1 == 8U || arg1 == 9U || arg1 == 12U || arg1 == 14U) (void)GetInstance();
+return 0U;
+}
+#endif

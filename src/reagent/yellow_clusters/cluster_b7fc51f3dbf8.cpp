@@ -45,3 +45,39 @@ extern "C" bool YellowAuto_003054a8(uint8_t* arg0, uint32_t arg1) {
 return Func_002f9bd0(*(void**)(arg0 + 0x04), arg1);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00305550
+extern uint32_t data_003055C8;
+extern void* data_003055CC;
+void* func_00105500(uint32_t, void*);
+void* func_002F9BDC(void*, void*, void*, void*, uint32_t, uint32_t);
+extern "C" uint8_t* YellowAuto_00305550(uint8_t* arg0, void* arg1, void* arg2, uint32_t arg3, bool arg4) __asm__("_ZN3app4tool8PokeIconC1EPN4gfl24heap11CtrHeapBaseES5_jb");
+extern "C" uint8_t* YellowAuto_00305550(uint8_t* arg0, void* arg1, void* arg2, uint32_t arg3, bool arg4) {
+*reinterpret_cast<uint32_t*>(arg0) = data_003055C8;
+*reinterpret_cast<void**>(arg0 + 4) = 0;
+*(arg0 + 16) = 0;
+*reinterpret_cast<uint32_t*>(arg0 + 20) = 0;
+*reinterpret_cast<void**>(arg0 + 8) = arg1;
+*reinterpret_cast<void**>(arg0 + 12) = arg2;
+uint32_t t0 = arg3;
+if (arg4) {
+*reinterpret_cast<uint32_t*>(arg0 + 20) = arg3;
+t0 = arg3 + 1;
+}
+void* t1 = func_00105500(16, arg1);
+void* t2 = 0;
+if (t1 != 0) {
+t2 = func_002F9BDC(t1, arg1, arg2, data_003055CC, t0, 0);
+}
+*reinterpret_cast<void**>(arg0 + 4) = t2;
+return arg0;
+}
+#endif

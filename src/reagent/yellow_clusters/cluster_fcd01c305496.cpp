@@ -78,3 +78,63 @@ func_00361920(arg0 + 0x20, *(void**)(arg0 + 0x5c), arg3);
 return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A3C28
+float Easing(uint8_t, float);
+extern "C" uint32_t YellowAuto_004a3c28(const uint8_t* arg0, bool arg1) __asm__("_ZNK7poke_3d5model10BaseCamera14GetAspectRatioEb");
+extern "C" uint32_t YellowAuto_004a3c28(const uint8_t* arg0, bool arg1) {
+if (arg1 == 0) return *(const uint32_t*)(arg0 + 0xB0);
+uint8_t mode = *(const uint8_t*)(arg0 + 0x68);
+if (mode == 0 || (mode != 1 && mode != 2)) return *(const uint32_t*)(arg0 + 0xB0);
+uint32_t total = *(const uint32_t*)(arg0 + 0x60);
+uint32_t cur = arg1;
+if (total != 0) cur = *(const uint32_t*)(arg0 + 0x64);
+float t = 1.0f;
+if (total != 0 && cur < total) t = (float)cur / (float)total;
+uint8_t idx = *(const uint8_t*)(arg0 + 0x69);
+float e = Easing(idx, t);
+float self = *(const float*)(arg0 + 0xB0);
+float parent = *(const float*)(*(const uint8_t* const*)(arg0 + 0x08) + 0xCC);
+const uint8_t* ov = *(const uint8_t* const*)(arg0 + 0x50);
+uint32_t flag = 0;
+if (ov != 0) flag = *(const uint32_t*)(ov + 0x0C);
+float r;
+if (ov == 0 || flag == 0) r = parent + (self - parent) * e;
+else r = self + (parent - self) * e;
+return *(uint32_t*)&r;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004A4100
+float Easing(uint8_t, float);
+extern "C" uint32_t YellowAuto_004a4100(const uint8_t* arg0, bool arg1) __asm__("_ZNK7poke_3d5model10BaseCamera6GetFarEb");
+extern "C" uint32_t YellowAuto_004a4100(const uint8_t* arg0, bool arg1) {
+if (arg1 == 0) return *(const uint32_t*)(arg0 + 0xA8);
+uint8_t mode = *(const uint8_t*)(arg0 + 0x68);
+if (mode == 0 || (mode != 1 && mode != 2)) return *(const uint32_t*)(arg0 + 0xA8);
+uint32_t total = *(const uint32_t*)(arg0 + 0x60);
+uint32_t cur = arg1;
+if (total != 0) cur = *(const uint32_t*)(arg0 + 0x64);
+float t = 1.0f;
+if (total != 0 && cur < total) t = (float)cur / (float)total;
+uint8_t idx = *(const uint8_t*)(arg0 + 0x69);
+float e = Easing(idx, t);
+float self = *(const float*)(arg0 + 0xA8);
+float parent = *(const float*)(*(const uint8_t* const*)(arg0 + 0x08) + 0xC4);
+const uint8_t* ov = *(const uint8_t* const*)(arg0 + 0x50);
+uint32_t flag = 0;
+if (ov != 0) flag = *(const uint32_t*)(ov + 0x0C);
+float r;
+if (ov == 0 || flag == 0) r = parent + (self - parent) * e;
+else r = self + (parent - self) * e;
+return *(uint32_t*)&r;
+}
+#endif

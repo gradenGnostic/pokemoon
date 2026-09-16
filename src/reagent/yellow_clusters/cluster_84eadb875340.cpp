@@ -93,3 +93,44 @@ FUN_002a7184(*(uint32_t*)(mat + 0x78), (uint32_t)1, (uint32_t)1);
 *(uint8_t*)(arg0 + 0x1b0) = (uint8_t)1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002C9964
+extern "C" void YellowAuto_002c9964(uint8_t* arg0, const uint32_t* arg1, const uint32_t* arg2, const uint32_t* arg3) __asm__("_ZN3App4Tool10MapManager12SetCenterSRTEPN4gfl24math22ExtendedVectorTemplateINS3_33SpecializedExtendedVectorTemplateIN2nn4math4VEC2EEEEEPNS4_INS5_INS7_4VEC3EEEEESF_");
+extern "C" void YellowAuto_002c9964(uint8_t* arg0, const uint32_t* arg1, const uint32_t* arg2, const uint32_t* arg3) {
+if (*(uint32_t*)(arg0 + 0x28) != 0) {
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x34) = arg1[0];
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x38) = arg1[1];
+*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) = (uint8_t)((*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) & 0xEF) | 0x10);
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x28) = arg2[0];
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x2C) = arg2[1];
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x30) = arg2[2];
+*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) = (uint8_t)((*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) & 0xEF) | 0x10);
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x1C) = arg3[0];
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x20) = arg3[1];
+*(uint32_t*)(*(uint8_t**)(arg0 + 0x28) + 0x24) = arg3[2];
+*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) = (uint8_t)((*(uint8_t*)(*(uint8_t**)(arg0 + 0x28) + 0x44) & 0xEF) | 0x10);
+}
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002CA04C
+void FUN_00309c34(int32_t, int32_t, uint32_t, uint32_t, uint32_t);
+extern "C" void YellowAuto_002ca04c(uint8_t* arg0, int32_t arg1, uint8_t arg2, uint32_t arg3, uint32_t arg4) __asm__("_ZN3App4Tool10MapManager4DrawEPN3app4util19AppRenderingManagerEN4gfl23gfx12CtrDisplayNoEhj");
+extern "C" void YellowAuto_002ca04c(uint8_t* arg0, int32_t arg1, uint8_t arg2, uint32_t arg3, uint32_t arg4) {
+if (*(uint8_t*)(arg0 + 0x18) != 0) {
+if (*(uint8_t*)(arg0 + 0x130) != 0) {
+if (arg2 == 2) {
+FUN_00309c34(arg1, 1, *(uint32_t*)(arg0 + 0x20), arg4, arg3);
+}
+}
+}
+}
+#endif

@@ -71,3 +71,35 @@ extern "C" uint32_t YellowAuto_00520e94(const uint8_t* arg0, uint32_t* arg1) {
 if (arg0 == 0) return 0; Enter((void*)(*(const uint32_t*)0x520EC8)); *(uint32_t*)arg1 = *(const uint32_t*)(arg0 + 56); Leave((void*)(*(const uint32_t*)0x520EC8)); return 1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00100F1C
+typedef void (*fn_t)(void*);
+extern "C" uint8_t* YellowAuto_00100f1c(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3) __asm__("__aeabi_vec_dtor");
+extern "C" uint8_t* YellowAuto_00100f1c(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3) {
+if (arg3 != 0) { uint8_t* cur = arg0 + arg2 * arg3; do { cur -= arg2; ((fn_t)arg1)((void*)cur); } while (cur != arg0); } return arg0 - 8;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00100050
+typedef void (*fn_t)(void*);
+extern "C" uint8_t* YellowAuto_00100050(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3) __asm__("__aeabi_vec_ctor_nocookie_nodtor");
+extern "C" uint8_t* YellowAuto_00100050(uint8_t* arg0, void* arg1, uint32_t arg2, uint32_t arg3) {
+if (arg1 != (void*)0) { uint8_t* cur = arg0; uint32_t n = arg3; while (n != 0) { ((fn_t)arg1)((void*)cur); cur += arg2; n -= 1; } } return arg0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002FE350
+typedef void (*out_t)(uint32_t, uint32_t);
+extern "C" void YellowAuto_002fe350(uint32_t* arg0) __asm__("_printf_pre_padding");
+extern "C" void YellowAuto_002fe350(uint32_t* arg0) {
+uint32_t flags = arg0[0]; uint32_t pad = ((flags >> 4) & 1u) != 0u ? 48u : 32u; if ((flags & 1u) != 0u) return; int32_t n = (int32_t)arg0[6]; for (int32_t i = 0; i < n; ++i) { ((out_t)arg0[1])(pad, arg0[2]); arg0[8] += 1u; }
+}
+#endif

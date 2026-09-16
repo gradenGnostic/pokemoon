@@ -23,3 +23,20 @@ extern "C" void YellowAuto_0045b874(uint8_t* arg0, uint32_t arg1, uint32_t arg2,
 uint8_t* cam = *(uint8_t**)(arg0 + 64); uint32_t eye[3]; eye[0] = arg1; eye[1] = arg2; eye[2] = arg3; uint32_t tgt[3]; tgt[0] = arg4; tgt[1] = arg5; tgt[2] = arg6; uint32_t up[3]; up[0] = arg10; up[1] = arg11; up[2] = arg12; SetupCameraLookAt(cam, eye, tgt, up); *(uint32_t*)(cam + 172) = FloatMul(FloatMul(arg7, *(const uint32_t*)0x0045B91C), *(const uint32_t*)0x0045B920); *(uint32_t*)(cam + 164) = arg8; *(uint32_t*)(cam + 168) = arg9; return;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0045C0E8
+uint8_t* helper_0030618c(uint8_t*);
+extern "C" uint8_t* YellowAuto_0045c0e8(uint8_t* arg0) __asm__("_ZN9NetAppLib4Util14NetAppEffectBGD1Ev");
+extern "C" uint8_t* YellowAuto_0045c0e8(uint8_t* arg0) {
+*(uint32_t*)arg0 = *(uint32_t*)0x0045C100;
+return helper_0030618c(arg0 + 8) - 8;
+}
+#endif

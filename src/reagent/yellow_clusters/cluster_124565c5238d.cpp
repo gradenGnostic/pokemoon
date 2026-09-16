@@ -53,3 +53,21 @@ extern "C" void YellowAuto_00455158(uint8_t* arg0, uint32_t arg1) {
 if (((int32_t (*)(uint8_t *))(*(uint32_t *)(*(uint32_t *)arg0 + 0x20)))(arg0) == 0 && *(uint8_t *)(arg0 + 0x11D) != 0) { if (*(uint32_t *)(arg0 + 0xFC) != 0) { uint32_t _v = *(uint32_t *)(*(uint32_t *)(arg0 + 0xFC) + 0x88); if (_v != 0) { uint32_t _n = *(uint8_t *)(arg0 + 0xF4); sub_0048e6fc((void *)_v, (void *)(arg0 + _n * 12 + 0xD0), (void *)(arg0 + _n * 12 + 0xD4)); } } void *_q = sub_004550a0(arg0, arg1); if (_q != 0 && *(uint32_t *)(arg0 + 0xF8) != 0) { uint32_t _s = *(uint32_t *)(arg0 + 0xF8); if (*(uint8_t *)((uint8_t *)_q + 0x2C2) == 0) { *(uint32_t *)(_s + 4) = 6; *(uint32_t *)(_s + 8) = (uint32_t)_q; } uint32_t _t = *(uint32_t *)(arg0 + 0xF8); *(uint32_t *)(_t + 12) = (uint32_t)_q; *(uint8_t *)(_t + 16) = 1; } }
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00454284
+void Func_0048e6fc(void* arg0, uint32_t* arg1, void* arg2);
+uint32_t Func_0030252c(void* arg0, uint32_t arg1);
+void Func_00454498(uint8_t* arg0, uint32_t arg1);
+extern "C" void YellowAuto_00454284(uint8_t* arg0) __asm__("_ZN9NetAppLib11JoinFestaUI38JoinFestaPlayerListSelectLowerViewBase10SetPassiveEv");
+extern "C" void YellowAuto_00454284(uint8_t* arg0) {
+if (*(uint32_t*)(arg0 + 0xFC) == 0) return; void* v0 = *(void**)(*(uint32_t*)(arg0 + 0xFC) + 0x88); if (v0 == (void*)0) return; uint32_t cur = 0; Func_0048e6fc(v0, &cur, (void*)0); uint32_t idx = Func_0030252c(v0, cur); if (idx < 8) Func_00454498(arg0, idx);
+}
+#endif

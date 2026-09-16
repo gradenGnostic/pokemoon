@@ -119,3 +119,78 @@ SyncOpen(GetAsyncMgr(), _req);
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040CD0C
+void sub_36DD24(uint8_t* arg0, int32_t arg1);
+void sub_40CA94(uint8_t* arg0, int32_t arg1, uint8_t* arg2);
+uint32_t sub_49C200(uint8_t* arg0, int32_t arg1);
+extern "C" uint32_t YellowAuto_0040cd0c(uint8_t* arg0, int32_t arg1, int32_t arg2) __asm__("_ZN7itemman12ITEM_MANAGER8GetParamEiN4item9ITEM_DATA11ITEM_PRM_IDE");
+extern "C" uint32_t YellowAuto_0040cd0c(uint8_t* arg0, int32_t arg1, int32_t arg2) {
+if (arg1 == 0) return 0;
+uint8_t buf[40];
+sub_36DD24(buf, 0);
+sub_40CA94(arg0, arg1, buf);
+return sub_49C200(buf, arg2);
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040CD6C
+uint32_t AddArcFileCloseReq(void*, void*);
+extern "C" uint32_t YellowAuto_0040cd6c(uint8_t* arg0, void* arg1) __asm__("_ZN7itemman12ITEM_MANAGER9FileCloseEPN4gfl24heap11CtrHeapBaseE");
+extern "C" uint32_t YellowAuto_0040cd6c(uint8_t* arg0, void* arg1) {
+if (arg0[12] != 0) return 0;
+uint8_t _s[28];
+((uint32_t*)_s)[1] = 4294967295U;
+((uint32_t*)_s)[3] = 0;
+((uint32_t*)_s)[5] = 0;
+((uint32_t*)_s)[6] = 0;
+_s[8] = 16;
+_s[16] = 1;
+((uint32_t*)_s)[0] = *(uint32_t*)(*(uint32_t*)0x40CE04 + 60);
+uint32_t _f = *(uint32_t*)(*(uint32_t*)arg1 + 52);
+((uint32_t*)_s)[3] = ((uint32_t(*)(void*))_f)(arg1);
+return AddArcFileCloseReq((void*)*(uint32_t*)0x40CE08, (void*)_s);
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0040CC48
+uint32_t AddArcFileOpenReq(void*, void*);
+extern "C" uint32_t YellowAuto_0040cc48(uint8_t* arg0, void* arg1) __asm__("_ZN7itemman12ITEM_MANAGER8FileOpenEPN4gfl24heap11CtrHeapBaseE");
+extern "C" uint32_t YellowAuto_0040cc48(uint8_t* arg0, void* arg1) {
+if (arg0[12] != 0) return 0;
+uint8_t _s[48];
+_s[16] = 255;
+((uint32_t*)_s)[1] = 4294967295U;
+_s[24] = 0;
+_s[8] = 16;
+((uint32_t*)_s)[3] = (uint32_t)arg1;
+((uint32_t*)_s)[5] = 0;
+_s[25] = 0;
+_s[26] = 1;
+((uint32_t*)_s)[7] = 0;
+((uint32_t*)_s)[8] = 0;
+((uint32_t*)_s)[9] = 0;
+((uint32_t*)_s)[10] = 0;
+((uint32_t*)_s)[0] = *(uint32_t*)(*(uint32_t*)0x40CD04 + 60);
+uint32_t _f = *(uint32_t*)(*(uint32_t*)arg1 + 52);
+((uint32_t*)_s)[5] = ((uint32_t(*)(void*))_f)(arg1);
+_s[24] = 1;
+return AddArcFileOpenReq((void*)*(uint32_t*)0x40CD08, (void*)_s);
+}
+#endif

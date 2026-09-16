@@ -127,3 +127,35 @@ return 0;
 return 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002EFA88
+extern "C" bool YellowAuto_002efa88(const uint8_t* arg0) __asm__("_ZN3app4tool14PokeIconToolEx13IsAllReplacedEv");
+extern "C" bool YellowAuto_002efa88(const uint8_t* arg0) {
+int32_t v0 = (int32_t)(*(const uint32_t*)(arg0 + 0x14));
+if (v0 <= (int32_t)0) return true;
+const uint8_t* v1 = (const uint8_t*)(*(const uint32_t*)(arg0 + 0x2C));
+const uint8_t* v2 = (const uint8_t*)(*(const uint32_t*)(arg0 + 0x30));
+int32_t v3 = (int32_t)0;
+while (v3 < v0) {
+const uint8_t* v4 = v1 + (uint32_t)v3 * (uint32_t)16;
+uint32_t v5 = *(const uint32_t*)(v4 + 0x0);
+uint32_t v6 = *(const uint32_t*)(v4 + 0x4);
+uint32_t v7 = *(const uint32_t*)(v4 + 0x8);
+if (v5 != (uint32_t)0xFFFFFFFF || v6 != (uint32_t)0 || v7 != (uint32_t)0) return false;
+const uint8_t* v8 = v2 + (uint32_t)v3 * (uint32_t)24;
+uint32_t v9 = *(const uint32_t*)(v8 + 0x0);
+uint32_t v10 = *(const uint32_t*)(v8 + 0x10);
+if (v9 != (uint32_t)0xFFFFFFFF || v10 != (uint32_t)0) return false;
+v3 = v3 + (int32_t)1;
+}
+return true;
+}
+#endif

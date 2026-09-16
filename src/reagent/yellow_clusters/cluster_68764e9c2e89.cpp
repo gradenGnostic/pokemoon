@@ -86,3 +86,80 @@ extern "C" void YellowAuto_004684d8(uint8_t* arg0, const uint8_t* arg1, uint32_t
 if (arg3 == 0) arg0[9] = 20; else arg0[9] = 19; arg0[10] = 2; *(uint32_t*)(arg0 + 0x208) = arg2; *(uint32_t*)(arg0 + 0x20C) = *(const uint32_t*)(arg1 + 0x0); *(uint32_t*)(arg0 + 0x210) = *(const uint32_t*)(arg1 + 0x8); *(uint32_t*)(arg0 + 0x214) = *(const uint32_t*)(arg1 + 0xC); arg0[0x218] = arg4; arg0[0x219] = arg5; FUN_004681ac(arg0);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AAC34
+extern "C" void YellowAuto_004aac34(const uint8_t* arg0, uint8_t* arg1) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData16OutputPacketDataEPNS0_19JoinFestaPacketDataE");
+extern "C" void YellowAuto_004aac34(const uint8_t* arg0, uint8_t* arg1) {
+for (uint32_t i = 0; i < 160; ++i) arg1[i] = 0;
+*reinterpret_cast<uint32_t*>(arg1 + 0) = *reinterpret_cast<const uint32_t*>(arg0 + 8);
+*reinterpret_cast<uint32_t*>(arg1 + 4) = *reinterpret_cast<const uint32_t*>(arg0 + 12);
+for (uint32_t i = 0; i < 104; ++i) arg1[8 + i] = arg0[16 + i];
+for (uint32_t i = 0; i < 8; ++i) *reinterpret_cast<uint32_t*>(arg1 + 112 + i * 4) = *reinterpret_cast<const uint32_t*>(arg0 + 520 + i * 4);
+for (uint32_t i = 0; i < 4; ++i) *reinterpret_cast<uint32_t*>(arg1 + 144 + i * 4) = *reinterpret_cast<const uint32_t*>(arg0 + 552 + i * 4);
+return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00468498
+uint32_t FUN_00465d6c(uint32_t);
+void FUN_004681ac(uint8_t*);
+extern "C" void YellowAuto_00468498(uint8_t* arg0) __asm__("_ZN9NetAppLib9JoinFesta21JoinFestaPersonalData23SetRequestJoinFestaShopEv");
+extern "C" void YellowAuto_00468498(uint8_t* arg0) {
+FUN_00465d6c(12);
+arg0[9] = 12;
+FUN_004681ac(arg0);
+return;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004689E0
+uint32_t FUN_00465d6c(uint32_t);
+void FUN_004681ac(uint8_t*);
+extern "C" void YellowAuto_004689e0(uint8_t* arg0) __asm__("_ZN9NetAppLib9JoinFesta21JoinFestaPersonalData27SetRequestJoinFestaPersonalEv");
+extern "C" void YellowAuto_004689e0(uint8_t* arg0) {
+FUN_00465d6c(13);
+arg0[9] = 13;
+FUN_004681ac(arg0);
+return;
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x00468538
+void FUN_004681ac(uint8_t*);
+extern "C" void YellowAuto_00468538(uint8_t* arg0) __asm__("_ZN9NetAppLib9JoinFesta21JoinFestaPersonalData24SetRequestCancelingTradeEv");
+extern "C" void YellowAuto_00468538(uint8_t* arg0) {
+arg0[9] = 0x18; arg0[10] = 0x03; FUN_004681ac(arg0);
+}
+#endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x004AB418
+uint32_t FUN_00356704(uint16_t *, const uint16_t *, uint32_t);
+extern "C" uint32_t YellowAuto_004ab418(const uint8_t* arg0, uint16_t* arg1) __asm__("_ZNK9NetAppLib9JoinFesta21JoinFestaPersonalData7GetNameEPw");
+extern "C" uint32_t YellowAuto_004ab418(const uint8_t* arg0, uint16_t* arg1) {
+return FUN_00356704(arg1, (const uint16_t *)(arg0 + 16), 13);
+}
+#endif

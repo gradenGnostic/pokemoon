@@ -77,3 +77,19 @@ extern "C" bool YellowAuto_003cf0ec(uint8_t* arg0, const uint8_t* arg1) {
 void* _ng = *(void**)(arg0 + 8); uint8_t _b[8]; _b[0] = arg1[0]; _b[1] = arg1[1]; _b[2] = arg1[2]; _b[3] = arg1[3]; return SendDataCommand(_ng, _b, 8, 51) != 0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x003CEFB4
+int32_t SendDataCommand(void* arg0, void* arg1, uint32_t arg2, uint32_t arg3);
+extern "C" bool YellowAuto_003cefb4(uint8_t* arg0, uint8_t arg1, uint8_t arg2) __asm__("_ZN6NetApp3NBR6NBRNet15SendMultiSelectEih");
+extern "C" bool YellowAuto_003cefb4(uint8_t* arg0, uint8_t arg1, uint8_t arg2) {
+uint8_t _buf[8]; _buf[0] = arg1; _buf[1] = arg2; _buf[2] = 0; _buf[3] = 0; _buf[4] = 0; _buf[5] = 0; _buf[6] = 0; _buf[7] = 0; void* _net = *(void**)(arg0 + 8); int32_t _r = SendDataCommand(_net, _buf, 8, 53); return _r != 0;
+}
+#endif

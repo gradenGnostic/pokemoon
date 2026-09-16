@@ -38,3 +38,23 @@ extern "C" void YellowAuto_0044b0b4(uint8_t* arg0, bool arg1, uint32_t arg2) {
 if (arg1 != false) if (*(arg0 + 0x6668) != (uint8_t)0) return; func_0044DC9C(arg0 + 0x58, (const uint8_t*)0); uint8_t* v0 = func_00357788(); uint8_t* v1 = func_00472ED0(v0, 0); uint8_t* v2 = func_00472ED0(v0, 1); if (v1 != (uint8_t*)0) func_0057F964(arg0 + 0x4); if (v1 != (uint8_t*)0) func_0044B6F4(arg0, arg0 + 0x4, v1, true, arg2); if (v2 != (uint8_t*)0) func_0057F964(arg0 + 0x18); if (v2 != (uint8_t*)0) func_0044B6F4(arg0, arg0 + 0x18, v2, false, arg2); *(arg0 + 0x6668) = (uint8_t)1;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0044BF8C
+void func_0044bde4(uint8_t*, uint8_t*, uint8_t*);
+void func_0044bfd4(uint8_t*, uint8_t*, uint8_t*);
+extern "C" void YellowAuto_0044bf8c(uint8_t* arg0) __asm__("_ZN9NetAppLib11JoinFestaUI26JoinFestaPlayerListManager8SortListEv");
+extern "C" void YellowAuto_0044bf8c(uint8_t* arg0) {
+func_0044bde4(arg0, arg0 + 64, arg0 + 4);
+func_0044bfd4(arg0, arg0 + 4, arg0 + 64);
+func_0044bde4(arg0, arg0 + 64, arg0 + 24);
+func_0044bfd4(arg0, arg0 + 24, arg0 + 64);
+}
+#endif

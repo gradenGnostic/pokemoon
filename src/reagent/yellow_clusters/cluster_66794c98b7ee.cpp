@@ -205,3 +205,81 @@ UnlinkFunc2(arg0);
 return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0030203C
+void __rw_throw(uint32_t, const void*, const void*, uint32_t);
+uint32_t* max_unsigned_int(uint32_t*, uint32_t*);
+uint32_t* _C_getRep(uint8_t*, uint32_t, uint32_t);
+void copy(uint8_t*, const uint8_t*, uint32_t);
+extern uint32_t* _DAT_00302098;
+extern "C" uint8_t* YellowAuto_0030203c(uint8_t* arg0, const uint8_t* arg1, uint32_t arg2, const void* arg3) __asm__("_ZNSsC2EPKcjRKSaIcE");
+extern "C" uint8_t* YellowAuto_0030203c(uint8_t* arg0, const uint8_t* arg1, uint32_t arg2, const void* arg3) {
+if (arg2 > 4294967281U) __rw_throw(8U, (const void*)0, (const void*)0, arg2);
+(void)arg3;
+uint32_t cap = 32U;
+uint32_t need = arg2;
+uint32_t* rep = _DAT_00302098;
+if (arg2 != 0U) rep = _C_getRep(arg0, *max_unsigned_int(&cap, &need), arg2);
+uint8_t* dst = (uint8_t*)(rep + 3);
+*(uint8_t**)arg0 = dst;
+if (arg1 != (const uint8_t*)0) copy(dst, arg1, arg2);
+return arg0;
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x001041E4
+void __rw_throw(uint32_t, const void*, const void*, uint32_t);
+void _C_unlink(uint8_t*);
+uint32_t* max_unsigned_int(uint32_t*, uint32_t*);
+uint32_t* _C_getRep(uint8_t*, uint32_t, uint32_t);
+void copy(uint8_t*, const uint8_t*, uint32_t);
+void FUN_00302eb0(uint8_t*, const uint8_t*, uint32_t);
+extern uint8_t* _DAT_0010435c;
+extern "C" uint8_t* YellowAuto_001041e4(uint8_t* arg0, uint32_t arg1, uint32_t arg2, const uint8_t* arg3, uint32_t arg4, uint32_t arg5, uint32_t arg6) __asm__("_ZNSs7replaceEjjPKcjjj");
+extern "C" uint8_t* YellowAuto_001041e4(uint8_t* arg0, uint32_t arg1, uint32_t arg2, const uint8_t* arg3, uint32_t arg4, uint32_t arg5, uint32_t arg6) {
+uint8_t* data = *(uint8_t**)arg0;
+uint32_t size = *(uint32_t*)(data - 4U);
+if (size < arg1 || arg4 < arg5) __rw_throw(9U, (const void*)0, (const void*)0, arg1);
+uint32_t rem = size - arg1;
+if (arg2 < rem) rem = arg2;
+uint32_t avail = arg4 - arg5;
+if (arg6 < avail) avail = arg6;
+uint32_t kept = size - rem;
+if (kept > 4294967281U - avail) __rw_throw(8U, (const void*)0, (const void*)0, kept);
+uint32_t newsize = kept + avail;
+if (newsize == 0U) _C_unlink(arg0);
+if (newsize == 0U) *(uint8_t**)arg0 = _DAT_0010435c;
+uint32_t tail = kept - arg1;
+const uint8_t* src = arg3 + arg5;
+uint32_t refs = *(uint32_t*)(data - 12U);
+uint32_t cap = *(uint32_t*)(data - 8U);
+bool inplace = refs + 1U < 2U && newsize <= cap && (arg3 == (const uint8_t*)0 || arg3 < data || data + size <= arg3);
+if (newsize != 0U && inplace && tail != 0U) FUN_00302eb0(data + arg1 + avail, data + arg1 + arg2, tail);
+if (newsize != 0U && inplace && avail != 0U) FUN_00302eb0(data + arg1, src, avail);
+if (newsize != 0U && inplace) *(uint32_t*)(data - 4U) = newsize;
+if (newsize != 0U && inplace) *(uint8_t*)(data + newsize) = 0U;
+uint32_t grown = (size >> 1U) + size + (size >> 3U);
+if (grown < size + 128U && newsize != 0U && !inplace) grown = size + 128U;
+uint32_t need = newsize;
+uint32_t* pmax;
+uint32_t* rep;
+uint8_t* nd;
+if (newsize != 0U && !inplace) pmax = max_unsigned_int(&grown, &need);
+if (newsize != 0U && !inplace) rep = _C_getRep(arg0, *pmax, newsize);
+if (newsize != 0U && !inplace) nd = (uint8_t*)(rep + 3);
+if (newsize != 0U && !inplace && arg1 != 0U) copy(nd, data, arg1);
+if (newsize != 0U && !inplace && avail != 0U) copy(nd + arg1, src, avail);
+if (newsize != 0U && !inplace && tail != 0U) copy(nd + arg1 + avail, data + arg1 + arg2, tail);
+if (newsize != 0U && !inplace) _C_unlink(arg0);
+if (newsize != 0U && !inplace) *(uint8_t**)arg0 = nd;
+return *(uint8_t**)arg0 + arg1;
+}
+#endif

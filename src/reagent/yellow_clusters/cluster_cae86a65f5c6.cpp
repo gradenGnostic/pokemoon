@@ -40,3 +40,22 @@ extern "C" uint8_t* YellowAuto_0041aff8(uint8_t* arg0) {
 *(uint32_t*)arg0 = *(uint32_t*)0x0041B090; if (*(uint32_t*)(arg0 + 12) == 0) { return arg0; } if (*(uint8_t*)(*(uint32_t*)(arg0 + 12) + 60) != 2) { uint32_t _limit = *(uint32_t*)0x0041B094; uint32_t _cnt = 0; uint8_t _st = 0; bool _cont = false; do { Sleep_0035EB44(1); if (*(uint32_t*)(arg0 + 12) != 0) { PollInner_0041A970((void*)*(uint32_t*)(arg0 + 12)); } if (*(uint32_t*)(arg0 + 12) == 0) { return arg0; } _st = *(uint8_t*)(*(uint32_t*)(arg0 + 12) + 60); _cont = (uint32_t)1 < (uint32_t)_st; if (_st != 2) { _cnt = _cnt + 1; _cont = _cnt <= _limit; } _cont = _cont && (_st != 2 && _limit != _cnt); } while (_cont); } ((void(*)(void*))*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(arg0 + 12)) + 4))((void*)*(uint32_t*)(arg0 + 12)); *(uint32_t*)(arg0 + 12) = 0; return arg0;
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x0041AEEC
+extern "C" void YellowAuto_0041aeec(uint8_t* arg0) __asm__("_ZN7poke_3d8renderer15BloomRenderPathC1Ev");
+extern "C" void YellowAuto_0041aeec(uint8_t* arg0) {
+*(uint32_t*)(arg0 + 4) = 0;
+*(uint32_t*)(arg0 + 8) = 0;
+*(uint32_t*)(arg0 + 12) = 0;
+arg0[16] = 1;
+*(uint32_t*)(arg0 + 20) = 1;
+}
+#endif

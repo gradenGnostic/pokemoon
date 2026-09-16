@@ -178,3 +178,56 @@ if (v5 != (uint8_t*)0) {
 f_0031179c(v1);
 }
 #endif
+
+// Model-assisted reconstruction validated against retail ARM evidence.
+typedef unsigned char uint8_t;
+typedef signed char int8_t;
+typedef unsigned short uint16_t;
+typedef short int16_t;
+typedef unsigned int uint32_t;
+typedef int int32_t;
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D2430
+uint32_t GetLayoutResourceID(void* arg0, uint32_t arg1);
+void* GetLayoutWork(void* arg0, uint32_t arg1);
+void* GetTextBoxPaneSimple(void* arg0, uint32_t arg1);
+void* GetTextBoxPaneWithParts(void* arg0, void* arg1, uint32_t arg2, uint32_t arg3);
+void* GetInstance();
+extern "C" void YellowAuto_002d2430(uint8_t* arg0, const uint32_t* arg1, uint8_t* arg2) __asm__("_ZN3App4Tool30CommonMessageWindowManipulator5SetupERKNS1_11_SSetupInfoEPN2nw3lyt5PartsE");
+extern "C" void YellowAuto_002d2430(uint8_t* arg0, const uint32_t* arg1, uint8_t* arg2) {
+uint32_t* d = (uint32_t*)(arg0 + 4);
+for (int32_t i = 0; i < 15; ++i) d[i] = arg1[i];
+uint32_t base = *(uint32_t*)(arg0 + 8);
+void* g = (void*)*(uint32_t*)((uint8_t*)base + 96);
+uint32_t lid = *(uint32_t*)(arg0 + 12);
+uint32_t rid = GetLayoutResourceID(g, lid);
+void* wk = GetLayoutWork(g, lid);
+*(uint32_t*)(arg0 + 64) = (uint32_t)arg2;
+if (arg2 == (uint8_t*)0) {
+GetTextBoxPaneSimple(wk, *(uint32_t*)(arg0 + 52));
+GetTextBoxPaneSimple(wk, *(uint32_t*)(arg0 + 48));
+} else {
+arg2[68] = (uint8_t)(arg2[68] & 254);
+GetTextBoxPaneWithParts(wk, arg2, *(uint32_t*)(arg0 + 52), rid);
+GetTextBoxPaneWithParts(wk, arg2, *(uint32_t*)(arg0 + 48), rid);
+}
+GetInstance();
+}
+#endif
+
+#if !defined(POKEMOON_SPLIT_FUNCTION) || POKEMOON_SPLIT_FUNCTION == 0x002D23EC
+void* GetLayoutWork(void* arg0, uint32_t arg1);
+void* GetPartsPane(void* arg0, uint32_t arg1);
+void SetupWithParts(uint8_t* arg0, const uint32_t* arg1, uint8_t* arg2);
+extern "C" void YellowAuto_002d23ec(uint8_t* arg0, const uint32_t* arg1) __asm__("_ZN3App4Tool30CommonMessageWindowManipulator5SetupERKNS1_11_SSetupInfoE");
+extern "C" void YellowAuto_002d23ec(uint8_t* arg0, const uint32_t* arg1) {
+uint32_t base = arg1[1];
+void* g = (void*)*(uint32_t*)((uint8_t*)base + 96);
+uint32_t lid = arg1[2];
+void* wk = GetLayoutWork(g, lid);
+uint32_t pid = arg1[8];
+uint8_t* parts = (uint8_t*)0;
+if (pid != 65535) parts = (uint8_t*)GetPartsPane(wk, pid);
+SetupWithParts(arg0, arg1, parts);
+}
+#endif
